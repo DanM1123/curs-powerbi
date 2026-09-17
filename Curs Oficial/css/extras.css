@@ -308,31 +308,8 @@ html.session-locked .slide-progress {
   25% { transform: translateX(-7px); }
   75% { transform: translateX(7px); }
 }
-.poll-reset-btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin: 0;
-  padding: 6px 10px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--surface) 80%, transparent);
-  color: var(--text-3);
-  font: inherit;
-  font-size: 0.75rem;
-  font-weight: 600;
-  cursor: pointer;
-  z-index: 2;
-}
-.poll-reset-btn svg { width: 13px; height: 13px; }
-.poll-reset-btn:hover {
-  color: var(--text);
-  border-color: var(--primary);
-}
-.poll-reset-btn:disabled { opacity: 0.5; cursor: wait; }
+.poll-reset-btn svg { width: 18px; height: 18px; }
+.polls-live-warn {
   position: fixed;
   left: 16px;
   right: 16px;
@@ -704,7 +681,7 @@ html.session-locked .slide-progress {
 }
 .hub-page .slide p { font-size: 0.98rem; color: var(--text-2); letter-spacing: -0.02em; margin: 0; }
 .hub-page .agenda-badge { display: none; }
-.hub-page .agenda-header { text-align: left; margin-bottom: 6px; position: relative; }
+.hub-page .agenda-header { text-align: left; margin-bottom: 6px; }
 .hub-page .agenda-title { font-size: clamp(1.7rem, 3.2vw, 2.35rem); }
 .hub-page .agenda-slide-wrap { height: auto; gap: 10px; }
 .hub-page .agenda-subtitle {

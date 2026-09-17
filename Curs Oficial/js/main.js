@@ -548,13 +548,14 @@
   function addPollResetButton(live) {
     if (!live || !live.reset || !document.querySelector('.poll')) return;
     if (document.querySelector('.poll-reset-btn')) return;
-    const host = document.querySelector('.agenda-header') || document.querySelector('.slide');
+    const host = document.querySelector('.nav-actions');
     if (!host) return;
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'poll-reset-btn';
-    btn.title = 'Șterge toate voturile din sesiunea asta';
-    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5L1 10"/></svg><span>Reset voturi</span>';
+    btn.className = 'icon-btn poll-reset-btn';
+    btn.setAttribute('aria-label', 'Resetează voturile');
+    btn.title = 'Reset voturi — pornește de la 0';
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5L1 10"/></svg>';
     btn.addEventListener('click', async () => {
       if (!confirm('Ștergi toate răspunsurile din sesiunea asta și pornești de la 0?')) return;
       btn.disabled = true;
@@ -567,7 +568,7 @@
         alert('Nu am putut reseta voturile. Încearcă din nou.');
       }
     });
-    host.appendChild(btn);
+    host.insertBefore(btn, host.firstChild);
   }
 
   function showPollsWarn() {
