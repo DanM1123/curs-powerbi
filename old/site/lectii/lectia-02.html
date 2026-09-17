@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecția 2 · Transformarea și curățarea datelor (Power Query)</title>
+<meta name="description" content="Power Query Editor: tipuri de date, filtrare, pivot/unpivot, merge, append și introducere în limbajul M.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23059669'/%3E%3Ctext x='50' y='68' text-anchor='middle' font-family='Arial' font-weight='900' font-size='56' fill='%23111'%3EB%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="../index.html" class="brand"><div class="brand-mark">B</div><span>Curs Power BI</span></a>
+    <div class="nav-links">
+      <a href="../index.html" class="nav-link">Acasă</a>
+      <a href="../index.html#lectii" class="nav-link active">Lecții</a>
+      <a href="../index.html#obiective" class="nav-link">Obiective</a>
+    </div>
+    <div class="nav-actions">
+      <div class="progress-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span data-progress-count>0/14</span><div class="track"><div class="fill" data-progress-fill style="width:0%"></div></div></div>
+      <button class="icon-btn theme-toggle" aria-label="Schimbă tema"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+      <button class="icon-btn menu-toggle" aria-label="Meniu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+</nav>
+
+<section class="lesson-hero">
+  <div class="container">
+    <div class="lesson-breadcrumb"><a href="../index.html">Acasă</a><span>/</span><a href="../index.html#lectii">Lecții</a><span>/</span><span>Lecția 02</span></div>
+    <span class="eyebrow">Sesiunea 2 · Date</span>
+    <h1 style="margin-top: 14px;">Transformarea și curățarea datelor</h1>
+    <p>Datele din lumea reală sunt „murdare”: lipsuri, duplicate, formate inconsistente. Power Query este uneltele cu care le faci perfect utilizabile înainte să construiești raportul.</p>
+    <div class="lesson-hero-meta"><span>⏱ ~60 min</span><span>🔧 Power Query</span><span>🎯 Începător+</span><span>💡 Limbaj M</span></div>
+  </div>
+</section>
+
+<div class="container lesson-layout">
+  <aside class="lesson-sidebar">
+    <p class="sidebar-title">Pe această pagină</p>
+    <ul class="toc">
+      <li><a href="#obiective">Obiective</a></li>
+      <li><a href="#ce-e-pq">Ce este Power Query</a></li>
+      <li><a href="#interfata">Interfața editorului</a></li>
+      <li><a href="#transformari">Transformări cheie</a></li>
+      <li><a href="#combine">Merge & Append</a></li>
+      <li><a href="#pivot">Pivot & Unpivot</a></li>
+      <li><a href="#m-intro">Limbajul M</a></li>
+      <li><a href="#exercitiu">Exerciții</a></li>
+      <li><a href="#quiz">Quiz</a></li>
+      <li><a href="#proiect">Mini-proiect</a></li>
+    </ul>
+  </aside>
+
+  <main class="lesson-content">
+
+    <section id="obiective" class="reveal">
+      <h2><span class="sec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>Obiectivele lecției</h2>
+      <ul>
+        <li>Înțelegi diferența între <strong>date brute</strong> și <strong>date pregătite</strong> pentru analiză.</li>
+        <li>Navighezi cu încredere în Power Query Editor și folosești pașii aplicați (Applied Steps).</li>
+        <li>Aplici transformările cele mai folosite: tipuri de date, filtre, coloane calculate, split, replace.</li>
+        <li>Combini tabele prin <strong>Merge</strong> (JOIN) și <strong>Append</strong> (UNION).</li>
+        <li>Faci <strong>Pivot</strong> și <strong>Unpivot</strong> — două operațiuni pe care 90% din analiști le înțeleg greșit la început.</li>
+        <li>Citești codul <strong>M</strong> generat și îl ajustezi manual.</li>
+      </ul>
+    </section>
+
+    <section id="ce-e-pq" class="reveal">
+      <h2><span class="sec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span>Ce este Power Query?</h2>
+      <p>Power Query este „filtrul” prin care trec datele înainte să ajungă în modelul Power BI. Este un motor <strong>ETL</strong> (Extract → Transform → Load) ușor de folosit, cu UI, dar care în spate scrie cod <strong>M</strong>.</p>
+
+      <div class="callout tip">
+        <div class="callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div class="callout-body">
+          <div class="callout-title">Regula de aur</div>
+          <p>Fă toate transformările în Power Query, nu direct în model sau în DAX. Modelul trebuie să primească date deja curate.</p>
+        </div>
+      </div>
+
+      <h3>Principii</h3>
+      <div class="concept-grid">
+        <div class="concept-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><polyline points="3 4 3 12 11 12"/></svg></div><h4>Repetabil</h4><p>Pașii se execută identic la fiecare refresh.</p></div>
+        <div class="concept-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h4>Non-destructiv</h4><p>Sursa originală nu este atinsă, toate transformările trăiesc în PBI.</p></div>
+        <div class="concept-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><polyline points="2 17 12 22 22 17"/></svg></div><h4>Compozabil</h4><p>Fiecare pas este o funcție — le combini ca LEGO.</p></div>
+        <div class="concept-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h4>Incremental</h4><p>Adaugi un pas, vezi imediat rezultatul.</p></div>
+      </div>
+    </section>
+
+    <section id="interfata" class="reveal">
+      <h2><span class="sec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg></span>Interfața Power Query Editor</h2>
+      <p>Deschizi editorul prin <em>Home → Transform data</em>. Patru zone de bază:</p>
+      <ol class="steps">
+        <li><div><h4>Ribbon</h4><p>Toate transformările grupate pe tab-uri: <em>Home, Transform, Add Column, View</em>.</p></div></li>
+        <li><div><h4>Queries (stânga)</h4><p>Lista tuturor „query-urilor” (tabelelor) pe care le construiești. Poți face foldere.</p></div></li>
+        <li><div><h4>Preview (centru)</h4><p>Primele 1000 de rânduri din tabel, așa cum arată după fiecare pas.</p></div></li>
+        <li><div><h4>Applied Steps (dreapta)</h4><p>Lista pașilor aplicați, în ordine. Poți șterge, edita sau reordona oricând.</p></div></li>
+      </ol>
+    </section>
+
+    <section id="transformari" class="reveal">
+      <h2><span class="sec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg></span>Transformările cele mai folosite</h2>
+
+      <div class="tabs">
+        <div class="tab-list">
+          <button class="tab-btn active">Tipuri de date</button>
+          <button class="tab-btn">Filtre & sortare</button>
+          <button class="tab-btn">Split / Replace</button>
+          <button class="tab-btn">Coloane calculate</button>
+          <button class="tab-btn">Duplicate & null</button>
+        </div>
+
+        <div class="tab-panel active">
+          <h3>Tipuri de date (Data types)</h3>
+          <p>Primul lucru după încărcare: verifică și setează tipul corect pentru fiecare coloană. Icoanele din antet arată tipul: <code>123</code> integer, <code>1.2</code> decimal, <code>ABC</code> text, <code>📅</code> date.</p>
+          <div class="callout warn">
+            <div class="callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+            <div class="callout-body"><div class="callout-title">Atenție la locale</div><p>Virgule vs puncte pentru zecimale: setează corect <em>Data Type → Using Locale</em> când deschizi fișiere din altă regiune.</p></div>
+          </div>
+        </div>
+
+        <div class="tab-panel">
+          <h3>Filtre & sortare</h3>
+          <p>Ca în Excel: click pe săgeata din antet. Poți filtra după valoare, după regulă („începe cu”, „conține”) sau între interval.</p>
+          <p class="muted">Filtrele din Power Query elimină rândurile din model — spre deosebire de slicer-ele din raport, care doar ascund vizual.</p>
+        </div>
+
+        <div class="tab-panel">
+          <h3>Split column & Replace values</h3>
+          <p><strong>Split column</strong> împarte o coloană după delimitator. Ex: „Ion Popescu” → „Ion” + „Popescu”.</p>
+          <p><strong>Replace values</strong> înlocuiește toate aparițiile unei valori cu alta. Util pentru normalizare (ex: „RO”, „ROU”, „Romania” → „România”).</p>
+        </div>
+
+        <div class="tab-panel">
+          <h3>Coloane calculate</h3>
+          <p>Add Column → Custom Column. Ex: calcul valoare netă dintr-o coloană brută:</p>
+          <div class="code-wrap"><span class="code-label">M · formula</span><pre><span class="dax-fn">Table.AddColumn</span>(#"Prev Step", <span class="dax-str">"Valoare_Neta"</span>, each [Valoare_Bruta] * (<span class="dax-num">1</span> - [Discount]))</pre></div>
+        </div>
+
+        <div class="tab-panel">
+          <h3>Duplicate & null-uri</h3>
+          <p><strong>Remove duplicates</strong> păstrează doar valori unice pentru o coloană sau combinație de coloane. <strong>Replace / Remove errors / Remove blank rows</strong> — indispensabile pentru date murdare.</p>
+          <div class="callout">
+            <div class="callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+            <div class="callout-body"><div class="callout-title">Pro tip</div><p>În Power Query: <em>View → Column quality / distribution / profile</em>. Îți arată procentul de valori goale, erori, unice.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="combine" class="reveal">
+      <h2><span class="sec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="7"/><circle cx="15" cy="12" r="7"/></svg></span>Combinarea tabelelor: Merge & Append</h2>
+
+      <div class="grid grid-2">
+        <div class="concept-card">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="7"/><circle cx="15" cy="12" r="7"/></svg></div>
+          <h4>Merge = JOIN (pe coloane)</h4>
+          <p>Aduci coloane dintr-un tabel în altul, folosind o cheie comună. Ex: ID client din „Vânzări” + Nume din „Clienți”. Alegi tipul de join (inner, left, full).</p>
+        </div>
+        <div class="concept-card">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="8"/><rect x="3" y="13" width="18" height="8"/></svg></div>
+          <h4>Append = UNION (pe rânduri)</h4>
+          <p>Lipești tabele cu aceeași structură unul sub altul. Ex: vânzări_2023 + vânzări_2024 → vânzări_consolidate.</p>
+        </div>
+      </div>
+
+      <h3>Tipuri de Merge</h3>
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>Tip</th><th>Comportament</th><th>Când îl folosești</th></tr></thead>
+          <tbody>
+            <tr><td>Left Outer</td><td>Păstrează toate din stânga, aduce potriviri din dreapta</td><td>Default & cel mai sigur</td></tr>
+            <tr><td>Inner</td><td>Doar potriviri din ambele</td><td>Când vrei strict intersecția</td></tr>
+            <tr><td>Left Anti</td><td>Doar din stânga, fără potrivire în dreapta</td><td>Detectezi lipsuri (ex: clienți fără comenzi)</td></tr>
+            <tr><td>Full Outer</td><td>Toate din ambele tabele</td><td>Reconcilieri complete</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="pivot" class="reveal">
+      <h2><span class="sec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg></span>Pivot & Unpivot — regula de aur</h2>
+      <p>În Power BI lucrezi cel mai bine cu date în format <strong>long / tidy</strong>: o coloană pentru categorie, o coloană pentru valoare. Multe fișiere Excel vin în format <strong>wide</strong> — trebuie să le <em>unpivot</em>-ezi.</p>
+
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>❌ Format wide (greu)</th><th>✅ Format long (preferat)</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><code>Produs | Ian | Feb | Mar</code><br><code>A | 100 | 120 | 90</code></td>
+              <td><code>Produs | Lună | Valoare</code><br><code>A | Ian | 100</code><br><code>A | Feb | 120</code><br><code>A | Mar | 90</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout success">
+        <div class="callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="callout-body"><div class="callout-title">Unpivot în 2 click-uri</div><p>Selectezi coloanele Ian/Feb/Mar → <em>Transform → Unpivot columns</em>. Gata!</p></div>
+      </div>
+    </section>
+
+    <section id="m-intro" class="reveal">
+      <h2><span class="sec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>Limbajul M · privire rapidă</h2>
+      <p>Fiecare pas din <em>Applied Steps</em> este o linie de cod M. Apăsând <em>View → Advanced Editor</em> vezi întregul script:</p>
+
+      <div class="code-wrap">
+        <span class="code-label">M · Advanced Editor</span>
+        <pre><span class="dax-fn">let</span>
+    Source = <span class="dax-fn">Excel.Workbook</span>(<span class="dax-fn">File.Contents</span>(<span class="dax-str">"C:\Date\Vanzari.xlsx"</span>), null, true),
+    Sheet = Source{[Item=<span class="dax-str">"Vanzari"</span>,Kind=<span class="dax-str">"Sheet"</span>]}[Data],
+    PromoteHeaders = <span class="dax-fn">Table.PromoteHeaders</span>(Sheet, [PromoteAllScalars=true]),
+    ChangeTypes = <span class="dax-fn">Table.TransformColumnTypes</span>(PromoteHeaders,{{<span class="dax-str">"Data"</span>, type date}, {<span class="dax-str">"Valoare"</span>, type number}}),
+    FilterValide = <span class="dax-fn">Table.SelectRows</span>(ChangeTypes, each [Valoare] &gt; <span class="dax-num">0</span>)
+<span class="dax-fn">in</span>
+    FilterValide</pre>
+      </div>
+
+      <p>Nu trebuie să-l scrii de la zero — UI-ul îl generează. Dar e util să-l înțelegi ca să poți depana și optimiza.</p>
+    </section>
+
+    <section id="exercitiu" class="reveal">
+      <h2><span class="sec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>Exerciții practice</h2>
+
+      <div class="exercise">
+        <div class="exercise-body">
+          <div class="exercise-header"><span class="exercise-badge">Exercițiu 1</span><h3>Curățare set vânzări</h3></div>
+          <p>Folosește un fișier cu date „murdare” (îți furnizez unul sau creezi singur cu greșeli intenționate).</p>
+          <ul class="checklist" data-list-id="l2-ex1">
+            <li><input type="checkbox" id="l2e1-1"><label for="l2e1-1">Setează tipurile de date corect pe fiecare coloană.</label></li>
+            <li><input type="checkbox" id="l2e1-2"><label for="l2e1-2">Elimină rândurile cu valoare nulă pe coloana „Valoare”.</label></li>
+            <li><input type="checkbox" id="l2e1-3"><label for="l2e1-3">Înlocuiește „Romania”, „ROU”, „RO” cu „România”.</label></li>
+            <li><input type="checkbox" id="l2e1-4"><label for="l2e1-4">Adaugă o coloană custom „Valoare_Neta” = Valoare * (1 - Discount).</label></li>
+            <li><input type="checkbox" id="l2e1-5"><label for="l2e1-5">Elimină duplicatele pe combinația (IDComanda, Linie).</label></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-body">
+          <div class="exercise-header"><span class="exercise-badge">Exercițiu 2</span><h3>Merge & Append</h3></div>
+          <p>Ai două tabele: „Vanzari” și „Clienti”. În Vanzari ai doar ClientID. Vrei și numele clientului, orașul și segmentul.</p>
+          <ul class="checklist" data-list-id="l2-ex2">
+            <li><input type="checkbox" id="l2e2-1"><label for="l2e2-1">Fac <em>Merge queries</em> pe ClientID, Left Outer Join.</label></li>
+            <li><input type="checkbox" id="l2e2-2"><label for="l2e2-2">Extind coloanele Nume, Oraș, Segment din tabelul Clienți.</label></li>
+            <li><input type="checkbox" id="l2e2-3"><label for="l2e2-3">Verific că nr. de rânduri din Vanzari nu s-a modificat.</label></li>
+            <li><input type="checkbox" id="l2e2-4"><label for="l2e2-4">Fac <em>Append</em> cu fișierul vanzari_2024 → obțin tabel consolidat.</label></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-body">
+          <div class="exercise-header"><span class="exercise-badge">Exercițiu 3</span><h3>Unpivot</h3></div>
+          <p>Primești un fișier cu coloane lunare (Ian-Dec). Transformă-l în format long cu o coloană „Lună” și o coloană „Valoare”.</p>
+          <ul class="checklist" data-list-id="l2-ex3">
+            <li><input type="checkbox" id="l2e3-1"><label for="l2e3-1">Selectez cele 12 coloane lunare.</label></li>
+            <li><input type="checkbox" id="l2e3-2"><label for="l2e3-2">Apăs <em>Unpivot columns</em>.</label></li>
+            <li><input type="checkbox" id="l2e3-3"><label for="l2e3-3">Redenumesc coloanele rezultate în „Lună” și „Valoare”.</label></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz" class="reveal">
+      <h2><span class="sec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>Quiz</h2>
+
+      <div class="quiz">
+        <p class="quiz-q">Merge vs Append — care e diferența corectă?</p>
+        <div class="quiz-opts">
+          <div class="quiz-opt" data-correct="false"><span class="mark">A</span>Merge adaugă rânduri, Append adaugă coloane</div>
+          <div class="quiz-opt" data-correct="true"><span class="mark">B</span>Merge adaugă coloane (JOIN), Append adaugă rânduri (UNION)</div>
+          <div class="quiz-opt" data-correct="false"><span class="mark">C</span>Sunt identice, doar nume diferite</div>
+        </div>
+        <div class="quiz-feedback">Exact. Merge = JOIN pe cheie, Append = stivuire pe rânduri.</div>
+      </div>
+
+      <div class="quiz">
+        <p class="quiz-q">Ai un tabel wide cu o coloană per lună. Ce aplici?</p>
+        <div class="quiz-opts">
+          <div class="quiz-opt" data-correct="false"><span class="mark">A</span>Pivot Column</div>
+          <div class="quiz-opt" data-correct="true"><span class="mark">B</span>Unpivot Columns</div>
+          <div class="quiz-opt" data-correct="false"><span class="mark">C</span>Transpose</div>
+          <div class="quiz-opt" data-correct="false"><span class="mark">D</span>Group By</div>
+        </div>
+        <div class="quiz-feedback">Unpivot transformă datele din wide în long — formatul preferat de Power BI.</div>
+      </div>
+
+      <div class="quiz">
+        <p class="quiz-q">Transformările aplicate în Power Query modifică fișierul sursă?</p>
+        <div class="quiz-opts">
+          <div class="quiz-opt" data-correct="false"><span class="mark">A</span>Da, salvează modificările în Excel-ul original</div>
+          <div class="quiz-opt" data-correct="true"><span class="mark">B</span>Nu, transformările trăiesc doar în Power BI</div>
+        </div>
+        <div class="quiz-feedback">Corect — Power Query este non-destructiv.</div>
+      </div>
+    </section>
+
+    <section id="proiect" class="reveal">
+      <div class="project">
+        <span class="project-badge">Mini-proiect</span>
+        <h3 style="margin-top: var(--space-3);">Consolidare reală</h3>
+        <p>Găsește (sau creează) 3 fișiere Excel cu aceleași coloane — de exemplu export-uri lunare. Consolidează-le într-un singur tabel curat, folosind doar Power Query.</p>
+        <h4 style="margin-top: var(--space-5);">Cerințe:</h4>
+        <ul>
+          <li>Import 3 fișiere (sau un folder întreg cu <em>Folder connector</em>).</li>
+          <li>Curățare: tipuri, null-uri, duplicate.</li>
+          <li>Combinare cu <em>Append</em>.</li>
+          <li>Adaugă o coloană „Sursa” = numele fișierului de proveniență.</li>
+          <li>Final: tabel curat, ordonat după dată.</li>
+        </ul>
+        <div class="callout tip" style="margin-top: var(--space-5);">
+          <div class="callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          <div class="callout-body"><div class="callout-title">Bonus</div><p>Folosește conectorul <em>Folder</em> ca să adăugarea unui fișier nou în folder să se reflecte automat la refresh.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="mark-done-row">
+      <div class="info"><h4>Ai terminat lecția?</h4><p>Marchează-o ca finalizată pentru progres.</p></div>
+      <button class="btn btn-primary" data-mark-lesson="2">Marchează ca finalizată</button>
+    </div>
+
+    <div class="lesson-nav">
+      <a href="lectia-01.html" class="prev"><span class="dir">← Lecția 1</span><span class="title">Introducere în Power BI</span></a>
+      <a href="lectia-03.html" class="next"><span class="dir">Lecția 3 →</span><span class="title">Modelarea datelor</span></a>
+    </div>
+  </main>
+</div>
+
+<footer class="footer"><div class="container"><div class="footer-bottom">© <span id="year"></span> Curs Power BI · Material educațional</div></div></footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script src="../js/main.js"></script>
+</body>
+</html>

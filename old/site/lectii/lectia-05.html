@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecția 5 · Vizualizări, carduri, KPI. Elemente de design</title>
+<meta name="description" content="Alegerea corectă a vizualizării: tabele, grafice, carduri, KPI și principii vizuale pentru rapoarte curate.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23059669'/%3E%3Ctext x='50' y='68' text-anchor='middle' font-family='Arial' font-weight='900' font-size='56' fill='%23111'%3EB%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="../index.html" class="brand"><div class="brand-mark">B</div><span>Curs Power BI</span></a>
+    <div class="nav-links">
+      <a href="../index.html" class="nav-link">Acasă</a>
+      <a href="../index.html#lectii" class="nav-link active">Lecții</a>
+      <a href="../index.html#obiective" class="nav-link">Obiective</a>
+    </div>
+    <div class="nav-actions">
+      <div class="progress-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span data-progress-count>0/14</span><div class="track"><div class="fill" data-progress-fill style="width:0%"></div></div></div>
+      <button class="icon-btn theme-toggle" aria-label="Schimbă tema"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+      <button class="icon-btn menu-toggle" aria-label="Meniu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+</nav>
+
+<section class="lesson-hero">
+  <div class="container">
+    <div class="lesson-breadcrumb"><a href="../index.html">Acasă</a><span>/</span><a href="../index.html#lectii">Lecții</a><span>/</span><span>Lecția 05</span></div>
+    <span class="eyebrow">Sesiunea 5 · Vizualizări</span>
+    <h1 style="margin-top: 14px;">Vizualizări, carduri, KPI &amp; design</h1>
+    <p>Datele sunt frumoase, dar tu comunici cu imagini. Învățăm care vizualizare transmite corect ce tip de informație și cum să folosim culoare, spațiu și tipografie pentru a face rapoartele clare și plăcute.</p>
+    <div class="lesson-hero-meta"><span>⏱ ~60 min</span><span>🎨 Design</span><span>🎯 Începător+</span><span>📊 Chart choice</span></div>
+  </div>
+</section>
+
+<div class="container lesson-layout">
+  <aside class="lesson-sidebar">
+    <p class="sidebar-title">Pe această pagină</p>
+    <ul class="toc">
+      <li><a href="#obiective">Obiective</a></li>
+      <li><a href="#alegere">Ce vizualizare aleg?</a></li>
+      <li><a href="#carduri">Carduri & KPI</a></li>
+      <li><a href="#tabele">Tabele & matrice</a></li>
+      <li><a href="#design">Principii de design</a></li>
+      <li><a href="#culoare">Culoare & tipografie</a></li>
+      <li><a href="#exercitiu">Exerciții</a></li>
+      <li><a href="#quiz">Quiz</a></li>
+      <li><a href="#proiect">Mini-proiect</a></li>
+    </ul>
+  </aside>
+
+  <main class="lesson-content">
+
+    <section id="obiective" class="reveal">
+      <h2><span class="sec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>Obiectivele lecției</h2>
+      <ul>
+        <li>Alegi vizualizarea potrivită în funcție de scopul comunicării.</li>
+        <li>Construiești carduri și KPI-uri care spun o poveste (nu doar arată numere).</li>
+        <li>Formatezi tabele și matrice ca să fie ușor de citit.</li>
+        <li>Aplici principiile de bază ale design-ului: aliniere, spațiere, ierarhie.</li>
+        <li>Folosești culoarea cu sens — nu decorativ.</li>
+      </ul>
+    </section>
+
+    <section id="alegere" class="reveal">
+      <h2><span class="sec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="13" width="3" height="5"/><rect x="12" y="9" width="3" height="9"/><rect x="17" y="6" width="3" height="12"/></svg></span>Cum aleg vizualizarea potrivită</h2>
+      <p>Întrebarea de pus: <em>„Ce vreau să spun?”</em>. Apoi alege:</p>
+
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>Scop</th><th>Vizualizare recomandată</th><th>De evitat</th></tr></thead>
+          <tbody>
+            <tr><td>Comparație între categorii</td><td>Bar chart / Column chart</td><td>Pie chart cu multe felii</td></tr>
+            <tr><td>Evoluție în timp</td><td>Line chart / Area chart</td><td>Bar chart cu multe perioade</td></tr>
+            <tr><td>Parte din întreg</td><td>Donut (max 4-5 categorii)</td><td>3D pie, donut cu 15 felii</td></tr>
+            <tr><td>Relație între 2 variabile</td><td>Scatter plot</td><td>Bar chart</td></tr>
+            <tr><td>Distribuția unei variabile</td><td>Histogram / Box plot</td><td>Pie chart</td></tr>
+            <tr><td>Valoare unică importantă</td><td>Card / KPI</td><td>Grafic cu un singur punct</td></tr>
+            <tr><td>Date geografice</td><td>Map / Filled map / Shape map</td><td>Tabel cu țări</td></tr>
+            <tr><td>Rang / top N</td><td>Bar chart ordonat</td><td>Line chart</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div class="callout-body"><div class="callout-title">Reguli de aur</div>
+        <p>• Pentru categorii: <strong>bare orizontale</strong> dacă etichetele sunt lungi, verticale dacă sunt scurte.<br>• Pentru timp: <strong>linie</strong> dacă sunt ≥ 7 puncte.<br>• <strong>Max 6 culori</strong> într-o vizualizare. Mai multe = zgomot.</p></div>
+      </div>
+    </section>
+
+    <section id="carduri" class="reveal">
+      <h2><span class="sec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></span>Carduri & KPI-uri</h2>
+      <p>Acestea sunt „titlurile” raportului. Ochii se opresc aici primii.</p>
+
+      <div class="tabs">
+        <div class="tab-list">
+          <button class="tab-btn active">Card simplu</button>
+          <button class="tab-btn">Card cu variație</button>
+          <button class="tab-btn">KPI visual</button>
+        </div>
+        <div class="tab-panel active">
+          <h3>Card (numărul singur)</h3>
+          <p>O singură măsură, număr mare, etichetă. Minim, clar, rapid.</p>
+          <p class="muted">Ex: „Total Vânzări · 847.325 RON”.</p>
+        </div>
+        <div class="tab-panel">
+          <h3>Card cu Δ vs. perioada anterioară</h3>
+          <p>Adaugă contextul: <em>„847K (+12% vs luna trecută)”</em>. Transformă un număr într-o poveste.</p>
+          <div class="code-wrap"><span class="code-label">DAX · variația</span>
+<pre>Variație % vs LM = 
+<span class="dax-fn">VAR</span> LunaCurentă = [Total Vânzări]
+<span class="dax-fn">VAR</span> LunaTrecută = 
+    <span class="dax-fn">CALCULATE</span>(
+        [Total Vânzări],
+        <span class="dax-fn">DATEADD</span>(Calendar[Date], <span class="dax-num">-1</span>, MONTH)
+    )
+<span class="dax-fn">RETURN</span>
+    <span class="dax-fn">DIVIDE</span>(LunaCurentă - LunaTrecută, LunaTrecută)</pre></div>
+        </div>
+        <div class="tab-panel">
+          <h3>KPI Visual</h3>
+          <p>Combinația specială: măsură + target + trend. Arată dacă „ești on-track”. Folosește Indicator/Goal.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="tabele" class="reveal">
+      <h2><span class="sec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg></span>Tabele &amp; matrice</h2>
+      <p>Diferența simplă:</p>
+      <ul>
+        <li><strong>Table</strong> = rânduri plate, ca în Excel.</li>
+        <li><strong>Matrix</strong> = pivot, cu categorii pe rânduri și pe coloane (ca pivot table).</li>
+      </ul>
+
+      <h3>Tips pentru tabele curate</h3>
+      <ol class="steps">
+        <li><div><h4>Ascunde coloane inutile</h4><p>Afișează doar ce e relevant. Tabelele de 20 coloane nu se citesc.</p></div></li>
+        <li><div><h4>Conditional formatting</h4><p>Format → Cell elements → Data bars / Color scales / Icons. Transformi un tabel plictisitor în heatmap instant.</p></div></li>
+        <li><div><h4>Sortare implicită</h4><p>Cel mai important pentru audiență pe prima coloană (ex: după vânzări descrescător).</p></div></li>
+        <li><div><h4>Totaluri și subtotaluri</h4><p>Activează-le când au sens. Dezactivează-le când distrag.</p></div></li>
+      </ol>
+    </section>
+
+    <section id="design" class="reveal">
+      <h2><span class="sec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></span>Principii de design</h2>
+
+      <div class="concept-grid">
+        <div class="concept-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M3 12h18"/><path d="M3 18h18"/></svg></div><h4>Aliniere</h4><p>Vizualizările aliniate creează o pagină coerentă. Folosește grid-ul invizibil.</p></div>
+        <div class="concept-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg></div><h4>Ritm &amp; spațiere</h4><p>Respiră. Nu umple totul. „White space” = claritate.</p></div>
+        <div class="concept-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 17 14 18 21 12 17 6 21 7 14 2 9 9 9 12 2"/></svg></div><h4>Ierarhie</h4><p>KPI-urile mari sus, detaliile dedesubt. Primul impact contează.</p></div>
+        <div class="concept-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div><h4>Consistență</h4><p>Aceeași culoare pentru aceeași categorie peste tot. Același font. Aceleași spații.</p></div>
+        <div class="concept-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg></div><h4>Simplitate</h4><p>Dacă un element nu servește o nevoie, îl elimini. „Less is more.”</p></div>
+        <div class="concept-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/></svg></div><h4>Accesibilitate</h4><p>Contrast minim 4.5:1. Nu folosi doar culoarea pentru a transmite informația.</p></div>
+      </div>
+    </section>
+
+    <section id="culoare" class="reveal">
+      <h2><span class="sec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></span>Culoare &amp; tipografie</h2>
+
+      <h3>Paletă de culori</h3>
+      <ul>
+        <li><strong>1 culoare principală</strong> pentru brand / accent.</li>
+        <li><strong>1-2 culori secundare</strong> (categorii).</li>
+        <li><strong>Gri</strong> pentru elementele neutre (text, grid, fundaluri).</li>
+        <li><strong>Verde / Roșu</strong> pentru semantic (bun / rău) — folosit rar.</li>
+      </ul>
+
+      <div class="callout warn">
+        <div class="callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <div class="callout-body"><div class="callout-title">Greșeli frecvente cu culoarea</div>
+        <p>• Culoare diferită pentru fiecare bară — devine curcubeu confuz.<br>• Roșu aprins fără să însemne ceva negativ.<br>• Culori prea saturate care obosesc ochii.<br>• Contrast slab între text și fundal.</p></div>
+      </div>
+
+      <h3>Tipografie</h3>
+      <ol class="steps">
+        <li><div><h4>1-2 familii de fonturi</h4><p>Recomandat: Segoe UI (default), Inter, Roboto. Maxim o familie pentru titluri + una pentru body.</p></div></li>
+        <li><div><h4>Ierarhie prin dimensiune</h4><p>Titlu pagină 20-28px · Titlu vizual 14-16px · Body 11-12px. Respectă aceste niveluri peste tot.</p></div></li>
+        <li><div><h4>Aliniere</h4><p>Text la stânga (default). Numere în tabele la dreapta. Nu centra nimic „ca să arate simetric”.</p></div></li>
+      </ol>
+    </section>
+
+    <section id="exercitiu" class="reveal">
+      <h2><span class="sec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>Exerciții practice</h2>
+
+      <div class="exercise">
+        <div class="exercise-body">
+          <div class="exercise-header"><span class="exercise-badge">Exercițiu 1</span><h3>Makeover pe raport</h3></div>
+          <p>Pornește de la raportul din Lecția 4. Aplică makeover-ul:</p>
+          <ul class="checklist" data-list-id="l5-ex1">
+            <li><input type="checkbox" id="l5e1-1"><label for="l5e1-1">Aliniez vizual toate cardurile (aceeași înălțime, aceeași distanță).</label></li>
+            <li><input type="checkbox" id="l5e1-2"><label for="l5e1-2">Elimin grid-uri inutile, gridlines și axe duplicate.</label></li>
+            <li><input type="checkbox" id="l5e1-3"><label for="l5e1-3">Reduc paleta la max 3 culori.</label></li>
+            <li><input type="checkbox" id="l5e1-4"><label for="l5e1-4">Titlu clar pe pagină + subtitlu explicativ.</label></li>
+            <li><input type="checkbox" id="l5e1-5"><label for="l5e1-5">Sortez graficele în ordine logică (cele mai importante sus-stânga).</label></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-body">
+          <div class="exercise-header"><span class="exercise-badge">Exercițiu 2</span><h3>Conditional formatting pe matrice</h3></div>
+          <ul class="checklist" data-list-id="l5-ex2">
+            <li><input type="checkbox" id="l5e2-1"><label for="l5e2-1">Construiesc o matrice: categorii pe rânduri × luni pe coloane, valori vânzări.</label></li>
+            <li><input type="checkbox" id="l5e2-2"><label for="l5e2-2">Aplic color scale pe celule (verde deschis → verde închis).</label></li>
+            <li><input type="checkbox" id="l5e2-3"><label for="l5e2-3">Adaug data bars pentru top-uri.</label></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-body">
+          <div class="exercise-header"><span class="exercise-badge">Exercițiu 3</span><h3>Alege corect vizualizarea</h3></div>
+          <p>Pentru fiecare întrebare de mai jos, alege vizualizarea potrivită și implementează-o:</p>
+          <ul class="checklist" data-list-id="l5-ex3">
+            <li><input type="checkbox" id="l5e3-1"><label for="l5e3-1">Top 5 clienți după valoare</label></li>
+            <li><input type="checkbox" id="l5e3-2"><label for="l5e3-2">Vânzări lunare în ultimii 3 ani</label></li>
+            <li><input type="checkbox" id="l5e3-3"><label for="l5e3-3">Distribuția comenzilor pe categorie (proporție)</label></li>
+            <li><input type="checkbox" id="l5e3-4"><label for="l5e3-4">Total vânzări curent (număr singur)</label></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz" class="reveal">
+      <h2><span class="sec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>Quiz</h2>
+
+      <div class="quiz">
+        <p class="quiz-q">Ai 5 ani de date lunare. Ce vizualizare folosești pentru evoluție?</p>
+        <div class="quiz-opts">
+          <div class="quiz-opt" data-correct="false"><span class="mark">A</span>Pie chart</div>
+          <div class="quiz-opt" data-correct="true"><span class="mark">B</span>Line chart</div>
+          <div class="quiz-opt" data-correct="false"><span class="mark">C</span>Matrice</div>
+        </div>
+        <div class="quiz-feedback">Corect — linie pentru evoluție în timp, mai ales cu multe puncte.</div>
+      </div>
+
+      <div class="quiz">
+        <p class="quiz-q">Când este acceptabil un pie chart?</p>
+        <div class="quiz-opts">
+          <div class="quiz-opt" data-correct="false"><span class="mark">A</span>Mereu, e colorat</div>
+          <div class="quiz-opt" data-correct="true"><span class="mark">B</span>Maxim 4-5 categorii, părți dintr-un întreg</div>
+          <div class="quiz-opt" data-correct="false"><span class="mark">C</span>Pentru evoluție în timp</div>
+        </div>
+        <div class="quiz-feedback">Corect — pie funcționează doar cu puține categorii și când e vorba de pondere.</div>
+      </div>
+
+      <div class="quiz">
+        <p class="quiz-q">Câte culori principale ar trebui să aibă un raport?</p>
+        <div class="quiz-opts">
+          <div class="quiz-opt" data-correct="false"><span class="mark">A</span>Cât mai multe, să fie vesel</div>
+          <div class="quiz-opt" data-correct="true"><span class="mark">B</span>1 primară + 1-2 secundare + neutru</div>
+          <div class="quiz-opt" data-correct="false"><span class="mark">C</span>Măcar 10</div>
+        </div>
+        <div class="quiz-feedback">Exact — paleta restrânsă creează un raport coerent și ușor de citit.</div>
+      </div>
+    </section>
+
+    <section id="proiect" class="reveal">
+      <div class="project">
+        <span class="project-badge">Mini-proiect</span>
+        <h3 style="margin-top: var(--space-3);">„Înainte &amp; După”</h3>
+        <p>Ia un raport existent al tău (sau al unui coleg) și fă-i un makeover complet de design.</p>
+        <h4 style="margin-top: var(--space-5);">Cerințe:</h4>
+        <ul>
+          <li>Salvezi versiunea „before” (screenshot).</li>
+          <li>Aplici: paletă restrânsă, tipografie consistentă, aliniere, ierarhie clară.</li>
+          <li>Alegi pentru fiecare vizualizare tipul potrivit.</li>
+          <li>Salvezi versiunea „after” (screenshot).</li>
+          <li>Scrii 3 decizii de design pe care le-ai luat și de ce.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="mark-done-row">
+      <div class="info"><h4>Ai terminat lecția?</h4><p>Marchează-o ca finalizată pentru progres.</p></div>
+      <button class="btn btn-primary" data-mark-lesson="5">Marchează ca finalizată</button>
+    </div>
+
+    <div class="lesson-nav">
+      <a href="lectia-04.html" class="prev"><span class="dir">← Lecția 4</span><span class="title">Introducere în DAX</span></a>
+      <a href="lectia-06.html" class="next"><span class="dir">Lecția 6 →</span><span class="title">Interactivitate în rapoarte</span></a>
+    </div>
+  </main>
+</div>
+
+<footer class="footer"><div class="container"><div class="footer-bottom">© <span id="year"></span> Curs Power BI · Material educațional</div></div></footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script src="../js/main.js"></script>
+</body>
+</html>

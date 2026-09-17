@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ghid · Sesiunea 1 · Cue cards</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23047857'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='56' font-weight='900' text-anchor='middle' fill='white'%3EG%3C/text%3E%3C/svg%3E" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #FAFBF7;
+      --surface: #FFFFFF;
+      --surface-alt: #F4F6F0;
+      --border: #E5E7EB;
+      --text: #0A1F17;
+      --text-2: #374151;
+      --text-3: #6B7280;
+      --primary: #059669;
+      --primary-dark: #047857;
+      --primary-soft: #ECFDF5;
+      --accent-yellow: #84CC16;
+      --warning: #F59E0B;
+      --danger: #DC2626;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .topnav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .topnav-inner {
+      max-width: 1000px; margin: 0 auto;
+      display: flex; align-items: center; gap: 16px;
+      padding: 12px 20px;
+    }
+    .brand {
+      font-weight: 800; font-size: 0.95rem; color: var(--text);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .brand-mark {
+      width: 28px; height: 28px; border-radius: 7px;
+      background: linear-gradient(135deg, var(--primary), #14B8A6);
+      color: #fff; display: grid; place-items: center;
+      font-weight: 900; font-size: 0.85rem;
+    }
+    .topnav-links { margin-left: auto; display: flex; gap: 4px; flex-wrap: wrap; }
+    .topnav-links a {
+      font-size: 0.8rem; font-weight: 700;
+      padding: 5px 9px; border-radius: 6px;
+      color: var(--text-2);
+    }
+    .topnav-links a:hover { background: var(--primary-soft); color: var(--primary-dark); text-decoration: none; }
+    .topnav-links a.is-back { background: var(--primary); color: #fff; }
+    .topnav-links a.is-back:hover { background: var(--primary-dark); color: #fff; }
+    main { max-width: 1000px; margin: 0 auto; padding: 28px 20px 60px; }
+    .hero {
+      padding: 22px 26px;
+      background: linear-gradient(135deg, var(--primary-soft) 0%, #ECFCCB 100%);
+      border: 1px solid rgba(5,150,105,0.18);
+      border-radius: 14px;
+      margin-bottom: 22px;
+    }
+    .hero h1 { font-size: 1.4rem; margin: 0 0 4px; letter-spacing: -0.01em; }
+    .hero p { margin: 0; color: var(--text-2); font-size: 0.92rem; }
+    .rules {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 8px; margin-bottom: 28px;
+    }
+    .rule {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent-yellow);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.86rem;
+      color: var(--text-2);
+    }
+    .rule strong { color: var(--text); }
+    .cue {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 6px rgba(10,31,23,0.04);
+    }
+    .cue-head {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cue-num {
+      flex-shrink: 0;
+      width: 36px; height: 36px; border-radius: 9px;
+      background: linear-gradient(135deg, var(--primary), #14B8A6);
+      color: #fff;
+      display: grid; place-items: center;
+      font-weight: 900; font-size: 1rem;
+    }
+    .cue-title { flex: 1; min-width: 0; }
+    .cue-title h2 { margin: 0; font-size: 1.05rem; font-weight: 800; line-height: 1.2; }
+    .cue-title .sub {
+      font-size: 0.74rem; font-weight: 700;
+      color: var(--primary); letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .cue-time {
+      flex-shrink: 0;
+      font-size: 0.78rem; font-weight: 700;
+      color: var(--text-3);
+      background: var(--surface-alt);
+      padding: 4px 10px; border-radius: 999px;
+    }
+    .cue-key {
+      background: var(--primary-soft);
+      border-left: 3px solid var(--primary);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.92rem;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .cue-key strong { color: var(--primary-dark); }
+    .cue-open {
+      font-style: italic;
+      color: var(--text);
+      background: var(--surface-alt);
+      border-radius: 6px;
+      padding: 7px 12px;
+      font-size: 0.88rem;
+      margin-bottom: 10px;
+    }
+    .cue-open::before { content: '“'; color: var(--primary); font-size: 1.3em; line-height: 0; vertical-align: -0.25em; margin-right: 2px; }
+    .cue-open::after  { content: '”'; color: var(--primary); font-size: 1.3em; line-height: 0; vertical-align: -0.25em; margin-left: 2px; }
+    .cue-bullets { list-style: none; margin: 0 0 8px; padding: 0; font-size: 0.9rem; }
+    .cue-bullets li {
+      padding: 3px 0 3px 18px;
+      position: relative;
+      color: var(--text-2);
+    }
+    .cue-bullets li::before { content: '•'; position: absolute; left: 4px; color: var(--primary); font-weight: 800; }
+    .cue-bullets li strong { color: var(--text); }
+    .cue-foot {
+      display: flex; gap: 14px;
+      margin-top: 10px; padding-top: 10px;
+      border-top: 1px dashed var(--border);
+      font-size: 0.82rem; flex-wrap: wrap;
+    }
+    .cue-foot > div { flex: 1; min-width: 200px; }
+    .cue-foot .label {
+      display: inline-block;
+      font-size: 0.66rem; font-weight: 800;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 2px 7px; border-radius: 999px;
+      margin-right: 5px;
+    }
+    .label-ask  { background: rgba(245,158,11,0.16); color: #B45309; }
+    .label-skip { background: rgba(220,38,38,0.10); color: var(--danger); }
+    .cue-foot div span:not(.label) { color: var(--text-2); }
+    @media print {
+      .topnav { display: none; }
+      .cue { break-inside: avoid; box-shadow: none; }
+      body { background: #fff; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topnav">
+    <div class="topnav-inner">
+      <a href="ghid-prezentator.html" class="brand">
+        <span class="brand-mark">G</span>
+        <span>Ghid · Sesiunea 1</span>
+      </a>
+      <nav class="topnav-links">
+        <a href="#s1">1</a>
+        <a href="#s2">2</a>
+        <a href="#s3">3</a>
+        <a href="#s4">4</a>
+        <a href="#s5">5</a>
+        <a href="#s6">6</a>
+        <a href="#s7">7</a>
+        <a href="#s8">8</a>
+        <a href="index.html" class="is-back">→ Prezentare</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Cue cards · Sesiunea 1 (Introducere)</h1>
+      <p>~1.5–2h. Azi nu predăm Power BI. Context, atmosferă, cunoaștere, o primă privire BI.</p>
+    </section>
+
+    <div class="rules">
+      <div class="rule"><strong>O idee per slide.</strong> Nu îngrămădi.</div>
+      <div class="rule"><strong>Vorbește cu oamenii</strong>, nu cu slide-ul.</div>
+      <div class="rule"><strong>Povești, nu CV.</strong> Drept → IT.</div>
+      <div class="rule"><strong>Chart-urile din ice-breaker</strong> sunt teaser, nu lecție.</div>
+      <div class="rule"><strong>Tur UI și 5 click-uri</strong> rămân pentru S2.</div>
+    </div>
+
+    <article id="s1" class="cue">
+      <header class="cue-head">
+        <div class="cue-num">1</div>
+        <div class="cue-title">
+          <div class="sub">Agenda</div>
+          <h2>Azi nu predăm Power BI</h2>
+        </div>
+        <div class="cue-time">~4 min</div>
+      </header>
+      <div class="cue-key"><strong>Mesaj:</strong> context, atmosferă, cunoaștere. Destinația o vedem abia la final.</div>
+      <div class="cue-open">Bine ați venit. Prima sesiune e despre noi și despre de ce există BI. Desktop-ul îl deschidem de-abia data viitoare.</div>
+      <ul class="cue-bullets">
+        <li>Treci cele 8 puncte cu mâna. <strong>Nu le citi.</strong></li>
+        <li>Subliniază: cunoaștere → obiective → BI ușor → demo Excel vs Power BI.</li>
+        <li>Setezi tonul: relaxat, conversațional, ~1.5–2h.</li>
+      </ul>
+      <div class="cue-foot">
+        <div><span class="label label-skip">Evită</span><span>Să deschizi Desktop. Să vorbești despre DAX, Query, model.</span></div>
+      </div>
+    </article>
+
+    <article id="s2" class="cue">
+      <header class="cue-head">
+        <div class="cue-num">2</div>
+        <div class="cue-title">
+          <div class="sub">Trainer</div>
+          <h2>Drept → IT, mix tehnic + uman</h2>
+        </div>
+        <div class="cue-time">~6 min</div>
+      </header>
+      <div class="cue-key"><strong>Mesaj:</strong> nu e o listă de joburi. E un parcurs. Relevant pentru reconversie.</div>
+      <div class="cue-open">Pe scurt: sunt Dan. Am început în Drept. Apoi am trecut la IT și date. Predau din mixul ăsta: tehnic + uman.</div>
+      <ul class="cue-bullets">
+        <li><strong>KPI-uri:</strong> 4+ ani, 60+ rapoarte, 5 industrii. Indici, nu citești.</li>
+        <li>Skills tehnice vs. soft: jumătate din job e vorbit cu echipele.</li>
+        <li>LinkedIn + marinau.ro, fără să te lauzi.</li>
+      </ul>
+      <div class="cue-foot">
+        <div><span class="label label-ask">Engagement</span><span>„Cine e tot în reconversie sau aproape?” Ridicați mâna.</span></div>
+        <div><span class="label label-skip">Evită</span><span>CV. Jargon. Povestea imobiliară o ții pentru slide-ul 7.</span></div>
+      </div>
+    </article>
+
+    <article id="s3" class="cue">
+      <header class="cue-head">
+        <div class="cue-num">3</div>
+        <div class="cue-title">
+          <div class="sub">Would you rather?</div>
+          <h2>Vot live + un chart diferit per întrebare</h2>
+        </div>
+        <div class="cue-time">~10 min</div>
+      </header>
+      <div class="cue-key"><strong>Mesaj:</strong> relaxăm atmosfera și vedem prima dată bar, pie, donut, coloane.</div>
+      <div class="cue-open">Cinci alegeri rapide. Click pe varianta voastră. După vot, fiecare întrebare umple un tip de grafic diferit.</div>
+      <ul class="cue-bullets">
+        <li>Așteaptă voturile. Nu umple tăcerea.</li>
+        <li>Comentează ce vezi, fără judecată: „aha, mai mulți de munte”.</li>
+        <li>La film/serial: lasă-i să râdă. E întrebarea de destindere, nu de CV.</li>
+        <li><strong>Spune explicit:</strong> „Asta e un bar chart. Ăsta e un pie. Ăsta e un donut. Le veți construi voi mai târziu.”</li>
+        <li>Nu intra în axă, legendă, DAX. E teaser, nu lecție.</li>
+      </ul>
+      <div class="cue-foot">
+        <div><span class="label label-skip">Evită</span><span>Să forțezi votul pe voce. Să explici cum se face un pie în Desktop.</span></div>
+      </div>
+    </article>
+
+    <article id="s4" class="cue">
+      <header class="cue-head">
+        <div class="cue-num">4</div>
+        <div class="cue-title">
+          <div class="sub">Cine ești tu</div>
+          <h2>Prezentări + o întrebare extra</h2>
+        </div>
+        <div class="cue-time">~20–25 min</div>
+      </header>
+      <div class="cue-key"><strong>Mesaj:</strong> calibrez exemplele după voi. Notez ocupația și experiența pe platformă.</div>
+      <div class="cue-open">Acum voi. Nume, ce faci, de ce ești aici. Plus o întrebare extra, ca să nu fie totul CV.</div>
+      <ul class="cue-bullets">
+        <li>Rotează întrebările extra: skill după Power BI / ce poți predă tu / instrucțiuni vs. încercat / ce-ai învățat singur.</li>
+        <li>Notează pe chat: rol + Excel sau nu + reconversie.</li>
+        <li>Mulțumește scurt după fiecare. Nu interoga.</li>
+      </ul>
+      <div class="cue-foot">
+        <div><span class="label label-ask">Engagement</span><span>Dacă grupul e mare, limitează la 45–60s per persoană.</span></div>
+        <div><span class="label label-skip">Evită</span><span>Să corectezi. Să compari oamenii. Să treci la BI în timp ce vorbesc.</span></div>
+      </div>
+    </article>
+
+    <article id="s5" class="cue">
+      <header class="cue-head">
+        <div class="cue-num">5</div>
+        <div class="cue-title">
+          <div class="sub">Obiective</div>
+          <h2>BI elementar + Power BI funcțional</h2>
+        </div>
+        <div class="cue-time">~8 min</div>
+      </header>
+      <div class="cue-key"><strong>Mesaj:</strong> la final știți să gândiți cu date și să folosiți Power BI la nivel aplicabil, nu expert.</div>
+      <div class="cue-open">Obiectivul cursului e simplu: cunoștințe elementare de BI și Power BI funcțional, la job. Lucrăm și singuri, și în echipă.</div>
+      <ul class="cue-bullets">
+        <li>Arată cele 7 blocuri: Obiectiv → Concept → Demo → Follow-along → Mini-challenge → Recap → Temă.</li>
+        <li>Spune: „de la S2 încolo, fiecare oră arată la fel. Azi e excepția: e introducere.”</li>
+        <li>Follow-along scade ghidarea. Mini-challenge e 5–15 min, nu examen.</li>
+      </ul>
+      <div class="cue-foot">
+        <div><span class="label label-skip">Evită</span><span>Să promiți DAX avansat sau certificare. Să citești toate cele 7 ca pe un regulament.</span></div>
+      </div>
+    </article>
+
+    <article id="s6" class="cue">
+      <header class="cue-head">
+        <div class="cue-num">6</div>
+        <div class="cue-title">
+          <div class="sub">BI ușor</div>
+          <h2>Definiție + Fără BI / Cu BI</h2>
+        </div>
+        <div class="cue-time">~10 min</div>
+      </header>
+      <div class="cue-key"><strong>Mesaj:</strong> BI e o disciplină, nu un software. Power BI e unealta.</div>
+      <div class="cue-open">BI = date brute transformate în informații cu care iei o decizie. Netflix și Glovo fac asta cu voi în fiecare zi.</div>
+      <ul class="cue-bullets">
+        <li>Citește definiția, apoi tabelul contrast. Stai pe 2 exemple din stânga vs. dreapta.</li>
+        <li>Întrebare: „cine a avut datele, dar nu a putut răspunde de ce au scăzut vânzările?”</li>
+        <li>Nu intra în cele 6 etape detaliate. Aia e S2.</li>
+      </ul>
+      <div class="cue-foot">
+        <div><span class="label label-ask">Engagement</span><span>Un exemplu din grup: un Excel lunar pe care îl urăsc.</span></div>
+        <div><span class="label label-skip">Evită</span><span>Ecosistem Desktop/Service/Mobile. Tipuri de date. Power Query.</span></div>
+      </div>
+    </article>
+
+    <article id="s7" class="cue">
+      <header class="cue-head">
+        <div class="cue-num">7</div>
+        <div class="cue-title">
+          <div class="sub">Demo</div>
+          <h2>Excel haos → BI Wizard → raport</h2>
+        </div>
+        <div class="cue-time">~12 min</div>
+      </header>
+      <div class="cue-key"><strong>Mesaj:</strong> ăsta e de ce existăm. De la A3 ilizibil la click pe an și pe tip de casă.</div>
+      <div class="cue-open">Uitați-vă la Excel-ul ăsta. Așa arătau datele când șeful a cerut cash flow. Apăs aici. Uite raportul.</div>
+      <ul class="cue-bullets">
+        <li>Povestea imobiliară: A3-uri, șeful nu înțelegea, raportul în câteva minute.</li>
+        <li>Apasă <strong>Transformă cu Power BI</strong>. Apoi joacă slicere: an, Casa A.</li>
+        <li>Hover pe line chart. Spune: „KPI, trend, pie. Asta e destinația. Cum ajungem, din S2.”</li>
+        <li><code>vanzari.csv</code> e opțional de descărcat, nu temă de construit azi.</li>
+      </ul>
+      <div class="cue-foot">
+        <div><span class="label label-skip">Evită</span><span>Get Data live. 5 click-uri. Tur Report/Table/Model.</span></div>
+      </div>
+    </article>
+
+    <article id="s8" class="cue">
+      <header class="cue-head">
+        <div class="cue-num">8</div>
+        <div class="cue-title">
+          <div class="sub">Recap + temă + check-out</div>
+          <h2>Ce reținem, ce facem acasă, 2 răspunsuri</h2>
+        </div>
+        <div class="cue-time">~10 min</div>
+      </header>
+      <div class="cue-key"><strong>Mesaj:</strong> gândire cu date. BI vs. haos. Power BI e unealta. S2 = Desktop.</div>
+      <div class="cue-open">Trei lucruri: gândim cu date, BI face ordine, Power BI e instrumentul. Acasă instalați Desktop și intrați în Service.</div>
+      <ul class="cue-bullets">
+        <li><strong>Temă obligatorie:</strong> Desktop + <code>app.powerbi.com</code>.</li>
+        <li><strong>Opțional:</strong> video intro YouTube.</li>
+        <li><strong>Check-out în chat:</strong> ce aștepți + ce întrebare îți rămâne pentru S2.</li>
+        <li>Cele 2 poll-uri scurte: instalare + cum pleci. Așteaptă votul.</li>
+        <li>Nu închide cu „aveți întrebări?”. Închide cu check-out-ul.</li>
+      </ul>
+      <div class="cue-foot">
+        <div><span class="label label-ask">Engagement</span><span>Citește 2–3 răspunsuri din chat cu voce tare.</span></div>
+        <div><span class="label label-skip">Evită</span><span>Să adaugi temă de raport. Asta e S2+.</span></div>
+      </div>
+    </article>
+  </main>
+</body>
+</html>

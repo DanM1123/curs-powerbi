@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Power BI · Sesiunea 1 · Introducere</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2384CC16'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='56' font-weight='900' text-anchor='middle' fill='white'%3ES%3C/text%3E%3C/svg%3E" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/session.css" />
+  <link rel="stylesheet" href="../../css/extras.css" />
+  <script src="../../js/gate.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+    import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyD-MBeyRdYImuqaOVZrKf_SOCBZwwX-7xo",
+      authDomain: "fir-powerbi-72371.firebaseapp.com",
+      databaseURL: "https://fir-powerbi-72371-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "fir-powerbi-72371",
+      storageBucket: "fir-powerbi-72371.firebasestorage.app",
+      messagingSenderId: "641058539581",
+      appId: "1:641058539581:web:a68e8f6a09fb2a06bb0254"
+    };
+    if (firebaseConfig.apiKey && firebaseConfig.databaseURL) {
+      try {
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        window.LIVE_POLLS = { db, ref, onValue, runTransaction };
+        console.info('[polls] live sync enabled (Firebase)');
+      } catch (err) {
+        console.warn('[polls] Firebase init failed, falling back to local mode:', err);
+      }
+    }
+  </script>
+</head>
+<body class="hub-page" data-poll-root="curs-oficial/s01/polls">
+  <div class="hub-orbits" aria-hidden="true">
+    <div class="hub-orb a"></div>
+    <div class="hub-orb b"></div>
+    <div class="hub-orb c"></div>
+  </div>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="../../index.html" class="brand">
+        <span class="brand-mark">P</span>
+        <span>Power BI · Sesiunea 1</span>
+      </a>
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" aria-label="Schimbă tema">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="student-shell">
+    <div class="slide-progress"><div class="fill" data-slide-progress></div></div>
+    <main class="slide-deck">
+
+      <article class="slide active">
+        <div class="agenda-slide-wrap">
+          <div class="agenda-header">
+            <span class="agenda-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Sesiunea 1 · Introducere
+            </span>
+            <h1 class="agenda-title">Agenda <span class="agenda-title-accent">sesiunii</span></h1>
+          </div>
+          <div class="agenda-list-col">
+            <div class="agenda-card-item" style="--delay:0.1s">
+              <div class="aci-num">01</div>
+              <div class="aci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="aci-body">
+                <div class="aci-title">Prezentarea trainerului</div>
+              </div>
+            </div>
+            <div class="agenda-card-item" style="--delay:0.18s">
+              <div class="aci-num">02</div>
+              <div class="aci-icon" style="background:rgba(5,150,105,0.12); color:var(--primary);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+              <div class="aci-body">
+                <div class="aci-title">Excel vs Power BI</div>
+              </div>
+            </div>
+            <div class="agenda-card-item" style="--delay:0.26s">
+              <div class="aci-num">03</div>
+              <div class="aci-icon" style="background:rgba(20,184,166,0.12); color:var(--accent-teal);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><polyline points="7 14 12 9 16 13 21 8"/></svg></div>
+              <div class="aci-body">
+                <div class="aci-title">Joc de cunoaștere</div>
+              </div>
+            </div>
+            <div class="agenda-card-item" style="--delay:0.34s">
+              <div class="aci-num">04</div>
+              <div class="aci-icon" style="background:rgba(245,158,11,0.12); color:var(--warning);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+              <div class="aci-body">
+                <div class="aci-title">Cine ești tu</div>
+              </div>
+            </div>
+            <div class="agenda-card-item" style="--delay:0.42s">
+              <div class="aci-num">05</div>
+              <div class="aci-icon" style="background:rgba(132,204,22,0.12); color:var(--pbi-yellow-dark);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+              <div class="aci-body">
+                <div class="aci-title">Structura sesiunilor</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+<!-- SLIDE 2, Trainer -->
+      <article class="slide">
+        <span class="slide-eyebrow">Cine sunt eu</span>
+
+        <div class="bio-wrap">
+          <div class="bio-hero">
+            <div class="bio-photo-wrap">
+              <img src="../../assets/1.png" alt="Marinau Dan Alexandru" class="bio-photo" />
+              <div class="bio-photo-ring"></div>
+            </div>
+            <div class="bio-hero-info">
+              <h2 class="bio-name-new">Marinau Dan Alexandru</h2>
+              <span class="bio-role-new">Power BI Developer &amp; Trainer</span>
+              <p class="bio-desc-en">Transforming data into powerful insights and beautiful visualizations. Specialized in building data pipelines and BI solutions that drive real decision-making.</p>
+              <div class="bio-social-row">
+                <a href="https://www.linkedin.com/in/dan-alexandru-marinau-139084108/" target="_blank" rel="noopener" class="bio-social-btn linkedin">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                  LinkedIn
+                </a>
+                <a href="https://marinau.ro/" target="_blank" rel="noopener" class="bio-social-btn website">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                  marinau.ro
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="bio-kpis-grid">
+            <div class="bio-kpi-card" style="--kpi-color:var(--primary);">
+              <div class="bkc-value" data-count-up="5" data-suffix="+">0</div>
+              <div class="bkc-label">Ani în Date &amp; BI</div>
+            </div>
+            <div class="bio-kpi-card" style="--kpi-color:var(--accent-teal);">
+              <div class="bkc-value" data-count-up="100" data-suffix="+">0</div>
+              <div class="bkc-label">Rapoarte Power BI</div>
+            </div>
+            <div class="bio-kpi-card" style="--kpi-color:var(--pbi-yellow-dark);">
+              <div class="bkc-value" data-count-up="5" data-suffix="">0</div>
+              <div class="bkc-label">Industrii</div>
+            </div>
+          </div>
+
+          <div class="bio-skills-grid">
+            <div class="bio-skills-section">
+              <div class="bio-skills-title">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--primary);"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                Skills tehnice
+              </div>
+              <div class="bio-skills-pills">
+                <span class="skill-pill">Power BI</span>
+                <span class="skill-pill">DAX</span>
+                <span class="skill-pill">Data Modeling</span>
+                <span class="skill-pill">SQL Server</span>
+                <span class="skill-pill">Azure Synapse</span>
+                <span class="skill-pill">ETL Pipelines</span>
+                <span class="skill-pill">Star Schema</span>
+                <span class="skill-pill">Azure Data Factory</span>
+              </div>
+            </div>
+            <div class="bio-skills-section">
+              <div class="bio-skills-title">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--accent-teal);"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Soft skills
+              </div>
+              <div class="bio-skills-pills">
+                <span class="skill-pill soft">Analytical Thinking</span>
+                <span class="skill-pill soft">Problem Solving</span>
+                <span class="skill-pill soft">Communication</span>
+                <span class="skill-pill soft">Project Management</span>
+                <span class="skill-pill soft">Leadership</span>
+                <span class="skill-pill soft">Adaptability</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+<article class="slide">
+        <span class="slide-eyebrow">Același set de date</span>
+        <h2>Excel vs Power BI</h2>
+        <p class="slide-lead">Excel pe A3. Apoi un raport cu filtre. Același set, două feluri de a-l citi.</p>
+        <div class="excel-pbi-stage">
+        <h3 class="excel-pbi-label">
+          <span>Înainte</span> →
+          <span class="on">După Power BI</span>
+        </h3>
+<div class="excel-chaos" id="excelView">
+          <div class="excel-titlebar">
+            <span>📊 CashFlow_Vanzari_2022_2023_2024_FINAL_v3_revizuit.xlsx</span>
+            <span style="opacity:0.7;">Excel</span>
+          </div>
+          <div class="excel-toolbar"><span>File</span><span>Home</span><span>Insert</span><span>Page Layout</span><span>Formulas</span><span>Data</span><span>Review</span></div>
+          <div class="excel-sheet">
+            <table class="excel-table">
+              <thead><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th><th>J</th></tr></thead>
+              <tbody>
+                <tr><td class="excel-row-num">1</td><td>ID</td><td>Luna</td><td>Tip_casa</td><td>Pret_lista</td><td>Discount</td><td>Pret_final</td><td>Cost_constructie</td><td>Profit_brut</td><td>TVA</td><td>Cash_net</td></tr>
+                <tr><td class="excel-row-num">2</td><td>1001</td><td>Ian 2022</td><td>CasaA</td><td>120000</td><td>3000</td><td>117000</td><td>78500</td><td>38500</td><td>22230</td><td>16270</td></tr>
+                <tr><td class="excel-row-num">3</td><td>1002</td><td>Ian 2022</td><td>CasaB</td><td>165000</td><td>0</td><td>165000</td><td>105000</td><td>60000</td><td>31350</td><td>28650</td></tr>
+                <tr><td class="excel-row-num">4</td><td>1003</td><td>Feb 2022</td><td>CasaC</td><td>320000</td><td>15000</td><td>305000</td><td>195000</td><td>110000</td><td>57950</td><td>52050</td></tr>
+                <tr><td class="excel-row-num">5</td><td>1004</td><td>Feb 2022</td><td>CasaA</td><td>118000</td><td>2000</td><td>116000</td><td>79000</td><td>37000</td><td>22040</td><td>14960</td></tr>
+                <tr><td class="excel-row-num">6</td><td colspan="10" style="color:#bbb;text-align:left;">... încă 113 rânduri ...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+        <div style="text-align:center; padding:var(--space-2) 0;">
+          <div style="font-size:0.8rem; color:var(--text-3); margin-bottom:var(--space-2);">Cum am transformat asta?</div>
+          <button class="bi-wizard-btn" id="biWizardBtn" onclick="showBIReport()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-3px;margin-right:6px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Transformă cu Power BI
+          </button>
+        </div>
+
+        <div class="bi-report hidden" id="biReport">
+          <div class="bi-report-titlebar">
+            <div>
+              <div class="rtitle">Sales &amp; Cash Flow Overview · Proiect Imobiliar</div>
+              <div class="rsub">Power BI Desktop · Date reale · 2022–2024</div>
+            </div>
+            <div class="bi-live-dot">Live</div>
+          </div>
+          <div class="bi-slicers">
+            <div class="bi-slicer-group">
+              <span class="bi-slicer-label">An:</span>
+              <button class="bi-slicer-btn active" onclick="setFilter('year','all',this)">Toți</button>
+              <button class="bi-slicer-btn" onclick="setFilter('year','2022',this)">2022</button>
+              <button class="bi-slicer-btn" onclick="setFilter('year','2023',this)">2023</button>
+              <button class="bi-slicer-btn" onclick="setFilter('year','2024',this)">2024</button>
+            </div>
+            <div class="slicer-sep"></div>
+            <div class="bi-slicer-group">
+              <span class="bi-slicer-label">Tip casă:</span>
+              <button class="bi-slicer-btn active" onclick="setFilter('type','all',this)">Toate</button>
+              <button class="bi-slicer-btn" onclick="setFilter('type','casaA',this)">Casa A</button>
+              <button class="bi-slicer-btn" onclick="setFilter('type','casaB',this)">Casa B</button>
+              <button class="bi-slicer-btn" onclick="setFilter('type','casaC',this)">Casa C</button>
+              <button class="bi-slicer-btn" onclick="setFilter('type','casaD',this)">Casa D</button>
+            </div>
+          </div>
+          <div class="bi-report-body">
+            <div class="bi-report-kpis">
+              <div class="bi-kpi-card" style="--kpi-c:var(--primary);">
+                <div class="klbl">Vânzări Totale</div>
+                <div class="kval" id="kpi-sales">€56.8M</div>
+                <div class="kdelta" id="kpi-sales-d">▲ Toată perioada</div>
+              </div>
+              <div class="bi-kpi-card" style="--kpi-c:var(--accent-teal);">
+                <div class="klbl">Profit Net</div>
+                <div class="kval" id="kpi-profit">€16.2M</div>
+                <div class="kdelta" id="kpi-profit-d">▲ Marjă 28.5%</div>
+              </div>
+              <div class="bi-kpi-card" style="--kpi-c:var(--pbi-yellow-dark);">
+                <div class="klbl">Case Vândute</div>
+                <div class="kval" id="kpi-units">376</div>
+                <div class="kdelta" id="kpi-units-d">▲ +38% vs 2022</div>
+              </div>
+              <div class="bi-kpi-card" style="--kpi-c:var(--accent-cyan);">
+                <div class="klbl">Nr. Clienți</div>
+                <div class="kval" id="kpi-clients">354</div>
+                <div class="kdelta" id="kpi-clients-d">▲ 94% rată unică</div>
+              </div>
+            </div>
+            <div class="bi-charts-row">
+              <div class="bi-chart-box">
+                <div class="bi-chart-ttl" id="lineChartTitle">Trend Profit pe ani</div>
+                <div class="line-chart-wrap">
+                  <svg class="line-chart-svg" id="lineChart" viewBox="0 0 600 220" preserveAspectRatio="none"></svg>
+                  <div class="lc-tooltip" id="lcTooltip"><span class="tip-period"></span><span class="tip-value"></span></div>
+                </div>
+              </div>
+              <div class="bi-chart-box">
+                <div class="bi-chart-ttl">Distribuție pe tip de casă</div>
+                <div class="pie-outer" id="pieOuter">
+                  <svg class="pie-svg" id="pieChart" viewBox="0 0 160 160"></svg>
+                  <div class="pie-tooltip" id="pieTooltip"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="muted" style="margin-top:var(--space-3);">Același fișier. Două feluri de a-l citi. În Sesiunea 2 intram în Desktop.</p>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Joc de cunoaștere · 1/5</span>
+        <h2>Unde te încarci cel mai bine?</h2>
+        <div class="wyr-split poll" data-poll-id="s01-q-loc" data-chart="bar" data-seed="0,0,0,0,0">
+          <div class="poll-options">
+            <button class="poll-opt" type="button" data-color="#059669"><span class="opt-letter">A</span><span class="opt-text">Munte</span></button>
+            <button class="poll-opt" type="button" data-color="#14B8A6"><span class="opt-letter">B</span><span class="opt-text">Mare</span></button>
+            <button class="poll-opt" type="button" data-color="#84CC16"><span class="opt-letter">C</span><span class="opt-text">Oraș</span></button>
+            <button class="poll-opt" type="button" data-color="#06B6D4"><span class="opt-letter">D</span><span class="opt-text">Acasă, liniște</span></button>
+            <button class="poll-opt" type="button" data-color="#F59E0B"><span class="opt-letter">E</span><span class="opt-text">Undeva nou, în mișcare</span></button>
+          </div>
+          <div class="wyr-chart-panel"><div data-wyr-chart></div></div>
+        </div>
+      </article>
+      <article class="slide">
+        <span class="slide-eyebrow">Joc de cunoaștere · 2/5</span>
+        <h2>Când ești cel mai productiv?</h2>
+        <div class="wyr-split poll" data-poll-id="s01-q-timp" data-chart="pie" data-seed="0,0,0,0,0">
+          <div class="poll-options">
+            <button class="poll-opt" type="button" data-color="#059669"><span class="opt-letter">A</span><span class="opt-text">Dimineața</span></button>
+            <button class="poll-opt" type="button" data-color="#14B8A6"><span class="opt-letter">B</span><span class="opt-text">După-amiaza</span></button>
+            <button class="poll-opt" type="button" data-color="#84CC16"><span class="opt-letter">C</span><span class="opt-text">Seara</span></button>
+            <button class="poll-opt" type="button" data-color="#06B6D4"><span class="opt-letter">D</span><span class="opt-text">Noaptea</span></button>
+            <button class="poll-opt" type="button" data-color="#F59E0B"><span class="opt-letter">E</span><span class="opt-text">Depinde de zi</span></button>
+          </div>
+          <div class="wyr-chart-panel"><div data-wyr-chart></div></div>
+        </div>
+      </article>
+      <article class="slide">
+        <span class="slide-eyebrow">Joc de cunoaștere · 3/5</span>
+        <h2>Cum lucrezi cel mai bine?</h2>
+        <div class="wyr-split poll" data-poll-id="s01-q-lucru" data-chart="donut" data-seed="0,0,0,0,0">
+          <div class="poll-options">
+            <button class="poll-opt" type="button" data-color="#059669"><span class="opt-letter">A</span><span class="opt-text">Singur</span></button>
+            <button class="poll-opt" type="button" data-color="#14B8A6"><span class="opt-letter">B</span><span class="opt-text">În doi</span></button>
+            <button class="poll-opt" type="button" data-color="#84CC16"><span class="opt-letter">C</span><span class="opt-text">Echipă mică</span></button>
+            <button class="poll-opt" type="button" data-color="#06B6D4"><span class="opt-letter">D</span><span class="opt-text">Echipă mare</span></button>
+            <button class="poll-opt" type="button" data-color="#F59E0B"><span class="opt-letter">E</span><span class="opt-text">Mix, depinde de task</span></button>
+          </div>
+          <div class="wyr-chart-panel"><div data-wyr-chart></div></div>
+        </div>
+      </article>
+      <article class="slide">
+        <span class="slide-eyebrow">Joc de cunoaștere · 4/5</span>
+        <h2>Cum înveți ceva nou?</h2>
+        <div class="wyr-split poll" data-poll-id="s01-q-invat" data-chart="columns" data-seed="0,0,0,0,0">
+          <div class="poll-options">
+            <button class="poll-opt" type="button" data-color="#059669"><span class="opt-letter">A</span><span class="opt-text">Curs structurat</span></button>
+            <button class="poll-opt" type="button" data-color="#14B8A6"><span class="opt-letter">B</span><span class="opt-text">Video / tutorial</span></button>
+            <button class="poll-opt" type="button" data-color="#84CC16"><span class="opt-letter">C</span><span class="opt-text">Documentație</span></button>
+            <button class="poll-opt" type="button" data-color="#06B6D4"><span class="opt-letter">D</span><span class="opt-text">Încerc până îmi iese</span></button>
+            <button class="poll-opt" type="button" data-color="#F59E0B"><span class="opt-letter">E</span><span class="opt-text">Întreb pe cineva</span></button>
+          </div>
+          <div class="wyr-chart-panel"><div data-wyr-chart></div></div>
+        </div>
+      </article>
+      <article class="slide">
+        <span class="slide-eyebrow">Joc de cunoaștere · 5/5</span>
+        <h2>Ce film / serial pui când vrei să te destindzi?</h2>
+        <div class="wyr-split poll" data-poll-id="s01-q-relax" data-chart="pie" data-seed="0,0,0,0">
+          <div class="poll-options">
+            <button class="poll-opt" type="button" data-color="#059669"><span class="opt-letter">A</span><span class="opt-text">Insula Iubirii</span></button>
+            <button class="poll-opt" type="button" data-color="#14B8A6"><span class="opt-letter">B</span><span class="opt-text">Friends</span></button>
+            <button class="poll-opt" type="button" data-color="#84CC16"><span class="opt-letter">C</span><span class="opt-text">Compilații cu pisici</span></button>
+            <button class="poll-opt" type="button" data-color="#F59E0B"><span class="opt-letter">D</span><span class="opt-text">Orice comedie, în general</span></button>
+          </div>
+          <div class="wyr-chart-panel"><div data-wyr-chart></div></div>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Prezentări</span>
+        <h2>Cine ești tu</h2>
+        <div class="intro-points">
+          <div class="intro-point">
+            <div class="n">01</div>
+            <h3>Cum te numești</h3>
+          </div>
+          <div class="intro-point">
+            <div class="n">02</div>
+            <h3>Cu ce te ocupi</h3>
+          </div>
+          <div class="intro-point">
+            <div class="n">03</div>
+            <h3>De ce ești aici</h3>
+          </div>
+        </div>
+        <div class="wyr-split poll" data-poll-id="s01-q-context" data-chart="bar" data-plain-bars data-seed="0,0,0,0,0,0">
+          <div class="poll-options">
+            <button class="poll-opt" type="button" data-color="#059669"><span class="opt-letter">A</span><span class="opt-text">Student / la început</span></button>
+            <button class="poll-opt" type="button" data-color="#14B8A6"><span class="opt-letter">B</span><span class="opt-text">Corporate</span></button>
+            <button class="poll-opt" type="button" data-color="#84CC16"><span class="opt-letter">C</span><span class="opt-text">Freelancer / consultant</span></button>
+            <button class="poll-opt" type="button" data-color="#06B6D4"><span class="opt-letter">D</span><span class="opt-text">Reconversie</span></button>
+            <button class="poll-opt" type="button" data-color="#F59E0B"><span class="opt-letter">E</span><span class="opt-text">Antreprenor</span></button>
+            <button class="poll-opt" type="button" data-color="#8B5CF6"><span class="opt-letter">F</span><span class="opt-text">Altceva</span></button>
+          </div>
+          <div class="wyr-chart-panel"><div data-wyr-chart></div></div>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Cum lucrăm</span>
+        <h2>Structura sesiunilor</h2>
+        <div class="flow-map" data-flow-map>
+          <div class="flow-line">
+            <button type="button" class="flow-card is-on" data-flow="obiectiv" style="--delay:0.05s">
+              <span class="n">01</span>
+              <h3>Obiectiv</h3>
+              <p>Scopul orei</p>
+            </button>
+            <button type="button" class="flow-card" data-flow="concept" style="--delay:0.1s">
+              <span class="n">02</span>
+              <h3>Concept</h3>
+              <p>Ideea cheie</p>
+            </button>
+            <button type="button" class="flow-card" data-flow="demo" style="--delay:0.15s">
+              <span class="n">03</span>
+              <h3>Demo</h3>
+              <p>Vezi pe ecran</p>
+            </button>
+            <button type="button" class="flow-card" data-flow="follow" style="--delay:0.2s">
+              <span class="n">04</span>
+              <h3>Follow-along</h3>
+              <p>Facem împreună</p>
+            </button>
+            <button type="button" class="flow-card" data-flow="challenge" style="--delay:0.25s">
+              <span class="n">05</span>
+              <h3>Mini-challenge</h3>
+              <p>Încearcă singur</p>
+            </button>
+            <button type="button" class="flow-card" data-flow="recap" style="--delay:0.3s">
+              <span class="n">06</span>
+              <h3>Recap</h3>
+              <p>Ce reținem</p>
+            </button>
+            <button type="button" class="flow-card" data-flow="tema" style="--delay:0.35s">
+              <span class="n">07</span>
+              <h3>Temă</h3>
+              <p>Pentru acasă</p>
+            </button>
+          </div>
+          <div class="flow-detail">
+            <div class="flow-panel is-on" data-flow-panel="obiectiv">
+              <div class="jp-head">
+                <h3>Obiectiv</h3>
+                <span class="jp-tag">Start</span>
+              </div>
+              <p>Spunem clar ce vei putea face la finalul orei — o propoziție, nu o listă. Știi din prima unde ajungem și de ce merită să fii atent.</p>
+            </div>
+            <div class="flow-panel" data-flow-panel="concept">
+              <div class="jp-head">
+                <h3>Concept</h3>
+                <span class="jp-tag">Idee</span>
+              </div>
+              <p>Explicăm ideea din spate pe un exemplu real din business. Înțelegi de ce există funcția sau tiparul, înainte să apeși pe butoane în Desktop.</p>
+            </div>
+            <div class="flow-panel" data-flow-panel="demo">
+              <div class="jp-head">
+                <h3>Demo</h3>
+                <span class="jp-tag">Ecran</span>
+              </div>
+              <p>Rezolvarea apare pe ecran: ce se apasă, ce observăm la fiecare pas, unde greșesc de obicei oamenii. Tu urmărești; încă nu construiești.</p>
+            </div>
+            <div class="flow-panel" data-flow-panel="follow">
+              <div class="jp-head">
+                <h3>Follow-along</h3>
+                <span class="jp-tag">Împreună</span>
+              </div>
+              <p>Un al doilea exemplu, pe același tipar. Facem împreună în Power BI, cu ghidare. Pe măsură ce mergi, ghidarea scade — rămâi cu mâna pe mouse.</p>
+            </div>
+            <div class="flow-panel" data-flow-panel="challenge">
+              <div class="jp-head">
+                <h3>Mini-challenge</h3>
+                <span class="jp-tag">Singur</span>
+              </div>
+              <p>Câteva minute pe cont propriu, pe un task scurt. Contează să aplici ce ai văzut, nu să termini tot. Apoi verificăm împreună ce a ieșit.</p>
+            </div>
+            <div class="flow-panel" data-flow-panel="recap">
+              <div class="jp-head">
+                <h3>Recap</h3>
+                <span class="jp-tag">Închidere</span>
+              </div>
+              <p>Trei puncte la final: ce nu știai la început și ce poți spune acum. Fără slide-uri lungi — doar ce merită ținut minte până data viitoare.</p>
+            </div>
+            <div class="flow-panel" data-flow-panel="tema">
+              <div class="jp-head">
+                <h3>Temă</h3>
+                <span class="jp-tag">Acasă</span>
+              </div>
+              <p>O sarcină scurtă, legată direct de ora de azi. Te pregătește pentru următoarea sesiune — nu temă de umplutură, ci un pas mic pe care îl faci singur.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide">
+        <div class="closing-hero">
+          <span class="closing-eyebrow">Sesiunea 1 · încheiat</span>
+          <h2 class="closing-title">Ai văzut harta.<br/>Urmează Desktop-ul.</h2>
+          <p class="closing-quote-line">„In God we trust; all others bring data.” <span>W. Edwards Deming</span></p>
+        </div>
+
+        <div class="closing-band">
+          <p class="band-label">Ce rămâne din azi</p>
+          <div class="band-row is-two">
+            <div class="band-card">
+              <span class="n">01</span>
+              <strong>Cine sunt</strong>
+              <span class="d">Dan — Power BI Developer &amp; trainer. De la Drept la date, cu mix tehnic și uman.</span>
+            </div>
+            <div class="band-card">
+              <span class="n">02</span>
+              <strong>Cum vom lucra</strong>
+              <span class="d">Obiectiv → concept → demo → follow-along → challenge → recap → temă.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="closing-band">
+          <p class="band-label">Temă până data viitoare</p>
+          <div class="band-row is-single">
+            <a class="band-card is-link" href="https://www.youtube.com/watch?v=cHkMfPtmfyE" target="_blank" rel="noopener">
+              <span class="n">01</span>
+              <strong>Ce este Business Intelligence</strong>
+              <span class="d">Video scurt. Instalarea Power BI o facem împreună la Sesiunea 2.</span>
+              <span class="go">Vezi →</span>
+            </a>
+          </div>
+        </div>
+
+        <p class="closing-next"><strong>Sesiunea 2</strong> · ecosistem Power BI și primul tur în Desktop</p>
+      </article>
+    </main>
+
+    <nav class="slide-nav">
+      <button class="slide-nav-btn" data-slide-prev>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Înapoi
+      </button>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+        <div class="slide-counter" data-slide-counter>1 / 11</div>
+        <div class="slide-dots" data-slide-dots></div>
+      </div>
+      <button class="slide-nav-btn" data-slide-next>
+        Următor
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </nav>
+  </div>
+  <script src="../../js/main.js"></script>
+  <script src="../../js/report.js"></script>
+</body>
+</html>

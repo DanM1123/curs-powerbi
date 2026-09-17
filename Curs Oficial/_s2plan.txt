@@ -1,0 +1,201 @@
+Sesiunea 2
+Ce este BI · Ecosistem Power BI · Înțelegerea datelor
+Durată estimată: 2–3 ore  ·  Nivel: Începători
+ 
+Obiectivul sesiunii
+La finalul acestei sesiuni vei putea:
+●       Explica ce este Business Intelligence și de ce contează
+●       Naviga în interfața Power BI Desktop și Power BI Service
+●       Înțelege procesul complet de implementare – de la date brute la raport
+●       Recunoaște tipurile de date și structura unui tabel (tabel, coloană, rând)
+●       Identifica probleme comune în date și înțelege de ce curățarea este primul pas
+ 
+Structura sesiunii
+ 
+1
+Concept – Ce este BI?
+Teorie scurtă: ce înseamnă BI, de ce există, cum arată în practică.
+2
+Ecosistem Power BI
+Prezentare interfață Desktop + Service. Unde trăiesc datele, rapoartele, dashboardurile.
+3
+Demo – Proces end-to-end
+Demonstrație cap-coadă: de la un fișier Excel brut până la un raport publicat.
+4
+Concept – Structura datelor
+Tabel, coloană, rând, tipuri de date – explicat cu exemple reale.
+5
+Follow-along
+Examinăm împreună un dataset: identificăm structura și tipurile de date.
+6
+Mini-challenge
+5–10 min: participanții primesc un fișier și trebuie să identifice problemele din date.
+7
+Recap + Temă
+Ce am învățat azi și ce urmează acasă.
+ 
+1. Ce este Business Intelligence?
+Definiție simplă
+BI = procesul prin care transformăm date brute în informații utile pentru decizii de business.
+💡  Nu e un software, e o disciplină. Power BI e doar instrumentul cu care o aplicăm.
+ 
+De ce există BI?
+Fără BI
+Cu BI
+Date împrăștiate în zeci de fișiere Excel
+Sursă unică de adevăr, accesibilă tuturor
+Rapoarte făcute manual, lunar
+Rapoarte automate, actualizate în timp real
+Decizii bazate pe instinct
+Decizii bazate pe date
+Întrebări la care răspunzi greu: "de ce a scăzut vânzarea?"
+Răspunsuri vizuale, la un click distanță
+ 
+Exemple reale de use-case
+●       Retail: urmărirea vânzărilor pe produs, regiune, perioadă
+●       HR: monitorizarea fluctuației de personal și costurilor cu angajații
+●       Financiar: buget vs. realizat, cash flow, profitabilitate
+●       Marketing: performanța campaniilor, costul per lead, conversia
+💡  Întreabă participanții: în ce domeniu lucrați? Ce date aveți acum dar nu le folosiți bine?
+ 
+2. Ecosistemul Power BI
+Componentele principale
+ 
+Power BI Desktop
+Aplicația instalată local. Aici construim modelul de date și rapoartele.
+Power BI Service
+Platforma web (app.powerbi.com). Publicăm, partajăm și colaborăm.
+Power Query
+Editorul de transformare a datelor. Curățăm și modelăm datele înainte să le folosim.
+DAX
+Limbajul de calcul. Scriem formule pentru măsuri și coloane calculate. (sesiunile viitoare)
+ 
+Instalare Power BI Desktop
+●       Descarcă de pe microsoft.com/power-bi sau din Microsoft Store
+●       Creează cont cu email dat de la IT School
+●       Conectează-te la Power BI Service: app.powerbi.com
+💡  Verifică că toată lumea are Desktop deschis și contul conectat înainte să continui.
+ 
+Turul interfeței – Desktop
+●       Ribbon (sus): meniuri principale – Home, Insert, Modeling, View
+●       Panouri laterale: Fields (câmpurile), Visualizations (tipuri de grafice), Filters
+●       Canvas: zona de lucru unde construim paginile raportului
+●       Vizualizările: Report View, Data View, Model View – ce face fiecare
+💡  Fă un tur live, 5 minute. Arată unde este fiecare panou și când îl folosim.
+ 
+3. Demo – Procesul complet de implementare
+Prezentare cap-coadă, fără întreruperi. Participanții urmăresc, nu reproduc.
+💡  Verbalizează procesul de gândire, nu doar acțiunile: "Observ că... → Mă aștept să... → Verific dacă..."
+La demo asta pot face o sursa mica de date cu oameni din grupa si vom facem un mic raport despre ei ca sa si publicăm in Service sa aibe toti access la el
+Fluxul demonstrat
+①
+Sursa de date
+Deschidem un fișier Excel cu date de vânzări. Arătăm cum arată brut – dezordonat, cu probleme.
+②
+Conectare & Power Query
+Get Data → Excel. Intrăm în Power Query Editor. Vedem datele și primele probleme.
+③
+Curățare minimă
+Setăm tipurile de date corecte, eliminăm rânduri goale, redenumim coloanele. Close & Apply.
+④
+Modelul de date
+Model View: arătăm tabelele și relațiile dintre ele (preview – detalii în sesiunile viitoare).
+⑤
+Vizualizări
+Construim 2–3 vizualizări simple: un card cu total vânzări, un bar chart pe luni, un slicer.
+⑥
+Publicare
+Publish → Service. Deschidem raportul în browser. Asta este destinația finală a muncii noastre.
+💡  Scopul demo-ului nu e să înțeleagă tot acum – e să vadă tabloul mare și să știe unde ne îndreptăm.
+ 
+4. Înțelegerea datelor
+Tabel, coloană, rând
+Înainte să facem orice în Power BI, trebuie să înțelegem cu ce lucrăm.
+ 
+Concept
+Ce este
+Exemplu
+Tabel
+O colecție de date pe un subiect
+Tabelul "Vânzări", Tabelul "Clienți"
+Coloană
+Un atribut al entității
+DataVânzare, NumeClient, Sumă
+Rând
+O înregistrare / un eveniment
+O vânzare pe data de 12 ian, client X, 500 lei
+ 
+Tipuri de date
+Power BI trebuie să știe ce tip de valoare se află în fiecare coloană. Dacă tipul e greșit, calculele vor eșua.
+ 
+Tip de date
+Exemplu
+Ce se poate face cu el
+Număr întreg
+5, 100, -3
+Calcule, sume, medii
+Număr zecimal
+19.99, 3.14
+Prețuri, procente, rate
+Text
+"București", "Ion"
+Filtre, categorii, etichete
+Dată / Oră
+12/01/2024
+Filtrare pe perioade, calcule de timp
+Boolean
+True / False
+Condiții, filtre da/nu
+ 
+💡  Problemă clasică: o coloană cu sume importate ca Text – nu poți face SUM() pe ea. Arată eroarea și soluția.
+ 
+Probleme frecvente în date – preview curățare
+Acesta este un prim contact cu ideea de curățare a datelor. Detalii în sesiunea dedicată Power Query.
+ 
+Problemă
+Impact
+Tip de date greșit
+Sumele text nu pot fi calculate; datele text nu pot fi filtrate cronologic
+Valori lipsă (null)
+Calculele returnează erori sau rezultate incorecte
+Rânduri duplicate
+Totalurile sunt inflate artificial
+Coloane fără nume clar
+Imposibil de interpretat în raport
+Date în formate mixte
+"12/01/24" vs "2024-01-12" – Power BI nu le poate agrega
+💡  Decizie de sesiune: dacă timpul permite, facem o curățare minimă live. Dacă nu, rămâne pentru sesiunea următoare.
+ 
+5. Mini-challenge
+Durată
+5–10 minute
+Fișier
+dataset_brut_s2.xlsx (furnizat de trainer)
+Sarcina
+Deschide fișierul în Power BI. Identifică: câte tabele sunt, câte coloane are fiecare, ce tip de date are fiecare coloană și cel puțin 2 probleme vizibile.
+Livrabil
+Nu e nevoie să rezolvi – doar să identifici. Notează răspunsurile undeva.
+ 
+💡  La final, întreabă: cine a găsit o problemă pe care nu o anticipau? Ce i-a surprins?
+ 
+6. Recap
+La începutul sesiunii nu știam ce este BI și nu ne orientam în Power BI. Acum:
+●       Știm ce înseamnă BI și de ce e util
+●       Ne orientăm în interfața Power BI Desktop și Service
+●       Înțelegem fluxul complet: date brute → model → raport → publicare
+●       Înțelegem structura datelor: tabel, coloană, rând
+●       Recunoaștem tipurile de date și problemele frecvente
+ 
+Temă – Sesiunea 2
+ 
+Obligatoriu ①
+Deschide dataset_brut_s2.xlsx în Power BI Desktop. Conectează-te la fișier prin Get Data → Excel.
+Obligatoriu ②
+Explorează Data View: identifică toate coloanele, tipurile lor de date și cel puțin 3 probleme de calitate a datelor. Notează-le.
+Opțional ③
+Încearcă să schimbi manual tipul de date pentru o coloană în Power Query. Observă ce se întâmplă.
+Bonus
+Găsește un dataset public (Kaggle, data.gov.ro) pe un domeniu care te interesează și adu-l la sesiunea viitoare.
+Resurse
+Documentație tipuri de date Power BI: docs.microsoft.com/power-bi/connect-data/desktop-data-types
+ 
