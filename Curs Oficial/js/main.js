@@ -480,16 +480,14 @@
           let pctEl = opt.querySelector('.opt-pct');
           if (!pctEl) { pctEl = document.createElement('span'); pctEl.className = 'opt-pct'; opt.appendChild(pctEl); }
           bar.style.width = (showCounts ? (total ? pct : 0) : pct) + '%';
-          if (showCounts) {
-            pctEl.textContent = String(c);
-            pctEl.setAttribute('title', c === 1 ? '1 vot' : c + ' voturi');
-            opt.setAttribute('data-votes', String(c));
-          } else {
-            pctEl.textContent = (plainBars || !total) ? '' : (pct + '%');
-          }
+          pctEl.textContent = showCounts
+            ? String(c)
+            : (c === 1 ? '1 pers.' : c + ' pers.');
+          pctEl.setAttribute('title', c === 1 ? '1 vot' : c + ' voturi');
+          opt.setAttribute('data-votes', String(c));
           opt.classList.toggle('selected', myVote === i);
         });
-        poll.classList.toggle('voted', myVote !== null || (showCounts && total > 0));
+        poll.classList.toggle('voted', myVote !== null || total > 0);
         if (showCounts) {
           const revealRoot = poll.closest('[data-reveal]');
           if (revealRoot) updateRevealScore(revealRoot);
@@ -584,8 +582,8 @@
     if (!host) return;
     const vals = labels.map((_, i) => votes[i] || 0);
     const plain = poll.hasAttribute('data-plain-bars');
-    if (type === 'pie') host.innerHTML = svgPie(labels, vals, colors, total, false);
-    else if (type === 'donut') host.innerHTML = svgPie(labels, vals, colors, total, true);
+    if (type === 'pie') host.innerHTML = svgPie(labels, vals, colors, total, false, letters);
+    else if (type === 'donut') host.innerHTML = svgPie(labels, vals, colors, total, true, letters);
     else if (type === 'columns') host.innerHTML = svgColumns(labels, vals, colors, total, plain, letters);
     else if (type === 'stacked') host.innerHTML = svgStacked(labels, vals, colors, total);
     else host.innerHTML = htmlBars(labels, vals, colors, total, letters);
@@ -597,8 +595,8 @@
       const letter = (letters && letters[i]) || String.fromCharCode(65 + i);
       const w = v ? Math.max(18, (v / maxV) * 100) : 0;
       const fill = w
-        ? `<div class="wyr-track-fill" style="width:${w}%;background:${colors[i]}"><span class="wyr-bar-label">${letter}</span></div>`
-        : `<span class="wyr-bar-label is-empty">${letter}</span>`;
+        ? `<div class="wyr-track-fill" style="width:${w}%;background:${colors[i]}"><span class="wyr-bar-label">${letter} · ${v}</span></div>`
+        : `<span class="wyr-bar-label is-empty">${letter} · 0</span>`;
       return `<div class="wyr-track-row">
         <div class="wyr-track">${fill}</div>
       </div>`;
@@ -623,15 +621,12 @@
       if (h) s += `<rect x="${x}" y="${y}" width="${barW}" height="${h}" rx="8" fill="${colors[i]}"/>`;
       const labelY = h ? y + Math.min(22, h / 2 + 5) : H - padB - 12;
       s += `<text x="${x + barW / 2}" y="${labelY}" text-anchor="middle" font-size="13" font-weight="800" fill="${h ? '#fff' : 'var(--text-3)'}">${letter}</text>`;
-      if (!plain && total && v) {
-        const pct = Math.round((v / total) * 100);
-        s += `<text x="${x + barW / 2}" y="${y - 6}" text-anchor="middle" font-size="11" font-weight="700" fill="${colors[i]}">${pct}%</text>`;
-      }
+      s += `<text x="${x + barW / 2}" y="${h ? y - 6 : H - padB - usable - 6}" text-anchor="middle" font-size="11" font-weight="700" fill="${colors[i]}">${v}</text>`;
     });
     return s + '</svg>';
   }
 
-  function svgPie(labels, vals, colors, total, donut) {
+  function svgPie(labels, vals, colors, total, donut, letters) {
     const H = 280;
     const cx = 280, cy = 140, r = 108, ir = donut ? 58 : 0;
     const sum = total || 1;
@@ -653,7 +648,11 @@
       s += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="var(--bg-alt)"/>`;
       if (donut) s += `<circle cx="${cx}" cy="${cy}" r="${ir}" fill="var(--surface)"/>`;
     }
-    return s + '</svg>';
+    const legend = vals.map((v, i) => {
+      const letter = (letters && letters[i]) || String.fromCharCode(65 + i);
+      return `<span class="wyr-pie-tag"><i style="background:${colors[i]}"></i>${letter} · ${v}</span>`;
+    }).join('');
+    return `<div class="wyr-pie-wrap">${s}</svg><div class="wyr-pie-legend">${legend}</div></div>`;
   }
 
   function svgStacked(labels, vals, colors, total) {

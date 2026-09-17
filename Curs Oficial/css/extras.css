@@ -342,8 +342,6 @@ html.session-locked .slide-progress {
   padding: 0;
 }
 .poll-q, .poll-meta, .wyr-badge { display: none; }
-.poll[data-plain-bars] .opt-pct,
-.poll[data-plain-bars].voted .poll-opt .opt-pct { display: none !important; }
 .wyr-chart-panel {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -845,6 +843,28 @@ html.session-locked .slide-progress {
 .wyr-bar-label.is-empty {
   color: var(--text-3);
   padding-left: 12px;
+}
+.wyr-pie-wrap { display: flex; flex-direction: column; height: 100%; }
+.wyr-pie-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  justify-content: center;
+  padding-top: 8px;
+}
+.wyr-pie-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.wyr-pie-tag i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 .data-layers {
