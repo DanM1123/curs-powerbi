@@ -502,27 +502,25 @@
         votes[i] = (votes[i] || 0) + 1;
         persist();
         renderPoll();
-        if (live) {
-          const { db, ref, runTransaction } = live;
-          runTransaction(ref(db, `${POLL_ROOT}/${id}/${i}`), (current) => (current || 0) + 1)
-            .catch((err) => {
-              console.error('[polls] write failed', err);
-              showPollsWarn();
-            });
+        if (live && live.vote) {
+          live.vote(`${POLL_ROOT}/${id}`, i).catch((err) => {
+            console.error('[polls] write failed', err);
+            showPollsWarn();
+          });
         }
       };
 
-      if (live) {
-        const { db, ref, onValue } = live;
-        onValue(ref(db, `${POLL_ROOT}/${id}`), (snap) => {
-          if (!snap.exists()) { renderPoll(); return; }
-          const data = snap.val() || {};
-          const remoteTotal = Object.values(data).reduce((a, b) => a + (parseInt(b, 10) || 0), 0);
-          if (!remoteTotal) { renderPoll(); return; }
-          opts.forEach((_, i) => {
-            const remote = parseInt(data[i], 10) || 0;
-            votes[i] = Math.max(votes[i] || 0, (seedArr[i] || 0) + remote);
-          });
+      if (live && live.listen) {
+        live.listen(`${POLL_ROOT}/${id}/ballots`, (data) => {
+          const counts = {};
+          opts.forEach((_, i) => { counts[i] = seedArr[i] || 0; });
+          if (data && typeof data === 'object') {
+            Object.values(data).forEach((choice) => {
+              const n = parseInt(choice, 10);
+              if (!Number.isNaN(n)) counts[n] = (counts[n] || 0) + 1;
+            });
+          }
+          opts.forEach((_, i) => { votes[i] = counts[i] || 0; });
           persist();
           renderPoll();
         }, (err) => {

@@ -1,26 +1,43 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
-import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
+(function () {
+  'use strict';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyD-MBeyRdYImuqaOVZrKf_SOCBZwwX-7xo",
-  authDomain: "fir-powerbi-72371.firebaseapp.com",
-  databaseURL: "https://fir-powerbi-72371-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "fir-powerbi-72371",
-  storageBucket: "fir-powerbi-72371.firebasestorage.app",
-  messagingSenderId: "641058539581",
-  appId: "1:641058539581:web:a68e8f6a09fb2a06bb0254"
-};
+  const DB = 'https://curspowerbi-7d88b-default-rtdb.europe-west1.firebasedatabase.app';
 
-window.LIVE_POLLS_READY = (async () => {
-  try {
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    window.LIVE_POLLS = { db, ref, onValue, runTransaction };
-    console.info("[polls] live sync enabled (Firebase)");
-    return window.LIVE_POLLS;
-  } catch (err) {
-    console.warn("[polls] Firebase init failed, falling back to local mode:", err);
-    window.LIVE_POLLS = null;
-    return null;
-  }
+  const jsonUrl = (path) => DB + '/' + String(path).replace(/^\/+|\/+$/g, '') + '.json';
+
+  window.LIVE_POLLS = {
+    listen(path, onData, onError) {
+      const url = jsonUrl(path);
+      const pull = () => fetch(url).then((r) => {
+        if (!r.ok) throw new Error('read failed');
+        return r.json();
+      }).then(onData).catch(onError);
+
+      pull();
+      const es = new EventSource(url);
+      es.addEventListener('put', (e) => {
+        try {
+          const parsed = JSON.parse(e.data);
+          onData(parsed && Object.prototype.hasOwnProperty.call(parsed, 'data') ? parsed.data : parsed);
+        } catch (err) {
+          if (onError) onError(err);
+        }
+      });
+      es.addEventListener('patch', pull);
+      return () => es.close();
+    },
+    vote(path, optionIndex) {
+      const key = Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+      return fetch(jsonUrl(path + '/ballots/' + key), {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(optionIndex)
+      }).then((r) => {
+        if (!r.ok) throw new Error('write failed');
+      });
+    }
+  };
+
+  window.LIVE_POLLS_READY = Promise.resolve(window.LIVE_POLLS);
+  console.info('[polls] live sync enabled');
 })();
