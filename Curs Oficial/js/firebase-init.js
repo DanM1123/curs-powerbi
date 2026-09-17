@@ -11,11 +11,16 @@ const firebaseConfig = {
   appId: "1:641058539581:web:a68e8f6a09fb2a06bb0254"
 };
 
-try {
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-  window.LIVE_POLLS = { db, ref, onValue, runTransaction };
-  console.info("[polls] live sync enabled (Firebase)");
-} catch (err) {
-  console.warn("[polls] Firebase init failed, falling back to local mode:", err);
-}
+window.LIVE_POLLS_READY = (async () => {
+  try {
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    window.LIVE_POLLS = { db, ref, onValue, runTransaction };
+    console.info("[polls] live sync enabled (Firebase)");
+    return window.LIVE_POLLS;
+  } catch (err) {
+    console.warn("[polls] Firebase init failed, falling back to local mode:", err);
+    window.LIVE_POLLS = null;
+    return null;
+  }
+})();

@@ -308,6 +308,22 @@ html.session-locked .slide-progress {
   25% { transform: translateX(-7px); }
   75% { transform: translateX(7px); }
 }
+.polls-live-warn {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 18px;
+  z-index: 90;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: #FEF3C7;
+  color: #92400E;
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
 
 /* One question + chart per slide */
 .wyr-split {

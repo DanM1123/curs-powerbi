@@ -21,7 +21,11 @@
     document.querySelectorAll('.theme-toggle').forEach(btn => {
       btn.addEventListener('click', () => setTheme(getTheme() === 'dark' ? 'light' : 'dark'));
     });
-    const start = () => initStudent();
+    const start = () => {
+      const ready = window.LIVE_POLLS_READY;
+      if (ready && typeof ready.then === 'function') ready.then(() => initStudent());
+      else initStudent();
+    };
     if (window.SessionGate && window.SessionGate.whenOpen) {
       window.SessionGate.whenOpen.then(start);
     } else {
@@ -500,11 +504,15 @@
         renderPoll();
         if (live) {
           const { db, ref, runTransaction } = live;
-          runTransaction(ref(db, `${POLL_ROOT}/${id}/${i}`), (current) => (current || 0) + 1).catch(() => {});
+          runTransaction(ref(db, `${POLL_ROOT}/${id}/${i}`), (current) => (current || 0) + 1)
+            .catch((err) => {
+              console.error('[polls] write failed', err);
+              showPollsWarn();
+            });
         }
       };
 
-        if (live) {
+      if (live) {
         const { db, ref, onValue } = live;
         onValue(ref(db, `${POLL_ROOT}/${id}`), (snap) => {
           if (!snap.exists()) { renderPoll(); return; }
@@ -517,12 +525,24 @@
           });
           persist();
           renderPoll();
-        }, () => renderPoll());
+        }, (err) => {
+          console.error('[polls] read failed', err);
+          showPollsWarn();
+          renderPoll();
+        });
       }
 
       opts.forEach((opt, i) => opt.addEventListener('click', () => cast(i)));
       renderPoll();
     });
+  }
+
+  function showPollsWarn() {
+    if (document.querySelector('.polls-live-warn')) return;
+    const el = document.createElement('div');
+    el.className = 'polls-live-warn';
+    el.textContent = 'Voturile nu sunt sincronizate. Publică regulile în Realtime Database.';
+    document.body.appendChild(el);
   }
 
   function renderWyrChart(poll, type, labels, colors, votes, total, letters) {
