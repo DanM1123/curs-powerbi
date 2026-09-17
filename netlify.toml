@@ -1,2 +1,3 @@
 [build]
   publish = "Curs Oficial"
+  functions = "netlify/functions"

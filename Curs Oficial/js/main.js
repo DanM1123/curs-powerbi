@@ -511,16 +511,11 @@
       };
 
       if (live && live.listen) {
-        live.listen(`${POLL_ROOT}/${id}/ballots`, (data) => {
-          const counts = {};
-          opts.forEach((_, i) => { counts[i] = seedArr[i] || 0; });
-          if (data && typeof data === 'object') {
-            Object.values(data).forEach((choice) => {
-              const n = parseInt(choice, 10);
-              if (!Number.isNaN(n)) counts[n] = (counts[n] || 0) + 1;
-            });
-          }
-          opts.forEach((_, i) => { votes[i] = counts[i] || 0; });
+        live.listen(`${POLL_ROOT}/${id}`, (data) => {
+          opts.forEach((_, i) => {
+            const remote = parseInt((data && (data[i] ?? data[String(i)])), 10) || 0;
+            votes[i] = (seedArr[i] || 0) + remote;
+          });
           persist();
           renderPoll();
         }, (err) => {
@@ -539,7 +534,7 @@
     if (document.querySelector('.polls-live-warn')) return;
     const el = document.createElement('div');
     el.className = 'polls-live-warn';
-    el.textContent = 'Voturile nu sunt sincronizate. Publică regulile în Realtime Database.';
+    el.textContent = 'Voturile nu sunt sincronizate. Reîncarcă pagina în 1 minut.';
     document.body.appendChild(el);
   }
 
