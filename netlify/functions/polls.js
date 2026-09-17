@@ -1,18 +1,23 @@
+const DB = 'https://curspowerbi-7d88b-default-rtdb.europe-west1.firebasedatabase.app';
+
 const json = (status, body) => ({
   statusCode: status,
   headers: {
     'Content-Type': 'application/json',
-    'Cache-Control': 'no-store'
+    'Cache-Control': 'no-store',
+    'Access-Control-Allow-Origin': '*'
   },
   body: JSON.stringify(body)
 });
 
-const keyFor = (id) => String(id || '').replace(/[^a-zA-Z0-9._-]/g, '_').slice(0, 180);
+const pathFor = (id) => String(id || '')
+  .replace(/[^a-zA-Z0-9/_-]/g, '_')
+  .replace(/^\/+|\/+$/g, '')
+  .slice(0, 180);
 
-const countsFrom = (record) => {
+const countsFrom = (ballots) => {
   const counts = {};
-  const ballots = record && record.ballots ? record.ballots : {};
-  Object.values(ballots).forEach((choice) => {
+  Object.values(ballots || {}).forEach((choice) => {
     const n = parseInt(choice, 10);
     if (Number.isNaN(n)) return;
     counts[n] = (counts[n] || 0) + 1;
@@ -21,27 +26,34 @@ const countsFrom = (record) => {
 };
 
 exports.handler = async (event) => {
+  if (event.httpMethod === 'OPTIONS') return json(200, { ok: true });
+
   try {
-    const { getStore } = await import('@netlify/blobs');
-    const store = getStore('polls');
+    const id = pathFor(
+      event.httpMethod === 'GET'
+        ? (event.queryStringParameters || {}).id
+        : JSON.parse(event.body || '{}').id
+    );
+    if (!id) return json(400, { error: 'missing id' });
 
     if (event.httpMethod === 'GET') {
-      const id = keyFor((event.queryStringParameters || {}).id);
-      if (!id) return json(400, { error: 'missing id' });
-      const record = (await store.get(id, { type: 'json' })) || { ballots: {} };
-      return json(200, countsFrom(record));
+      const res = await fetch(`${DB}/${id}/ballots.json`);
+      const ballots = await res.json();
+      return json(200, countsFrom(ballots));
     }
 
     if (event.httpMethod === 'POST') {
-      const payload = JSON.parse(event.body || '{}');
-      const id = keyFor(payload.id);
-      const option = parseInt(payload.option, 10);
-      if (!id || Number.isNaN(option)) return json(400, { error: 'missing vote' });
-      const record = (await store.get(id, { type: 'json' })) || { ballots: {} };
-      record.ballots = record.ballots || {};
-      record.ballots[`${Date.now()}_${Math.random().toString(36).slice(2, 8)}`] = option;
-      await store.setJSON(id, record);
-      return json(200, countsFrom(record));
+      const option = parseInt(JSON.parse(event.body || '{}').option, 10);
+      if (Number.isNaN(option)) return json(400, { error: 'missing vote' });
+      const key = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+      const res = await fetch(`${DB}/${id}/ballots/${key}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(option)
+      });
+      if (!res.ok) throw new Error('firebase write ' + res.status);
+      const all = await fetch(`${DB}/${id}/ballots.json`);
+      return json(200, countsFrom(await all.json()));
     }
 
     return json(405, { error: 'method not allowed' });
