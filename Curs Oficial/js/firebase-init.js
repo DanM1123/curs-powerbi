@@ -25,6 +25,16 @@
         if (!r.ok) throw new Error('write failed');
         return r.json();
       });
+    },
+    reset(path) {
+      return fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'reset', id: path })
+      }).then((r) => {
+        if (!r.ok) throw new Error('reset failed');
+        return r.json();
+      });
     }
   };
 

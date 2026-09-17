@@ -43,7 +43,14 @@ exports.handler = async (event) => {
     }
 
     if (event.httpMethod === 'POST') {
-      const option = parseInt(JSON.parse(event.body || '{}').option, 10);
+      const payload = JSON.parse(event.body || '{}');
+      if (payload.action === 'reset') {
+        const res = await fetch(`${DB}/${id}.json`, { method: 'DELETE' });
+        if (!res.ok) throw new Error('reset failed ' + res.status);
+        return json(200, { ok: true });
+      }
+
+      const option = parseInt(payload.option, 10);
       if (Number.isNaN(option)) return json(400, { error: 'missing vote' });
       const key = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
       const res = await fetch(`${DB}/${id}/ballots/${key}.json`, {
