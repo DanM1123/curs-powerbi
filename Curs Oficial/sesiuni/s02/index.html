@@ -39,93 +39,391 @@
     <div class="slide-progress"><div class="fill" data-slide-progress></div></div>
     <main class="slide-deck">
 
-      <!-- 1 · Agenda -->
+      <!-- 1 · Introducere: conceptele zilei -->
       <article class="slide active">
-        <div class="agenda-slide-wrap">
+        <div class="agenda-slide-wrap s2-concepts-wrap">
           <div class="agenda-header">
             <h1 class="agenda-title">Introducerea în <span class="agenda-title-accent">Business Intelligence</span></h1>
+            <p class="agenda-sub">Conceptele zilei, dintr-o privire</p>
           </div>
-          <div class="agenda-list-col">
-            <div class="agenda-card-item" style="--delay:0.08s"><div class="aci-num">01</div><div class="aci-body"><div class="aci-title">Ce este Business Intelligence</div></div></div>
-            <div class="agenda-card-item" style="--delay:0.14s"><div class="aci-num">02</div><div class="aci-body"><div class="aci-title">Joburi în data</div></div></div>
-            <div class="agenda-card-item" style="--delay:0.2s"><div class="aci-num">03</div><div class="aci-body"><div class="aci-title">Aceeași întrebare, două răspunsuri</div></div></div>
-            <div class="agenda-card-item" style="--delay:0.26s"><div class="aci-num">04</div><div class="aci-body"><div class="aci-title">Ce face Power BI</div></div></div>
-            <div class="agenda-card-item" style="--delay:0.32s"><div class="aci-num">05</div><div class="aci-body"><div class="aci-title">Ecosistemul: Desktop, Service, Mobile</div></div></div>
-            <div class="agenda-card-item" style="--delay:0.38s"><div class="aci-num">06</div><div class="aci-body"><div class="aci-title">Instalare și tur al interfeței</div></div></div>
-            <div class="agenda-card-item" style="--delay:0.44s"><div class="aci-num">07</div><div class="aci-body"><div class="aci-title">Teoria datelor</div></div></div>
-            <div class="agenda-card-item" style="--delay:0.5s"><div class="aci-num">08</div><div class="aci-body"><div class="aci-title">Mini-challenge</div></div></div>
+          <div class="s2-intro">
+            <div class="s2-intro-card">
+              <div class="s2-intro-top"><span>01</span></div>
+              <h3>Business Intelligence</h3>
+              <p>Datele brute devin informație, iar informația susține decizia.</p>
+              <div class="s2-intro-chips">
+                <span>Date brute</span><span>Informație</span><span>Decizie</span>
+              </div>
+            </div>
+            <div class="s2-intro-card">
+              <div class="s2-intro-top"><span>02</span></div>
+              <h3>Power BI Desktop</h3>
+              <p>Aici construiești: aduci datele, le legi și desenezi raportul.</p>
+              <div class="s2-intro-chips">
+                <span>Model semantic</span><span>Raport</span><span>Vizuale &amp; DAX</span>
+              </div>
+            </div>
+            <div class="s2-intro-card is-cloud">
+              <div class="s2-intro-top"><span>03</span></div>
+              <h3>Power BI Service</h3>
+              <p>Aici ajunge raportul la echipă: partajat, la zi, cu acces controlat.</p>
+              <div class="s2-intro-chips">
+                <span>Workspace</span><span>Publicare</span><span>Refresh &amp; acces</span>
+              </div>
+            </div>
           </div>
         </div>
       </article>
 
-      <!-- 2 · Ce este BI + 6 etape -->
-      <article class="slide">
-        <span class="slide-eyebrow">Pasul 1 · Contextul mai larg</span>
+      <!-- 2 · Introducere teoretică BI -->
+      <article class="slide is-roomy is-bi-intro">
+        <span class="slide-eyebrow">Pasul 1 · Fundamentul</span>
         <h2>Ce este <span class="agenda-title-accent">Business Intelligence</span>?</h2>
-        <div class="s2-example">
-          <p>Te-ai uitat vreodată pe <strong>Netflix</strong> sau <strong>Glovo</strong>? Îți afișează exact ce-ai comandat data trecută, ce comandă alții în zona ta. <strong>Asta e Business Intelligence.</strong> Datele tuturor, transformate în recomandări care fac decizia ta mai ușoară. Într-o firmă funcționează identic — întrebările sunt despre vânzări, costuri sau clienți.</p>
-        </div>
-
-        <div data-stepper>
-          <div class="s2-step-head">
-            <h3>De la problemă la decizie în 6 etape:</h3>
-            <span class="s2-step-count" data-step-count>0 / 6</span>
-          </div>
-
-          <div class="s2-stepper is-flow">
-            <div class="s2-step" data-step>
-              <span class="s2-step-tag">Etapa 1</span>
-              <div class="s2-step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
-              <h4>Discuții cu echipele</h4>
-              <p>Înțelegem problemele reale și ce decizii se iau greșit.</p>
-            </div>
-            <div class="s2-step" data-step>
-              <span class="s2-step-tag">Etapa 2</span>
-              <div class="s2-step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-              <h4>Căutarea surselor</h4>
-              <p>Excel, ERP, baze de date — unde trăiesc datele?</p>
-            </div>
-            <div class="s2-step" data-step>
-              <span class="s2-step-tag">Etapa 3</span>
-              <div class="s2-step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
-              <h4>Aducerea datelor</h4>
-              <p>Get Data: conectăm sursele și aducem datele în Power BI.</p>
-            </div>
-            <div class="s2-step" data-step>
-              <span class="s2-step-tag">Etapa 4</span>
-              <div class="s2-step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-              <h4>Curățare &amp; modelare</h4>
-              <p>Eliminăm erorile, legăm tabelele între ele, calculăm.</p>
-            </div>
-            <div class="s2-step" data-step>
-              <span class="s2-step-tag">Etapa 5</span>
-              <div class="s2-step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
-              <h4>Construire raport</h4>
-              <p>KPI-uri, grafice, slicere — vizualul interactiv.</p>
-            </div>
-            <div class="s2-step is-final" data-step>
-              <span class="s2-step-tag">Etapa 6</span>
-              <div class="s2-step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-              <h4>Decizie</h4>
-              <p>Comand mai mult în Nord.</p>
-            </div>
-          </div>
-
-          <div class="s2-step-controls">
-            <button type="button" class="s2-step-btn" data-step-prev disabled>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-              Anterior
+        <div class="s2-bi-intro" data-bi-intro>
+          <div class="s2-bi-intro-bar" role="tablist" aria-label="Teme Business Intelligence">
+            <button type="button" class="s2-bi-intro-tab active" role="tab" aria-selected="true" data-bi-topic="def">
+              <span class="sn">01</span>
+              <span class="st">Definiție</span>
             </button>
-            <button type="button" class="s2-step-btn primary" data-step-next>Etapa 1 →</button>
+            <button type="button" class="s2-bi-intro-tab" role="tab" aria-selected="false" data-bi-topic="scop">
+              <span class="sn">02</span>
+              <span class="st">Scopul</span>
+            </button>
+          </div>
+
+          <div class="s2-bi-intro-panel is-on" data-bi-panel="def" role="tabpanel">
+            <div class="s2-bi-intro-full">
+              <div class="s2-bi-intro-main">
+                <span class="s2-bi-intro-badge">Ce este BI</span>
+                <h3>Definiție</h3>
+                <p><strong>Business Intelligence (BI)</strong> este procesul organizat prin care o organizație colectează date brute din surse interne și externe, le transformă în informații structurate și le prezintă într-o formă care susține luarea deciziilor de business: pe baza evidențelor, nu a instinctului.</p>
+                <div class="s2-bi-intro-note">
+                  <strong>De reținut:</strong> BI nu este un software. Power BI, Tableau sau Excel sunt doar instrumente. Disciplina rămâne aceeași: date → informație → decizie.
+                </div>
+              </div>
+              <div class="s2-bi-intro-side" aria-hidden="true">
+                <div class="s2-bi-intro-card">
+                  <span class="vk">Într-o frază</span>
+                  <p class="big">Transformăm datele pe care le avem în răspunsuri pe care le putem folosi.</p>
+                  <ul>
+                    <li>Nu e doar „raportare”</li>
+                    <li>Nu e doar „grafice frumoase”</li>
+                    <li>Este sprijin pentru decizie</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="s2-bi-intro-panel" data-bi-panel="scop" role="tabpanel" hidden>
+            <div class="s2-bi-intro-full">
+              <div class="s2-bi-intro-main">
+                <span class="s2-bi-intro-badge">Rolul în firmă</span>
+                <h3>Scopul BI într-o organizație</h3>
+                <p>BI răspunde la întrebări concrete: <em>ce s-a întâmplat</em>, <em>de ce</em>, <em>ce urmează</em> și <em>ce merită făcut</em>. Scopul nu este „să avem grafice”, ci să reducă incertitudinea în deciziile de zi cu zi: de la stocuri și campanii, până la buget și resurse umane.</p>
+                <div class="s2-bi-intro-qgrid">
+                  <div><span>Descriptive</span><strong>Ce s-a întâmplat?</strong></div>
+                  <div><span>Diagnostic</span><strong>De ce s-a întâmplat?</strong></div>
+                  <div><span>Predictiv</span><strong>Ce urmează?</strong></div>
+                  <div><span>Prescriptiv</span><strong>Ce facem?</strong></div>
+                </div>
+              </div>
+              <div class="s2-bi-intro-side" aria-hidden="true">
+                <div class="s2-bi-intro-card">
+                  <span class="vk">Exemplu de întrebare</span>
+                  <p class="quote">„De ce au scăzut vânzările luna trecută în Nord?”</p>
+                  <p class="cap">Fără BI: răspuns târziu, din mai multe Excel-uri. Cu BI: filtrare pe regiune + categorie, în ședință.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 · BI în industrii (interactiv) -->
+      <article class="slide is-roomy">
+        <span class="slide-eyebrow">Pasul 2 · Aplicabilitate</span>
+        <h2>Cum arată BI în <span class="agenda-title-accent">practica afacerilor</span></h2>
+        <div class="s2-industries" data-industries>
+          <div class="s2-ind-bar" role="tablist" aria-label="Domenii BI">
+            <button type="button" class="s2-ind-tab active" role="tab" aria-selected="true" data-ind="retail">Retail</button>
+            <button type="button" class="s2-ind-tab" role="tab" aria-selected="false" data-ind="marketing">Marketing</button>
+            <button type="button" class="s2-ind-tab" role="tab" aria-selected="false" data-ind="finance">Finanțe</button>
+          </div>
+
+          <!-- Retail -->
+          <div class="s2-ind-panel is-on" data-ind-panel="retail" role="tabpanel">
+            <div class="s2-ind-story">
+              <div class="s2-ind-context">
+                <span class="s2-ind-tag">Retail · FreshGo</span>
+                <h3>Context</h3>
+                <p>FreshGo are <strong>12 magazine</strong> în țară. În martie, veniturile totale par ok (+6%), dar magazinul din <strong>Cluj-Nord</strong> raportează lipsă la raft pe băuturi și stoc plin pe congelate. Managerul regional nu știe unde să intervină.</p>
+              </div>
+
+              <div class="s2-ind-body">
+                <div class="s2-ind-qs">
+                  <h4>Întrebările pe care le avem</h4>
+                  <ol>
+                    <li>Ce categorie aduce cei mai mulți bani în martie?</li>
+                    <li>Unde sunt produsele aproape de epuizare?</li>
+                    <li>Ce categorie vinde slab și blochează stocul?</li>
+                  </ol>
+                </div>
+
+                <div class="s2-ind-report">
+                  <div class="s2-ind-report-head">
+                    <strong>Raportul BI · Vânzări &amp; stoc · Martie</strong>
+                    <span>FreshGo · Cluj-Nord</span>
+                  </div>
+                  <div class="s2-ind-kpis">
+                    <div class="ik"><span>Venit magazin</span><strong>482k lei</strong><em>+6% vs feb</em></div>
+                    <div class="ik is-hot"><span>Top categorie</span><strong>Băuturi 148k lei</strong><em>31% din venit</em></div>
+                    <div class="ik is-warn"><span>Stoc critic</span><strong>12 produse</strong><em>sub 3 zile</em></div>
+                  </div>
+                  <div class="s2-ind-bars">
+                    <div class="ib" style="--h:88%"><span>Băuturi</span><em>148k lei</em></div>
+                    <div class="ib" style="--h:62%"><span>Snack</span><em>98k</em></div>
+                    <div class="ib" style="--h:54%"><span>Fresh</span><em>86k</em></div>
+                    <div class="ib" style="--h:48%"><span>Lactate</span><em>74k</em></div>
+                    <div class="ib is-low" style="--h:28%"><span>Congelat</span><em>42k</em></div>
+                  </div>
+                  <div class="s2-ind-answers">
+                    <div class="ans"><span>Q1</span><p><strong>Băuturile</strong> aduc 148k lei: aproape o treime din magazin.</p></div>
+                    <div class="ans"><span>Q2</span><p><strong>12 produse</strong> de băuturi au stoc pentru sub 3 zile: risc de lipsă la raft.</p></div>
+                    <div class="ans"><span>Q3</span><p><strong>Congelatele</strong> vând doar 42k, dar ocupă rafturi; stocul e prea mare.</p></div>
+                  </div>
+                  <p class="s2-ind-decision"><strong>Decizie:</strong> comandă urgentă pe cele 12 băuturi + reducere stoc congelate cu promoție locală.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Marketing -->
+          <div class="s2-ind-panel" data-ind-panel="marketing" role="tabpanel" hidden>
+            <div class="s2-ind-story">
+              <div class="s2-ind-context">
+                <span class="s2-ind-tag">Marketing · NovaTech</span>
+                <h3>Context</h3>
+                <p>NovaTech are un buget de <strong>45.000 lei</strong> pe Q1 pentru campanii pe Search, Social și Email. La jumătatea trimestrului au cheltuit 38.200 lei, dar nu știu care canal aduce clienți ieftin și care arde banii.</p>
+              </div>
+
+              <div class="s2-ind-body">
+                <div class="s2-ind-qs">
+                  <h4>Întrebările pe care le avem</h4>
+                  <ol>
+                    <li>Câți clienți am obținut din cele 38.200 lei?</li>
+                    <li>Care canal are costul pe lead cel mai mic?</li>
+                    <li>Unde ardem bugetul fără rezultate?</li>
+                  </ol>
+                  <div class="s2-ind-formula">
+                    <strong>Cum calculăm costul pe lead</strong>
+                    <p>Cost pe lead = bani cheltuiți pe canal ÷ număr de lead-uri.</p>
+                    <p class="ex">Exemplu Social: 17.640 lei ÷ 420 lead-uri ≈ <strong>42 lei / lead</strong>.</p>
+                    <p>Cost pe client (sau pe categorie de rezultat) = bani cheltuiți ÷ clienți obținuți. Exemplu total: 38.200 ÷ 186 ≈ <strong>205 lei / client</strong>.</p>
+                  </div>
+                </div>
+
+                <div class="s2-ind-report">
+                  <div class="s2-ind-report-head">
+                    <strong>Raportul BI · Campanii Q1</strong>
+                    <span>NovaTech · buget 45k</span>
+                  </div>
+                  <div class="s2-ind-kpis">
+                    <div class="ik"><span>Cheltuit</span><strong>38.2k lei</strong><em>din 45k</em></div>
+                    <div class="ik is-hot"><span>Clienți noi</span><strong>186</strong><em>205 lei / client</em></div>
+                    <div class="ik"><span>Lead-uri</span><strong>1.120</strong><em>conversie 3.8%</em></div>
+                  </div>
+                  <div class="s2-ind-channels">
+                    <div class="ch is-best">
+                      <span class="ch-name">Search</span>
+                      <strong>14 lei / lead</strong>
+                      <em>420 lead-uri · 92 clienți</em>
+                    </div>
+                    <div class="ch">
+                      <span class="ch-name">Email</span>
+                      <strong>9 lei / lead</strong>
+                      <em>280 lead-uri · 58 clienți</em>
+                    </div>
+                    <div class="ch is-bad">
+                      <span class="ch-name">Social</span>
+                      <strong>42 lei / lead</strong>
+                      <em>420 lead-uri · 36 clienți</em>
+                    </div>
+                  </div>
+                  <div class="s2-ind-answers">
+                    <div class="ans"><span>Q1</span><p><strong>186 clienți</strong> din 38.2k lei: cost mediu 205 lei / client.</p></div>
+                    <div class="ans"><span>Q2</span><p><strong>Email</strong> (9 lei/lead) și <strong>Search</strong> (14 lei/lead) sunt eficiente.</p></div>
+                    <div class="ans"><span>Q3</span><p><strong>Social</strong> costă 42 lei/lead și aduce doar 36 clienți: cel mai scump canal.</p></div>
+                  </div>
+                  <p class="s2-ind-decision"><strong>Decizie:</strong> mută 8.000 lei din Social către Search + Email pentru restul de Q1.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Finanțe -->
+          <div class="s2-ind-panel" data-ind-panel="finance" role="tabpanel" hidden>
+            <div class="s2-ind-story">
+              <div class="s2-ind-context">
+                <span class="s2-ind-tag">Finanțe · Cafe Luna</span>
+                <h3>Context</h3>
+                <p>Cafe Luna e o cafenea cu un buget lunar de cheltuieli de <strong>80.000 lei</strong>. În martie, vânzările au fost bune (95.000 lei), dar proprietarul simte că a cheltuit prea mult. Vrea să vadă clar: unde a depășit bugetul și cât profit i-a rămas.</p>
+              </div>
+
+              <div class="s2-ind-body">
+                <div class="s2-ind-qs">
+                  <h4>Întrebările pe care le avem</h4>
+                  <ol>
+                    <li>Am rămas în bugetul de 80.000 lei?</li>
+                    <li>La ce categorii am cheltuit mai mult decât planificat?</li>
+                    <li>Cât profit a rămas din cele 95.000 lei încasate?</li>
+                  </ol>
+                </div>
+
+                <div class="s2-ind-report">
+                  <div class="s2-ind-report-head">
+                    <strong>Raportul BI · Buget vs. Realizat · Martie</strong>
+                    <span>Cafe Luna</span>
+                  </div>
+                  <div class="s2-ind-kpis">
+                    <div class="ik"><span>Încasări</span><strong>95.000 lei</strong><em>martie</em></div>
+                    <div class="ik is-warn"><span>Cheltuieli</span><strong>88.000 lei</strong><em>buget 80.000</em></div>
+                    <div class="ik is-hot"><span>Profit</span><strong>7.000 lei</strong><em>țintă 15.000</em></div>
+                  </div>
+
+                  <div class="s2-ind-budget">
+                    <div class="s2-ind-budget-legend">
+                      <span class="lg-b"><i></i>Buget</span>
+                      <span class="lg-r"><i></i>Realizat</span>
+                    </div>
+                    <div class="s2-ind-budget-row">
+                      <span class="cat">Chirie</span>
+                      <div class="bars">
+                        <div class="b" style="--w:60%"><em>12k</em></div>
+                        <div class="r ok" style="--w:60%"><em>12k</em></div>
+                      </div>
+                      <span class="delta ok">0</span>
+                    </div>
+                    <div class="s2-ind-budget-row">
+                      <span class="cat">Salarii</span>
+                      <div class="bars">
+                        <div class="b" style="--w:80%"><em>32k</em></div>
+                        <div class="r ok" style="--w:80%"><em>32k</em></div>
+                      </div>
+                      <span class="delta ok">0</span>
+                    </div>
+                    <div class="s2-ind-budget-row">
+                      <span class="cat">Materii prime</span>
+                      <div class="bars">
+                        <div class="b" style="--w:50%"><em>20k</em></div>
+                        <div class="r over" style="--w:65%"><em>26k</em></div>
+                      </div>
+                      <span class="delta bad">+6k</span>
+                    </div>
+                    <div class="s2-ind-budget-row">
+                      <span class="cat">Marketing</span>
+                      <div class="bars">
+                        <div class="b" style="--w:20%"><em>8k</em></div>
+                        <div class="r over" style="--w:40%"><em>16k</em></div>
+                      </div>
+                      <span class="delta bad">+8k</span>
+                    </div>
+                    <div class="s2-ind-budget-row">
+                      <span class="cat">Utilități</span>
+                      <div class="bars">
+                        <div class="b" style="--w:20%"><em>8k</em></div>
+                        <div class="r ok" style="--w:5%"><em>2k</em></div>
+                      </div>
+                      <span class="delta ok">−6k</span>
+                    </div>
+                  </div>
+
+                  <div class="s2-ind-answers">
+                    <div class="ans"><span>Q1</span><p>Nu: am cheltuit <strong>88.000 lei</strong>: cu 8.000 peste buget.</p></div>
+                    <div class="ans"><span>Q2</span><p><strong>Materii prime (+6k)</strong> și <strong>Marketing (+8k)</strong>: restul e în țintă.</p></div>
+                    <div class="ans"><span>Q3</span><p>Profit: <strong>7.000 lei</strong> (95k − 88k), sub ținta de 15.000 lei.</p></div>
+                  </div>
+                  <p class="s2-ind-decision"><strong>Decizie:</strong> reduce campaniile plătite la jumătate și renegociază furnizorul de cafea: țintă: +8.000 lei profit în aprilie.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4 · Etapele procesului BI (dezvăluire la click) -->
+      <article class="slide is-roomy is-bi-stages">
+        <span class="slide-eyebrow">Pasul 3 · Procesul</span>
+        <h2>De la problemă la <span class="agenda-title-accent">decizie</span> în 6 etape</h2>
+        <div class="s2-stages-reveal" data-bi-stages>
+          <div class="s2-reveal-grid">
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">1</span>
+              <span class="s2-reveal-blank" aria-hidden="true">?</span>
+              <div class="s2-reveal-content">
+                <h3>Discuții cu echipele</h3>
+                <p>Înțelegem problemele reale și ce decizii se iau greșit sau prea târziu. Definim întrebările și KPI-urile înainte să atingem datele.</p>
+                <span class="ex">Ex: „Nord · Băuturi · față de februarie”: abia apoi căutăm sursele.</span>
+              </div>
+            </button>
+
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">2</span>
+              <span class="s2-reveal-blank" aria-hidden="true">?</span>
+              <div class="s2-reveal-content">
+                <h3>Căutarea surselor</h3>
+                <p>Unde trăiesc datele? Excel, ERP, CRM, baze SQL. Mapăm sursele și decidem ce intră în prima versiune a raportului.</p>
+                <span class="ex">Ex: vânzări în ERP, stoc în WMS, promoții într-un Excel.</span>
+              </div>
+            </button>
+
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">3</span>
+              <span class="s2-reveal-blank" aria-hidden="true">?</span>
+              <div class="s2-reveal-content">
+                <h3>Aducerea datelor</h3>
+                <p>Conectăm sursele în Power BI (Get Data) și aducem tabelele într-un loc comun, gata de transformare.</p>
+                <span class="ex">Ex: Get Data → Excel → Vanzari_Martie.xlsx → Refresh data viitoare.</span>
+              </div>
+            </button>
+
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">4</span>
+              <span class="s2-reveal-blank" aria-hidden="true">?</span>
+              <div class="s2-reveal-content">
+                <h3>Curățare &amp; modelare</h3>
+                <p>Reparăm tipuri greșite, valori lipsă, duplicate. Legăm tabelele și creăm calculele de bază.</p>
+                <span class="ex">Ex: „200 lei” → număr; legăm Vânzări cu Produse.</span>
+              </div>
+            </button>
+
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">5</span>
+              <span class="s2-reveal-blank" aria-hidden="true">?</span>
+              <div class="s2-reveal-content">
+                <h3>Construire raport</h3>
+                <p>KPI-uri, grafice, slicere. Raportul ghidează privirea spre ce contează pentru decizie: nu arată „tot ce avem”.</p>
+                <span class="ex">Ex: click pe „Nord” → tot ecranul se filtrează.</span>
+              </div>
+            </button>
+
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">6</span>
+              <span class="s2-reveal-blank" aria-hidden="true">?</span>
+              <div class="s2-reveal-content">
+                <h3>Decizie</h3>
+                <p>Cineva folosește informația: ia o acțiune și verifică ulterior dacă a funcționat. Fără asta, ai doar un dashboard.</p>
+                <span class="ex">Ex: comandă mai mult pe băuturi în Nord + promoție locală.</span>
+              </div>
+            </button>
           </div>
         </div>
       </article>
 
       <!-- Joburi în data -->
-      <article class="slide">
+      <article class="slide is-roomy">
         <span class="slide-eyebrow">Harta rolurilor</span>
         <h2>Unde stă Power BI</h2>
-        <p class="slide-lead">Drumul datelor, de la sisteme până la decizie. Apasă un rol.</p>
         <div class="jobs-flow" data-jobs-map>
           <div class="jobs-scale">
             <span>Sisteme, infrastructură</span>
@@ -146,17 +444,17 @@
               <span class="pin">Aici</span>
               <span class="n">03</span>
               <span class="t">Power BI Developer</span>
-              <span class="s">Model, DAX, raport interactiv — livrat împreună cu BA</span>
+              <span class="s">Model, DAX, raport interactiv: livrat împreună cu BA</span>
             </button>
             <button type="button" class="job-chip" data-job="ba">
               <span class="n">04</span>
               <span class="t">Business Analyst</span>
-              <span class="s">Definește ce trebuie în raport și validează rezultatul</span>
+              <span class="s">Analist de business: cerințe, procese, soluții</span>
             </button>
             <button type="button" class="job-chip" data-job="analyst">
               <span class="n">05</span>
               <span class="t">Data Analyst</span>
-              <span class="s">Răspunde la întrebări de business din date</span>
+              <span class="s">Analist de date: rapoarte, dashboard-uri, insights</span>
             </button>
             <button type="button" class="job-chip" data-job="scientist">
               <span class="n">06</span>
@@ -170,7 +468,7 @@
                 <h3>Data Architect</h3>
                 <span class="jp-tag">Design</span>
               </div>
-              <p>Alege tehnologiile, definește standardele și harta surselor. Nu construiește rapoarte zilnic — decide cum arată sistemul pe termen lung.</p>
+              <p>Alege tehnologiile, definește standardele și harta surselor. Nu construiește rapoarte zilnic: decide cum arată sistemul pe termen lung.</p>
               <div class="jp-tools"><span>Modelare</span><span>Governance</span><span>Azure</span></div>
             </div>
             <div class="job-panel" data-job-panel="engineer">
@@ -194,156 +492,92 @@
                 <h3>Business Analyst</h3>
                 <span class="jp-tag">Cerințe</span>
               </div>
-              <p>Strânge nevoile din business, definește KPI-urile și regulile („ce e o vânzare validă?”). Îți dă brief-ul, testează raportul și confirmă că răspunde la întrebarea corectă — tu îl construiești în Power BI.</p>
-              <div class="jp-tools"><span>Cerințe</span><span>KPI-uri</span><span>User stories</span><span>Validare</span></div>
+              <p>Se concentrează pe înțelegerea problemelor de business, identificarea și colectarea cerințelor și îmbunătățirea proceselor, colaborând cu echipele pentru a găsi soluții potrivite.</p>
+              <div class="jp-tools"><span>Cerințe</span><span>KPI-uri</span><span>Procese</span><span>Validare</span></div>
             </div>
             <div class="job-panel" data-job-panel="analyst">
               <div class="jp-head">
                 <h3>Data Analyst</h3>
                 <span class="jp-tag">Analiză</span>
               </div>
-              <p>Primește o întrebare („de ce au scăzut vânzările?”), deschide Excel, SQL sau raportul și scoate răspunsul. Consumă BI-ul, nu îl construiește.</p>
-              <div class="jp-tools"><span>Excel</span><span>SQL</span><span>Rapoarte</span></div>
+              <p>Se concentrează pe analiza datelor, crearea de rapoarte și dashboard-uri și identificarea informațiilor relevante care ajută la luarea deciziilor.</p>
+              <div class="jp-tools"><span>Analiză</span><span>Rapoarte</span><span>Dashboard-uri</span><span>Insights</span></div>
             </div>
             <div class="job-panel" data-job-panel="scientist">
               <div class="jp-head">
                 <h3>Data Scientist</h3>
                 <span class="jp-tag">Predicție</span>
               </div>
-              <p>Construiește modele care estimează ce urmează (churn, cerere, risc). Alt drum față de raportare — tot din aceleași date de bază.</p>
+              <p>Construiește modele care estimează ce urmează (churn, cerere, risc). Alt drum față de raportare: tot din aceleași date de bază.</p>
               <div class="jp-tools"><span>Python</span><span>ML</span><span>Statistică</span></div>
             </div>
           </div>
         </div>
-      </article>
-
-      <!-- 3 · Aceeași întrebare, două răspunsuri (toate exemplele) -->
-      <article class="slide">
-        <span class="slide-eyebrow">Contrast</span>
-        <h2>Aceeași întrebare, două răspunsuri</h2>
-        <p class="slide-lead" style="margin-top:0">Alege domeniul. Întrebarea se schimbă. Apoi compari cum se răspunde fără BI și cu BI — inclusiv ce afli din raport.</p>
-        <div class="s2-depts" data-cases>
-          <div class="s2-dept-bar" role="tablist">
-            <button type="button" class="s2-dept-tab active" data-case="vanzari">Vânzări</button>
-            <button type="button" class="s2-dept-tab" data-case="retail">Retail</button>
-            <button type="button" class="s2-dept-tab" data-case="hr">Resurse umane</button>
-            <button type="button" class="s2-dept-tab" data-case="fin">Financiar</button>
-            <button type="button" class="s2-dept-tab" data-case="mkt">Marketing</button>
+        <div class="s2-flow-mini" aria-label="Unde se încadrează Power BI în fluxul datelor">
+          <div class="s2-fn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg>
+            <strong>Surse</strong><em>ERP, fișiere, cloud</em>
           </div>
-
-          <div class="s2-q-hero">
-            <span class="s2-q-kicker" data-case-kicker>Întrebarea de luni dimineață</span>
-            <p class="s2-q-text" data-case-q>„De ce au scăzut vânzările luna trecută?”</p>
+          <svg class="s2-fn-link" viewBox="0 0 64 20" aria-hidden="true"><line x1="2" y1="10" x2="62" y2="10"/><circle r="3.2"><animateMotion dur="1.5s" repeatCount="indefinite" path="M2 10 L62 10"/></circle></svg>
+          <div class="s2-fn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h11l-2-2"/><path d="M20 17H9l2 2"/><path d="M15 5l5 2-5 2"/><path d="M9 19l-5-2 5-2"/></svg>
+            <strong>Colectare</strong><em>ETL, API</em>
           </div>
-
-          <div class="s2-toggle" data-contrast>
-            <div class="s2-toggle-bar" role="tablist">
-              <button type="button" class="s2-toggle-btn is-off" data-contrast-btn="off" aria-pressed="false">Fără BI</button>
-              <button type="button" class="s2-toggle-btn is-on" data-contrast-btn="on" aria-pressed="false">Cu BI</button>
-            </div>
-
-            <div class="s2-toggle-panel" data-contrast-panel="off" hidden>
-              <div class="s2-toggle-copy">
-                <h3>Cum se lucrează</h3>
-                <p data-case-off>Datele stau în patru fișiere separate: magazine, marketing, contabilitate și un <code>raport_final_v3.xlsx</code>. Consolidezi manual. O formulă trage din rândul greșit. Rezultatul ajunge ca o captură pe chat — de obicei joi, nu luni.</p>
-              </div>
-              <div class="s2-viz s2-viz-off" aria-hidden="true">
-                <div class="s2-viz-files">
-                  <span class="s2-file f1">vanzari_magazine.xlsx</span>
-                  <span class="s2-file f2">campanii_mkt.csv</span>
-                  <span class="s2-file f3">contabil_mar.xlsx</span>
-                  <span class="s2-file f4">raport_final_v3.xlsx</span>
-                </div>
-                <div class="s2-viz-formula">=SUM(D2:D999) → <em>#VALUE!</em></div>
-                <div class="s2-viz-chat">
-                  <span class="bubble">Total martie: 184.200? sau 176.400?</span>
-                  <span class="meta">captură trimisă pe chat · joi 16:40</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="s2-toggle-panel" data-contrast-panel="on" hidden>
-              <div class="s2-toggle-copy">
-                <h3>Cum se lucrează</h3>
-                <p data-case-on-work>Un singur raport. În ședință filtrezi luna și regiunea. Tot ecranul se actualizează. Nu mai cauți în fișiere.</p>
-                <div class="s2-finding">
-                  <span class="lbl">Ce îți arată raportul</span>
-                  <p data-case-on-answer>Scăderea nu e peste tot. <strong>Nordul, categoria Băuturi, −18% față de februarie.</strong> Restul țării e aproape pe loc. Asta e gaura — nu „vânzările, în general”.</p>
-                </div>
-              </div>
-              <div class="s2-viz s2-viz-on" aria-hidden="true">
-                <div class="s2-dash">
-                  <div class="s2-dash-kpis">
-                    <div class="kpi"><span data-case-kpi-l>Vânzări mar</span><strong data-case-kpi-v>176.4k</strong><em data-case-kpi-s>−12%</em></div>
-                    <div class="kpi is-alert"><span data-case-kpi2-l>Nord · Băuturi</span><strong data-case-kpi2-v>−18%</strong><em data-case-kpi2-s>față de feb</em></div>
-                  </div>
-                  <div class="s2-dash-bars">
-                    <div class="bar" style="--h:72%"><span>Sud</span></div>
-                    <div class="bar is-low" style="--h:38%"><span>Nord</span></div>
-                    <div class="bar" style="--h:64%"><span>Est</span></div>
-                    <div class="bar" style="--h:81%"><span>Vest</span></div>
-                  </div>
-                  <div class="s2-dash-filters">
-                    <span class="chip on">Martie</span>
-                    <span class="chip on">Nord</span>
-                    <span class="chip">Băuturi</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <svg class="s2-fn-link" viewBox="0 0 64 20" aria-hidden="true"><line x1="2" y1="10" x2="62" y2="10"/><circle r="3.2"><animateMotion dur="1.5s" begin="0.3s" repeatCount="indefinite" path="M2 10 L62 10"/></circle></svg>
+          <div class="s2-fn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 20V10l9-6 9 6v10"/><path d="M9 20v-6h6v6"/></svg>
+            <strong>Stocare</strong><em>warehouse, lake</em>
+          </div>
+          <svg class="s2-fn-link" viewBox="0 0 64 20" aria-hidden="true"><line x1="2" y1="10" x2="62" y2="10"/><circle r="3.2"><animateMotion dur="1.5s" begin="0.6s" repeatCount="indefinite" path="M2 10 L62 10"/></circle></svg>
+          <div class="s2-fn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg>
+            <strong>Transformare</strong><em>curățare, model</em>
+          </div>
+          <svg class="s2-fn-link" viewBox="0 0 64 20" aria-hidden="true"><line x1="2" y1="10" x2="62" y2="10"/><circle r="3.2"><animateMotion dur="1.5s" begin="0.9s" repeatCount="indefinite" path="M2 10 L62 10"/></circle></svg>
+          <div class="s2-fn is-pbi">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V10"/><path d="M10 19V5"/><path d="M16 19v-7"/><path d="M22 19H2"/></svg>
+            <strong>Power BI</strong><em>rapoarte</em>
           </div>
         </div>
       </article>
 
-
-
-      <!-- 6 · Ce face Power BI -->
-      <article class="slide">
+      <!-- Ce este Power BI -->
+      <article class="slide is-roomy">
         <span class="slide-eyebrow">Unealta</span>
-        <h2>Ce face Power BI</h2>
-        <div class="pbi-def-hero" style="margin-bottom:18px">
-          <div class="pbi-def-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="6" y="11" width="3" height="7"/><rect x="11" y="7" width="3" height="11"/><rect x="16" y="14" width="3" height="4"/></svg>
+        <h2>Ce este <span class="agenda-title-accent">Power BI</span>?</h2>
+        <div class="s2-pbi-split">
+          <div class="s2-pbi-rich">
+            <p><strong>Power BI</strong> este una dintre cele mai folosite platforme de Business Intelligence. Dezvoltată de Microsoft, transformă datele din surse diferite în rapoarte și dashboard-uri interactive, folosite pentru decizii.</p>
+            <p>Nu este un singur program, ci un <strong>ecosistem</strong>: Power BI Desktop (creare pe PC), Power BI Service (cloud, colaborare și distribuire) și Power BI Mobile (consultare pe telefon). Împreună acoperă drumul de la date brute la informație consumată de echipă.</p>
+            <p>Se conectează la baze de date, fișiere, sisteme on-premises și servicii cloud, inclusiv la suitele Microsoft (Excel, Azure, SharePoint, Teams). Oferă modelare de date, limbajul DAX pentru calcule, vizuale interactive și opțiuni de guvernanță (acces, securitate, refresh).</p>
+            <p>De aceea este preferat în multe firme: același set de instrumente pentru analiști, dezvoltatori și business, cu o comunitate mare și integrare nativă în ecosistemul Microsoft.</p>
           </div>
-          <div class="pbi-def-content">
-            <p class="pbi-def-lead"><strong>Power BI</strong> este platforma de analiză a datelor dezvoltată de Microsoft. Preia date din surse diferite, le transformă în rapoarte interactive și le pune la dispoziția echipei, în browser sau pe telefon.</p>
-          </div>
-        </div>
-        <p class="slide-lead" style="margin-top:0">Tot ce vom face în acest curs se împarte în trei acțiuni:</p>
-        <div class="s2-verbs">
-          <div class="s2-verb">
-            <span class="num">1</span>
-            <h3>Conectează</h3>
-            <p>Aduce datele din Excel, SQL, SharePoint, servicii web sau chiar dintr-un folder întreg.</p>
-            <div class="ex"><strong>Exemplu:</strong> Get data → Excel → alegi fișierul de vânzări. Data viitoare apeși doar Refresh.</div>
-          </div>
-          <div class="s2-verb">
-            <span class="num">2</span>
-            <h3>Transformă</h3>
-            <p>Curăță datele, leagă tabelele, calculează indicatori și construiește vizualele.</p>
-            <div class="ex"><strong>Exemplu:</strong> din 5.000 de rânduri rămân trei indicatori și un grafic de trend pe luni.</div>
-          </div>
-          <div class="s2-verb">
-            <span class="num">3</span>
-            <h3>Distribuie</h3>
-            <p>Publică raportul în cloud, ca alții să îl deschidă fără să instaleze nimic.</p>
-            <div class="ex"><strong>Exemplu:</strong> apeși Publish, iar colegii primesc un link pe Teams sau pe mail.</div>
+          <div class="s2-pbi-process">
+            <p class="s2-pbi-process-label">Cum ajungem la un raport</p>
+            <div class="s2-pbi-process-row">
+              <div class="step"><strong>1. Conectezi datele</strong><span>Excel, SQL, cloud…</span></div>
+              <div class="arr">→</div>
+              <div class="step"><strong>2. Le cureți &amp; modelezi</strong><span>Power Query + relații</span></div>
+              <div class="arr">→</div>
+              <div class="step"><strong>3. Construiești vizuale</strong><span>KPI-uri, grafice, filtre</span></div>
+              <div class="arr">→</div>
+              <div class="step"><strong>4. Publici</strong><span>echipa citește în Service</span></div>
+            </div>
           </div>
         </div>
       </article>
 
-      <!-- 7 · Ecosistem -->
+      <!-- Cele trei componente -->
       <article class="slide">
         <span class="slide-eyebrow">Ecosistem</span>
-        <h2>Trei piese, un singur drum</h2>
-        <p class="slide-lead">Când se spune „Power BI” se face de obicei referire la Desktop. În realitate sunt trei componente, fiecare cu rolul ei.</p>
+        <h2>Cele trei <span class="agenda-title-accent">componente</span> Power BI</h2>
         <div class="s2-journey">
           <div class="s2-j-card">
             <div class="s2-j-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
             <div class="role">Aici construim</div>
             <h3>Power BI Desktop</h3>
             <p>Aplicație gratuită pentru Windows. Aduci datele, le cureți și proiectezi raportul.</p>
-            <div class="ex-box"><strong>Fișierul rezultat:</strong> <code>raport.pbix</code> — conține datele, modelul și designul, într-un singur loc. Aici petrecem cea mai mare parte a cursului.</div>
+            <div class="ex-box"><strong>Fișierul rezultat:</strong> <code>raport.pbix</code>: conține datele, modelul și designul, într-un singur loc. Aici petrecem cea mai mare parte a cursului.</div>
           </div>
           <div class="s2-j-card">
             <div class="s2-j-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div>
@@ -358,6 +592,462 @@
             <h3>Power BI Mobile</h3>
             <p>Aplicație pe telefon și tabletă, pentru citit rapoartele publicate.</p>
             <div class="ex-box"><strong>De reținut:</strong> pe mobil nu construiești rapoarte, doar le consulți. Layout-ul pentru telefon se pregătește din Desktop.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Desktop vs Service -->
+      <article class="slide is-roomy">
+        <span class="slide-eyebrow">Imagine de ansamblu</span>
+        <h2>Desktop <span class="agenda-title-accent">vs</span> Service</h2>
+        <div class="s2-split">
+          <div class="s2-split-head">
+            <div class="s2-split-side is-desk">
+              <span>Pe PC</span>
+              <h3>Power BI Desktop</h3>
+              <p>Aici construiești raportul, singur, pe fișierul tău.</p>
+            </div>
+            <div class="s2-split-bridge" aria-hidden="true">Publici</div>
+            <div class="s2-split-side is-svc">
+              <span>În cloud</span>
+              <h3>Power BI Service</h3>
+              <p>Aici ajunge raportul la echipă, în browser.</p>
+            </div>
+          </div>
+          <div class="s2-split-rows">
+            <div class="s2-split-row">
+              <div><strong>Surse și pregătire</strong><span>Conectezi sursele, cureți datele și legi tabelele.</span></div>
+              <div><strong>Modelul publicat</strong><span>Service păstrează ce ai trimis și îl reîncarcă la refresh.</span></div>
+            </div>
+            <div class="s2-split-row">
+              <div><strong>Calcule</strong><span>Măsurile și coloanele se scriu în model, în Desktop.</span></div>
+              <div><strong>Fără modelare</strong><span>În Service nu rescrii modelul. Folosești ce ai publicat.</span></div>
+            </div>
+            <div class="s2-split-row">
+              <div><strong>Raportul</strong><span>Pagini, grafice și filtre, salvate într-un fișier .pbix.</span></div>
+              <div><strong>Același raport, plus dashboard</strong><span>Echipa îl deschide în browser. Dashboard-ul există doar aici.</span></div>
+            </div>
+            <div class="s2-split-row">
+              <div><strong>Cine lucrează</strong><span>Autorul, pe propriul calculator.</span></div>
+              <div><strong>Cine citește</strong><span>Echipa, într-un workspace, cu acces pe rol.</span></div>
+            </div>
+            <div class="s2-split-row">
+              <div><strong>Rolurile RLS</strong><span>Le definești în model, înainte de publicare.</span></div>
+              <div><strong>Rolurile se aplică</strong><span>Când cineva deschide raportul, vede doar rândurile lui.</span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Power BI Desktop -->
+      <article class="slide is-roomy">
+        <span class="slide-eyebrow">Componente</span>
+        <h2>Power BI <span class="agenda-title-accent">Desktop</span></h2>
+        <p class="s2-article-lead">Aplicația gratuită de pe Windows în care transformi date brute în rapoarte interactive. Interfața drag-and-drop acoperă modelarea; DAX acoperă calculele avansate. Se integrează cu Excel și Azure.</p>
+        <div class="s2-steps6">
+          <div><span>1</span><h3>Conectare la surse</h3><p>Excel, baze de date, servicii cloud și alte conectori. După conectare, datele pot fi importate și analizate.</p></div>
+          <div><span>2</span><h3>Curățare (Power Query)</h3><p>Filtrezi rânduri, elimini duplicate, îmbini seturi, corectezi tipuri. Datele trebuie să fie relevante și curate înainte de model.</p></div>
+          <div><span>3</span><h3>Modelare</h3><p>Relații între tabele, ierarhii, coloane calculate și măsuri DAX. Modelul este baza tuturor vizualelor.</p></div>
+          <div><span>4</span><h3>Vizualizări</h3><p>Tragi câmpuri pe canvas: grafice, tabele, hărți, carduri, vizuale personalizate. Le formatezi pentru întrebarea de business.</p></div>
+          <div><span>5</span><h3>Publicare</h3><p>Când raportul e gata, Publish îl trimite în Power BI Service, ca să fie partajat în organizație.</p></div>
+          <div><span>6</span><h3>Actualizare și securitate</h3><p>Rapoartele pot fi reîmprospătate când apar date noi. Accesul se aliniază la politicile organizației (roluri, criptare) după publicare.</p></div>
+        </div>
+      </article>
+
+      <!-- Power BI Service -->
+      <article class="slide is-roomy">
+        <span class="slide-eyebrow">Componente</span>
+        <h2>Power BI <span class="agenda-title-accent">Service</span></h2>
+        <p class="s2-article-lead">Platforma SaaS din cloud (app.powerbi.com). Aici rapoartele publicate din Desktop sunt partajate, guvernate și ținute la zi pentru întreaga organizație.</p>
+        <div class="s2-steps6">
+          <div><span>1</span><h3>Workspace</h3><p>Spațiul de lucru din cloud unde stau rapoartele, modelele semantice și aplicațiile. Echipa colaboră în același loc.</p></div>
+          <div><span>2</span><h3>Publicare și partajare</h3><p>Publish din Desktop încarcă raportul. Îl distribui prin link, Teams sau mail. Se deschide în browser sau în Power BI Mobile.</p></div>
+          <div><span>3</span><h3>Refresh</h3><p>Programezi reîncărcarea datelor. Numărul de refresh-uri depinde de abonament (Pro vs Premium / Fabric). Sursele locale cer un gateway.</p></div>
+          <div><span>4</span><h3>Securitate</h3><p>Cont de organizație, permisiuni pe workspace și RLS: același raport, rânduri diferite în funcție de rol.</p></div>
+          <div><span>5</span><h3>Dashboard</h3><p>Există doar în Service. Fixezi vizuale din rapoartele publicate pe un singur ecran de monitorizare.</p></div>
+          <div><span>6</span><h3>Consum</h3><p>Utilizatorii nu instalează Desktop. Citesc din browser sau telefon. Layout-ul de mobil se pregătește din Desktop.</p></div>
+        </div>
+      </article>
+
+      <!-- De ce Power BI: un topic pe rând -->
+      <article class="slide is-roomy">
+        <span class="slide-eyebrow">Imagine de ansamblu</span>
+        <h2>De ce folosesc firmele <span class="agenda-title-accent">Power BI</span></h2>
+
+        <div class="s2-why" data-advantages>
+          <div class="s2-why-bar s2-why-bar--5" role="tablist" aria-label="Motive Power BI">
+            <button type="button" class="s2-why-tab active" role="tab" aria-selected="true" data-adv="surse">
+              <span class="sn">1</span><span class="st">Surse multiple</span>
+            </button>
+            <button type="button" class="s2-why-tab" role="tab" aria-selected="false" data-adv="volum">
+              <span class="sn">2</span><span class="st">Volume mari</span>
+            </button>
+            <button type="button" class="s2-why-tab" role="tab" aria-selected="false" data-adv="securitate">
+              <span class="sn">3</span><span class="st">Securitate</span>
+            </button>
+            <button type="button" class="s2-why-tab" role="tab" aria-selected="false" data-adv="automat">
+              <span class="sn">4</span><span class="st">Refresh</span>
+            </button>
+            <button type="button" class="s2-why-tab" role="tab" aria-selected="false" data-adv="microsoft">
+              <span class="sn">5</span><span class="st">Ecosistem</span>
+            </button>
+          </div>
+
+          <div class="s2-why-panel is-on" data-adv-panel="surse" role="tabpanel">
+            <div class="s2-why-full">
+              <div class="s2-why-main">
+                <span class="s2-why-badge">Motivul 1</span>
+                <h3>Conectarea la multiple surse de date</h3>
+                <p>Power BI se conectează la o gamă largă de surse și le poate combina într-un singur model pentru analiză. Organizațiile reunesc astfel informații din sisteme diferite, fără exporturi manuale repetitive.</p>
+                <p>Un raport de vânzări poate lua comenzile din SQL Server, clienții dintr-un CRM, fișierele Excel trimise de magazine și listele din SharePoint sau Azure. La refresh, aceleași conexiuni se reîncarcă: nu mai exporți și nu mai copiezi datele de fiecare dată.</p>
+                <p>La început ajung cele mai întâlnite: fișiere, o bază de date, un sistem de business și un serviciu cloud. Catalogul Power BI are mult mai mulți conectori, dar aceștia acoperă majoritatea proiectelor de curs.</p>
+              </div>
+              <div class="s2-why-side" aria-hidden="true">
+                <div class="s2-why-card">
+                  <span class="vk">Exemple de surse</span>
+                  <div class="s2-why-chips is-fill">
+                    <span>Excel</span><span>CSV</span><span>SQL Server</span><span>SharePoint</span>
+                    <span>Azure</span><span>Salesforce</span><span>Web / API</span><span>ERP / CRM</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="s2-why-panel" data-adv-panel="volum" role="tabpanel" hidden>
+            <div class="s2-why-full">
+              <div class="s2-why-main">
+                <span class="s2-why-badge">Motivul 2</span>
+                <h3>Analiza unor volume mari de date</h3>
+                <p>O foaie Excel are o limită practică de circa <strong>1.048.576 de rânduri</strong>. Peste asta, fișierul devine greu de folosit. Power BI este gândit pentru modele mai mari: sute de mii sau milioane de rânduri (adesea zeci/sute de MB până la câțiva GB), pe care le explorezi prin indicatori și grafice.</p>
+                <div class="s2-why-block">
+                  <h4>Important</h4>
+                  <p>Nu există o limită universală de rânduri sau MB. Capacitatea depinde de modul de conectare (Import / DirectQuery), licență, capacitatea din Service și designul modelului.</p>
+                </div>
+              </div>
+              <div class="s2-why-side" aria-hidden="true">
+                <div class="s2-why-card">
+                  <span class="vk">Ordine de mărime</span>
+                  <p class="big">Excel ≈ 1.048.576 rânduri / foaie</p>
+                  <p class="cap">Power BI Import: modele de sute de MB până la câțiva GB (Premium / Fabric). DirectQuery interoghează sursa, fără să copieze tot tabelul în model.</p>
+                  <p class="cap">Limita reală depinde de licență, capacitate și cum e construit modelul. Nu există un plafon unic de rânduri.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="s2-why-panel" data-adv-panel="securitate" role="tabpanel" hidden>
+            <div class="s2-why-full">
+              <div class="s2-why-main">
+                <span class="s2-why-badge">Motivul 3</span>
+                <h3>Securitatea și stocarea datelor</h3>
+                <p>În Power BI Service, datele publicate (modele semantice / dataset-uri) sunt stocate în cloud-ul Microsoft, pe infrastructură <strong>Azure</strong>. Accesul se face prin contul organizației (Microsoft Entra ID), cu politici de partajare la nivel de workspace, raport sau aplicație.</p>
+                <div class="s2-why-block">
+                  <h4>RLS (Row-Level Security)</h4>
+                  <p>Poți restricționa ce rânduri vede fiecare utilizator. Exemplu: același raport de vânzări, dar managerul din Cluj vede doar magazinele din regiunea lui. Rolurile se definesc în model și se aplică în Service.</p>
+                </div>
+                <div class="s2-why-block">
+                  <h4>Alte elemente de guvernanță</h4>
+                  <p>Etichete de sensibilitate, criptare în tranzit și în repaus pe Azure, audit și control administrativ asupra capacității și accesului. Desktop lucrează local pe <code>.pbix</code>; după Publish, guvernanța trece în Service.</p>
+                </div>
+              </div>
+              <div class="s2-why-side" aria-hidden="true">
+                <div class="s2-why-card">
+                  <span class="vk">De reținut</span>
+                  <p class="big">Cloud Azure + acces pe rol</p>
+                  <ul class="s2-why-notes">
+                    <li>Datele publicate stau în Azure, nu pe PC-ul autorului.</li>
+                    <li>RLS filtrează rândurile după rol, pe același raport.</li>
+                    <li>Partajarea se controlează pe workspace, raport sau aplicație.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="s2-why-panel" data-adv-panel="automat" role="tabpanel" hidden>
+            <div class="s2-why-full">
+              <div class="s2-why-main">
+                <span class="s2-why-badge">Motivul 4</span>
+                <h3>Refresh: actualizarea automată a datelor</h3>
+                <p>În Service poți programa <strong>refresh</strong>: modelul se reîncarcă din surse după un orar (zilnic, de mai multe ori pe zi etc.). Raportul afișează date noi fără să refaci manual exporturi.</p>
+                <div class="s2-why-block">
+                  <h4>Câte refresh-uri poți avea</h4>
+                  <p>Numărul de refresh-uri programate depinde de <strong>abonament</strong>. Orientativ: pe capacitate Pro ai un număr limitat pe zi pe dataset; pe Premium / Fabric capacitatea e mai mare. Planificarea exactă se setează în setările dataset-ului din Service.</p>
+                </div>
+                <div class="s2-why-block">
+                  <h4>Abonamente (pe scurt)</h4>
+                  <p><strong>Free</strong> – explorare personală, colaborare limitată. <strong>Pro</strong> – partajare în workspace-uri, refresh de bază. <strong>Premium / Capacity</strong> – volume mai mari, mai multe refresh-uri, distribuire largă. Pentru surse on-premises: <strong>gateway</strong>.</p>
+                </div>
+              </div>
+              <div class="s2-why-side" aria-hidden="true">
+                <div class="s2-why-card">
+                  <span class="vk">Flux tipic</span>
+                  <div class="s2-why-steps">
+                    <span>1 · Date noi în sursă</span>
+                    <span>2 · Refresh programat</span>
+                    <span>3 · Raport actualizat în Service</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="s2-why-panel" data-adv-panel="microsoft" role="tabpanel" hidden>
+            <div class="s2-why-full">
+              <div class="s2-why-main">
+                <span class="s2-why-badge">Motivul 5</span>
+                <h3>Integrarea cu ecosistemul Microsoft</h3>
+                <p>Power BI nu stă izolat: se leagă de instrumentele pe care angajații le folosesc zilnic. Rapoartele pot fi deschise sau încorporate acolo unde are loc colaborarea, iar datele pot veni din aceleași sisteme Microsoft.</p>
+                <div class="s2-why-block">
+                  <h4>Cum se leagă, concret</h4>
+                  <p><strong>Excel</strong> – import / Analyze in Excel. <strong>Teams</strong> – tab sau link pe canal. <strong>SharePoint</strong> – fișiere și liste ca surse; rapoarte în pagini. <strong>PowerPoint</strong> – live slide-uri din Power BI. <strong>Power Automate</strong> – alerte și fluxuri când se schimbă datele. <strong>Azure</strong> – stocare, securitate, surse de date enterprise.</p>
+                </div>
+              </div>
+              <div class="s2-why-side" aria-hidden="true">
+                <div class="s2-why-card">
+                  <span class="vk">Se leagă de</span>
+                  <div class="s2-why-chips">
+                    <span>Excel</span><span>Teams</span><span>SharePoint</span><span>PowerPoint</span><span>Power Automate</span><span>Azure</span>
+                  </div>
+                  <p class="cap">BI în fluxul de lucru existent al firmei.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Power BI vs Excel -->
+      <article class="slide is-roomy">
+        <span class="slide-eyebrow">Imagine de ansamblu</span>
+        <h2>Power BI <span class="agenda-title-accent">vs</span> Excel</h2>
+        <div class="s2-vs-table-wrap">
+          <table class="s2-vs-table">
+            <thead>
+              <tr>
+                <th>Categorie</th>
+                <th>Excel</th>
+                <th>Power BI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Scopul principal</strong></td>
+                <td>Calcule, liste, analize punctuale pe un fișier</td>
+                <td>Rapoarte interactive pe date din mai multe surse, pentru toată echipa</td>
+              </tr>
+              <tr>
+                <td><strong>Cât de multe date</strong></td>
+                <td>Limită practică: ~1 milion de rânduri pe foaie; greu de folosit peste asta</td>
+                <td>Gestionează confortabil milioane de rânduri</td>
+              </tr>
+              <tr>
+                <td><strong>Surse de date</strong></td>
+                <td>În principal fișierul deschis; conectări externe limitate</td>
+                <td>Excel, SQL, SharePoint, web și multe altele, într-un singur raport</td>
+              </tr>
+              <tr>
+                <td><strong>Cum arată rezultatul</strong></td>
+                <td>Grafice mai degrabă statice; filtre manuale</td>
+                <td>Grafice interactive: click, filtre, drill-down pe ecran</td>
+              </tr>
+              <tr>
+                <td><strong>Partajare</strong></td>
+                <td>Trimiți fișierul pe mail: apar versiuni diferite</td>
+                <td>Un link comun în cloud; toți văd aceleași cifre</td>
+              </tr>
+              <tr>
+                <td><strong>Actualizare</strong></td>
+                <td>De obicei manuală (deschizi, copiezi, recalculezi)</td>
+                <td>Poate rula automat, pe un program</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="s2-comp-note">
+          <strong>Pe scurt:</strong> Excel rămâne excelent pentru calcule și fișiere mici. Power BI e pentru când datele cresc, trebuie văzute de mai mulți oameni și raportul trebuie să rămână la zi.
+        </div>
+      </article>
+
+      <!-- 9 · Tur interfață (capturi reale) -->
+      <article class="slide is-roomy">
+        <span class="slide-eyebrow">Orientare în aplicație</span>
+        <h2>Tur ghidat al interfeței Power BI Desktop</h2>
+        <div class="s2-real-tour" data-real-tour>
+          <div class="s2-view-top" role="tablist" aria-label="Vederile Power BI Desktop">
+            <button type="button" class="s2-view-top-btn active" data-view="report">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="6" y="11" width="3" height="7"/><rect x="11" y="7" width="3" height="11"/><rect x="16" y="14" width="3" height="4"/></svg>
+              Report View
+            </button>
+            <button type="button" class="s2-view-top-btn" data-view="table">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+              Table View
+            </button>
+            <button type="button" class="s2-view-top-btn" data-view="model">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><line x1="8" y1="7.5" x2="11" y2="16"/><line x1="16" y1="7.5" x2="13" y2="16"/><line x1="8.5" y1="6" x2="15.5" y2="6"/></svg>
+              Model View
+            </button>
+          </div>
+
+          <div class="s2-real-body">
+            <div class="s2-real-stage" data-active-view="report">
+              <img class="s2-real-img active" data-view-img="report" src="../../assets/pbi/report-view.png" alt="Power BI Desktop: Report View" />
+              <img class="s2-real-img" data-view-img="table" src="../../assets/pbi/table-view.png" alt="Power BI Desktop: Table View" />
+              <img class="s2-real-img" data-view-img="model" src="../../assets/pbi/model-view.png" alt="Power BI Desktop: Model View" />
+
+              <button type="button" class="s2-rh" data-view="report" data-id="r1" style="top:5.5%; left:21%;" aria-label="Ribbon">1</button>
+              <button type="button" class="s2-rh" data-view="report" data-id="r2" style="top:46%; left:48%;" aria-label="Canvas">2</button>
+              <button type="button" class="s2-rh" data-view="report" data-id="r3" style="top:34%; left:83%;" aria-label="Visualizations">3</button>
+              <button type="button" class="s2-rh" data-view="report" data-id="r4" style="top:24%; left:96%;" aria-label="Date">4</button>
+              <button type="button" class="s2-rh" data-view="report" data-id="r5" style="top:94%; left:13%;" aria-label="Pagini">5</button>
+
+              <button type="button" class="s2-rh" data-view="table" data-id="t1" style="top:6%; left:18%;" aria-label="Table tools">1</button>
+              <button type="button" class="s2-rh" data-view="table" data-id="t2" style="top:50%; left:30%;" aria-label="Grila de date">2</button>
+              <button type="button" class="s2-rh" data-view="table" data-id="t3" style="top:30%; left:95%;" aria-label="Lista tabelelor">3</button>
+
+              <button type="button" class="s2-rh" data-view="model" data-id="m1" style="top:46%; left:12%;" aria-label="Dimensiuni">1</button>
+              <button type="button" class="s2-rh" data-view="model" data-id="m2" style="top:56%; left:35%;" aria-label="Collisions">2</button>
+              <button type="button" class="s2-rh" data-view="model" data-id="m3" style="top:47%; left:58%;" aria-label="Relații">3</button>
+            </div>
+
+            <div class="s2-real-info">
+              <span class="s2-rti-badge" data-rti-badge>REPORT VIEW</span>
+              <h4 data-rti-title>Report View: pânza raportului</h4>
+              <p class="rti-text" data-rti-text></p>
+              <div class="rti-hint" data-rti-hint></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Ribbon pe cele 3 vederi -->
+      <article class="slide is-roomy">
+        <span class="slide-eyebrow">Orientare în aplicație</span>
+        <h2><span class="agenda-title-accent">Ribbon</span>: butoanele esențiale pe fiecare vedere</h2>
+        <div class="s2-ribbon" data-ribbon-tour>
+          <div class="s2-view-top" role="tablist" aria-label="Vedere pentru ribbon">
+            <button type="button" class="s2-view-top-btn active" data-rib-view="report">Report View</button>
+            <button type="button" class="s2-view-top-btn" data-rib-view="table">Table View</button>
+            <button type="button" class="s2-view-top-btn" data-rib-view="model">Model View</button>
+          </div>
+
+          <div class="s2-rib-body">
+            <div class="s2-rib-stage">
+              <img class="s2-rib-img active" data-rib-img="report" src="../../assets/pbi/ribbon-report-home.png" alt="Ribbon Home: Report View" />
+              <img class="s2-rib-img" data-rib-img="table" src="../../assets/pbi/ribbon-table-home.png" alt="Ribbon Table tools" />
+              <img class="s2-rib-img" data-rib-img="model" src="../../assets/pbi/ribbon-model-home.png" alt="Ribbon Home: Model View" />
+
+              <!-- Report View hotspots -->
+              <button type="button" class="s2-rh s2-rib-h" data-view="report" data-id="r1" style="top:55%; left:20%;" aria-label="Data">1</button>
+              <button type="button" class="s2-rh s2-rib-h" data-view="report" data-id="r2" style="top:55%; left:40%;" aria-label="Queries">2</button>
+              <button type="button" class="s2-rh s2-rib-h" data-view="report" data-id="r3" style="top:55%; left:50%;" aria-label="Insert">3</button>
+              <button type="button" class="s2-rh s2-rib-h" data-view="report" data-id="r4" style="top:55%; left:61%;" aria-label="Calculations">4</button>
+              <button type="button" class="s2-rh s2-rib-h" data-view="report" data-id="r5" style="top:55%; left:76%;" aria-label="Publish">5</button>
+
+              <!-- Table View hotspots (Table tools) -->
+              <button type="button" class="s2-rh s2-rib-h" data-view="table" data-id="t1" style="top:48%; left:14%;" aria-label="Structure">1</button>
+              <button type="button" class="s2-rh s2-rib-h" data-view="table" data-id="t2" style="top:40%; left:36%;" aria-label="Relationships">2</button>
+              <button type="button" class="s2-rh s2-rib-h" data-view="table" data-id="t3" style="top:40%; left:60%;" aria-label="Calculations">3</button>
+              <button type="button" class="s2-rh s2-rib-h" data-view="table" data-id="t4" style="top:40%; left:83%;" aria-label="Calendars">4</button>
+
+              <!-- Model View hotspots -->
+              <button type="button" class="s2-rh s2-rib-h" data-view="model" data-id="m1" style="top:55%; left:20%;" aria-label="Data">1</button>
+              <button type="button" class="s2-rh s2-rib-h" data-view="model" data-id="m2" style="top:55%; left:40%;" aria-label="Queries">2</button>
+              <button type="button" class="s2-rh s2-rib-h" data-view="model" data-id="m3" style="top:55%; left:48%;" aria-label="Relationships">3</button>
+              <button type="button" class="s2-rh s2-rib-h" data-view="model" data-id="m4" style="top:55%; left:58%;" aria-label="Calculations">4</button>
+              <button type="button" class="s2-rh s2-rib-h" data-view="model" data-id="m5" style="top:55%; left:69%;" aria-label="Parameters">5</button>
+            </div>
+
+            <div class="s2-rib-info">
+              <span class="s2-rti-badge" data-rib-badge>REPORT VIEW</span>
+              <p class="s2-rib-focus" data-rib-focus></p>
+              <h4 data-rib-title></h4>
+              <p class="rti-text" data-rib-text></p>
+              <ul class="s2-rib-fields" data-rib-fields></ul>
+              <div class="rti-hint" data-rib-hint></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Model · Raport · Dashboard -->
+      <article class="slide is-roomy">
+        <span class="slide-eyebrow">Orientare în aplicație</span>
+        <h2>Model, raport și <span class="agenda-title-accent">dashboard</span>: ce e fiecare</h2>
+        <div class="s2-art" data-artifacts>
+          <div class="s2-art-bar" role="tablist" aria-label="Tipuri de obiecte Power BI">
+            <button type="button" class="s2-art-tab active" role="tab" aria-selected="true" data-art="model">
+              <span class="sn">01</span>
+              <span class="st">Model semantic</span>
+            </button>
+            <button type="button" class="s2-art-tab" role="tab" aria-selected="false" data-art="report">
+              <span class="sn">02</span>
+              <span class="st">Raport</span>
+            </button>
+            <button type="button" class="s2-art-tab" role="tab" aria-selected="false" data-art="dash">
+              <span class="sn">03</span>
+              <span class="st">Dashboard</span>
+            </button>
+          </div>
+
+          <div class="s2-art-panel is-on" data-art-panel="model" role="tabpanel">
+            <div class="s2-art-card s2-art-card--text">
+              <span class="s2-art-badge">Fundația</span>
+              <h3>Modelul (Data Model)</h3>
+              <p>Modelul este fundația oricărui proiect Power BI. Înainte să construiești orice vizualizare, trebuie să ai datele încărcate, curate și bine structurate. Aici definești cum se leagă tabelele între ele, creezi coloane calculate și măsuri DAX. Un model poate fi simplu: un singur tabel flat, sau structurat ca un Star Schema, cu un tabel central de fapte și tabele de dimensiuni în jur. Cu cât modelul este mai bine gândit, cu atât raportul va fi mai ușor de construit și mai performant.</p>
+            </div>
+          </div>
+          <div class="s2-art-panel" data-art-panel="report" role="tabpanel" hidden>
+            <div class="s2-art-card s2-art-card--text">
+              <span class="s2-art-badge">Livrabilul</span>
+              <h3>Raportul (Report)</h3>
+              <p>Raportul este produsul principal pe care îl livrezi în Power BI. Este format din una sau mai multe pagini, fiecare conținând vizualizări: grafice, tabele, carduri, hărți, filtre. Îl construiești în Power BI Desktop, pe baza modelului, și îl publici în Power BI Service pentru ca ceilalți să îl acceseze. Raportul este interactiv: utilizatorii pot filtra, explora și naviga între pagini. Același model poate alimenta mai multe rapoarte diferite, fiecare cu un scop diferit.</p>
+            </div>
+          </div>
+          <div class="s2-art-panel" data-art-panel="dash" role="tabpanel" hidden>
+            <div class="s2-art-card s2-art-card--text">
+              <span class="s2-art-badge">Monitorizare</span>
+              <h3>Dashboard-ul</h3>
+              <p>Dashboard-ul este pasul final și există doar în Power BI Service, nu în Desktop. Este un singur ecran pe care aduni cele mai importante vizualizări din rapoartele tale publicate. Nu construiești nimic nou pe el: selectezi ce contează și fixezi totul într-un singur loc. Este instrumentul de monitorizare zilnică: un director îl deschide dimineața și vede în câteva secunde starea afacerii, fără să navigheze prin pagini de raport.</p>
+            </div>
+          </div>
+        </div>
+        <div class="s2-art-viz" aria-hidden="true">
+          <div class="s2-art-diagram">
+            <div class="s2-art-node s2-art-node--model">
+              <span class="k">Model semantic</span>
+              <span class="d">Vânzări · Magazine · relații</span>
+            </div>
+            <svg class="s2-art-lines" viewBox="0 0 640 120" preserveAspectRatio="none">
+              <path class="s2-art-path" d="M320 8 C320 48, 110 48, 110 100" />
+              <path class="s2-art-path" d="M320 8 C320 48, 320 48, 320 100" />
+              <path class="s2-art-path" d="M320 8 C320 48, 530 48, 530 100" />
+              <circle class="s2-art-pulse s2-art-pulse--1" r="4" cx="0" cy="0">
+                <animateMotion dur="2.4s" repeatCount="indefinite" path="M320 8 C320 48, 110 48, 110 100" />
+              </circle>
+              <circle class="s2-art-pulse s2-art-pulse--2" r="4" cx="0" cy="0">
+                <animateMotion dur="2.4s" begin="0.4s" repeatCount="indefinite" path="M320 8 C320 48, 320 48, 320 100" />
+              </circle>
+              <circle class="s2-art-pulse s2-art-pulse--3" r="4" cx="0" cy="0">
+                <animateMotion dur="2.4s" begin="0.8s" repeatCount="indefinite" path="M320 8 C320 48, 530 48, 530 100" />
+              </circle>
+            </svg>
+            <div class="s2-art-reports">
+              <div class="s2-art-node s2-art-node--rep">
+                <span class="k">Raport 1</span>
+                <span class="d">ex. Vânzări</span>
+              </div>
+              <div class="s2-art-node s2-art-node--rep">
+                <span class="k">Raport 2</span>
+                <span class="d">ex. Stoc</span>
+              </div>
+              <div class="s2-art-node s2-art-node--rep">
+                <span class="k">Raport 3</span>
+                <span class="d">ex. Finanțe</span>
+              </div>
+            </div>
           </div>
         </div>
       </article>
@@ -388,359 +1078,6 @@
         <div class="s2-live-banner">Nu mergem mai departe până când toți au Desktop deschis și contul conectat. Dacă apare o eroare, o rezolvăm acum, împreună.</div>
       </article>
 
-      <!-- 9 · Tur interfață (capturi reale) -->
-      <article class="slide">
-        <span class="slide-eyebrow">Orientare în aplicație</span>
-        <h2>Tur ghidat al interfeței Power BI Desktop</h2>
-        <p class="slide-lead" style="margin-top:0">Apasă <strong style="color:var(--primary)">butoanele din stânga imaginii</strong> pentru a comuta între cele trei vederi ale aplicației, apoi <strong style="color:var(--pbi-yellow-dark)">punctele galbene</strong> pentru a afla ce face fiecare zonă.</p>
-
-        <div class="s2-real-tour" data-real-tour>
-          <div class="s2-real-stage" data-active-view="report">
-            <img class="s2-real-img active" data-view-img="report" src="../../assets/pbi/report-view.png" alt="Power BI Desktop — Report View" />
-            <img class="s2-real-img" data-view-img="table" src="../../assets/pbi/table-view.png" alt="Power BI Desktop — Table View" />
-            <img class="s2-real-img" data-view-img="model" src="../../assets/pbi/model-view.png" alt="Power BI Desktop — Model View" />
-
-            <div class="s2-vs">
-              <button type="button" class="s2-vs-btn active" data-view="report" aria-label="Report View">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="6" y="11" width="3" height="7"/><rect x="11" y="7" width="3" height="11"/><rect x="16" y="14" width="3" height="4"/></svg>
-                <span class="tip">Report View</span>
-              </button>
-              <button type="button" class="s2-vs-btn" data-view="table" aria-label="Table View">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
-                <span class="tip">Table View</span>
-              </button>
-              <button type="button" class="s2-vs-btn" data-view="model" aria-label="Model View">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><line x1="8" y1="7.5" x2="11" y2="16"/><line x1="16" y1="7.5" x2="13" y2="16"/><line x1="8.5" y1="6" x2="15.5" y2="6"/></svg>
-                <span class="tip">Model View</span>
-              </button>
-            </div>
-
-            <button type="button" class="s2-rh" data-view="report" data-id="r1" style="top:5.5%; left:21%;" aria-label="Ribbon">1</button>
-            <button type="button" class="s2-rh" data-view="report" data-id="r2" style="top:46%; left:48%;" aria-label="Canvas">2</button>
-            <button type="button" class="s2-rh" data-view="report" data-id="r3" style="top:34%; left:83%;" aria-label="Visualizations">3</button>
-            <button type="button" class="s2-rh" data-view="report" data-id="r4" style="top:24%; left:96%;" aria-label="Date">4</button>
-            <button type="button" class="s2-rh" data-view="report" data-id="r5" style="top:94%; left:13%;" aria-label="Pagini">5</button>
-
-            <button type="button" class="s2-rh" data-view="table" data-id="t1" style="top:6%; left:18%;" aria-label="Table tools">1</button>
-            <button type="button" class="s2-rh" data-view="table" data-id="t2" style="top:50%; left:30%;" aria-label="Grila de date">2</button>
-            <button type="button" class="s2-rh" data-view="table" data-id="t3" style="top:30%; left:95%;" aria-label="Lista tabelelor">3</button>
-
-            <button type="button" class="s2-rh" data-view="model" data-id="m1" style="top:55%; left:19%;" aria-label="Canvas model">1</button>
-            <button type="button" class="s2-rh" data-view="model" data-id="m2" style="top:62%; left:73%;" aria-label="Properties">2</button>
-            <button type="button" class="s2-rh" data-view="model" data-id="m3" style="top:55%; left:95%;" aria-label="Structura">3</button>
-          </div>
-
-          <div class="s2-real-info">
-            <span class="s2-rti-badge" data-rti-badge>REPORT VIEW</span>
-            <h4 data-rti-title>Report View — pânza raportului</h4>
-            <p class="rti-text" data-rti-text>Aici construiești raportul: tragi vizuale pe canvas și le configurezi din panourile din dreapta.</p>
-            <div class="rti-hint" data-rti-hint>Apasă punctele galbene pentru fiecare zonă a interfeței.</div>
-            <div class="s2-rti-views">
-              <button type="button" class="s2-rti-row active" data-view-quick="report">
-                <span class="l">R</span>
-                <span><strong>Report View</strong> — canvasul de design. Aici apar KPI-urile, graficele și filtrele.</span>
-              </button>
-              <button type="button" class="s2-rti-row" data-view-quick="table">
-                <span class="l">T</span>
-                <span><strong>Table View</strong> — datele brute, ca într-un sheet Excel. Aici verifici importul.</span>
-              </button>
-              <button type="button" class="s2-rti-row" data-view-quick="model">
-                <span class="l">M</span>
-                <span><strong>Model View</strong> — relațiile dintre tabele, făcute prin drag &amp; drop.</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- 11 · Tipuri de date -->
-      <article class="slide is-dtypes is-roomy">
-        <span class="slide-eyebrow">Teoria datelor · 1</span>
-        <h2>Tipuri de date</h2>
-        <div class="s2-theory-intro">
-          <p>În această parte vorbim despre <strong>tipuri de date</strong> — ce sunt și de ce contează. Practic, fiecărei coloane i se atribuie un tip de date, unul din cele din tabelul de mai jos. Tipul este important pentru că, în funcție de el, vei putea sau nu să folosești valorile din coloană într-un chart, într-un total sau într-o măsură. De exemplu: pe o coloană Text nu poți face SUM; pe o coloană Dată poți grupa pe luni.</p>
-        </div>
-        <div class="s2-dtype-wrap">
-          <table class="s2-dtype">
-            <thead>
-              <tr>
-                <th>Tip</th>
-                <th>Descriere</th>
-                <th>Limită</th>
-                <th>Spațiu (storage)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Text</strong></td>
-                <td>Nume, orașe, categorii. Nu se adună.</td>
-                <td>32.766 caractere</td>
-                <td>~2 bytes / caracter (Unicode)</td>
-              </tr>
-              <tr>
-                <td><strong>Whole Number</strong></td>
-                <td>Număr întreg: bucăți, comenzi, ID-uri.</td>
-                <td>±9,2 × 10<sup>18</sup></td>
-                <td>8 bytes</td>
-              </tr>
-              <tr>
-                <td><strong>Decimal Number</strong></td>
-                <td>Număr cu virgulă: preț, procent brut.</td>
-                <td>~15 cifre semnificative</td>
-                <td>8 bytes</td>
-              </tr>
-              <tr>
-                <td><strong>Fixed Decimal</strong></td>
-                <td>Bani. Patru zecimale, fără erori de rotunjire.</td>
-                <td>19 cifre, 4 după virgulă</td>
-                <td>8 bytes</td>
-              </tr>
-              <tr>
-                <td><strong>Percentage</strong></td>
-                <td>Procent. Intern e tot un zecimal (0,18 = 18%).</td>
-                <td>~15 cifre</td>
-                <td>8 bytes</td>
-              </tr>
-              <tr>
-                <td><strong>Date</strong></td>
-                <td>O zi din calendar, fără oră.</td>
-                <td>1.01.0100 – 31.12.9999</td>
-                <td>8 bytes</td>
-              </tr>
-              <tr>
-                <td><strong>Date/Time</strong></td>
-                <td>Zi + oră. Pentru evenimente cu timestamp.</td>
-                <td>aceeași plajă + oră</td>
-                <td>8 bytes</td>
-              </tr>
-              <tr>
-                <td><strong>Time</strong></td>
-                <td>Doar ora (program, durată în zi).</td>
-                <td>00:00:00 – 23:59:59</td>
-                <td>8 bytes</td>
-              </tr>
-              <tr>
-                <td><strong>True / False</strong></td>
-                <td>Da sau nu. Filtre de tip „doar activi”.</td>
-                <td>2 valori</td>
-                <td>1 byte</td>
-              </tr>
-              <tr>
-                <td><strong>Duration</strong></td>
-                <td>O durată: 2 zile, 3 ore, 15 minute.</td>
-                <td>zile.hh:mm:ss</td>
-                <td>8 bytes</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="s2-dtype-legend">
-          <div>
-            <strong>Limită</strong>
-            <p>Cât de mare sau lungă poate fi o valoare din tipul respectiv. Exemplu: un Text nu poate depăși 32.766 de caractere.</p>
-          </div>
-          <div>
-            <strong>Spațiu (storage)</strong>
-            <p>Cât memorie ocupă tipul, pe valoare. Tipurile mai simple (întreg, True/False) ocupă de obicei mai puțin decât Text-ul. Alegi tipul potrivit și pentru calcule, și pentru dimensiunea modelului.</p>
-          </div>
-        </div>
-      </article>
-
-      <!-- 12 · Elementele unui table -->
-      <article class="slide is-roomy">
-        <span class="slide-eyebrow">Teoria datelor · 2</span>
-        <h2>Elementele unui table</h2>
-        <div class="s2-theory-intro">
-          <p>În această parte vorbim despre <strong>table</strong> — cum e organizată informația, exact ca în Excel. Un table are trei elemente de bază: table-ul în sine, coloanele și rândurile. Le trecem pe rând, apoi le vezi pe un exemplu.</p>
-        </div>
-        <div class="s2-elem-list">
-          <div class="s2-elem">
-            <span class="n">1 · Table</span>
-            <strong>Ce este</strong>
-            <p>Tot setul de date pe un subiect: vânzări, clienți, produse. Are un nume și conține coloane + rânduri. Un table = un subiect. Clienții nu stau în același table cu vânzările.</p>
-          </div>
-          <div class="s2-elem">
-            <span class="n">2 · Coloană</span>
-            <strong>Ce este</strong>
-            <p>O categorie citită pe verticală: Data, Client, Sumă. Toate celulele dintr-o coloană trebuie să aibă <strong>același tip de date</strong>. Coloana e locul unde setezi tipul pe care l-am văzut mai sus.</p>
-          </div>
-          <div class="s2-elem">
-            <span class="n">3 · Rând</span>
-            <strong>Ce este</strong>
-            <p>O înregistrare citită pe orizontală. Un rând = un eveniment: o vânzare, un client, o factură. La Ion Popescu, pe 12.01, suma e 500 — asta e un rând complet.</p>
-          </div>
-        </div>
-        <div class="s2-table-wrap" style="margin-top:16px">
-          <div class="s2-table-caption">
-            <span>Exemplu — table-ul <strong class="mark">Vânzări</strong></span>
-            <span>3 coloane · 4 rânduri</span>
-          </div>
-          <table class="s2-mini-table">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Data</th>
-                <th>Client</th>
-                <th class="is-col-hl">Sumă (lei)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="is-row-hl"><td class="rn">rând 1</td><td>12.01.2024</td><td>Ion Popescu</td><td class="is-col-hl">500</td></tr>
-              <tr><td class="rn">rând 2</td><td>13.01.2024</td><td>Ana Ionescu</td><td class="is-col-hl">1.200</td></tr>
-              <tr><td class="rn">rând 3</td><td>13.01.2024</td><td>Ion Popescu</td><td class="is-col-hl">350</td></tr>
-              <tr><td class="rn">rând 4</td><td>15.01.2024</td><td>Maria Dobre</td><td class="is-col-hl">890</td></tr>
-            </tbody>
-          </table>
-          <div class="s2-legend" style="padding:0 18px 14px">
-            <span><i class="lg-row"></i>rând evidențiat = o vânzare</span>
-            <span><i class="lg-col"></i>coloană evidențiată = Sumă</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- 13 · Exemplu: probleme în date -->
-      <article class="slide is-roomy">
-        <span class="slide-eyebrow">Teoria datelor · 3</span>
-        <h2>Exemplu: probleme tipice într-un table</h2>
-        <div class="s2-theory-intro">
-          <p><strong>Scopul paginii:</strong> să vezi, pe un exemplu, cum arată datele când tipul e greșit, lipsește o valoare sau un rând e duplicat. Nu reparăm nimic acum — doar recunoști problema. În Sesiunea 3 o rezolvi în Power Query. Mai jos ai un table cu mai multe rânduri și coloane; numerele marcate arată ce e în neregulă.</p>
-        </div>
-        <div class="s2-table-wrap">
-          <div class="s2-table-caption">
-            <span>Exemplu — table-ul <strong class="mark">Comenzi</strong></span>
-            <span>4 coloane · 5 rânduri</span>
-          </div>
-          <table class="s2-mini-table">
-            <thead>
-              <tr>
-                <th>Data</th>
-                <th>Oraș</th>
-                <th>Bucăți</th>
-                <th>Sumă</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>02.03.2024</td><td>Cluj</td><td>3</td><td>450</td></tr>
-              <tr><td>02.03.2024</td><td>Cluj</td><td>1</td><td>120</td></tr>
-              <tr class="is-row-hl">
-                <td><span class="s2-mark">1</span> martie</td>
-                <td><span class="s2-mark">2</span></td>
-                <td>2</td>
-                <td><span class="s2-mark">3</span> „200 lei”</td>
-              </tr>
-              <tr><td>05.03.2024</td><td>Iași</td><td>4</td><td>880</td></tr>
-              <tr><td>05.03.2024</td><td>Iași</td><td>4</td><td>880 <span class="s2-mark">4</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="s2-marks">
-          <div><span class="s2-mark">1</span><p><strong>Data e text.</strong> „martie” nu e o zi. Nu poți grupa pe luni.</p></div>
-          <div><span class="s2-mark">2</span><p><strong>Celulă goală.</strong> Orașul lipsește. Filtrele pe oraș ies incomplete.</p></div>
-          <div><span class="s2-mark">3</span><p><strong>Suma e text.</strong> „200 lei” nu se adună. Totalul nu apare.</p></div>
-          <div><span class="s2-mark">4</span><p><strong>Rând duplicat.</strong> Aceeași comandă de două ori. Totalul se dublează.</p></div>
-        </div>
-      </article>
-
-      <!-- 14 · Mini-challenge -->
-      <article class="slide is-roomy">
-        <span class="slide-eyebrow">Exercițiu</span>
-        <h2>Citește tabelul. Votează. Apoi afișăm răspunsurile.</h2>
-        <div class="s2-theory-intro">
-          <p>Un table <strong>nou</strong> (nu cel de pe slide-ul anterior), cu alte tipuri de greșeli. Votează la fiecare întrebare — numărul de voturi apare live. Dificultatea crește de la 1 la 6. Răspunsurile rămân ascunse până apeși butonul de jos.</p>
-        </div>
-        <div class="s2-quiz" data-reveal>
-          <div class="s2-table-wrap">
-            <div class="s2-table-caption">
-              <span>Tabelul <strong class="mark">Angajați</strong></span>
-              <span>6 coloane · 6 rânduri</span>
-            </div>
-            <table class="s2-mini-table">
-              <thead>
-                <tr>
-                  <th>Nume</th>
-                  <th>Departament</th>
-                  <th>Salariu</th>
-                  <th>Data angajare</th>
-                  <th>Activ</th>
-                  <th>Ore/săpt</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td>Ana Pop</td><td>IT</td><td>5500</td><td>12.01.2023</td><td>True</td><td>40</td></tr>
-                <tr><td>Mihai Ionescu</td><td>Vânzări</td><td>4200</td><td>03.03.2023</td><td>True</td><td>40</td></tr>
-                <tr><td>Elena Radu</td><td>HR</td><td>n/a</td><td>15.06.2023</td><td>True</td><td>32</td></tr>
-                <tr><td>Radu Georgescu</td><td>IT</td><td>6000</td><td>2023</td><td>da</td><td>40</td></tr>
-                <tr><td></td><td>Marketing</td><td>3800</td><td>20.09.2023</td><td>True</td><td>40</td></tr>
-                <tr><td>Ana Pop</td><td>IT</td><td>5500</td><td>12.01.2023</td><td>True</td><td>40</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="s2-quiz-list">
-            <div class="poll s2-qpoll" data-poll-id="s02-ang-q1" data-seed="0,0,0,0">
-              <p class="s2-qpoll-q">1. Câte <strong>coloane</strong> are tabelul?</p>
-              <div class="poll-options">
-                <button class="poll-opt" type="button"><span class="opt-letter">A</span><span class="opt-text">4</span></button>
-                <button class="poll-opt" type="button"><span class="opt-letter">B</span><span class="opt-text">5</span></button>
-                <button class="poll-opt" type="button" data-correct="true"><span class="opt-letter">C</span><span class="opt-text">6</span></button>
-                <button class="poll-opt" type="button"><span class="opt-letter">D</span><span class="opt-text">7</span></button>
-              </div>
-            </div>
-            <div class="poll s2-qpoll" data-poll-id="s02-ang-q2" data-seed="0,0,0,0">
-              <p class="s2-qpoll-q">2. Câte <strong>rânduri</strong> (înregistrări) sunt?</p>
-              <div class="poll-options">
-                <button class="poll-opt" type="button"><span class="opt-letter">A</span><span class="opt-text">4</span></button>
-                <button class="poll-opt" type="button"><span class="opt-letter">B</span><span class="opt-text">5</span></button>
-                <button class="poll-opt" type="button" data-correct="true"><span class="opt-letter">C</span><span class="opt-text">6</span></button>
-                <button class="poll-opt" type="button"><span class="opt-letter">D</span><span class="opt-text">8</span></button>
-              </div>
-            </div>
-            <div class="poll s2-qpoll" data-poll-id="s02-ang-q3" data-seed="0,0,0,0">
-              <p class="s2-qpoll-q">3. Ce tip trebuie să aibă coloana <strong>Salariu</strong>?</p>
-              <div class="poll-options">
-                <button class="poll-opt" type="button"><span class="opt-letter">A</span><span class="opt-text">Text</span></button>
-                <button class="poll-opt" type="button" data-correct="true"><span class="opt-letter">B</span><span class="opt-text">Număr (întreg / zecimal)</span></button>
-                <button class="poll-opt" type="button"><span class="opt-letter">C</span><span class="opt-text">Dată</span></button>
-                <button class="poll-opt" type="button"><span class="opt-letter">D</span><span class="opt-text">True / False</span></button>
-              </div>
-            </div>
-            <div class="poll s2-qpoll" data-poll-id="s02-ang-q4" data-seed="0,0,0,0">
-              <p class="s2-qpoll-q">4. Elena are <strong>Salariu = „n/a”</strong>. De ce e o problemă?</p>
-              <div class="poll-options">
-                <button class="poll-opt" type="button"><span class="opt-letter">A</span><span class="opt-text">Pentru că lipsește departamentul</span></button>
-                <button class="poll-opt" type="button" data-correct="true"><span class="opt-letter">B</span><span class="opt-text">„n/a” e text, nu un număr — nu poți aduna salariile corect</span></button>
-                <button class="poll-opt" type="button"><span class="opt-letter">C</span><span class="opt-text">Pentru că data angajării e greșită</span></button>
-                <button class="poll-opt" type="button"><span class="opt-letter">D</span><span class="opt-text">Nu e problemă — „n/a” înseamnă zero</span></button>
-              </div>
-            </div>
-            <div class="poll s2-qpoll" data-poll-id="s02-ang-q5" data-seed="0,0,0,0">
-              <p class="s2-qpoll-q">5. Pe rândul lui Radu: Data = <strong>„2023”</strong> și Activ = <strong>„da”</strong>. Care e situația corectă?</p>
-              <div class="poll-options">
-                <button class="poll-opt" type="button"><span class="opt-letter">A</span><span class="opt-text">Doar data e greșită; „da” e True/False valid</span></button>
-                <button class="poll-opt" type="button"><span class="opt-letter">B</span><span class="opt-text">Doar Activ e greșit; „2023” e o dată completă</span></button>
-                <button class="poll-opt" type="button" data-correct="true"><span class="opt-letter">C</span><span class="opt-text">Ambele greșite: dată incompletă + Activ ca text, nu True/False</span></button>
-                <button class="poll-opt" type="button"><span class="opt-letter">D</span><span class="opt-text">Rândul e curat — nimic de reparat</span></button>
-              </div>
-            </div>
-            <div class="poll s2-qpoll" data-poll-id="s02-ang-q6" data-seed="0,0,0,0">
-              <p class="s2-qpoll-q">6. Privind tot tabelul: care afirmație e adevărată?</p>
-              <div class="poll-options">
-                <button class="poll-opt" type="button"><span class="opt-letter">A</span><span class="opt-text">Singura problemă e duplicatul Ana Pop</span></button>
-                <button class="poll-opt" type="button"><span class="opt-letter">B</span><span class="opt-text">Singura problemă e „n/a” la Salariu</span></button>
-                <button class="poll-opt" type="button" data-correct="true"><span class="opt-letter">C</span><span class="opt-text">Mai multe greșeli: n/a, dată incompletă, Activ ca text, nume gol + duplicat (Salariu IT se dublează)</span></button>
-                <button class="poll-opt" type="button"><span class="opt-letter">D</span><span class="opt-text">Tabelul e gata de raport, fără curățare</span></button>
-              </div>
-            </div>
-          </div>
-
-          <div class="s2-reveal-bar">
-            <button type="button" class="s2-step-btn primary" data-reveal-btn>Afișează răspunsurile</button>
-            <p class="s2-reveal-ans" data-reveal-ans hidden>Răspunsurile corecte sunt marcate cu verde. Cele greșite, cu roșu.</p>
-            <div class="s2-reveal-score" data-reveal-score hidden></div>
-          </div>
-        </div>
-      </article>
-
       <!-- 15 · Recap -->
       <article class="slide">
         <div class="closing-hero">
@@ -752,42 +1089,37 @@
           <div class="band-row">
             <div class="band-card">
               <span class="n">01</span>
-              <strong>BI este o disciplină</strong>
-              <span class="d">Date brute, informație, decizie. Pe hartă, Power BI Developer stă între cei care aduc datele și cei care le citesc.</span>
+              <strong>De la date la decizie</strong>
+              <span class="d">Business Intelligence transformă datele brute în informație. Power BI este unealta cu care faci asta.</span>
             </div>
             <div class="band-card">
               <span class="n">02</span>
-              <strong>Desktop, Service, Mobile</strong>
-              <span class="d">Construiești local, publici în cloud, echipa consultă de oriunde.</span>
+              <strong>Desktop și Service</strong>
+              <span class="d">Pe PC aduci sursele, transformi și modelezi. Publici în cloud, unde echipa citește raportul și unde există dashboard-ul.</span>
             </div>
             <div class="band-card">
               <span class="n">03</span>
-              <strong>Datele au o structură</strong>
-              <span class="d">Tabel, coloană, rând și tip. Fără ele, calculele nu funcționează.</span>
+              <strong>Model, raport, dashboard</strong>
+              <span class="d">Modelul ține tabelele și relațiile. Raportul e ce livrezi. Dashboard-ul există doar în Service, pe un singur ecran.</span>
             </div>
           </div>
         </div>
         <div class="closing-band">
           <p class="band-label">Temă</p>
-          <div class="band-row">
+          <div class="band-row is-two">
             <div class="band-card">
               <span class="n">01</span>
-              <strong>Obligatoriu</strong>
-              <span class="d">Deschide orice Excel al tău. Pentru 4 coloane, scrie pe hârtie: tabel / coloană / rând și tipul corect.</span>
+              <strong>Instalare, pentru toată lumea</strong>
+              <span class="d">Instalează Power BI Desktop, deschide aplicația și conectează-te cu contul. Fără Desktop nu putem lucra data viitoare.</span>
             </div>
             <div class="band-card">
               <span class="n">02</span>
-              <strong>Recomandat</strong>
-              <span class="d">Intră în Power Query și schimbă tipul unei coloane. Observă ce se modifică în Table View.</span>
-            </div>
-            <div class="band-card">
-              <span class="n">03</span>
-              <strong>Bonus</strong>
-              <span class="d">Adu la Sesiunea 3 un set de date public dintr-un domeniu care te interesează.</span>
+              <strong>Un mic raport</strong>
+              <span class="d">Deschide fișierul Excel din Drive în Power BI Desktop și construiește un raport scurt: cel puțin un card și un grafic, pe o singură pagină.</span>
             </div>
           </div>
         </div>
-        <p class="closing-next"><strong>Sesiunea 3</strong> · Power Query — curățăm datele pas cu pas</p>
+        <p class="closing-next"><strong>Sesiunea 3</strong> · Power Query: curățăm datele pas cu pas</p>
       </article>
     </main>
 

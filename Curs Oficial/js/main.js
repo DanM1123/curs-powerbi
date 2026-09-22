@@ -87,10 +87,126 @@
     initFlowMap();
     initPbiTour();
     initStepper();
+    initIndustries();
+    initBiStages();
+    initBiIntro();
+    initAdvantages();
+    initArtifacts();
     initRealTour();
+    initRibbonTour();
     initContrast();
     initCases();
     initReveal();
+  }
+
+  function initAdvantages() {
+    document.querySelectorAll('[data-advantages]').forEach(root => {
+      const tabs = root.querySelectorAll('[data-adv]');
+      const panels = root.querySelectorAll('[data-adv-panel]');
+      if (!tabs.length || !panels.length) return;
+
+      const show = (id) => {
+        tabs.forEach(t => {
+          const on = t.getAttribute('data-adv') === id;
+          t.classList.toggle('active', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        panels.forEach(p => {
+          const on = p.getAttribute('data-adv-panel') === id;
+          p.classList.toggle('is-on', on);
+          if (on) p.removeAttribute('hidden');
+          else p.setAttribute('hidden', '');
+        });
+      };
+
+      tabs.forEach(t => t.addEventListener('click', () => show(t.getAttribute('data-adv'))));
+    });
+  }
+
+  function initArtifacts() {
+    document.querySelectorAll('[data-artifacts]').forEach(root => {
+      const tabs = root.querySelectorAll('[data-art]');
+      const panels = root.querySelectorAll('[data-art-panel]');
+      if (!tabs.length || !panels.length) return;
+
+      const show = (id) => {
+        tabs.forEach(t => {
+          const on = t.getAttribute('data-art') === id;
+          t.classList.toggle('active', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        panels.forEach(p => {
+          const on = p.getAttribute('data-art-panel') === id;
+          p.classList.toggle('is-on', on);
+          if (on) p.removeAttribute('hidden');
+          else p.setAttribute('hidden', '');
+        });
+      };
+
+      tabs.forEach(t => t.addEventListener('click', () => show(t.getAttribute('data-art'))));
+    });
+  }
+
+  function initBiIntro() {
+    document.querySelectorAll('[data-bi-intro]').forEach(root => {
+      const tabs = root.querySelectorAll('[data-bi-topic]');
+      const panels = root.querySelectorAll('[data-bi-panel]');
+      if (!tabs.length || !panels.length) return;
+
+      const show = (id) => {
+        tabs.forEach(t => {
+          const on = t.getAttribute('data-bi-topic') === id;
+          t.classList.toggle('active', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        panels.forEach(p => {
+          const on = p.getAttribute('data-bi-panel') === id;
+          p.classList.toggle('is-on', on);
+          if (on) p.removeAttribute('hidden');
+          else p.setAttribute('hidden', '');
+        });
+      };
+
+      tabs.forEach(t => t.addEventListener('click', () => show(t.getAttribute('data-bi-topic'))));
+    });
+  }
+
+  function initIndustries() {
+    document.querySelectorAll('[data-industries]').forEach(root => {
+      const tabs = root.querySelectorAll('[data-ind]');
+      const panels = root.querySelectorAll('[data-ind-panel]');
+      if (!tabs.length || !panels.length) return;
+
+      const show = (id) => {
+        tabs.forEach(t => {
+          const on = t.getAttribute('data-ind') === id;
+          t.classList.toggle('active', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        panels.forEach(p => {
+          const on = p.getAttribute('data-ind-panel') === id;
+          p.classList.toggle('is-on', on);
+          if (on) p.removeAttribute('hidden');
+          else p.setAttribute('hidden', '');
+        });
+      };
+
+      tabs.forEach(t => t.addEventListener('click', () => show(t.getAttribute('data-ind'))));
+    });
+  }
+
+  function initBiStages() {
+    document.querySelectorAll('[data-bi-stages]').forEach(root => {
+      const cards = root.querySelectorAll('[data-reveal-stage]');
+      if (!cards.length) return;
+
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          const on = card.classList.toggle('is-revealed');
+          card.setAttribute('aria-expanded', on ? 'true' : 'false');
+        });
+      });
+    });
   }
 
   function initCases() {
@@ -98,9 +214,9 @@
       vanzari: {
         kicker: 'Întrebarea de luni dimineață',
         q: '„De ce au scăzut vânzările luna trecută?”',
-        off: 'Datele stau în patru fișiere separate: magazine, marketing, contabilitate și un <code>raport_final_v3.xlsx</code>. Consolidezi manual. O formulă trage din rândul greșit. Rezultatul ajunge ca o captură pe chat — de obicei joi, nu luni.',
+        off: 'Datele stau în patru fișiere separate: magazine, marketing, contabilitate și un <code>raport_final_v3.xlsx</code>. Consolidezi manual. O formulă trage din rândul greșit. Rezultatul ajunge ca o captură pe chat: de obicei joi, nu luni.',
         onWork: 'Un singur raport. În ședință filtrezi luna și regiunea. Tot ecranul se actualizează. Nu mai cauți în fișiere.',
-        onAnswer: 'Scăderea nu e peste tot. <strong>Nordul, categoria Băuturi, −18% față de februarie.</strong> Restul țării e aproape pe loc. Asta e gaura — nu „vânzările, în general”.',
+        onAnswer: 'Scăderea nu e peste tot. <strong>Nordul, categoria Băuturi, −18% față de februarie.</strong> Restul țării e aproape pe loc. Asta e gaura: nu „vânzările, în general”.',
         kpi: ['Vânzări mar', '176.4k', '−12%', 'Nord · Băuturi', '−18%', 'față de feb']
       },
       retail: {
@@ -116,7 +232,7 @@
         q: '„În ce echipă pleacă cei mai mulți oameni?”',
         off: 'HR scoate un export, numără plecările în Excel, face un tabel, îl copiază în PowerPoint. Cifra e gata vineri. Până atunci, ședința rămâne pe impresii.',
         onWork: 'Un grafic pe echipe și un număr mare cu totalul. Filtrezi luna. Click pe o bară și vezi detaliul.',
-        onAnswer: '<strong>Echipa Vânzări: 4 plecări din 18 oameni</strong> — peste restul. Support are 1. Nu e „fluctuație generală”, e o echipă.',
+        onAnswer: '<strong>Echipa Vânzări: 4 plecări din 18 oameni</strong>: peste restul. Support are 1. Nu e „fluctuație generală”, e o echipă.',
         kpi: ['Plecări mar', '7', 'toată firma', 'Vânzări', '4 din 18', 'cea mai mare']
       },
       fin: {
@@ -124,7 +240,7 @@
         q: '„Unde am cheltuit mai mult decât era planificat?”',
         off: 'Două fișiere: bugetul și cheltuielile. Le aliniezi pe departament, scazi, cauți minusurile. O greșeală de aliniere și apare o alarmă falsă.',
         onWork: 'Un tabel cu buget, realizat și diferența. Rămân vizibile doar rândurile peste plan. Filtrezi luna.',
-        onAnswer: '<strong>Marketing +23% peste buget</strong> (12.400 lei). IT e sub plan. Nu tai din tot — tai de unde e depășirea.',
+        onAnswer: '<strong>Marketing +23% peste buget</strong> (12.400 lei). IT e sub plan. Nu tai din tot: tai de unde e depășirea.',
         kpi: ['Depășiri', '12.4k', 'o linie', 'Marketing', '+23%', 'vs plan']
       },
       mkt: {
@@ -132,7 +248,7 @@
         q: '„Pe ce canal de publicitate cheltuim fără rezultat?”',
         off: 'Cifrele sunt în trei locuri: Facebook, Google, Excel-ul intern. Le lipești, calculezi costul pe client, trimiți un tabel. Până luni, numerele s-au schimbat.',
         onWork: 'Un ecran: canal, bani cheltuiți, clienți veniți. Filtrezi ultimele 30 de zile.',
-        onAnswer: '<strong>Facebook Ads: 12.000 lei, 3 clienți noi</strong> — 4.000 lei / client. Google a adus 18 clienți cu 6.000 lei. Banii de tăiat sunt pe Facebook.',
+        onAnswer: '<strong>Facebook Ads: 12.000 lei, 3 clienți noi</strong>: 4.000 lei / client. Google a adus 18 clienți cu 6.000 lei. Banii de tăiat sunt pe Facebook.',
         kpi: ['Facebook', '12k', '3 clienți', 'Google', '6k', '18 clienți']
       }
     };
@@ -230,7 +346,7 @@
         },
         on: {
           title: 'Cu BI',
-          text: 'Un raport cu filtru pe regiune și pe lună. Sortezi graficul de la mic la mare și vezi imediat lista. Click pe Vest sau pe Martie — lista se actualizează pe loc, în ședință.'
+          text: 'Un raport cu filtru pe regiune și pe lună. Sortezi graficul de la mic la mare și vezi imediat lista. Click pe Vest sau pe Martie: lista se actualizează pe loc, în ședință.'
         }
       },
       hr: {
@@ -242,7 +358,7 @@
         },
         on: {
           title: 'Cu BI',
-          text: 'Un grafic pe echipe și un număr mare cu totalul plecărilor. Filtrezi luna. Vezi imediat că una dintre echipe e deasupra celorlalte — și poți coborî la nume, dacă ai dreptul.'
+          text: 'Un grafic pe echipe și un număr mare cu totalul plecărilor. Filtrezi luna. Vezi imediat că una dintre echipe e deasupra celorlalte: și poți coborî la nume, dacă ai dreptul.'
         }
       },
       fin: {
@@ -348,40 +464,40 @@
 
     const VIEW_DEFAULTS = {
       report: {
-        title: 'Report View — pânza raportului',
-        text: 'Aici construiești raportul: tragi vizuale (card KPI, grafic, slicer) pe canvas și le configurezi din panourile din dreapta. <strong>Aici stăm cea mai mare parte din timp.</strong>',
-        hint: 'Apasă punctele galbene pentru fiecare zonă a interfeței.',
+        title: 'Report View: pânza raportului',
+        text: 'Aceasta este vederea în care petreci cel mai mult timp. Aici <strong>construiești raportul</strong>: tragi pe canvas carduri KPI, grafice, tabele și slicere, apoi le configurezi din panourile din dreapta. Gândește-te la ea ca la un slide PowerPoint, doar că fiecare element e legat de date și reacționează la filtre.',
+        hint: 'Apasă punctele numerotate de pe imagine ca să afli ce face fiecare zonă a ecranului.',
         badge: ''
       },
       table: {
-        title: 'Table View — datele brute',
-        text: 'Vezi datele exact cum au intrat după import: rânduri, coloane, sortare, filtrare — ca într-un sheet Excel. <strong>Aici verifici</strong> dacă importul e corect.',
-        hint: 'Exemplu: verifici dacă „Sumă” e număr, nu text.',
+        title: 'Table View: datele pe rânduri',
+        text: 'Aici vezi datele <strong>exact cum au intrat</strong> după import: rânduri și coloane, ca într-un sheet Excel. Nu construiești grafice aici: <strong>verifici</strong> dacă importul e corect: tipuri de date, valori lipsă, duplicate. Dacă ceva e greșit, te întorci în Power Query să cureți.',
+        hint: 'Exemplu: dacă „Sumă” apare ca text („200 lei”), aici observi problema înainte să faci totaluri greșite.',
         badge: 'is-table'
       },
       model: {
-        title: 'Model View — relațiile dintre tabele',
-        text: 'Tabelele apar ca dreptunghiuri, iar liniile dintre ele sunt relațiile. Le legi prin drag &amp; drop, tragând o coloană peste alta.',
-        hint: 'Exemplu: legi Vânzări[ID_Client] cu Clienți[ID_Client].',
+        title: 'Model View: relațiile dintre tabele',
+        text: 'Tabelele apar ca dreptunghiuri, iar liniile dintre ele sunt <strong>relațiile</strong>. Le creezi prin drag &amp; drop (tragi o coloană peste alta). Un model bun face ca filtrele din raport să funcționeze pe toate tabelele legate: fără el, graficele „nu se văd între ele”.',
+        hint: 'Exemplu din poză: legi Collisions de Date sau de Location ca să filtrezi accidentele pe an sau pe cartier.',
         badge: 'is-model'
       }
     };
 
     const HOTSPOTS = {
-      r1: { view: 'report', title: 'Ribbon — bara de comenzi', text: 'Bara de sus, cu tab-uri ca la Word sau Excel: <strong>File · Home · Insert · Modeling · View</strong>. De aici pornește tot: <strong>Get data</strong> (aduci sursele), <strong>Transform data</strong> (deschide Power Query), <strong>Refresh</strong> (reîncarci datele).', hint: 'Exemplu: Home → Get data → Excel → Vanzari_2024.xlsx.' },
-      r2: { view: 'report', title: 'Canvas — suprafața raportului', text: 'Zona albă din centru. Aici aranjezi KPI-uri, grafice, slicere și tabele. Seamănă cu un slide de PowerPoint, doar că fiecare element e conectat la date și reacționează la filtre.', hint: 'Exemplu: click pe o bară din grafic → tot raportul se filtrează.' },
-      r3: { view: 'report', title: 'Visualizations — tipurile de vizuale', text: 'Galeria cu tipurile disponibile: <strong>bar, line, card, donut, hartă, matrix, slicer, table</strong>. Alegi tipul, apoi mai jos configurezi ce intră în el (Values, Axis, Legend).', hint: 'Exemplu: alegi Card, tragi „Sumă” în Values → apare totalul.' },
-      r4: { view: 'report', title: 'Data — tabelele și coloanele', text: 'Lista datelor importate: fiecare tabel cu coloanele lui (Categorie, Regiune, Data, Sumă). Le tragi direct pe canvas sau în câmpurile vizualului.', hint: 'Exemplu: tragi „Regiune” pe axă și „Sumă” în valori → grafic pe regiuni.' },
-      r5: { view: 'report', title: 'Pages — paginile raportului', text: 'Un raport poate avea mai multe pagini, exact ca un workbook Excel cu sheet-uri. Fiecare pagină = o perspectivă (vânzări, profit, detaliu client).', hint: 'Tab-urile sunt jos, ca în Excel.' },
-      t1: { view: 'table', title: 'Table tools — unelte pe tabel', text: 'Când selectezi un tabel apare acest tab. De aici creezi <strong>măsuri</strong> (New measure), <strong>coloane calculate</strong> (New column) și gestionezi relațiile.', hint: 'Măsurile în DAX le lucrăm în sesiunile următoare.' },
-      t2: { view: 'table', title: 'Grila cu date', text: 'Datele importate, rând cu rând. Aici <strong>verifici</strong>, nu modifici: dacă vezi valori goale, tipuri greșite sau duplicate, te întorci în Power Query.', hint: 'Exemplu: vezi „null” pe Regiune → problemă de curățat.' },
-      t3: { view: 'table', title: 'Lista tabelelor și tipurile', text: 'În dreapta ai tabelele și, pentru fiecare, coloanele cu tipul lor de date (text, număr, dată). Iconița Σ marchează coloanele numerice care se pot agrega.', hint: 'Dacă „Sumă” nu are Σ, tipul e greșit.' },
-      m1: { view: 'model', title: 'Canvas-ul modelului', text: 'Fiecare dreptunghi e un tabel, fiecare linie e o relație. Pe linii vezi <strong>cardinalitatea</strong> (1 la mai mulți) și direcția în care se propagă filtrul.', hint: 'Un model curat = rapoarte rapide și formule simple.' },
-      m2: { view: 'model', title: 'Properties — proprietăți', text: 'Selectezi un tabel, o coloană sau o relație și configurezi aici: <strong>formatarea</strong> (lei, %, dată), categoria datelor (geografie, URL), descrieri, ascundere.', hint: 'Exemplu: setezi formatul monetar pentru coloana Sumă.' },
-      m3: { view: 'model', title: 'Structura modelului', text: 'Comuți între lista clasică de tabele și panoul cu carduri. Util când ai multe tabele și vrei să le organizezi sau să ascunzi cele tehnice.', hint: 'Devine important de la ~10 tabele în sus.' }
+      r1: { view: 'report', title: 'Ribbon: bara de comenzi', text: 'Bara de sus, cu tab-uri ca la Word sau Excel: <strong>File · Home · Insert · Modeling · View</strong>. De aici pornește munca: aduci datele (Get data), le cureți (Transform data), reîncarci (Refresh) sau adaugi elemente pe pagină. Ribbon-ul se schimbă puțin în funcție de ce vedere ești: detaliile le vedem pe slide-ul următor.', hint: 'Exemplu tipic: Home → Get data → Excel → alegi fișierul de vânzări.' },
+      r2: { view: 'report', title: 'Canvas: suprafața raportului', text: 'Zona centrală, albă. Aici aranjezi vizualele: KPI-uri sus, grafice în mijloc, filtre pe laterale. Fiecare element e conectat la date. Poți avea mai multe pagini (tab-uri jos), ca sheet-urile din Excel: fiecare pagină = o perspectivă (vânzări, stoc, detaliu).', hint: 'Exemplu: click pe o bară din grafic → tot raportul se filtrează pe acea valoare.' },
+      r3: { view: 'report', title: 'Visualizations: tipurile de vizuale', text: 'Galeria din dreapta cu tipurile disponibile: bar, line, card, donut, hartă, matrix, slicer, table etc. Alegi tipul, apoi completezi câmpurile (Values, Axis, Legend). Același set de date poate arăta foarte diferit în funcție de vizualul ales.', hint: 'Exemplu: alegi Card, tragi „Sumă” în Values → apare totalul pe ecran.' },
+      r4: { view: 'report', title: 'Data: tabelele și coloanele', text: 'Lista datelor importate: fiecare tabel cu coloanele lui (Categorie, Regiune, Data, Sumă). De aici tragi câmpuri pe canvas sau în panoul vizualului. Iconița Σ marchează coloanele numerice pe care le poți aduna.', hint: 'Exemplu: tragi „Regiune” pe axă și „Sumă” în valori → grafic pe regiuni.' },
+      r5: { view: 'report', title: 'Pages: paginile raportului', text: 'Un raport Power BI poate avea mai multe pagini, exact ca un workbook Excel cu mai multe sheet-uri. Fiecare pagină poate spune o altă poveste: sumar, detalii pe magazin, comparație pe luni. Navigarea e pe tab-urile de jos.', hint: 'Începătorii: păstrează o pagină „Sumar” și una „Detaliu”: mai ușor de citit.' },
+      t1: { view: 'table', title: 'Table tools: unelte pe tabel', text: 'Când selectezi un tabel, în ribbon apare un tab contextual. De aici poți crea <strong>măsuri</strong> (calcule tip total) și <strong>coloane calculate</strong>. Nu e locul unde cureți datele: curățarea se face în Power Query; aici lucrezi pe modelul deja încărcat.', hint: 'Măsurile în DAX le aprofundăm în sesiunile următoare: acum e suficient să știi că există.' },
+      t2: { view: 'table', title: 'Grila cu date', text: 'Datele pe rânduri și coloane. Aici <strong>verifici</strong>, nu edifici raportul: cauți valori goale, tipuri greșite, duplicate. Dacă ceva nu arată bine, notezi problema și o rezolvi în Power Query (Transform data).', hint: 'Exemplu: vezi „null” pe coloana Regiune → magazinul fără regiune va lipsi din filtre.' },
+      t3: { view: 'table', title: 'Lista tabelelor și tipurile', text: 'În dreapta ai tabelele și, pentru fiecare, coloanele cu tipul lor (text, număr, dată). Tipul greșit strică calculele: un preț ca text nu se adună. Verifică iconițele înainte să construiești vizuale.', hint: 'Dacă „Sumă” nu are Σ, tipul e probabil text: trebuie corectat.' },
+      m1: { view: 'model', title: 'Tabele de dimensiuni', text: 'Vehicle Type, Date, Time și Location descriu accidentul: tipul de vehicul, când și unde. Stau în jurul tabelului central și îl filtrează.', hint: 'Dimensiunile răspund la „după ce grupăm?”: dată, loc, tip de vehicul.' },
+      m2: { view: 'model', title: 'Tabelul de fapte (Collisions)', text: 'Collisions este tabelul central, cu măsurile (număr de accidente, răniți). Aici se adună cifrele. Liniile cu 1 și * arată relația unu-la-mulți.', hint: 'Într-un star schema, faptele stau la mijloc, dimensiunile pe margine.' },
+      m3: { view: 'model', title: 'Relațiile din dreapta', text: 'Contributing Factor și Location se leagă de Collisions. Fiecare linie este o relație: fără ea, un filtru dintr-un tabel nu ajunge în celălalt.', hint: 'Urmărește simbolurile 1 și * ca să vezi sensul filtrului.' }
     };
 
-    const ASPECTS = { report: '1919 / 973', table: '1919 / 982', model: '1919 / 742' };
+    const ASPECTS = { report: '1919 / 973', table: '1919 / 982', model: '1170 / 617' };
 
     const stage = tour.querySelector('.s2-real-stage');
     const badge = tour.querySelector('[data-rti-badge]');
@@ -389,9 +505,8 @@
     const textEl = tour.querySelector('[data-rti-text]');
     const hintEl = tour.querySelector('[data-rti-hint]');
     const imgs = tour.querySelectorAll('.s2-real-img');
-    const vsBtns = tour.querySelectorAll('.s2-vs-btn');
+    const vsBtns = tour.querySelectorAll('.s2-view-top-btn[data-view]');
     const spots = tour.querySelectorAll('.s2-rh');
-    const rows = tour.querySelectorAll('.s2-rti-row');
 
     const paint = (view, data, suffix) => {
       if (badge) {
@@ -416,7 +531,6 @@
         s.classList.remove('active');
         s.classList.toggle('show', s.dataset.view === view);
       });
-      rows.forEach(r => r.classList.toggle('active', r.dataset.viewQuick === view));
       paint(view, VIEW_DEFAULTS[view], '');
     };
 
@@ -428,7 +542,194 @@
     };
 
     vsBtns.forEach(b => b.addEventListener('click', () => setView(b.dataset.view)));
-    rows.forEach(r => r.addEventListener('click', () => setView(r.dataset.viewQuick)));
+    spots.forEach(s => s.addEventListener('click', () => showSpot(s.dataset.id)));
+    setView('report');
+  }
+
+  function initRibbonTour() {
+    const root = document.querySelector('[data-ribbon-tour]');
+    if (!root) return;
+
+    const FOCUS = {
+      report: 'Specific Report View: aici construiești pagina: vizuale, text, publicare. Ribbon-ul are grupul Insert, pe care nu-l vezi la fel în celelalte vederi.',
+      table: 'Specific Table View: tab-ul contextual Table tools. Redenumești tabelul, gestionezi relații, creezi măsuri/coloane și marchezi tabela de date.',
+      model: 'Specific Model View: lucrezi pe legături dintre tabele. Ai Relationships, Calculations și Parameters: fără Insert de vizuale.'
+    };
+
+    const SPOTS = {
+      r1: {
+        title: 'Data: aduci datele în proiect',
+        text: 'Grupul cu care începe aproape orice raport. De aici te conectezi la surse. Nu trebuie să știi toate butoanele: ține minte pe cele de mai jos.',
+        fields: [
+          { name: 'Get data', desc: 'Meniu cu toate tipurile de surse (Excel, SQL, web…). Punctul de start.' },
+          { name: 'Excel workbook', desc: 'Scurtătură directă: cel mai folosit la început.' },
+          { name: 'Enter data', desc: 'Tastezi sau lipești un tabel mic, fără fișier.' },
+          { name: 'Recent sources', desc: 'Revii rapid la o sursă pe care ai mai folosit-o.' }
+        ],
+        hint: 'La început: Get data → Excel. Restul (SQL, Dataverse, OneLake) le lași pe mai târziu.'
+      },
+      r2: {
+        title: 'Queries: cureți și reîncarci datele',
+        text: 'După ce ai importat, aici pregătești datele. Transform data deschide Power Query: editorul de curățare pe care îl aprofundăm în sesiunea următoare.',
+        fields: [
+          { name: 'Transform data', desc: 'Deschide Power Query: filtrezi, redenumești coloane, corectezi tipuri.' },
+          { name: 'Refresh', desc: 'Reîncarcă datele din surse (când apar rânduri noi în Excel, de ex.).' }
+        ],
+        hint: 'Vezi valori greșite pe raport → Transform data, nu „corectezi pe grafic”.'
+      },
+      r3: {
+        title: 'Insert: pui elemente pe pagină',
+        text: 'Doar în Report View ai acest grup pe Home. Adaugi vizuale și text pe canvas: e diferența mare față de Table / Model.',
+        fields: [
+          { name: 'New visual', desc: 'Pune un vizual gol pe pagină; apoi alegi tipul și câmpurile.' },
+          { name: 'Text box', desc: 'Titluri, explicații scurte pe raport.' },
+          { name: 'More visuals', desc: 'Vizuale din magazin (opțional, mai târziu).' }
+        ],
+        hint: 'Specific Report: aici „desenezi” raportul. În Table/Model nu ai Insert de grafice.'
+      },
+      r4: {
+        title: 'Calculations: calcule pe date',
+        text: 'Aici creezi măsuri (totaluri, procente). La început e suficient să știi că există: DAX-ul vine în sesiuni viitoare.',
+        fields: [
+          { name: 'New measure', desc: 'Formule tip „Total vânzări” folosite pe tot raportul.' },
+          { name: 'Quick measure', desc: 'Asistent pentru calcule comune, fără să scrii totul de mână.' }
+        ],
+        hint: 'Nu e obligatoriu în prima zi. Important: există și e pe Home, în Report.'
+      },
+      r5: {
+        title: 'Publish: trimiți raportul în cloud',
+        text: 'Când raportul e gata pe PC, Publish îl urcă în Power BI Service. De acolo îl văd colegii din browser.',
+        fields: [
+          { name: 'Publish', desc: 'Încarcă fișierul .pbix în workspace-ul din Service.' }
+        ],
+        hint: 'Desktop = creezi. Publish = împărtășești. Fără Publish, raportul rămâne doar pe calculatorul tău.'
+      },
+      t1: {
+        title: 'Structure: numele tabelului',
+        text: 'În Table tools poți redenumi tabelul selectat. Numele clar (ex. Vânzări, nu Sheet1) ajută pe tot modelul și în rapoarte.',
+        fields: [
+          { name: 'Name', desc: 'Câmpul unde schimbi denumirea tabelului curent.' }
+        ],
+        hint: 'Redenumește tabelele imediat după import: e greu să lucrezi cu Sheet1, Sheet2…'
+      },
+      t2: {
+        title: 'Relationships: legăturile dintre tabele',
+        text: 'Manage relationships deschide lista relațiilor din model. De aici creezi sau editezi legăturile (ex. pe ID), fără să schimbi neapărat vederea Model.',
+        fields: [
+          { name: 'Manage relationships', desc: 'Creezi, editezi sau ștergi relații între tabele.' }
+        ],
+        hint: 'Relațiile corecte fac ca filtrele din raport să meargă între tabele.'
+      },
+      t3: {
+        title: 'Calculations: măsuri și coloane',
+        text: 'Grupul central din Table tools: aici creezi calcule pe model (DAX), nu curățare de date (aceea e în Power Query).',
+        fields: [
+          { name: 'New measure', desc: 'Calcul dinamic (total, medie) folosit în vizuale.' },
+          { name: 'Quick measure', desc: 'Asistent pentru calcule frecvente.' },
+          { name: 'New column', desc: 'Coloană calculată pe fiecare rând.' },
+          { name: 'New table', desc: 'Tabel nou dintr-o formulă DAX.' }
+        ],
+        hint: 'La început e suficient să recunoști New measure / New column. DAX-ul vine mai târziu.'
+      },
+      t4: {
+        title: 'Calendars: tabela de date',
+        text: 'Mark as date table spune modelului care tabel este calendarul oficial, necesar pentru funcții de time intelligence (YTD, MoM etc.).',
+        fields: [
+          { name: 'Mark as date table', desc: 'Marchează tabelul selectat ca tabel de date al modelului.' }
+        ],
+        hint: 'Folosești asta când ai un tabel Date / Calendar dedicat, nu pe orice tabel.'
+      },
+      m1: {
+        title: 'Data: date noi și din Model View',
+        text: 'Poți importa surse și din Model View. Rareori e primul loc unde te duci ca începător, dar butoanele există.',
+        fields: [
+          { name: 'Get data', desc: 'Adaugi o sursă nouă fără să schimbi vederea.' },
+          { name: 'Excel workbook', desc: 'Import rapid Excel.' }
+        ],
+        hint: 'De obicei: imporți din Report/Table, apoi treci la Model ca să legi tabelele.'
+      },
+      m2: {
+        title: 'Queries: curățare din Model',
+        text: 'Transform data și Refresh sunt disponibile și aici. Dacă observi o problemă pe diagramă (tabel lipsă, coloane greșite), poți sări direct în Power Query.',
+        fields: [
+          { name: 'Transform data', desc: 'Deschide Power Query.' },
+          { name: 'Refresh', desc: 'Reîncarcă datele în model.' }
+        ],
+        hint: 'Modelul e la fel de bun ca datele din spate: Transform data rămâne unealta de curățare.'
+      },
+      m3: {
+        title: 'Relationships: inima Model View',
+        text: 'Aici relațiile contează cel mai mult. Pe canvas le vezi ca linii; Manage relationships îți dă lista și detaliile.',
+        fields: [
+          { name: 'Manage relationships', desc: 'Creezi / editezi legături (ex. ID_Client în ambele tabele).' }
+        ],
+        hint: 'Specific Model: fără relații corecte, vizuale din tabele diferite nu se filtrează cum trebuie.'
+      },
+      m4: {
+        title: 'Calculations: măsuri pe model',
+        text: 'În Model View poți crea măsuri, coloane, tabele calculate. Lucrezi pe structură, nu pe aspectul paginii.',
+        fields: [
+          { name: 'New measure', desc: 'Calcul pentru tot raportul.' },
+          { name: 'New column', desc: 'Coloană calculată în tabel.' },
+          { name: 'New table', desc: 'Tabel din formulă.' }
+        ],
+        hint: 'Calculele aparțin modelului: de aceea le găsești și aici, nu doar pe canvas.'
+      },
+      m5: {
+        title: 'Parameters: scenarii „ce-ar fi dacă”',
+        text: 'New parameter creează un control pe care utilizatorul îl poate schimba (ex. un procent de creștere). La început e opțional: știi că există.',
+        fields: [
+          { name: 'New parameter', desc: 'Parametru what-if sau listă de câmpuri pentru slicer-e avansate.' }
+        ],
+        hint: 'Specific Model (și mai avansat): nu e necesar în prima săptămână, dar e pe ribbon ca să-l recunoști.'
+      }
+    };
+
+    const viewBtns = root.querySelectorAll('[data-rib-view]');
+    const imgs = root.querySelectorAll('[data-rib-img]');
+    const spots = root.querySelectorAll('.s2-rib-h');
+    const badge = root.querySelector('[data-rib-badge]');
+    const focusEl = root.querySelector('[data-rib-focus]');
+    const titleEl = root.querySelector('[data-rib-title]');
+    const textEl = root.querySelector('[data-rib-text]');
+    const fieldsEl = root.querySelector('[data-rib-fields]');
+    const hintEl = root.querySelector('[data-rib-hint]');
+    const firstByView = { report: 'r1', table: 't1', model: 'm1' };
+
+    const showSpot = (id) => {
+      const spot = SPOTS[id];
+      if (!spot) return;
+      spots.forEach(s => s.classList.toggle('active', s.dataset.id === id));
+      if (titleEl) titleEl.textContent = spot.title;
+      if (textEl) textEl.textContent = spot.text;
+      if (fieldsEl) {
+        fieldsEl.innerHTML = (spot.fields || []).map(f =>
+          `<li><strong>${f.name}</strong>${f.desc}</li>`
+        ).join('');
+      }
+      if (hintEl) hintEl.innerHTML = spot.hint || '';
+    };
+
+    const setView = (view) => {
+      const stage = root.querySelector('.s2-rib-stage');
+      if (stage) stage.dataset.rib = view;
+      viewBtns.forEach(b => b.classList.toggle('active', b.getAttribute('data-rib-view') === view));
+      imgs.forEach(img => img.classList.toggle('active', img.getAttribute('data-rib-img') === view));
+      spots.forEach(s => {
+        const on = s.dataset.view === view;
+        s.classList.toggle('show', on);
+        s.classList.remove('active');
+      });
+      if (badge) {
+        badge.textContent = view.toUpperCase() + ' VIEW';
+        badge.classList.toggle('is-table', view === 'table');
+        badge.classList.toggle('is-model', view === 'model');
+      }
+      if (focusEl) focusEl.textContent = FOCUS[view] || '';
+      showSpot(firstByView[view]);
+    };
+
+    viewBtns.forEach(b => b.addEventListener('click', () => setView(b.getAttribute('data-rib-view'))));
     spots.forEach(s => s.addEventListener('click', () => showSpot(s.dataset.id)));
     setView('report');
   }
@@ -552,7 +853,7 @@
     btn.type = 'button';
     btn.className = 'icon-btn poll-reset-btn';
     btn.setAttribute('aria-label', 'Resetează voturile');
-    btn.title = 'Reset voturi — pornește de la 0';
+    btn.title = 'Reset voturi: pornește de la 0';
     btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5L1 10"/></svg>';
     btn.addEventListener('click', async () => {
       if (!confirm('Ștergi toate răspunsurile din sesiunea asta și pornești de la 0?')) return;
@@ -744,19 +1045,19 @@
     if (!tour) return;
     const TOUR_DATA = {
       '1': {
-        title: 'Ribbon — comenzile',
+        title: 'Ribbon: comenzile',
         text: 'Bara de sus, ca la Word sau Excel. Aici: <strong>Get Data</strong> (aduci Excel), <strong>Transform data</strong> (curăți), <strong>Refresh</strong> (reîncarci).',
         hint: 'Exemplu: Home → Get Data → Excel → alegi Vanzari_2024.xlsx.'
       },
       '2': {
-        title: 'Vederi — Report / Data / Model',
+        title: 'Vederi: Report / Data / Model',
         text: '<strong>Report</strong> = canvas cu grafice · <strong>Data</strong> = tabelul brut (ca Excel) · <strong>Model</strong> = tabelele legate cu linii.',
         hint: 'Exemplu: treci pe Data View ca să vezi dacă „Sumă” e număr, nu text.'
       },
       '3': {
-        title: 'Canvas — pânza raportului',
+        title: 'Canvas: pânza raportului',
         text: 'Zona din mijloc. Aici pui card-uri, grafice, slicere. Click pe un grafic → filtrează tot raportul.',
-        hint: 'Exemplu: un card „Total vânzări” + un bar pe luni — pe aceeași pagină.'
+        hint: 'Exemplu: un card „Total vânzări” + un bar pe luni: pe aceeași pagină.'
       },
       '4': {
         title: 'Visualizations',
@@ -764,7 +1065,7 @@
         hint: 'Exemplu: click pe Card, apoi tragi coloana Sumă → apare totalul.'
       },
       '5': {
-        title: 'Fields — coloanele',
+        title: 'Fields: coloanele',
         text: 'Lista coloanelor din datele importate (Categorie, Regiune, Data…). Le tragi pe canvas, drag & drop.',
         hint: 'Exemplu: tragi Regiune pe Axis și Sumă pe Values → bar chart pe regiuni.'
       }
