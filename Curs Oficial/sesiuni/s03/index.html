@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Power BI · Sesiunea 3 · Power Query</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23059669'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='56' font-weight='900' text-anchor='middle' fill='white'%3E3%3C/text%3E%3C/svg%3E" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/session.css" />
+  <link rel="stylesheet" href="../../css/extras.css" />
+  <link rel="stylesheet" href="../../css/s03.css" />
+  <script src="../../js/gate.js"></script>
+  <script src="../../js/firebase-init.js"></script>
+</head>
+<body class="hub-page s03-page" data-poll-root="curs-oficial/s03/polls">
+  <div class="hub-orbits" aria-hidden="true">
+    <div class="hub-orb a"></div>
+    <div class="hub-orb b"></div>
+    <div class="hub-orb c"></div>
+  </div>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="../../index.html" class="brand">
+        <span class="brand-mark">P</span>
+        <span>Power BI · Sesiunea 3</span>
+      </a>
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" aria-label="Schimbă tema">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="student-shell">
+    <div class="slide-progress"><div class="fill" data-slide-progress></div></div>
+    <main class="slide-deck">
+
+      <!-- Recapitulare sesiunea 2 · înainte de concepte -->
+      <article class="slide active">
+        <span class="slide-eyebrow">Legătura cu sesiunea 2</span>
+        <h2>Înainte de Power Query</h2>
+        <p class="s3-lead">Scurtă verificare a fundației din sesiunea trecută. O întrebare pe ecran; răspunsul apare când îl ceri. Apoi trecem la conceptele sesiunii și la pașii pe fișier.</p>
+        <div data-s3-recap>
+          <div class="s3-recap-top">
+            <span class="s3-recap-count" data-s3-recap-count>01 / 05</span>
+            <div class="s3-recap-nav">
+              <button type="button" data-s3-recap-prev>Înapoi</button>
+              <button type="button" data-s3-recap-next>Înainte</button>
+            </div>
+          </div>
+
+          <section class="s3-q is-on" data-s3-q>
+            <h3>Care sunt etapele BI?</h3>
+            <p class="ask">De la o problemă de business până la o decizie. Nu de la un grafic. Gândește-le în ordine, apoi deschide răspunsul.</p>
+            <div class="s3-answer">
+              <div class="s3-stages">
+                <div><span>01</span><strong>Discuții</strong><em>Ce întrebare trebuie să răspundă raportul?</em></div>
+                <div><span>02</span><strong>Surse</strong><em>Unde trăiesc datele: Excel, ERP, CRM.</em></div>
+                <div><span>03</span><strong>Aducere</strong><em>Get Data. Le punem într-un loc comun.</em></div>
+                <div><span>04</span><strong>Curățare și model</strong><em>Azi: curățarea. Apoi relațiile în model.</em></div>
+                <div><span>05</span><strong>Raport</strong><em>Vizuale care răspund la întrebare.</em></div>
+                <div><span>06</span><strong>Decizie</strong><em>Cineva face ceva cu informația.</em></div>
+              </div>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q s3-q-scenario" data-s3-q>
+            <span class="s3-scenario-tag">Exemplu practic</span>
+            <h3>O discuție, <span class="s3-scenario-name">Cafe Luna</span></h3>
+            <p class="ask">Un cursant e proprietarul unei cafenea. Ce vrea să afle? Ce informație îi trebuie ca să decidă? Unde crezi că stau datele? Gândește răspunsul, apoi deschide comparația.</p>
+            <div class="s3-answer">
+              <div class="s3-duo">
+                <article>
+                  <span class="tag">Proprietarul</span>
+                  <h4>Întrebări de business</h4>
+                  <ol>
+                    <li>Am rămas în buget luna asta?</li>
+                    <li>Unde am cheltuit mai mult decât planificat?</li>
+                    <li>Cât profit a rămas după cheltuieli?</li>
+                  </ol>
+                  <p class="s3-talk-ex">Nu cere un grafic anume. Cere o decizie: oprește ceva, mută bani, negociază cu un furnizor.</p>
+                </article>
+                <article class="is-build">
+                  <span class="tag">Analist BI</span>
+                  <h4>Informație și surse</h4>
+                  <ul class="s3-talk">
+                    <li><strong>Decizia:</strong> reduce cheltuielile la marketing sau renegociază chiria.</li>
+                    <li><strong>Informația:</strong> buget vs. realizat pe categorii, profit = încasări − cheltuieli.</li>
+                    <li><strong>Sursele:</strong> POS sau casă (încasări), Excel contabil (cheltuieli), eventual ERP.</li>
+                  </ul>
+                  <p class="s3-talk-ex">Același drum ca la etapele BI: întrebare → date → curățare → raport → decizie.</p>
+                </article>
+              </div>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>Desktop și Service</h3>
+            <p class="ask">Nu sunt în competiție. Sunt două unelte, cu roluri diferite. Recapitulăm câte 8 lucruri pe fiecare.</p>
+            <div class="s3-answer">
+              <div class="s3-duo s3-enum">
+                <article>
+                  <span class="tag">Power BI Desktop</span>
+                  <ol>
+                    <li>Trăiește pe PC, într-un fișier <code>.pbix</code>.</li>
+                    <li>Conectezi sursele: Excel, CSV, baze, cloud.</li>
+                    <li>Cureți datele în Power Query.</li>
+                    <li>Modelezi: tabele și relații.</li>
+                    <li>Scrii calculele (măsuri, coloane).</li>
+                    <li>Construiești vizualele pe canvas.</li>
+                    <li>Publici raportul către Service.</li>
+                    <li>Lucrează autorul, singur, pe calculatorul lui.</li>
+                  </ol>
+                </article>
+                <article class="is-build">
+                  <span class="tag">Power BI Service</span>
+                  <ol>
+                    <li>Trăiește în cloud, la app.powerbi.com.</li>
+                    <li>Workspace-ul ține rapoartele și modelele.</li>
+                    <li>Partajezi prin link, Teams sau mail.</li>
+                    <li>Programezi refresh-ul datelor.</li>
+                    <li>Controlezi accesul și RLS.</li>
+                    <li>Dashboard-ul există doar aici.</li>
+                    <li>Se citește din browser sau de pe telefon.</li>
+                    <li>Citește echipa, cu drepturi pe rol.</li>
+                  </ol>
+                </article>
+              </div>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>Cele trei vederi din Desktop</h3>
+            <p class="ask">Aceeași aplicație, trei locuri de lucru. Iconițele sunt în stânga, pe verticală.</p>
+            <div class="s3-answer">
+              <div class="s3-views">
+                <article>
+                  <div class="fake" aria-hidden="true"><span></span><span></span><span></span></div>
+                  <h4>Report</h4>
+                  <p>Pânza. Aici pui grafice, carduri, filtre. E ce vede utilizatorul.</p>
+                </article>
+                <article>
+                  <div class="fake" aria-hidden="true"><span></span><span></span><span style="width:70%"></span></div>
+                  <h4>Table</h4>
+                  <p>Datele după ce au intrat în model. Aici verifici că o coloană e număr, nu text.</p>
+                </article>
+                <article>
+                  <div class="fake" aria-hidden="true"><span style="width:40%"></span><span style="width:55%;justify-self:end"></span><span></span></div>
+                  <h4>Model</h4>
+                  <p>Tabelele și liniile dintre ele. Aici se vor vedea relațiile, într-o sesiune următoare.</p>
+                </article>
+              </div>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>Model sau raport?</h3>
+            <p class="ask">Două lucruri diferite, în același fișier. Ce e fundația și ce e livrabilul?</p>
+            <div class="s3-answer">
+              <div class="s3-duo">
+                <article>
+                  <span class="tag">Fundația</span>
+                  <h4>Modelul (Data Model)</h4>
+                  <p>Modelul este fundația oricărui proiect Power BI. Înainte să construiești orice vizualizare, trebuie să ai datele încărcate, curate și bine structurate. Aici definești cum se leagă tabelele, creezi coloane calculate și măsuri. Un model poate alimenta mai multe rapoarte. Dacă modelul e greșit, orice grafic de deasupra e greșit.</p>
+                </article>
+                <article class="is-build">
+                  <span class="tag">Livrabilul</span>
+                  <h4>Raportul (Report)</h4>
+                  <p>Raportul este produsul principal pe care îl livrezi. Are una sau mai multe pagini, fiecare cu vizuale: grafice, tabele, carduri, filtre. Îl construiești în Desktop, pe baza modelului, și îl publici în Service. Este interactiv: utilizatorul filtrează și trece de la o pagină la alta. Azi nu desenăm raportul: pregătim datele pe care va sta.</p>
+                </article>
+              </div>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+        </div>
+      </article>
+
+      <!-- Concepte -->
+      <article class="slide s3-concepts-slide">
+        <span class="slide-eyebrow">Sesiunea 3 · hartă</span>
+        <h2>Conceptele sesiunii</h2>
+        <p class="s3-lead">Azi legăm ce știi despre BI și Desktop de munca pe date reale. Începem cu tipurile și valorile problematice; apoi intrăm în Power Query și parcurgem același fișier, pas cu pas, până la un model curat.</p>
+        <div class="s3-concepts">
+          <article><span class="n">01</span><div><h3>Tipuri de date</h3><p>Strings, numere, date și ore: ce permite fiecare tip în calcule, sortări și filtre.</p></div></article>
+          <article><span class="n">02</span><div><h3>null, blank, error</h3><p>Trei stări diferite ale celulei. Nu le tratăm la fel la curățare.</p></div></article>
+          <article><span class="n">03</span><div><h3>Power Query · ETL</h3><p>Extract, Transform, Load. Lista de pași din Applied Steps, nu editarea sursei.</p></div></article>
+          <article><span class="n">04</span><div><h3>Metoda de curățare</h3><p>Inspectează, identifică, rezolvă în ordine, verifică — cu profilul coloanei înainte de reparații.</p></div></article>
+          <article><span class="n">05</span><div><h3>Transformări pe vacanțe</h3><p>Rânduri, coloane, text, tip, dată și formă — le facem live pe fișierul de lecție.</p></div></article>
+        </div>
+        <p class="s3-kicker s3-kicker-files">Fișierele proiectului</p>
+        <div class="s3-files s3-files-project">
+          <a href="../../assets/s03/Vacante_murdar.xlsx" download><span class="s3-file-tag">Lecție</span> Vacante_murdar.xlsx</a>
+          <a href="../../assets/s03/Deplasari_tema.xlsx" download><span class="s3-file-tag">Temă</span> Deplasari_tema.xlsx</a>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Teorie · tipuri de date</span>
+        <h2>Tipuri de date</h2>
+        <p class="s3-lead">Un tip de date este un atribut asociat unei valori, care îi spune sistemului cum să o interpreteze. Limbajele de programare, bazele de date și Power BI au tipuri asemănătoare, dar regulile diferă de la un sistem la altul. În Power BI, tipul decide calculul, sortarea, filtrul și relația dintre tabele. „7”, „7 zile” și „07” pot arăta apropiat pentru om și totuși să fie trei lucruri diferite pentru motor.</p>
+        <div class="s3-type-row" aria-label="Cele trei familii principale">
+          <span><b>ABC</b> Strings</span>
+          <span><b>123</b> Numbers</span>
+          <span><b>cal+</b> Date / Time</span>
+        </div>
+        <div class="s3-card-grid is-open s3-family-notes">
+          <article class="s3-info-card"><span class="n">1</span><strong>Strings</strong><p>Păstrează textul exact: nume, orașe și coduri. Un cod făcut număr pierde zeroul din față.</p><em>Ex: 00742 rămâne text.</em></article>
+          <article class="s3-info-card"><span class="n">2</span><strong>Numbers</strong><p>Permit suma și media. Procentul e un număr afișat cu %. Banii au tipul lor.</p><em>Ex: 7, 15%, 49,90 lei.</em></article>
+          <article class="s3-info-card"><span class="n">3</span><strong>Date / Time</strong><p>Permit sortarea în timp. Duration e o lungime, nu o oră de pe ceas.</p><em>Ex: 24.09.2026, 2.04:30:00.</em></article>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Teorie · tipuri de date</span>
+        <h2>Harta tipurilor de date</h2>
+        <div class="s2-stages-reveal" data-bi-stages>
+          <div class="s2-reveal-grid is-types">
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>Text</h3><p>Strings: cuvinte, etichete și coduri. Se filtrează și se numără.</p><span class="ex">Ex: Paris · 00742</span></div></button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>Whole number</h3><p>Numbers fără zecimale. Aici se face suma și media.</p><span class="ex">Ex: 7 · 240</span></div></button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>Decimal number</h3><p>Numbers cu zecimale, pentru măsurători. Nu este tipul pentru bani.</p><span class="ex">Ex: 3,14 · 7,5</span></div></button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>Fixed decimal</h3><p>Patru zecimale fixe. Este tipul folosit pentru bani.</p><span class="ex">Ex: 49,9000 lei</span></div></button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>Percentage</h3><p>Un număr afișat cu %. 15% este stocat ca 0,15. Se poate suma și media.</p><span class="ex">Ex: 15% · 0,15</span></div></button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>Date</h3><p>O zi din calendar, fără oră.</p><span class="ex">Ex: 24.09.2026</span></div></button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>Time</h3><p>O oră de pe ceas, fără o zi din calendar.</p><span class="ex">Ex: 09:30</span></div></button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>Date/Time</h3><p>Ziua și ora împreună, un moment exact.</p><span class="ex">Ex: 24.09.2026 09:30</span></div></button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>Duration</h3><p>O lungime de timp, nu o oră. Zile, ore, minute și secunde.</p><span class="ex">Ex: 2.04:30:00</span></div></button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>True / False</h3><p>Două stări cunoscute. null nu înseamnă False.</p><span class="ex">Ex: True · False</span></div></button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>Any</h3><p>Power Query nu a ales încă un tip. Coloana se verifică.</p><span class="ex">Ex: 7 · Paris · 24.09</span></div></button>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Teorie · date și ore</span>
+        <h2>Date și ore: aceeași valoare, mai multe afișări</h2>
+        <p class="s3-lead">Data și ora au multe formate, iar forma depinde de țară, de continent și de cerința sursei. 12/03/2026 este 12 martie în România și 3 decembrie în Statele Unite. Merită știut: același moment poate crea confuzie când tabelul amestecă formatele.</p>
+        <div class="s3-card-grid is-open">
+          <article class="s3-info-card"><span class="n">1</span><strong>24.09.2026</strong><p>Zi, lună, an, așa cum se scrie în România.</p><em>Tip: Date</em></article>
+          <article class="s3-info-card"><span class="n">2</span><strong>09/24/2026</strong><p>Aceeași zi, cu luna înaintea zilei.</p><em>Tip: Date</em></article>
+          <article class="s3-info-card"><span class="n">3</span><strong>2026-09-24</strong><p>Aceeași zi, cu anul la început.</p><em>Tip: Date</em></article>
+          <article class="s3-info-card"><span class="n">4</span><strong>14:30</strong><p>Ora în format de 24 de ore, fără zi.</p><em>Tip: Time</em></article>
+          <article class="s3-info-card"><span class="n">5</span><strong>2:30 PM</strong><p>Aceeași oră, în format de 12 ore.</p><em>Tip: Time</em></article>
+          <article class="s3-info-card"><span class="n">6</span><strong>24.09.2026 14:30</strong><p>Ziua și ora într-o singură valoare.</p><em>Tip: Date/Time</em></article>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Teorie · tipuri de date</span>
+        <h2>Ce vezi pe ecran, ce vede Power BI</h2>
+        <table class="s3-typetable">
+          <thead><tr><th>Ce vezi pe ecran</th><th>Ce vede Power BI</th><th>De ce avem nevoie</th></tr></thead>
+          <tbody>
+            <tr><td>7 zile</td><td>Text</td><td>Număr întreg 7, ca să calculăm media</td></tr>
+            <tr><td>890,50 lei</td><td>Text</td><td>Fixed decimal, ca să adunăm banii</td></tr>
+            <tr><td>15%</td><td>Text, sau 0,15</td><td>Percentage, ca să calculăm o rată</td></tr>
+            <tr><td>2 zile 4 ore</td><td>Text</td><td>Duration, o lungime, nu o oră de pe ceas</td></tr>
+            <tr><td>04.05.2023</td><td>Text</td><td>Date, ca să filtrăm luna și anul</td></tr>
+            <tr><td>09:30 AM</td><td>Text</td><td>Time, ca să comparăm orele</td></tr>
+            <tr><td>00742</td><td>Numărul 742</td><td>Text, ca să păstrăm zero-ul din cod</td></tr>
+            <tr><td>24.09.2026 09:30</td><td>Text</td><td>Date/Time, ca să avem ziua și ora</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <article class="slide s3-null-slide">
+        <span class="slide-eyebrow">Teorie · valori lipsă</span>
+        <h2>null, blank și error</h2>
+        <p class="s3-lead">Toate trei pot apărea ca o celulă goală în previzualizare, dar reprezintă stări diferite ale datelor, iar fiecare necesită o rezolvare distinctă. Tratarea lor ca echivalente poate duce la completarea automată a unei valori lipsă intenționat sau la propagarea unei erori nerezolvate în model.</p>
+        <div class="s3-null-grid">
+          <article class="s3-null-card"><span class="n">01</span><h3>null</h3><p>Valoarea standard pentru absența datelor — fie citită dintr-o celulă necompletată în sursă, fie rezultată dintr-un calcul care nu produce o valoare validă. Nu echivalează cu 0, blank sau False; funcțiile de agregare o exclud din calcul.</p></article>
+          <article class="s3-null-card"><span class="n">02</span><h3>blank (&quot;&quot;)</h3><p>O valoare de tip text existentă, dar fără niciun caracter. Vizual este indistinctă de null în previzualizare, însă cele două sunt evaluate diferit: o condiție scrisă pentru null nu identifică blank, și invers.</p></article>
+          <article class="s3-null-card"><span class="n">03</span><h3>error</h3><p>Valoarea era prezentă în sursă, dar o transformare aplicată asupra ei nu a putut fi finalizată — de regulă, o conversie de tip eșuată. Necesită corectare la sursa problemei; netratată, se propagă în orice calcul derivat din coloana respectivă.</p></article>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Verificare · tipuri de date</span>
+        <h2>Găsește valorile care nu sunt curate</h2>
+        <div data-s3-spotter></div>
+      </article>
+
+      <article class="slide s3-hero">
+        <h2>Transformare și curățarea datelor</h2>
+        <p class="s3-sub">Power Query</p>
+        <p class="s3-lead">Power Query este motorul de pregătire a datelor din spatele funcției Get Data din Power BI Desktop. Se conectează la sursă, aplică transformări pas cu pas și încarcă rezultatul în modelul de date. Lucrezi pe o previzualizare a datelor, de obicei un eșantion; fișierul sau baza de date sursă rămân neatinse pe toată durata procesului.</p>
+        <p class="s3-lead">Power Query nu salvează un tabel nou, ci <strong>lista de pași</strong> aplicați asupra datelor. Fiecare acțiune devine un pas separat, vizibil și editabil în panoul Applied Steps. La fiecare Refresh, acești pași se execută din nou, în aceeași ordine, pe datele actualizate din sursă. Din acest motiv, curățarea și restructurarea datelor se fac în Power Query, nu ulterior, prin măsuri DAX sau ajustări manuale în vizualizări.</p>
+        <p class="s3-lead">În spatele fiecărei acțiuni din interfață stă cod generat automat în limbajul <strong>M</strong>, vizibil în bara de formule. Nu este necesar să-l scrii; editorul îl generează pe măsură ce lucrezi. Același motor stă la baza Power Query din Excel și a Dataflows din Power BI Service.</p>
+        <div class="s3-etl" aria-label="Extract, Transform, Load">
+          <div class="s3-fn"><strong>Extract</strong><em>conectare la sursă și preluarea datelor</em></div>
+          <svg class="s3-fn-link" viewBox="0 0 64 20" aria-hidden="true"><line x1="2" y1="10" x2="62" y2="10"/><circle r="3.2"><animateMotion dur="1.6s" repeatCount="indefinite" path="M2 10 L62 10"/></circle></svg>
+          <div class="s3-fn"><strong>Transform</strong><em>curățare, restructurare, combinare</em></div>
+          <svg class="s3-fn-link" viewBox="0 0 64 20" aria-hidden="true"><line x1="2" y1="10" x2="62" y2="10"/><circle r="3.2"><animateMotion dur="1.6s" begin="0.4s" repeatCount="indefinite" path="M2 10 L62 10"/></circle></svg>
+          <div class="s3-fn is-end"><strong>Load</strong><em>Close &amp; Apply încarcă în model</em></div>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Început · înainte de Power Query</span>
+        <h2>Datele, așa cum vin din export</h2>
+        <p class="s3-lead">Exportul încă nu e un tabel pe care poți calcula. Butoanele arată drumul, de la datele brute până la modelul curat. Fișierul de pe disc rămâne cel murdar.</p>
+        <div data-s3-pipe>
+          <div class="s3-pipe">
+            <button type="button" class="is-on" data-s3-step="brut"><span class="n">01</span><strong>Date brute</strong></button>
+            <button type="button" data-s3-step="inspect"><span class="n">02</span><strong>Inspectăm</strong></button>
+            <button type="button" data-s3-step="fix"><span class="n">03</span><strong>Transformăm</strong></button>
+            <button type="button" data-s3-step="model"><span class="n">04</span><strong>Model curat</strong></button>
+          </div>
+          <div class="s3-window">
+            <div class="s3-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span> Vacante_murdar.xlsx <span class="sp" data-s3-table-label>Date brute</span></div>
+            <div class="s3-scroll">
+              <table class="s3-typetable s3-dirty" data-s3-dirty>
+                <thead><tr><th>Călător</th><th>Oraș</th><th>Țară</th><th>Plecare</th><th>Zile</th><th>Sezon</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <p class="s3-foot">Fișierul pe care lucrăm toată lecția: <a href="../../assets/s03/Vacante_murdar.xlsx" download>Vacante_murdar.xlsx</a></p>
+      </article>
+
+      <article class="slide s3-method">
+        <span class="slide-eyebrow">Metodă</span>
+        <h2>Cum gândim curățarea</h2>
+        <p class="s3-lead">În Power BI, un grafic corect nu repară o coloană greșită. Curățarea se face în Power Query, înainte ca tabelul să ajungă în model și înainte de orice măsură DAX.</p>
+        <div class="s3-flow is-tight">
+          <article><span class="n">01</span><h3>Inspectează</h3><p>Înainte de a evalua conținutul, se stabilește structura tabelului: numărul de rânduri și coloane, precum și tipul de date declarat pentru fiecare. Această hartă inițială este condiția oricărei observații ulterioare corecte.</p></article>
+          <article><span class="n">02</span><h3>Identifică</h3><p>Se compară starea reală a datelor cu starea așteptată: valori lipsă, categorii scrise inconsecvent, tipuri de date incorecte. Din această comparație rezultă lista efectivă de probleme, nu din impresia primei examinări.</p></article>
+          <article><span class="n">03</span><h3>Rezolvă în ordine</h3><p>Problemele au dependențe între ele: tipul de date nu poate fi corectat pe un text neuniform, iar textul nu poate fi curățat dacă structura tabelului este incorectă. Ordinea de rezolvare nu este arbitrară, ci impusă de aceste dependențe.</p></article>
+          <article><span class="n">04</span><h3>Verifică</h3><p>Se definește în avans criteriul de corectitudine pentru fiecare coloană — un test repetabil, nu o evaluare vizuală. Doar astfel se poate confirma, în mod obiectiv, dacă procesul de curățare este complet.</p></article>
+        </div>
+        <p class="s3-kicker">Principii</p>
+        <div class="s3-principles">
+          <article><h3>Consistență</h3><p>Aceeași informație trebuie reprezentată identic de fiecare dată. În absența acesteia, operațiile de filtrare sau agregare tratează valori echivalente ca fiind distincte.</p></article>
+          <article><h3>Completitudine</h3><p>O valoare lipsă necesită o decizie explicită — completare, marcare sau omisiune intenționată. În lipsa acestei decizii, rezultatul este determinat implicit, fără control.</p></article>
+          <article><h3>Acuratețe</h3><p>O valoare poate respecta formatul așteptat și totuși să fie incorectă. Acuratețea presupune concordanța cu realitatea, nu doar conformitatea de format.</p></article>
+          <article><h3>Reproductibilitate</h3><p>Procesul trebuie să producă același rezultat pe date noi, fără intervenție manuală repetată. Orice corecție realizată în afara acestui proces nu se păstrează la următoarea actualizare.</p></article>
+          <article><h3>Trasabilitate</h3><p>Fiecare modificare este înregistrată ca un pas identificabil, nu ca o editare invizibilă. Originea și motivul oricărei schimbări rămân verificabile ulterior.</p></article>
+        </div>
+      </article>
+
+      <article class="slide s3-agenda-slide">
+        <span class="slide-eyebrow">Cuprins</span>
+        <h2>Parcursul în Power Query</h2>
+        <p class="s3-lead s3-agenda-lead">Nouă etape practice. Fiecare etapă are teorie, apoi ghid live pe același fișier.</p>
+        <div class="s3-agenda-table-wrap">
+          <table class="s3-agenda-table">
+            <thead>
+              <tr><th scope="col">Nr</th><th scope="col">Temă</th><th scope="col">Ce acoperim</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>01</td><td>Editorul</td><td>Cele cinci zone ale Power Query Editor și deschiderea unui fișier.</td></tr>
+              <tr><td>02</td><td>Profilul coloanei</td><td>Calitate, distribuție și profil — înainte de orice reparație.</td></tr>
+              <tr><td>03</td><td>Rândurile</td><td>Titluri, cap de tabel, rânduri goale, duplicate, erori.</td></tr>
+              <tr><td>04</td><td>Coloanele</td><td>Redenumire, eliminare, duplicare, sortare.</td></tr>
+              <tr><td>05</td><td>Lista de pași</td><td>Applied Steps: ce se înregistrează și cum revii la un pas.</td></tr>
+              <tr><td>06</td><td>Textul</td><td>Spații, caractere invizibile, uniformizarea aceleiași valori.</td></tr>
+              <tr><td>07</td><td>Tipul</td><td>Change Type și Using Locale, după text curat.</td></tr>
+              <tr><td>08</td><td>Data</td><td>Componente din dată, durată, vârstă.</td></tr>
+              <tr><td>09</td><td>Restructurarea</td><td>Split, Merge Columns, Unpivot, Pivot.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="slide s3-roomy">
+        <span class="slide-eyebrow">Etapa 1 · teorie</span>
+        <h2>Cele cinci zone ale editorului</h2>
+        <p class="s3-lead">Power Query Editor se deschide din Home → Transform data. Microsoft îl împarte în cinci zone, aceleași pentru orice sursă. Apasă o zonă ca să vezi unde e și ce faci acolo.</p>
+        <div class="s3-cat is-split is-roomy" data-s3-cat>
+          <div class="s3-cat-nav" role="tablist">
+            <button type="button" class="is-on" data-s3-cat-btn="ribbon">Ribbon</button>
+            <button type="button" data-s3-cat-btn="queries">Queries</button>
+            <button type="button" data-s3-cat-btn="preview">Previzualizare</button>
+            <button type="button" data-s3-cat-btn="steps">Query Settings și Applied Steps</button>
+            <button type="button" data-s3-cat-btn="m">Bara de formule și M</button>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="ribbon">
+            <h3>Ribbon</h3>
+            <dl class="s3-kv">
+              <dt>Unde</dt><dd>Sus, pe toată lățimea ferestrei, cu tab-urile Home, Transform, Add Column, View.</dd>
+              <dt>Ce faci</dt><dd>Aici aplici transformările. Home conține operațiile pe rânduri și coloane, plus Merge, Append și Close &amp; Apply. Transform modifică o coloană existentă. Add Column creează una nouă, păstrând originalul. View controlează ce vezi în editor: profilarea coloanei și bara de formule.</dd>
+              <dt>De reținut</dt><dd>Aceleași comenzi din Home și Transform sunt disponibile și la click dreapta pe capul de tabel al coloanei. Close &amp; Apply trimite pașii în model; Close, fără Apply, îi lasă doar în editor.</dd>
+            </dl>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="queries" hidden>
+            <h3>Queries</h3>
+            <dl class="s3-kv">
+              <dt>Unde</dt><dd>În stânga editorului. Dacă panoul nu se vede, săgeata din colț îl deschide.</dd>
+              <dt>Ce faci</dt><dd>Aici vezi toate tabelele aduse cu Get Data — fiecare sursă e un query separat. Dublu click pe nume îl redenumești; acest nume devine numele tabelului din model.</dd>
+              <dt>De reținut</dt><dd>Click dreapta pe un query oferă Duplicate (copie independentă), Reference (query derivat, dependent de original) și Enable Load — debifat, ține query-ul doar ca pas intermediar, fără să-l trimită în model.</dd>
+            </dl>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="preview" hidden>
+            <h3>Previzualizare</h3>
+            <dl class="s3-kv">
+              <dt>Unde</dt><dd>În centrul editorului, sub bara de formule. Sub ea, bara de stare arată numărul de coloane și de rânduri.</dd>
+              <dt>Ce faci</dt><dd>Vezi primele rânduri ale tabelului, nu fișierul întreg. Lângă fiecare nume din capul de tabel, o iconiță indică tipul de date: ABC pentru text, 123 pentru întreg, 1.2 pentru zecimal, % pentru procent, calendarul pentru dată, ABC123 pentru un tip încă nedeterminat.</dd>
+              <dt>De reținut</dt><dd>O iconiță ABC pe o coloană care ar trebui să fie numerică e semnul cel mai clar că mai e nevoie de curățare înainte de Change Type. Cap de tabel generic (Column1, Column2) arată că rândul cu numele coloanelor nu a fost încă promovat.</dd>
+            </dl>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="steps" hidden>
+            <h3>Query Settings și Applied Steps</h3>
+            <dl class="s3-kv">
+              <dt>Unde</dt><dd>În dreapta editorului. Sus, Properties, cu numele query-ului; jos, Applied Steps. Dacă panoul lipsește: View → Query Settings.</dd>
+              <dt>Ce faci</dt><dd>Aici citești lista de pași. Fiecare acțiune din ribbon adaugă un pas nou. Click pe un pas anterior arată tabelul așa cum era în acel moment; dublu click îl redenumește; X-ul din stânga îl șterge.</dd>
+              <dt>De reținut</dt><dd>Unii pași au o rotiță în dreapta, care le deschide setarea (de exemplu, câte rânduri elimină pasul), fără să fie nevoie să-l ștergi și să-l refaci.</dd>
+            </dl>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="m" hidden>
+            <h3>Bara de formule și M</h3>
+            <dl class="s3-kv">
+              <dt>Unde</dt><dd>Între ribbon și grilă. Dacă lipsește: View → Formula Bar.</dd>
+              <dt>Ce faci</dt><dd>Vezi codul M al pasului selectat în Applied Steps. De exemplu, <code>= Table.Skip(Source, 2)</code> înseamnă „elimină primele două rânduri din pasul Source”.</dd>
+              <dt>De reținut</dt><dd>Nu e nevoie să scrii cod M ca să lucrezi în Power Query — editorul îl generează automat la fiecare acțiune. Îl citești ca să înțelegi ce face un pas; codul complet al query-ului e vizibil în View → Advanced Editor.</dd>
+            </dl>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow is-live">Etapa 1 · ghid</span>
+        <h2>Deschidem editorul</h2>
+        <p class="s3-lead">Obiectiv: fișierul e în editor, cu lista de pași curată, și recunoști cele cinci zone. În etapa asta nu aplicăm nicio transformare.</p>
+        <div class="s3-tasks">
+          <article><span class="n">01</span><div><strong>Intră.</strong> Get Data → Excel Workbook → Vacante_murdar.xlsx. În Navigator bifezi foaia Vacante → Transform Data, nu Load.</div></article>
+          <article><span class="n">02</span><div><strong>Curăță lista de pași automată.</strong> Dacă în Applied Steps apar deja Promoted Headers sau Changed Type, șterge-i cu X. Rămân Source și Navigation. Capul de tabel rămâne Column1…Column10.</div></article>
+          <article><span class="n">03</span><div><strong>Găsește zonele.</strong> Ribbon sus, Queries stânga, grila la centru, Applied Steps dreapta. Pornește View → Formula Bar și citește formula pasului Navigation.</div></article>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Etapa 2 · teorie</span>
+        <h2>Profilul coloanei</h2>
+        <p class="s3-lead">Profilarea nu schimbă datele. Din View pornești trei unelte care îți spun, înainte să repari, dacă o coloană e goală, dacă are erori și ce valori se repetă. Implicit se uită la primele 1.000 de rânduri; jos, pe bara de stare, poți trece pe tot tabelul.</p>
+        <div class="s3-cat is-split" data-s3-cat>
+          <div class="s3-cat-nav" role="tablist">
+            <button type="button" class="is-on" data-s3-cat-btn="q">Column quality</button>
+            <button type="button" data-s3-cat-btn="d">Column distribution</button>
+            <button type="button" data-s3-cat-btn="p">Column profile</button>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="q">
+            <h3>Column quality: celula e validă, goală sau cu eroare?</h3>
+            <p>O bară colorată chiar sub numele coloanei, cu procente. <b>Verde</b> înseamnă că celula are o valoare pe care tipul coloanei o acceptă. <b>Roșu</b> înseamnă Error: celula n-a putut fi citită. <b>Gri</b> înseamnă celulă goală.</p>
+            <p>Exemplu, pe Tara. Bara e verde, deși ai „ Franta ”, „ITALIA” și „UK”. Verde spune doar „e text”, nu „țara e scrisă bine”. Pe Sezon, partea gri sunt vacanțele fără sezon: Barcelona, Tokyo, Bruges.</p>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="d" hidden>
+            <h3>Column distribution: ce valori există și care se repetă?</h3>
+            <p>Sub bara de calitate, niște bare. Bara cea mai înaltă este valoarea care apare de cele mai multe ori. Lângă ele stau două numere: <b>distinct</b>, câte valori diferite are coloana, și <b>unique</b>, câte dintre ele apar o singură dată.</p>
+            <p>Exemplu, pe Tara. Te aștepți la câte o bară pe țară. Vezi mai multe, pentru că „ Franta ” și „Franta” sunt două valori, iar „ITALIA” nu e „Italia”. O țară vizitată o singură dată intră la unique. Paris, care apare de două ori, nu.</p>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="p" hidden>
+            <h3>Column profile: detaliile coloanei pe care ai dat click</h3>
+            <p>Apare jos, doar pentru coloana selectată. Îți dă Count (câte celule au valoare), Error, Empty, Distinct, Unique, Min și Max, plus un grafic mai mare cu cât de des apare fiecare valoare.</p>
+            <p>Exemplu. Click pe Durata: Min și Max sunt texte, de exemplu „cinci zile”, nu numerele 3 și 15. Coloana nu e încă număr. Click pe ID: Empty îți arată vacanțele fără identificator, Maldive și Tokyo.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow is-live">Etapa 2 · ghid</span>
+        <h2>Citim profilul, încă nu reparăm</h2>
+        <p class="s3-lead">Obiectiv: o listă de probleme, găsite cu fiecare unealtă. Capul de tabel e încă în date, deci coloanele se numesc Column1…Column10. Nicio transformare.</p>
+        <div class="s3-tasks">
+          <article><span class="n">01</span><div><strong>Pornește uneltele.</strong> View → bifezi Column quality, Column distribution, Column profile. Jos, pe bara de stare, alegi „Column profiling based on entire data set”.</div></article>
+          <article><span class="n">02</span><div><strong>Quality, pe Column6 (Sezon) și Column8 (Cost).</strong> La Sezon vezi gri: goluri reale, plus rândurile de titlu și cel gol. La Cost vezi 100% verde, deși are „n/a” și „lei”: e încă text.</div></article>
+          <article><span class="n">03</span><div><strong>Distribution, pe Column4 (Țara).</strong> Bare separate pentru „ Franta ” și „Franta”, „ITALIA” și „Italia”, „ Grecia ” și „Grecia”. Aceeași țară, scrisă diferit.</div></article>
+          <article><span class="n">04</span><div><strong>Profile, click pe Column1 (ID) și Column7 (Durata).</strong> La ID, Empty arată goluri: două vacanțe fără ID și rândul gol. La Durata, Min și Max sunt texte ca „cinci zile”: coloana nu e număr.</div></article>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Etapa 3 · teorie</span>
+        <h2>Operațiile pe rânduri</h2>
+        <p class="s3-lead">Un rând trebuie să fie o singură vacanță. Tot ce nu e vacanță pleacă: titlu, subsol, rând gol, copie. Lista din stânga este ordinea în care le aplici.</p>
+        <div class="s3-cat is-split" data-s3-cat>
+          <div class="s3-cat-nav" role="tablist">
+            <button type="button" class="is-on" data-s3-cat-btn="top">Remove Top Rows</button>
+            <button type="button" data-s3-cat-btn="hdr">First Row as Headers</button>
+            <button type="button" data-s3-cat-btn="bottom">Remove Bottom Rows</button>
+            <button type="button" data-s3-cat-btn="blank">Remove Blank Rows</button>
+            <button type="button" data-s3-cat-btn="dup">Remove Duplicates</button>
+            <button type="button" data-s3-cat-btn="err">Remove Errors</button>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="top">
+            <h3>Remove Top Rows</h3>
+            <p>Scoate primele rânduri, cele care stau deasupra tabelului adevărat. Îl folosești când exportul începe cu un titlu, nu cu date.</p>
+            <p>În fișier, rândurile 1 și 2 sunt „Raport vacante grupa” și „generat automat”. Home → Remove Rows → Remove Top Rows → 2.</p>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="hdr" hidden>
+            <h3>Use First Row as Headers</h3>
+            <p>Primul rând devine numele coloanelor. Vine imediat după Remove Top Rows, când rândul rămas este chiar capul de tabel.</p>
+            <p>În fișier, ID_Calator, Calator, Oras devin numele din capul de tabel. Coloana fără nume rămâne Column9.</p>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="bottom" hidden>
+            <h3>Remove Bottom Rows</h3>
+            <p>Scoate ultimele rânduri. Îl folosești când la final stă un total sau o notă, nu o vacanță.</p>
+            <p>În fișier, ultimul rând este „Total randuri: 22”. Remove Bottom Rows → 1.</p>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="blank" hidden>
+            <h3>Remove Blank Rows</h3>
+            <p>Scoate rândurile în care toate celulele sunt goale. Un rând gol nu este o vacanță și mărește numărul de rânduri.</p>
+            <p>În fișier este rândul liber de după Amsterdam. Home → Remove Rows → Remove Blank Rows.</p>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="dup" hidden>
+            <h3>Remove Duplicates</h3>
+            <p>Lasă o singură copie a rândurilor identice, pe coloanele pe care le-ai selectat. Îl folosești când aceeași vacanță a fost exportată de două ori.</p>
+            <p>Ctrl+A pe capetele de coloane, apoi Remove Rows → Remove Duplicates. Cele două „Paris” identice ale Violetei devin un singur rând. Dacă selectezi doar Calator, Violeta își pierde vacanța din Barcelona.</p>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="err" hidden>
+            <h3>Remove Errors</h3>
+            <p>Scoate rândurile care au Error în coloana selectată. Îl folosești după ce ai înțeles de ce a apărut eroarea.</p>
+            <p>Acum nu există erori. La etapa tipurilor, data „31.02.2023” de la Nisa devine Error. Acolo decizi dacă păstrezi rândul.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow is-live">Etapa 3 · ghid</span>
+        <h2>Reparăm rândurile</h2>
+        <p class="s3-lead">Obiectiv: fiecare rând este o singură vacanță. La final rămân 20 de rânduri (fără titlu, subsol, rând gol și duplicatul Paris).</p>
+        <div class="s3-tasks is-dense">
+          <article><span class="n">01</span><div><strong>Remove Top Rows → 2.</strong> Home → Remove Rows. Titlul și „generat automat” ies.</div></article>
+          <article><span class="n">02</span><div><strong>Use First Row as Headers.</strong> Verifici: ID_Calator, Calator, Oras, Tara… Column9 rămâne fără nume.</div></article>
+          <article><span class="n">03</span><div><strong>Remove Bottom Rows → 1.</strong> Rândul „Total randuri: …” de la subsol iese.</div></article>
+          <article><span class="n">04</span><div><strong>Remove Blank Rows.</strong> Home → Remove Rows. Rândul gol dispare.</div></article>
+          <article><span class="n">05</span><div><strong>Remove Duplicates.</strong> Ctrl+A pe capetele de coloane → Remove Rows → Remove Duplicates. Duplicatul „Paris” iese; rămâne o singură înregistrare.</div></article>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Etapa 4 · teorie</span>
+        <h2>Operațiile pe coloane</h2>
+        <p class="s3-lead">Aici lucrezi pe structura tabelului: nume clare, coloane utile, ordinea rândurilor după o coloană. Lista din stânga este ordinea recomandată pe fișier.</p>
+        <div class="s3-cat is-split" data-s3-cat>
+          <div class="s3-cat-nav" role="tablist">
+            <button type="button" class="is-on" data-s3-cat-btn="ren">Rename</button>
+            <button type="button" data-s3-cat-btn="rem">Remove Columns</button>
+            <button type="button" data-s3-cat-btn="dup">Duplicate Column</button>
+            <button type="button" data-s3-cat-btn="sort">Sort</button>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="ren">
+            <h3>Rename Column</h3>
+            <p>Schimbă numele afișat al coloanei. Dublu click pe capul de tabel sau F2. Îl folosești când numele din capul de tabel e generic sau trebuie să coincidă cu alt tabel la Append sau Merge.</p>
+            <p>În fișier, Column9 conține Avion, Tren, Mașina și devine „Mijloc”. Celelalte nume au venit deja din date la etapa 3.</p>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="rem" hidden>
+            <h3>Remove Columns</h3>
+            <p>Scoate coloana din tabel. Invers, Choose Columns bifează doar ce rămâne. Îl folosești când informația din coloană nu intră deloc în raport — nu când e doar murdară.</p>
+            <p>În fișier, Nota_interna conține observații interne (de ex. „verificat”, „de șters”), nu date de vacanță. La ghid o eliminăm. Tara sau Cost rămân: sunt utile, doar că le curățăm la etapele următoare.</p>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="dup" hidden>
+            <h3>Duplicate Column</h3>
+            <p>Creează o copie a coloanei, lângă original. Îl folosești când o operație următoare va modifica coloana, dar ai nevoie și de forma întreagă.</p>
+            <p>În fișier, duplicăm Calator în „Nume_Complet”. La etapa 9 tăiem Calator în prenume și nume; copia păstrează numele întreg.</p>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="sort" hidden>
+            <h3>Sort Ascending / Descending</h3>
+            <p>Ordonează rândurile după valorile din coloana selectată. Valorile rămân aceleași. Pornești din click dreapta pe capul de tabel sau din Home → Sort.</p>
+            <p>Sort Ascending pe Calator aduce vacanțele aceleiași persoane una lângă alta — util când verifici manual grila. Nu schimbă ce rânduri există; doar ordinea afișării.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow is-live">Etapa 4 · ghid</span>
+        <h2>Pregătim coloanele</h2>
+        <p class="s3-lead">Obiectiv: toate coloanele au nume clare și rămân doar cele utile analizei.</p>
+        <div class="s3-tasks">
+          <article><span class="n">01</span><div><strong>Verifică capul de tabel.</strong> Numele au venit din date la etapa 3. Nu redenumești nimic din ce e deja corect.</div></article>
+          <article><span class="n">02</span><div><strong>Rename.</strong> Dublu click pe Column9 → „Mijloc”.</div></article>
+          <article><span class="n">03</span><div><strong>Remove Columns.</strong> Click dreapta pe Nota_interna → Remove.</div></article>
+          <article><span class="n">04</span><div><strong>Duplicate Column.</strong> Click dreapta pe Calator → Duplicate Column. Redenumește copia „Nume_Complet” imediat.</div></article>
+          <article><span class="n">05</span><div><strong>Sort Ascending pe Calator.</strong> Click dreapta pe capul coloanei Calator → Sort Ascending (sau Home → Sort). Rândurile se reordonează după nume; datele rămân aceleași.</div></article>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Etapa 5 · teorie</span>
+        <h2>Applied Steps · lista de pași</h2>
+        <p class="s3-lead">Lista din dreapta are acum pași, pentru că am reparat rândurile și coloanele. Fiecare click a devenit un rând. Pasul curent primește tabelul ieșit din pasul anterior.</p>
+        <div class="s3-flow">
+          <article><span class="n">01</span><h3>Se înregistrează</h3><p>Power Query nu salvează un tabel nou. Ține lista de pași și o repetă la Refresh, de sus în jos, pe fișierul actualizat.</p></article>
+          <article><span class="n">02</span><h3>Poți reveni</h3><p>Click pe un pas vechi arată datele din acel moment. Dublu click îi schimbă numele: „Titlu scos” spune mai mult decât „Removed Top Rows”.</p></article>
+          <article><span class="n">03</span><h3>Ștergi cu grijă</h3><p>Dacă un pas de mai jos folosește o coloană creată aici, pașii următori capătă semn de eroare. Nu ștergi din mijloc fără să te uiți.</p></article>
+          <article><span class="n">04</span><h3>Rotița</h3><p>Pașii cu rotiță își păstrează dialogul. Schimbi 2 în 3 la Remove Top Rows fără să refaci nimic după.</p></article>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow is-live">Etapa 5 · ghid</span>
+        <h2>Lista de pași · Applied Steps</h2>
+        <p class="s3-lead">Obiectiv: în panoul Applied Steps (dreapta) recunoști pașii adăugați la etapele 3 și 4 — o listă de transformări, nu un tabel salvat. Nu schimbăm încă niciun tip.</p>
+        <div class="s3-tasks">
+          <article><span class="n">01</span><div><strong>Citește lista de pași.</strong> Removed Top Rows, Promoted Headers, Removed Bottom Rows, Removed Blank Rows, Removed Duplicates, Renamed Columns, Removed Columns, Duplicated Column, Sorted Rows.</div></article>
+          <article><span class="n">02</span><div><strong>Redenumește</strong> Removed Top Rows, dublu click → „Titlu scos”.</div></article>
+          <article><span class="n">03</span><div><strong>Click pe Source.</strong> Grila arată fișierul de la început, cu titlul în date. Bara de formule arată M-ul acelui pas. Revii pe ultimul pas.</div></article>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Etapa 6 · teorie</span>
+        <h2>Operațiile pe text</h2>
+        <p class="s3-lead">Toate stau în Transform → Text Column → Format, plus Replace Values. Ele schimbă cum e scris textul, nu ce înseamnă. Se fac înainte de schimbarea tipului. Lista din stânga este ordinea recomandată.</p>
+        <div class="s3-cat is-split" data-s3-cat>
+          <div class="s3-cat-nav" role="tablist">
+            <button type="button" class="is-on" data-s3-cat-btn="trim">Trim</button>
+            <button type="button" data-s3-cat-btn="clean">Clean</button>
+            <button type="button" data-s3-cat-btn="rep">Replace Values</button>
+            <button type="button" data-s3-cat-btn="fmt">Capitalize / lowercase / UPPERCASE</button>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="trim">
+            <h3>Trim: spațiile de la capete</h3>
+            <p>Scoate spațiile de la începutul și de la sfârșitul textului. Spațiul dintre cuvinte rămâne. Îl folosești când două valori arată la fel, dar distribution le arată în bare separate.</p>
+            <p>În fișier, Tara: „ Franta ” devine „Franta”, „ Grecia ” devine „Grecia”.</p>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="clean" hidden>
+            <h3>Clean: caracterele invizibile</h3>
+            <p>Scoate caracterele care nu se tipăresc: trecere la rând nou, tab, coduri de control. Îl folosești când textul a fost copiat din web sau formular: arată corect, dar nu se potrivește la filtru sau Merge.</p>
+            <p>În fișier, Oras: „Bruges” are o trecere la rând nou la final. În grilă, rândul pare mai înalt.</p>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="rep" hidden>
+            <h3>Replace Values: un text înlocuit cu altul</h3>
+            <p>Caută un text și îl înlocuiește în toată coloana. Transform → Replace Values sau click dreapta pe coloană. Îl folosești când aceeași valoare are mai multe forme sau în celulă stă un cuvânt în plus.</p>
+            <p>În fișier, Tara: „ITALIA” → „Italia”, „UK” → „Marea Britanie”. La etapa 7: „ zile” și „ lei” dispar.</p>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="fmt" hidden>
+            <h3>Capitalize Each Word, lowercase, UPPERCASE</h3>
+            <p>Schimbă literele mari și mici. Capitalize pune majusculă la fiecare cuvânt. Îl folosești când numele și categoriile trebuie să arate la fel în raport.</p>
+            <p>În fișier, Calator: „horea stanescu” devine „Horea Stanescu”. Pe Nume_Complet faci la fel.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow is-live">Etapa 6 · ghid</span>
+        <h2>Curățăm textul</h2>
+        <p class="s3-lead">Recomandat în ordinea asta: Trim, Clean, Replace, Format. Obiectiv: o singură scriere pentru fiecare țară, oraș și nume.</p>
+        <div class="s3-tasks">
+          <article><span class="n">01</span><div><strong>Trim</strong> pe Tara și Calator. Transform → Format → Trim. „ Franta ” devine „Franta”.</div></article>
+          <article><span class="n">02</span><div><strong>Clean</strong> pe Oras. Transform → Format → Clean. Rândul Bruges revine la înălțimea normală.</div></article>
+          <article><span class="n">03</span><div><strong>Replace Values</strong> pe Tara: ITALIA → Italia, apoi UK → Marea Britanie. În distribution, Franta, Italia și Grecia au acum câte o singură bară.</div></article>
+          <article><span class="n">04</span><div><strong>Capitalize Each Word</strong> pe Calator și Nume_Complet. „horea stanescu” devine „Horea Stanescu”.</div></article>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Etapa 7 · teorie</span>
+        <h2>Setăm tipul, după text</h2>
+        <p class="s3-lead">Tipul spune cum stochează Power Query coloana și ce calcule sunt permise. Până acum totul a fost text: arată ca număr sau dată, dar modelul încă nu poate aduna sau sorta ca atare. Setarea tipului vine după curățarea textului, când conținutul e uniform.</p>
+        <div class="s3-note"><strong>Using Locale — ce face.</strong> Citește textul ca număr sau dată după regulile unei țări (la noi: punct la mii, virgulă la zecimale, dată zi.lună.an). <strong>Unde:</strong> click pe iconița din stânga numelui coloanei (ABC) → <strong>Using Locale</strong> → alegi tipul (Decimal Number sau Date) → în dialog alegi <strong>Română</strong>. Sau Transform → tip coloană → Using Locale. <strong>Change Type</strong> din aceeași listă nu întreabă țara și poate interpreta greșit exportul românesc.</div>
+        <div class="s3-breaks is-clear">
+          <article>
+            <h3>Număr întreg</h3>
+            <p>Conversia reușește doar când fiecare celulă conține o valoare numerică completă. Orice caracter rămas — cuvânt, spațiu, simbol — oprește conversia: celula devine Error, nu „aproape număr”.</p>
+            <p>În export, durata poate fi încă „7 zile” sau „cinci zile”. Tipul Whole Number presupune deja cifre, nu propoziții.</p>
+          </article>
+          <article>
+            <h3>Decimal și locale</h3>
+            <p>În export, costul arată ca un număr, dar coloana e încă text: „1.250,00 lei”. În România, punctul desparte miile, virgula zecimalele. Fără regula românească, același text poate fi citit ca o sumă mult mai mică.</p>
+            <p>Locale-ul spune cum se citește textul; nu scoate singur cuvinte sau simboluri. „lei” și „n/a” trebuie eliminate înainte, altfel conversia la decimal nu are ce interpreta.</p>
+          </article>
+          <article>
+            <h3>Dată și locale</h3>
+            <p>Data scrisă ca text e ambiguă: aceeași ordine zi–lună–an nu e universală. Locale-ul fixează regula de citire. O dată imposibilă în calendar nu poate deveni tip Date: conversia eșuează.</p>
+            <p>În fișier, formatul e zi.lună.an. O dată inexistentă, cum ar fi 31 februarie, nu devine „dată aproximativă”, ci Error.</p>
+          </article>
+        </div>
+        <div class="s3-note"><strong>Error după conversie.</strong> Error marchează eșecul conversiei, nu absența datelor. Poți păstra rândul și lăsa null doar în celula problemă, sau poți elimina rândul — depinde dacă înregistrarea îți servește fără acel câmp.</div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow is-live">Etapa 7 · ghid</span>
+        <h2>Setăm tipul</h2>
+        <div class="s3-tasks">
+          <article><span class="n">01</span><div><strong>Durata_Zile:</strong> Replace Values „ zile” → nimic, apoi „cinci” → 5. Change Type → Whole Number. Verifică: iconița devine 123, nu ABC.</div></article>
+          <article><span class="n">02</span><div><strong>Cost_Total, curățare:</strong> Replace „ lei” → nimic. Replace „n/a” → null (vacanța Dubai). În celulă trebuie să rămână doar cifre, punct și virgulă — de exemplu „1.250,00”, fără cuvinte.</div></article>
+          <article><span class="n">03</span><div><strong>Cost_Total, Using Locale:</strong> click pe iconița <strong>ABC</strong> lângă numele coloanei → <strong>Using Locale…</strong> → <strong>Decimal Number</strong> → Data Format Locale: <strong>Română (România)</strong> → OK. Nu alege „Decimal Number” simplu din listă. Verifică: „1.250,00” devine 1250, iconița devine 1.2.</div></article>
+          <article><span class="n">04</span><div><strong>Data_Plecare, același meniu:</strong> ABC → Using Locale… → <strong>Date</strong> → Locale <strong>Română</strong> → OK. Rândul vacanței Nisa arată Error — 31.02.2023 nu există în calendar.</div></article>
+          <article><span class="n">05</span><div><strong>Citește eroarea.</strong> Click pe Error: „31.02.2023” nu există. Click dreapta pe coloană → Replace Errors → null. Vacanța și costul rămân.</div></article>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Etapa 8 · teorie</span>
+        <h2>Dată și timp</h2>
+        <p class="s3-lead">După ce Data_Plecare e tip Date, poți deriva coloane noi din ea. Le creezi din <strong>Add Column</strong>, nu din Transform: coloana originală rămâne, iar anul sau luna apar alături, pe același rând.</p>
+        <div class="s3-breaks is-clear">
+          <article>
+            <h3>Componente din meniu</h3>
+            <p><strong>Add Column → Date</strong> oferă Year, Month, Name of Month, Quarter, Day și altele. Alegi coloana sursă (Data_Plecare), Power Query adaugă o coloană nouă cu valoarea extrasă.</p>
+            <p>Year dă 2022; Name of Month dă „May” sau „mai”, după limba Power BI. Aceste coloane sunt utile pe axă, în filtru sau în slicer, fără să rescrii data de plecare.</p>
+          </article>
+          <article>
+            <h3>Age și Duration</h3>
+            <p><strong>Age</strong> calculează cât timp a trecut de la o dată până azi. Rezultatul nu e un număr simplu, ci tip Duration (zile, ore, minute).</p>
+            <p>Din Duration poți extrage Total Days dacă ai nevoie de un număr întreg. În lecția noastră folosim mai mult Year și Name of Month; Age rămâne pentru rapoarte „vechime” sau vechimea unei înregistrări.</p>
+          </article>
+          <article>
+            <h3>Dată + număr de zile</h3>
+            <p>Data întoarcerii nu e în export: o obții adunând plecarea și durata. Meniul Date nu are un buton „plus N zile”, de aceea folosești <strong>Add Column → Custom Column</strong>.</p>
+            <p>Formula <code>Date.AddDays([Data_Plecare], [Durata_Zile])</code> presupune plecare de tip Date și durată număr întreg. Dacă una e null sau text, rezultatul e null sau Error.</p>
+          </article>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow is-live">Etapa 8 · ghid</span>
+        <h2>Extragem componente de dată</h2>
+        <p class="s3-lead">Obiectiv: an, lună și data întoarcerii, calculate din Data_Plecare.</p>
+        <div class="s3-tasks">
+          <article><span class="n">01</span><div><strong>Anul.</strong> Selectezi Data_Plecare → Add Column → Date → Year → Year.</div></article>
+          <article><span class="n">02</span><div><strong>Luna.</strong> Add Column → Date → Month → Name of Month. Numele apare în limba setată în Power BI.</div></article>
+          <article><span class="n">03</span><div><strong>Data întoarcerii.</strong> Add Column → Custom Column, nume „Data_Intoarcere”, formula <code>Date.AddDays([Data_Plecare], [Durata_Zile])</code>. Tipul: Date.</div></article>
+          <article><span class="n">04</span><div><strong>Verifică pe Costin Vaetisi, Bali.</strong> 04.05.2022 dă anul 2022, luna mai și întoarcerea 19.05.2022. La Nisa, data e null, deci și rezultatele sunt null.</div></article>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Etapa 9 · teorie</span>
+        <h2>Restructurarea tabelului</h2>
+        <p class="s3-lead">Curățarea repară valorile. Aici schimbi aranjarea: mai multe coloane devin una, una devine mai multe, sau tabelul lat devine lung. Informația rămâne aceeași, dar o poți folosi în grafice și calcule. Lista din stânga este ordinea în care le întâlnești în lecție.</p>
+        <div class="s3-cat is-split" data-s3-cat>
+          <div class="s3-cat-nav" role="tablist">
+            <button type="button" class="is-on" data-s3-cat-btn="split">Split Column</button>
+            <button type="button" data-s3-cat-btn="merge">Merge Columns</button>
+            <button type="button" data-s3-cat-btn="unpivot">Unpivot</button>
+            <button type="button" data-s3-cat-btn="pivot">Pivot Column</button>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="split">
+            <h3>Split Column</h3>
+            <p>Împarte o coloană în două sau mai multe. <strong>By Delimiter</strong> taie la spațiu, virgulă sau alt separator. <strong>By number of characters</strong> sau <strong>Positions</strong> folosești când lungimea e fixă.</p>
+            <p>În fișier, Split pe Calator separă prenumele de nume: „Violeta Gutu” devine două coloane. Cu „primul spațiu de la stânga”, „Alexandru-Paul Dima” rămâne corect; numele cu trei cuvinte necesită decizie suplimentară.</p>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="merge" hidden>
+            <h3>Merge Columns</h3>
+            <p>Operația inversă Split: unește două sau mai multe coloane într-un singur text, cu un delimitator între ele. Transform → Merge Columns.</p>
+            <p>Exemplu: Oras și Tara, cu virgulă, devin „Paris, Franta” într-o coloană pentru etichete. Nu o folosim în ghidul de vacanțe, dar o recunoști când vrei o coloană afișabilă din părți separate.</p>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="unpivot" hidden>
+            <h3>Unpivot</h3>
+            <p>Transformă coloane în rânduri. Tabelul „lat” (Cazare, Transport, Mancare ca antete) devine „lung”: fiecare tip de cheltuială e un rând, cu coloane Attribute (numele vechi) și Value (suma).</p>
+            <p>În Cheltuieli_wide.csv, Unpivot Other Columns păstrează Calator fix și răstoarnă restul. Coloane noi apărute luna viitoare intră automat, spre deosebire de Unpivot Columns pe o listă fixă.</p>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="pivot" hidden>
+            <h3>Pivot Column</h3>
+            <p>Operația inversă Unpivot: valorile unice dintr-o coloană devin nume de coloane noi, iar o coloană de valori umple celulele. Tabelul devine din nou lat.</p>
+            <p>Exemplu: după Unpivot, Tip_Cheltuiala „Cazare” / „Transport” ar putea redeveni coloane separate. În practică, rapoartele preferă adesea forma lungă; Pivot o folosești când sursa sau modelul cere coloane fixe.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow is-live">Etapa 9 · ghid</span>
+        <h2>Split pe nume</h2>
+        <p class="s3-lead">Obiectiv: prenume și nume separate. Nume_Complet, copia din etapa 4, rămâne întreg.</p>
+        <div class="s3-tasks">
+          <article><span class="n">01</span><div><strong>Split Column → By Delimiter</strong> pe Calator: Space, At the left-most delimiter.</div></article>
+          <article><span class="n">02</span><div><strong>Alexandru-Paul Dima</strong> iese corect: prenumele compus are cratimă, deci un singur spațiu. Redenumește coloanele: Prenume și Nume.</div></article>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow is-live">Etapa 9 · ghid</span>
+        <h2>Unpivot pe cheltuieli</h2>
+        <p class="s3-lead">Obiectiv: tipul de cheltuială să fie o valoare, nu un nume de coloană. Fișier nou: Cheltuieli_wide.csv.</p>
+        <div class="s3-tasks">
+          <article><span class="n">01</span><div><strong>Deschide</strong> Cheltuieli_wide.csv în editor. Cazare, Transport, Mancare și Activitati sunt coloane.</div></article>
+          <article><span class="n">02</span><div><strong>Selectează Calator</strong> → Transform → Unpivot Other Columns. Restul se răstoarnă, inclusiv o coloană nouă care ar apărea luna viitoare.</div></article>
+          <article><span class="n">03</span><div><strong>Redenumește</strong> Attribute → Tip_Cheltuiala și Value → Suma. Suma trece pe Whole Number.</div></article>
+        </div>
+        <div class="s3-files"><a href="../../assets/s03/Cheltuieli_wide.csv" download>Descarcă Cheltuieli_wide.csv</a></div>
+      </article>
+
+      <article class="slide">
+        <div class="closing-hero">
+          <span class="closing-eyebrow">Sesiunea 3 · încheiere</span>
+          <h2 class="closing-title">De la export murdar<br/>la pași care se repetă singuri.</h2>
+        </div>
+        <div class="closing-band">
+          <p class="band-label">Ce rămâne din sesiunea de azi</p>
+          <div class="band-row">
+            <div class="band-card">
+              <span class="n">01</span>
+              <strong>Tipuri și valori</strong>
+              <span class="d">Tipul decide ce poți calcula. null, blank și error nu sunt același lucru și se tratează diferit.</span>
+            </div>
+            <div class="band-card">
+              <span class="n">02</span>
+              <strong>ETL în Power Query</strong>
+              <span class="d">Lucrezi pe previzualizare; sursa rămâne neatinsă. Applied Steps este lista de pași care se reaplică la Refresh.</span>
+            </div>
+            <div class="band-card">
+              <span class="n">03</span>
+              <strong>Curățare pe vacanțe</strong>
+              <span class="d">Structură, text, tip, dată și formă — în ordinea care respectă dependențele.</span>
+            </div>
+          </div>
+        </div>
+        <div class="closing-band">
+          <p class="band-label">Temă · același parcurs, alt set de date</p>
+          <div class="band-row is-two">
+            <div class="band-card">
+              <span class="n">01</span>
+              <strong>Deplasări serviciu</strong>
+              <span class="d">Descarcă <strong>Deplasari_tema.xlsx</strong> — un singur fișier, patru foi: <strong>Deplasari</strong> (curățare, ca la clasă), <strong>Deplasari_2025</strong> (Append), <strong>Angajati</strong> (Merge), <strong>Cheltuieli</strong> (Unpivot). În Get Data imporți fiecare foaie ca query separat, apoi refaci pașii din lecție.</span>
+            </div>
+            <div class="band-card">
+              <span class="n">02</span>
+              <strong>Close &amp; Apply</strong>
+              <span class="d">Încarcă tabelul curat în model. În Table view, confirmă tipurile coloanelor înainte de sesiunea următoare.</span>
+            </div>
+          </div>
+        </div>
+        <div class="s3-files s3-files-closing">
+          <a href="../../assets/s03/Deplasari_tema.xlsx" download>Deplasari_tema.xlsx</a>
+        </div>
+      </article>
+
+    </main>
+
+    <nav class="slide-nav">
+      <button class="slide-nav-btn" data-slide-prev>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Înapoi
+      </button>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+        <div class="slide-counter" data-slide-counter>1 / 22</div>
+        <div class="slide-dots" data-slide-dots></div>
+      </div>
+      <button class="slide-nav-btn" data-slide-next>
+        Următor
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </nav>
+  </div>
+  <script src="../../js/main.js"></script>
+</body>
+</html>

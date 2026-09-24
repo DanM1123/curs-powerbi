@@ -97,6 +97,16 @@
     initContrast();
     initCases();
     initReveal();
+    initS3Recap();
+    initS3Pipe();
+    initS3Tabs();
+    initS3Spotter();
+    initS3Cleaner();
+    initS3Unpivot();
+    initS3Fact();
+    initS3Joins();
+    initS3Cond();
+    initS3Quiz();
   }
 
   function initAdvantages() {
@@ -1089,5 +1099,550 @@
     hotspots.forEach(h => h.addEventListener('click', () => activate(h.dataset.tourId)));
     pagerBtns.forEach(p => p.addEventListener('click', () => activate(p.dataset.tourJump)));
     activate('1');
+  }
+
+  function s3Esc(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function initS3Recap() {
+    document.querySelectorAll('[data-s3-recap]').forEach(root => {
+      const qs = Array.from(root.querySelectorAll('[data-s3-q]'));
+      if (!qs.length) return;
+      const count = root.querySelector('[data-s3-recap-count]');
+      let index = 0;
+      const show = (i) => {
+        index = Math.max(0, Math.min(qs.length - 1, i));
+        qs.forEach((q, n) => {
+          const on = n === index;
+          q.classList.toggle('is-on', on);
+          if (!on) q.classList.remove('is-open');
+        });
+        if (count) count.textContent = String(index + 1).padStart(2, '0') + ' / ' + String(qs.length).padStart(2, '0');
+        const prev = root.querySelector('[data-s3-recap-prev]');
+        const next = root.querySelector('[data-s3-recap-next]');
+        if (prev) prev.disabled = index === 0;
+        if (next) next.disabled = index === qs.length - 1;
+      };
+      root.querySelector('[data-s3-recap-prev]')?.addEventListener('click', () => show(index - 1));
+      root.querySelector('[data-s3-recap-next]')?.addEventListener('click', () => show(index + 1));
+      root.querySelectorAll('[data-s3-reveal]').forEach(btn => {
+        btn.addEventListener('click', () => btn.closest('[data-s3-q]')?.classList.add('is-open'));
+      });
+      show(0);
+    });
+  }
+
+  function initS3Pipe() {
+    const dirty = [
+      ['Violeta Gutu', 'Paris', ' Franta ', '12/03/2023', '7 zile', 'Normal'],
+      ['Silvana Boboescu', 'Roma', 'ITALIA', '03/15/2022', 'cinci', 'Post-pandemic'],
+      ['Andreea Filip', '   ', 'Cehia', '2023-04-05', 'n/a', ''],
+      ['Costin Văetiși', 'Bali', 'Indonezia', '04.05.2022', '15 zile', null]
+    ];
+    const clean = [
+      ['Violeta Gutu', 'Paris', 'Franța', '12.03.2023', '7', 'Normal'],
+      ['Silvana Boboescu', 'Roma', 'Italia', '15.03.2022', '5', 'Post-pandemic'],
+      ['Andreea Filip', 'Praga', 'Cehia', '05.04.2023', 'null', 'null'],
+      ['Costin Văetiși', 'Bali', 'Indonezia', '04.05.2022', '15', 'null']
+    ];
+    document.querySelectorAll('[data-s3-pipe]').forEach(root => {
+      const btns = root.querySelectorAll('[data-s3-step]');
+      const body = root.querySelector('[data-s3-dirty] tbody');
+      const label = root.querySelector('[data-s3-table-label]');
+      const paint = (id) => {
+        btns.forEach(b => b.classList.toggle('is-on', b.getAttribute('data-s3-step') === id));
+        const rows = id === 'model' ? clean : dirty;
+        if (label) label.textContent = id === 'model' ? 'Model curat' : 'Date brute';
+        if (!body) return;
+        body.innerHTML = rows.map(r => '<tr>' + r.map(c => '<td>' + (c === null ? '<em>null</em>' : s3Esc(c)) + '</td>').join('') + '</tr>').join('');
+      };
+      paint('brut');
+      btns.forEach(b => b.addEventListener('click', () => paint(b.getAttribute('data-s3-step'))));
+    });
+  }
+
+  function initS3Tabs() {
+    const wire = (rootAttr, btnAttr, panelAttr) => {
+      document.querySelectorAll('[' + rootAttr + ']').forEach(root => {
+        const btns = root.querySelectorAll('[' + btnAttr + ']');
+        const panels = root.querySelectorAll('[' + panelAttr + ']');
+        const show = (id) => {
+          btns.forEach(b => {
+            const on = b.getAttribute(btnAttr) === id;
+            b.classList.toggle('is-on', on);
+            b.setAttribute('aria-selected', on ? 'true' : 'false');
+          });
+          panels.forEach(p => {
+            const on = p.getAttribute(panelAttr) === id;
+            p.classList.toggle('is-on', on);
+            if (on) p.removeAttribute('hidden');
+            else p.setAttribute('hidden', '');
+          });
+        };
+        btns.forEach(b => b.addEventListener('click', () => show(b.getAttribute(btnAttr))));
+      });
+    };
+    wire('data-s3-types', 'data-s3-type', 'data-s3-type-panel');
+    wire('data-s3-cat', 'data-s3-cat-btn', 'data-s3-cat-panel');
+  }
+
+  function initS3Spotter() {
+    const EXAMPLES = [
+      {
+        id: '1',
+        title: 'Vacanțe',
+        headers: ['Calator', 'Tara', 'Data', 'Durata', 'Cost', 'Sezon'],
+        rows: [
+          [{ t: 'Violeta Gutu' }, { t: 'Franța' }, { t: '24.09.2023' }, { t: '7' }, { t: '1250,00' }, { t: 'Normal' }],
+          [{ t: 'violeta gutu', bad: true }, { t: 'Franta' }, { t: '15.03.2022' }, { t: '5' }, { t: '980,00' }, { t: 'Post-pandemic' }],
+          [{ t: 'Andreea Filip' }, { t: 'Cehia' }, { t: '2023-04-05', bad: true }, { t: '4 zile', bad: true }, { t: '640,00' }, { t: 'Normal' }],
+          [{ t: 'Costin Văetiși' }, { t: 'ITALIA', bad: true }, { t: '31.02.2022', bad: true }, { t: '15' }, { t: '5100 lei', bad: true }, { t: 'Post-pandemic' }],
+          [{ t: 'Mariana Vasile' }, { t: 'Grecia' }, { t: '12.06.2024' }, { t: 'cinci', bad: true }, { t: 'n/a', bad: true }, { t: 'POST-PANDEMIC', bad: true }],
+          [{ t: 'Adrian Marginean' }, { t: 'Spania' }, { t: '03/15/2023', bad: true }, { t: '8' }, { t: '1100,00' }, { t: '' }]
+        ]
+      },
+      {
+        id: '2',
+        title: 'Rezervări hotel',
+        headers: ['Cod', 'Client', 'Check-in', 'Nopti', 'Pret', 'Status'],
+        rows: [
+          [{ t: 'R001' }, { t: 'Violeta Gutu' }, { t: '12.10.2026' }, { t: '3' }, { t: '450,00' }, { t: 'Confirmat' }],
+          [{ t: 'r002', bad: true }, { t: 'silvana boboescu', bad: true }, { t: '13.10.2026' }, { t: '5' }, { t: '380,00' }, { t: 'Confirmat' }],
+          [{ t: 'R003' }, { t: 'Andreea Filip' }, { t: '10/13/2026', bad: true }, { t: '3 nopti', bad: true }, { t: 'n/a', bad: true }, { t: 'Anulat' }],
+          [{ t: 'R004' }, { t: 'Costin Văetiși' }, { t: '29.02.2025', bad: true }, { t: '4' }, { t: '720 lei', bad: true }, { t: 'ok', bad: true }],
+          [{ t: 'R005' }, { t: 'Mariana Vasile' }, { t: '15.12.2026' }, { t: 'două', bad: true }, { t: '480,00' }, { t: 'Confirmat' }],
+          [{ t: 'R006' }, { t: 'Adrian Marginean' }, { t: '01.08.2026' }, { t: '2' }, { t: '510,00' }, { t: '' }]
+        ]
+      },
+      {
+        id: '3',
+        title: 'Cheltuieli',
+        headers: ['Document', 'Categorie', 'Data', 'Suma', 'TVA', 'Achitat'],
+        rows: [
+          [{ t: 'F-1001' }, { t: 'Cazare' }, { t: '15.03.2024' }, { t: '5100,00' }, { t: '19%' }, { t: 'True' }],
+          [{ t: 'f-1002', bad: true }, { t: 'transport', bad: true }, { t: '21.04.2024' }, { t: '890,00 lei', bad: true }, { t: '19%' }, { t: 'False' }],
+          [{ t: 'F-1003' }, { t: 'Mâncare' }, { t: '03/15/2024', bad: true }, { t: '1120,00' }, { t: 'nouăsprezece', bad: true }, { t: 'True' }],
+          [{ t: 'F 1004', bad: true }, { t: 'CAZARE', bad: true }, { t: '31.11.2024', bad: true }, { t: '0,00' }, { t: '9%' }, { t: 'DA', bad: true }],
+          [{ t: 'F-1005' }, { t: 'Activități' }, { t: '18.12.2024' }, { t: 'n/a', bad: true }, { t: '19 %', bad: true }, { t: 'nu', bad: true }],
+          [{ t: 'F-1006' }, { t: '' }, { t: '02.01.2025' }, { t: '430,00' }, { t: '19%' }, { t: 'True' }]
+        ]
+      }
+    ];
+
+    document.querySelectorAll('[data-s3-spotter]').forEach(root => {
+      root.innerHTML =
+        '<div class="s3-spot-tabs" data-s3-spot-tabs></div>' +
+        '<div class="s3-window">' +
+          '<div class="s3-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span> <span data-s3-spot-title></span></div>' +
+          '<div class="s3-spot-body">' +
+            '<div data-s3-spot-grid></div>' +
+            '<div class="s3-spot-actions">' +
+              '<button type="button" class="s3-btn is-primary" data-s3-spot-check>Verifică</button>' +
+              '<button type="button" class="s3-btn" data-s3-spot-reset>Încearcă din nou</button>' +
+              '<span class="s3-spot-result" data-s3-spot-result>Selectează toate valorile suspecte.</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+
+      const tabs = root.querySelector('[data-s3-spot-tabs]');
+      const grid = root.querySelector('[data-s3-spot-grid]');
+      const title = root.querySelector('[data-s3-spot-title]');
+      const result = root.querySelector('[data-s3-spot-result]');
+      let current = 0;
+      let checked = false;
+
+      const drawTable = () => {
+        const ex = EXAMPLES[current];
+        title.textContent = 'Exemplu ' + ex.id + ' · ' + ex.title;
+        result.textContent = 'Selectează toate valorile suspecte.';
+        checked = false;
+        grid.innerHTML = '<table class="s3-spot-table"><thead><tr>' +
+          ex.headers.map(h => '<th>' + s3Esc(h) + '</th>').join('') +
+          '</tr></thead><tbody>' +
+          ex.rows.map(row => '<tr>' + row.map(cell =>
+            '<td' + (cell.bad ? ' data-bad="1"' : '') + '>' + s3Esc(cell.t) + '</td>'
+          ).join('') + '</tr>').join('') +
+          '</tbody></table>';
+        grid.querySelectorAll('td').forEach(td => {
+          td.addEventListener('click', () => {
+            if (checked) return;
+            td.classList.toggle('is-picked');
+          });
+        });
+      };
+
+      EXAMPLES.forEach((ex, i) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = 'Exemplu ' + ex.id + ' · ' + ex.title;
+        if (i === 0) btn.classList.add('is-on');
+        btn.addEventListener('click', () => {
+          current = i;
+          tabs.querySelectorAll('button').forEach((b, n) => b.classList.toggle('is-on', n === i));
+          drawTable();
+        });
+        tabs.appendChild(btn);
+      });
+
+      root.querySelector('[data-s3-spot-check]')?.addEventListener('click', () => {
+        const cells = Array.from(grid.querySelectorAll('td'));
+        cells.forEach(td => {
+          const isBad = td.hasAttribute('data-bad');
+          const picked = td.classList.contains('is-picked');
+          td.classList.remove('is-hit', 'is-miss', 'is-extra');
+          if (isBad && picked) td.classList.add('is-hit');
+          else if (isBad && !picked) td.classList.add('is-miss');
+          else if (!isBad && picked) td.classList.add('is-extra');
+        });
+        checked = true;
+        result.textContent = 'Verde: problemă găsită. Roșu: problemă neselectată. Galben: valoarea era bună.';
+      });
+
+      root.querySelector('[data-s3-spot-reset]')?.addEventListener('click', () => {
+        drawTable();
+      });
+
+      drawTable();
+    });
+  }
+
+  function initS3Cleaner() {
+    const STEPS = [
+      {
+        name: 'Source',
+        why: 'Așa intră fișierul. Primele două rânduri nu sunt cap de tabel: sunt titlul exportului. Power Query le tratează ca date, iar coloanele se numesc Column1, Column2…',
+        m: 'Csv.Document(File.Contents("Vacante_brut.csv"))',
+        headers: ['Column1', 'Column2', 'Column3', 'Column4', 'Column5', 'Column6'],
+        rows: [
+          ['Raport vacante grupa', '', '', '', '', ''],
+          ['generat automat', 'nu edita', '', '', '', ''],
+          ['ID_Calator', 'Calator', 'Tara', 'Data_Plecare', 'Durata_Zile', 'Cost_Total'],
+          ['C01', 'Violeta Gutu', ' Franta ', '12/03/2023', '7 zile', '1.250,00 lei'],
+          ['C02', 'Silvana Boboescu', 'ITALIA', '03/15/2022', '5 zile', '980,00 lei'],
+          ['C01', 'Violeta Gutu', ' Franta ', '12/03/2023', '7 zile', '1.250,00 lei'],
+          ['', '', '', '', '', '']
+        ]
+      },
+      {
+        name: 'Removed Top Rows',
+        why: 'Home → Remove Rows → Remove Top Rows, cu 2. Titlul dispare. Rândul cu numele reale de coloane e acum primul, dar încă e văzut ca date, nu ca cap de tabel.',
+        m: 'Table.Skip(Source, 2)',
+        headers: ['Column1', 'Column2', 'Column3', 'Column4', 'Column5', 'Column6'],
+        rows: [
+          ['ID_Calator', 'Calator', 'Tara', 'Data_Plecare', 'Durata_Zile', 'Cost_Total'],
+          ['C01', 'Violeta Gutu', ' Franta ', '12/03/2023', '7 zile', '1.250,00 lei'],
+          ['C02', 'Silvana Boboescu', 'ITALIA', '03/15/2022', '5 zile', '980,00 lei'],
+          ['C01', 'Violeta Gutu', ' Franta ', '12/03/2023', '7 zile', '1.250,00 lei'],
+          ['', '', '', '', '', '']
+        ]
+      },
+      {
+        name: 'Promoted Headers',
+        why: 'Home → Use First Row as Headers. Abia acum coloanele au nume. Fără pasul ăsta, orice transformare lucrează pe Column1.',
+        m: 'Table.PromoteHeaders(#"Removed Top Rows")',
+        headers: ['ID_Calator', 'Calator', 'Tara', 'Data_Plecare', 'Durata_Zile', 'Cost_Total'],
+        rows: [
+          ['C01', 'Violeta Gutu', ' Franta ', '12/03/2023', '7 zile', '1.250,00 lei'],
+          ['C02', 'Silvana Boboescu', 'ITALIA', '03/15/2022', '5 zile', '980,00 lei'],
+          ['C01', 'Violeta Gutu', ' Franta ', '12/03/2023', '7 zile', '1.250,00 lei'],
+          ['', '', '', '', '', '']
+        ]
+      },
+      {
+        name: 'Removed Blank Rows',
+        why: 'Un rând gol nu e o vacanță. Remove Rows → Remove Blank Rows. Numărul de rânduri trebuie să scadă cu 1.',
+        m: 'Table.SelectRows(#"Promoted Headers", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null})))',
+        headers: ['ID_Calator', 'Calator', 'Tara', 'Data_Plecare', 'Durata_Zile', 'Cost_Total'],
+        rows: [
+          ['C01', 'Violeta Gutu', ' Franta ', '12/03/2023', '7 zile', '1.250,00 lei'],
+          ['C02', 'Silvana Boboescu', 'ITALIA', '03/15/2022', '5 zile', '980,00 lei'],
+          ['C01', 'Violeta Gutu', ' Franta ', '12/03/2023', '7 zile', '1.250,00 lei']
+        ]
+      },
+      {
+        name: 'Removed Duplicates',
+        why: 'Paris apărea de două ori, identic. Remove Duplicates păstrează prima apariție. Dacă rămânea, costul Violetei se dubla în orice sumă.',
+        m: 'Table.Distinct(#"Removed Blank Rows")',
+        headers: ['ID_Calator', 'Calator', 'Tara', 'Data_Plecare', 'Durata_Zile', 'Cost_Total'],
+        rows: [
+          ['C01', 'Violeta Gutu', ' Franta ', '12/03/2023', '7 zile', '1.250,00 lei'],
+          ['C02', 'Silvana Boboescu', 'ITALIA', '03/15/2022', '5 zile', '980,00 lei']
+        ]
+      },
+      {
+        name: 'Trimmed Text',
+        why: 'Transform → Format → Trim pe Tara. Spațiile din „ Franta ” cad. Abia după asta poți compara valorile între ele.',
+        m: 'Table.TransformColumns(#"Removed Duplicates", {{"Tara", Text.Trim}})',
+        headers: ['ID_Calator', 'Calator', 'Tara', 'Data_Plecare', 'Durata_Zile', 'Cost_Total'],
+        rows: [
+          ['C01', 'Violeta Gutu', 'Franta', '12/03/2023', '7 zile', '1.250,00 lei'],
+          ['C02', 'Silvana Boboescu', 'ITALIA', '03/15/2022', '5 zile', '980,00 lei']
+        ]
+      },
+      {
+        name: 'Replaced Values',
+        why: 'Replace Values: Franta → Franța, ITALIA → Italia. Două scrieri deveneau două țări în raport. Standardizezi la o singură formă, cea pe care vrei să o vadă utilizatorul.',
+        m: 'Table.ReplaceValue(#"Trimmed Text", "Franta", "Franța", Replacer.ReplaceText, {"Tara"})',
+        headers: ['ID_Calator', 'Calator', 'Tara', 'Data_Plecare', 'Durata_Zile', 'Cost_Total'],
+        rows: [
+          ['C01', 'Violeta Gutu', 'Franța', '12/03/2023', '7 zile', '1.250,00 lei'],
+          ['C02', 'Silvana Boboescu', 'Italia', '03/15/2022', '5 zile', '980,00 lei']
+        ]
+      },
+      {
+        name: 'Split Column',
+        why: 'Split Column → By Delimiter → spațiu, la primul spațiu din stânga. Numele simple se despart curat. La „Beatrice Adina Antonievici” al doilea prenume rămâne lipit: de asta verifici după split, nu doar primul rând.',
+        m: 'Table.SplitColumn(#"Replaced Values", "Calator", Splitter.SplitTextByDelimiter(" "), {"Prenume", "Nume"})',
+        headers: ['ID_Calator', 'Prenume', 'Nume', 'Tara', 'Data_Plecare', 'Durata_Zile', 'Cost_Total'],
+        rows: [
+          ['C01', 'Violeta', 'Gutu', 'Franța', '12/03/2023', '7 zile', '1.250,00 lei'],
+          ['C02', 'Silvana', 'Boboescu', 'Italia', '03/15/2022', '5 zile', '980,00 lei']
+        ]
+      },
+      {
+        name: 'Cleaned Duration',
+        why: 'Replace Values: „ zile” → nimic, apoi tip Whole number. „7 zile” nu se poate media. „5” era deja cifră, dar tot text până la Change Type.',
+        m: 'Table.TransformColumnTypes(#"Replaced Days", {{"Durata_Zile", Int64.Type}})',
+        headers: ['ID_Calator', 'Prenume', 'Nume', 'Tara', 'Data_Plecare', 'Durata_Zile', 'Cost_Total'],
+        rows: [
+          ['C01', 'Violeta', 'Gutu', 'Franța', '12/03/2023', '7', '1.250,00 lei'],
+          ['C02', 'Silvana', 'Boboescu', 'Italia', '03/15/2022', '5', '980,00 lei']
+        ]
+      },
+      {
+        name: 'Cost as number',
+        why: 'Scoți „ lei”, apoi Change Type using Locale, Română. 1.250,00 devine numărul 1250, nu 1,25. Abia acum SUM funcționează. Data o lași pe pasul următor din aplicație: în fișierul real formatele sunt amestecate și un singur click nu le acoperă pe toate.',
+        m: 'Table.TransformColumnTypes(#"Removed Lei", {{"Cost_Total", Currency.Type}}, "ro-RO")',
+        headers: ['ID_Calator', 'Prenume', 'Nume', 'Tara', 'Data_Plecare', 'Durata_Zile', 'Cost_Total'],
+        rows: [
+          ['C01', 'Violeta', 'Gutu', 'Franța', '12/03/2023', '7', '1250'],
+          ['C02', 'Silvana', 'Boboescu', 'Italia', '03/15/2022', '5', '980']
+        ]
+      }
+    ];
+
+    document.querySelectorAll('[data-s3-cleaner]').forEach(root => {
+      root.innerHTML = '<div class="s3-clean"><div><div class="s3-window"><div class="s3-bar"><span class="dots"><i></i><i></i><i></i></span> Previzualizare <span class="sp" data-s3-clean-name></span></div><div class="s3-clean-grid" data-s3-clean-grid></div></div><p class="s3-why" data-s3-clean-why></p><div class="s3-m" data-s3-clean-m></div><div class="s3-spot-actions"><button type="button" class="s3-btn is-primary" data-s3-clean-next>Aplică pasul următor</button></div></div><div class="s3-window s3-rail"><div class="s3-bar">Applied Steps</div><div style="padding:8px 10px"><ol data-s3-clean-rail></ol></div></div></div>';
+      const grid = root.querySelector('[data-s3-clean-grid]');
+      const rail = root.querySelector('[data-s3-clean-rail]');
+      const why = root.querySelector('[data-s3-clean-why]');
+      const m = root.querySelector('[data-s3-clean-m]');
+      const name = root.querySelector('[data-s3-clean-name]');
+      const next = root.querySelector('[data-s3-clean-next]');
+      let current = 0;
+
+      const render = () => {
+        const step = STEPS[current];
+        const prev = current > 0 ? STEPS[current - 1] : null;
+        const sameShape = prev && prev.headers.length === step.headers.length && prev.rows.length === step.rows.length;
+        const head = '<thead><tr>' + step.headers.map(h => '<th>' + s3Esc(h) + '</th>').join('') + '</tr></thead>';
+        const body = step.rows.map((row, r) => {
+          const tds = row.map((cell, c) => {
+            const cls = sameShape && prev.rows[r][c] !== cell ? ' class="is-fix"' : '';
+            return '<td' + cls + '>' + s3Esc(cell) + '</td>';
+          }).join('');
+          return '<tr>' + tds + '</tr>';
+        }).join('');
+        grid.innerHTML = '<table><caption class="s3-lead" style="caption-side:bottom;margin:8px 0 0">' + step.rows.length + ' rânduri</caption>' + head + '<tbody>' + body + '</tbody></table>';
+        if (why) why.textContent = step.why;
+        if (m) m.textContent = step.m;
+        if (name) name.textContent = step.name;
+        rail.innerHTML = STEPS.map((s, i) => {
+          const cls = (i < current ? 'is-done' : '') + (i === current ? ' is-now' : '');
+          return '<li><button type="button" class="' + cls + '" data-s3-goto="' + i + '">' + (i + 1) + '. ' + s3Esc(s.name) + '</button></li>';
+        }).join('');
+        rail.querySelectorAll('[data-s3-goto]').forEach(btn => {
+          btn.addEventListener('click', () => { current = Number(btn.getAttribute('data-s3-goto')); render(); });
+        });
+        if (next) {
+          next.disabled = current >= STEPS.length - 1;
+          next.textContent = current >= STEPS.length - 1 ? 'Lista de pași e completă' : 'Aplică pasul următor';
+        }
+      };
+      next?.addEventListener('click', () => { if (current < STEPS.length - 1) { current += 1; render(); } });
+      render();
+    });
+  }
+
+  function initS3Unpivot() {
+    document.querySelectorAll('[data-s3-unpivot]').forEach(root => {
+      const wide = root.querySelector('[data-s3-wide]');
+      const long = root.querySelector('[data-s3-long]');
+      const btn = root.querySelector('[data-s3-unpivot-btn]');
+      if (!wide || !long || !btn) return;
+      let flipped = false;
+      btn.addEventListener('click', () => {
+        flipped = !flipped;
+        wide.hidden = flipped;
+        long.hidden = !flipped;
+        btn.textContent = flipped ? 'Arată formatul wide' : 'Arată formatul long';
+      });
+    });
+  }
+
+  function initS3Fact() {
+    const ITEMS = [
+      { title: 'Vacante', detail: 'Un rând = o vacanță, cu durată și cost.', kind: 'fact' },
+      { title: 'Calatori', detail: 'Cine este persoana și din ce oraș pleacă.', kind: 'dim' },
+      { title: 'Destinatii', detail: 'Oraș, țară, continent. Se repetă la mai multe vacanțe.', kind: 'dim' },
+      { title: 'Vacante 2025', detail: 'Aceleași evenimente, doar anul e altul.', kind: 'fact' },
+      { title: 'Mijloace de transport', detail: 'Lista Avion / Tren / Mașină, scrisă o singură dată.', kind: 'dim' },
+      { title: 'Cheltuieli, după unpivot', detail: 'Un rând = o cheltuială, cu o sumă.', kind: 'fact' }
+    ];
+    document.querySelectorAll('[data-s3-fact]').forEach(root => {
+      const pool = root.querySelector('[data-s3-pool]');
+      const fact = root.querySelector('[data-s3-bucket="fact"]');
+      const dim = root.querySelector('[data-s3-bucket="dim"]');
+      if (!pool || !fact || !dim) return;
+      const state = ITEMS.map(item => Object.assign({ placed: null }, item));
+      const render = () => {
+        pool.innerHTML = '';
+        fact.innerHTML = '<h3>Fapt · evenimentul</h3>';
+        dim.innerHTML = '<h3>Dimensiune · descrierea</h3>';
+        state.forEach((item, i) => {
+          const card = document.createElement('div');
+          card.className = 's3-card' + (item.placed ? (item.placed === item.kind ? ' is-right' : ' is-wrong') : '');
+          const label = document.createElement('div');
+          label.innerHTML = '<strong>' + s3Esc(item.title) + '</strong><br><span style="color:var(--text-3)">' + s3Esc(item.detail) + '</span>';
+          card.appendChild(label);
+          if (!item.placed) {
+            const actions = document.createElement('div');
+            [['fact', 'Fapt'], ['dim', 'Dimensiune']].forEach(([kind, text]) => {
+              const b = document.createElement('button');
+              b.type = 'button';
+              b.textContent = text;
+              b.addEventListener('click', () => { state[i].placed = kind; render(); });
+              actions.appendChild(b);
+            });
+            card.appendChild(actions);
+            pool.appendChild(card);
+          } else {
+            const back = document.createElement('button');
+            back.type = 'button';
+            back.textContent = item.placed === item.kind ? 'Corect' : 'Nu e aici';
+            back.addEventListener('click', () => { state[i].placed = null; render(); });
+            card.appendChild(back);
+            (item.placed === 'fact' ? fact : dim).appendChild(card);
+          }
+        });
+      };
+      render();
+    });
+  }
+
+  function initS3Joins() {
+    const LEFT = [
+      { id: 'C01', where: 'Paris', cost: '1250' },
+      { id: 'C02', where: 'Roma', cost: '980' },
+      { id: 'C11', where: 'Bruges', cost: '510' }
+    ];
+    const RIGHT = [
+      { id: 'C01', name: 'Violeta Gutu', city: 'Cluj-Napoca' },
+      { id: 'C02', name: 'Silvana Boboescu', city: 'București' },
+      { id: 'C04', name: 'Costin Văetiși', city: 'Iași' }
+    ];
+    const TYPES = [
+      { id: 'left', name: 'Left Outer', hint: 'Toate vacanțele', text: 'Rămân toate rândurile din stânga. Edgar (C11) nu e în lista de călători, deci numele lui iese null, dar vacanța rămâne. Asta vrei aproape mereu: nu pierzi evenimentul doar pentru că descrierea lipsește.' },
+      { id: 'inner', name: 'Inner', hint: 'Doar potrivirile', text: 'Rămân doar rândurile care există în ambele tabele. Vacanța din Bruges dispare. Costin nu apare, pentru că nu are vacanță în eșantion. Inner e o decizie: „nu mă interesează ce nu pot descrie”.' },
+      { id: 'full', name: 'Full Outer', hint: 'Tot din ambele', text: 'Rămâne și Edgar fără profil, și Costin fără vacanță. Patru rânduri. Îl folosești când vrei să vezi găurile din ambele părți, nu când construiești tabelul de fapte.' },
+      { id: 'right', name: 'Right Outer', hint: 'Toți călătorii', text: 'Rămân toți călătorii din dreapta. Costin apare cu vacanță goală. Edgar dispare. Right Outer e Left Outer cu tabelele inversate: de obicei întorci tabelele și alegi Left, ca să citești mai ușor.' },
+      { id: 'anti', name: 'Left Anti', hint: 'Cine nu se potrivește', text: 'Doar rândurile din stânga fără pereche: C11. Nu e un join pe care îl lași în model. E verificarea de dinainte: „cine are vacanțe și nu există în Calatori?”.' }
+    ];
+
+    const matchOf = (id) => RIGHT.find(r => r.id === id);
+    const tripOf = (id) => LEFT.find(r => r.id === id);
+
+    document.querySelectorAll('[data-s3-joins]').forEach(root => {
+      root.innerHTML = '<div class="s3-join-layout"><div class="s3-join-pick" data-s3-join-pick></div><div><div class="s3-join-sources"><table class="s3-sheet"><caption>Stânga · Vacante</caption><thead><tr><th>ID</th><th>Oraș</th><th>Cost</th></tr></thead><tbody>'
+        + LEFT.map(r => '<tr><td>' + r.id + '</td><td>' + s3Esc(r.where) + '</td><td>' + r.cost + '</td></tr>').join('')
+        + '</tbody></table><table class="s3-sheet"><caption>Dreapta · Calatori</caption><thead><tr><th>ID</th><th>Nume</th><th>Reședință</th></tr></thead><tbody>'
+        + RIGHT.map(r => '<tr><td>' + r.id + '</td><td>' + s3Esc(r.name) + '</td><td>' + s3Esc(r.city) + '</td></tr>').join('')
+        + '</tbody></table></div><table class="s3-sheet"><caption>Rezultat</caption><thead><tr><th>ID</th><th>Oraș vacanță</th><th>Cost</th><th>Nume</th><th>Reședință</th></tr></thead><tbody data-s3-join-body></tbody></table><p class="s3-why" data-s3-join-text></p></div></div>';
+      const pick = root.querySelector('[data-s3-join-pick]');
+      const body = root.querySelector('[data-s3-join-body]');
+      const text = root.querySelector('[data-s3-join-text]');
+      TYPES.forEach((t, i) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.innerHTML = '<strong>' + t.name + '</strong><span>' + t.hint + '</span>';
+        if (i === 0) b.classList.add('is-on');
+        b.addEventListener('click', () => {
+          pick.querySelectorAll('button').forEach(x => x.classList.remove('is-on'));
+          b.classList.add('is-on');
+          draw(t.id);
+        });
+        pick.appendChild(b);
+      });
+
+      const row = (id, trip, person, cls) => '<tr class="' + cls + '"><td>' + id + '</td><td>' + (trip ? s3Esc(trip.where) : '—') + '</td><td>' + (trip ? trip.cost : '—') + '</td><td>' + (person ? s3Esc(person.name) : 'null') + '</td><td>' + (person ? s3Esc(person.city) : 'null') + '</td></tr>';
+
+      const draw = (type) => {
+        const out = [];
+        if (type === 'left' || type === 'inner' || type === 'anti') {
+          LEFT.forEach(trip => {
+            const person = matchOf(trip.id);
+            if (type === 'inner' && !person) return;
+            if (type === 'anti' && person) return;
+            const cls = person ? 's3-hit' : 's3-miss';
+            out.push(row(trip.id, type === 'anti' ? trip : trip, person, cls));
+          });
+        } else if (type === 'right') {
+          RIGHT.forEach(person => {
+            const trip = tripOf(person.id);
+            out.push(row(person.id, trip, person, trip ? 's3-hit' : 's3-miss'));
+          });
+        } else {
+          LEFT.forEach(trip => out.push(row(trip.id, trip, matchOf(trip.id), matchOf(trip.id) ? 's3-hit' : 's3-miss')));
+          RIGHT.forEach(person => { if (!tripOf(person.id)) out.push(row(person.id, null, person, 's3-miss')); });
+        }
+        body.innerHTML = out.join('') || '<tr><td colspan="5">Niciun rând.</td></tr>';
+        const meta = TYPES.find(t => t.id === type);
+        if (text && meta) text.textContent = meta.text + ' Rânduri în rezultat: ' + out.length + '.';
+      };
+      draw('left');
+    });
+  }
+
+  function initS3Cond() {
+    const ROWS = [
+      ['Violeta', 7],
+      ['Silvana', 14],
+      ['Andreea', 4],
+      ['Costin', 15],
+      ['Mariana', 3],
+      ['Adrian', 10]
+    ];
+    document.querySelectorAll('[data-s3-cond]').forEach(root => {
+      root.innerHTML = '<div class="s3-cond"><div class="s3-window"><div class="s3-bar">Regulile, de sus în jos</div><div style="padding:12px 14px"><label>Lung dacă durata ≥ <input type="number" min="1" max="30" value="10" data-s3-hi></label><label>Mediu dacă durata ≥ <input type="number" min="1" max="30" value="5" data-s3-mid></label><p class="s3-lead" style="margin:0">Altfel: sejur scurt. Prima regulă care se potrivește câștigă, deci pragul mare stă deasupra.</p></div></div><div><table class="s3-sheet"><caption>Durata vacanței → etichetă</caption><thead><tr><th>Călător</th><th>Zile</th><th>Categorie</th></tr></thead><tbody data-s3-cond-body></tbody></table><div class="s3-m" data-s3-cond-m></div></div></div>';
+      const hi = root.querySelector('[data-s3-hi]');
+      const mid = root.querySelector('[data-s3-mid]');
+      const body = root.querySelector('[data-s3-cond-body]');
+      const code = root.querySelector('[data-s3-cond-m]');
+      const draw = () => {
+        let high = Number(hi.value) || 0;
+        let middle = Number(mid.value) || 0;
+        if (middle > high) middle = high;
+        body.innerHTML = ROWS.map(([name, days]) => {
+          let label = 'Scurt';
+          let cls = 'lo';
+          if (days >= high) { label = 'Lung'; cls = 'hi'; }
+          else if (days >= middle) { label = 'Mediu'; cls = 'mid'; }
+          return '<tr><td>' + s3Esc(name) + '</td><td>' + days + '</td><td><span class="s3-chip ' + cls + '">' + label + '</span></td></tr>';
+        }).join('');
+        if (code) code.textContent = 'if [Durata] >= ' + high + ' then "Lung" else if [Durata] >= ' + middle + ' then "Mediu" else "Scurt"';
+      };
+      hi.addEventListener('input', draw);
+      mid.addEventListener('input', draw);
+      draw();
+    });
+  }
+
+  function initS3Quiz() {
+    document.querySelectorAll('[data-s3-quiz]').forEach(root => {
+      root.querySelectorAll('[data-s3-quiz-reveal]').forEach(btn => {
+        btn.addEventListener('click', () => btn.closest('[data-s3-qa]')?.classList.add('is-open'));
+      });
+    });
   }
 })();

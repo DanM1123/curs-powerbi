@@ -1,0 +1,27 @@
+Raport vacante grupa,,,,,,,,,
+"generat automat, nu edita manual",,,,,,,,,
+ID_Calator,Calator,Oras,Tara,Data_Plecare,Sezon,Durata_Zile,Cost_Total,,Nota_interna
+C01,Violeta Gutu,Paris, Franta ,12.03.2023,Normal,7 zile,"1.250,00 lei",Avion,
+C01,Violeta Gutu,Barcelona,Spania,15.06.2024,,10 zile,"2.100,50 lei",Avion,
+C02,Silvana Boboescu,Roma,ITALIA,15.03.2022,Post-pandemic,5 zile,"980,00 lei",Avion,
+,Silvana Boboescu,Maldive,Maldive,02.08.2024,Normal,14 zile,"4.800,00 lei",Avion,
+C03,Andreea Filip,Praga,Cehia,04.05.2023,Normal,4 zile,"640,00 lei",Masina,
+C03,Andreea Filip,New York,SUA,20.07.2024,Normal,12 zile,"6.200,00 lei",Avion,
+C04,Costin Vaetisi,Bali,Indonezia,04.05.2022,Post-pandemic,15 zile,"5.100,00 lei",Avion,verificat
+,Costin Vaetisi,Tokyo,Japonia,01.09.2023,,10 zile,"3.450,00 lei",Avion,
+C05,Mariana Vasile,Viena,Austria,21.04.2023,Normal,3 zile,"890,00 lei",Tren,
+C05,Mariana Vasile,Santorini, Grecia ,18.07.2024,Normal,8 zile,"2.760,00 lei",Avion,
+C06,Adrian Marginean,Londra,UK,06.11.2022,Post-pandemic,6 zile,"1.980,00 lei",Avion,
+C06,Adrian Marginean,Amsterdam,Olanda,14.09.2023,Normal,4 zile,"1.120,00 lei",Avion,
+,,,,,,,,,
+C01,Violeta Gutu,Paris, Franta ,12.03.2023,Normal,7 zile,"1.250,00 lei",Avion,
+C07,Ovidiu Borlean,Dubai,EAU,11.02.2023,Normal,7 zile,n/a,Avion,
+C08,Patricia Cadar-Musca,Lisabona,Portugalia,09.05.2023,Normal,cinci zile,"1.540,00 lei",Avion,
+C09,Alexandru-Paul Dima,Reykjavik,Islanda,18.08.2023,Normal,6 zile,"2.400,00 lei",Avion,
+C10,Beatrice Adina Antonievici,Budapesta,Ungaria,02.10.2023,Normal,4 zile,"720,00 lei",Tren,
+C11,Edgar Denes,"Bruges 
+",Belgia,03.04.2022,,3 zile,"510,00 lei",Avion,de sters
+C12,horea stanescu,Atena,Grecia,16.06.2022,Post-pandemic,5 zile,"1.050,00 lei",Avion,
+C07,Ovidiu Borlean,Nisa,Franta,31.02.2023,Normal,6 zile,"1.890,00 lei",Avion,
+C10,Beatrice Adina Antonievici,Florenta,Italia,22.09.2024,Normal,5 zile,"1.310,00 lei",Tren,
+Total randuri: 22,,,,,,,,,
