@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Power BI · Sesiunea 4 · Modelarea datelor</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23059669'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='56' font-weight='900' text-anchor='middle' fill='white'%3E4%3C/text%3E%3C/svg%3E" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/session.css" />
+  <link rel="stylesheet" href="../../css/extras.css" />
+  <link rel="stylesheet" href="../../css/s02.css" />
+  <link rel="stylesheet" href="../../css/s03.css" />
+  <link rel="stylesheet" href="../../css/s04.css?v=82" />
+  <script src="../../js/gate.js"></script>
+  <script src="../../js/firebase-init.js"></script>
+</head>
+<body class="hub-page s04-page" data-poll-root="curs-oficial/s04/polls">
+  <div class="hub-orbits" aria-hidden="true">
+    <div class="hub-orb a"></div>
+    <div class="hub-orb b"></div>
+    <div class="hub-orb c"></div>
+  </div>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="../../index.html" class="brand">
+        <span class="brand-mark">P</span>
+        <span>Power BI · Sesiunea 4</span>
+      </a>
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" aria-label="Schimbă tema">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="student-shell">
+    <div class="slide-progress"><div class="fill" data-slide-progress></div></div>
+    <main class="slide-deck">
+
+      <article class="slide active">
+        <span class="slide-eyebrow">Recapitulare · sesiunea 3</span>
+        <h2>Care sunt tipurile de date?</h2>
+        <p class="s3-lead">Înainte de model, aceeași hartă ca în sesiunea trecută. Gândește lista, apoi deschide fiecare casetă.</p>
+        <div class="s2-stages-reveal" data-bi-stages>
+          <div class="s2-reveal-grid is-types">
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>Text</h3><p>Strings: cuvinte, etichete și coduri. Se filtrează și se numără.</p><span class="ex">Ex: Paris · 00742</span></div></button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>Whole number</h3><p>Numbers fără zecimale. Aici se face suma și media.</p><span class="ex">Ex: 7 · 240</span></div></button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>Decimal number</h3><p>Numbers cu zecimale, pentru măsurători. Nu este tipul pentru bani.</p><span class="ex">Ex: 3,14 · 7,5</span></div></button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>Fixed decimal</h3><p>Patru zecimale fixe. Este tipul folosit pentru bani.</p><span class="ex">Ex: 49,9000 lei</span></div></button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>Percentage</h3><p>Un număr afișat cu %. 15% este stocat ca 0,15. Se poate suma și media.</p><span class="ex">Ex: 15% · 0,15</span></div></button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>Date</h3><p>O zi din calendar, fără oră.</p><span class="ex">Ex: 24.09.2026</span></div></button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>Time</h3><p>O oră de pe ceas, fără o zi din calendar.</p><span class="ex">Ex: 09:30</span></div></button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>Date/Time</h3><p>Ziua și ora împreună, un moment exact.</p><span class="ex">Ex: 24.09.2026 09:30</span></div></button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>Duration</h3><p>O lungime de timp, nu o oră. Zile, ore, minute și secunde.</p><span class="ex">Ex: 2.04:30:00</span></div></button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>True / False</h3><p>Două stări cunoscute. Null nu înseamnă False.</p><span class="ex">Ex: True · False</span></div></button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false"><span class="s2-reveal-blank" aria-hidden="true">?</span><div class="s2-reveal-content"><h3>Any</h3><p>Power Query nu a ales încă un tip. Coloana se verifică.</p><span class="ex">Ex: 7 · Paris · 24.09</span></div></button>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Legătura cu sesiunea 3</span>
+        <h2>Înainte de modelare</h2>
+        <p class="s3-lead">Restul fundației din Power Query. O întrebare pe ecran; răspunsul apare când îl ceri. Apoi trecem la relații, ierarhii și tabelele de date.</p>
+        <div data-s3-recap>
+          <div class="s3-recap-top">
+            <span class="s3-recap-count" data-s3-recap-count>01 / 05</span>
+            <div class="s3-recap-nav">
+              <button type="button" data-s3-recap-prev>Înapoi</button>
+              <button type="button" data-s3-recap-next>Înainte</button>
+            </div>
+          </div>
+
+          <section class="s3-q is-on" data-s3-q>
+            <h3>null, blank și error</h3>
+            <p class="ask">Trei stări care pot arăta ca o celulă goală. Nu sunt același lucru. Care e diferența?</p>
+            <div class="s3-answer">
+              <div class="s3-null-grid">
+                <article class="s3-null-card"><span class="n">01</span><h3>null</h3><p>Absența valorii. Celula nu are date. Din sursă sau dintr-un calcul fără rezultat. Nu e 0, nu e blank, nu e False. Funcțiile de agregare o exclud.</p></article>
+                <article class="s3-null-card"><span class="n">02</span><h3>blank (&quot;&quot;)</h3><p>Text existent, dar fără niciun caracter. În grilă arată ca null, însă o condiție scrisă pentru null nu prinde blank, și invers.</p></article>
+                <article class="s3-null-card"><span class="n">03</span><h3>error</h3><p>Valoarea era acolo, dar o transformare a eșuat. De obicei Change Type. Netreatată, se propagă în orice calcul de pe coloană.</p></article>
+              </div>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>Ce înseamnă ETL?</h3>
+            <p class="ask">Power Query este un motor ETL. Ce e fiecare literă și ce face?</p>
+            <div class="s3-answer">
+              <div class="s3-etl" aria-label="Extract, Transform, Load">
+                <div class="s3-fn"><strong>Extract</strong><em>conectare la sursă și preluarea datelor</em></div>
+                <svg class="s3-fn-link" viewBox="0 0 64 20" aria-hidden="true"><line x1="2" y1="10" x2="62" y2="10"/><circle r="3.2"><animateMotion dur="1.6s" repeatCount="indefinite" path="M2 10 L62 10"/></circle></svg>
+                <div class="s3-fn"><strong>Transform</strong><em>curățare, restructurare, combinare</em></div>
+                <svg class="s3-fn-link" viewBox="0 0 64 20" aria-hidden="true"><line x1="2" y1="10" x2="62" y2="10"/><circle r="3.2"><animateMotion dur="1.6s" begin="0.4s" repeatCount="indefinite" path="M2 10 L62 10"/></circle></svg>
+                <div class="s3-fn is-end"><strong>Load</strong><em>Close &amp; Apply încarcă în model</em></div>
+              </div>
+              <div class="s3-null-grid" style="margin-top:14px">
+                <article class="s3-null-card"><span class="n">E</span><h3>Extract</h3><p>Get Data. Te conectezi la Excel, CSV, bază sau cloud și aduci tabelele în editor. Sursa de pe disc rămâne neatinsă.</p></article>
+                <article class="s3-null-card"><span class="n">T</span><h3>Transform</h3><p>Aici stă munca din sesiunea 3: rânduri, coloane, text, tip, dată, Unpivot. Fiecare acțiune e un pas, nu o editare a fișierului.</p></article>
+                <article class="s3-null-card"><span class="n">L</span><h3>Load</h3><p>Close &amp; Apply trimite rezultatul în modelul de date. De-abia de aici încep relațiile. Tema sesiunii de azi.</p></article>
+              </div>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>Câte erori are o coloană?</h3>
+            <p class="ask">View îți dă trei unelte. Care îți arată câte erori sunt pe o coloană?</p>
+            <div class="s4-picks is-three">
+              <article class="s4-pick is-yes">
+                <h4>Column quality</h4>
+                <span class="s4-mark">Corect</span>
+                <p class="s4-why">Bara de sub numele coloanei: verde = valid, roșu = Error, gri = gol. Procentul roșu este numărul de erori. Asta cauți când întrebi „câte erori avem?”.</p>
+              </article>
+              <article class="s4-pick is-no">
+                <h4>Column profile</h4>
+                <span class="s4-mark">Nu e asta</span>
+                <p class="s4-why">Panoul de jos, doar pentru coloana selectată. Dă Count, Error, Empty, Distinct, Unique, Min și Max. Detaliul, nu bara de pe toate coloanele.</p>
+              </article>
+              <article class="s4-pick is-no">
+                <h4>Column distribution</h4>
+                <span class="s4-mark">Nu e asta</span>
+                <p class="s4-why">Barele de frecvență plus două numere: distinct (câte valori diferite) și unique (câte apar o singură dată). Nu numără erorile.</p>
+              </article>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>Ce face panoul Applied Steps?</h3>
+            <p class="ask">Lista din dreapta editorului. Care e rolul ei?</p>
+            <div class="s3-answer">
+              <div class="s3-flow">
+                <article><span class="n">01</span><h3>Se înregistrează</h3><p>Power Query nu salvează un tabel nou. Ține lista de pași și o repetă la Refresh, de sus în jos, pe fișierul actualizat.</p></article>
+                <article><span class="n">02</span><h3>Poți reveni</h3><p>Click pe un pas vechi arată datele din acel moment. Dublu click îi schimbă numele: „Titlu scos” spune mai mult decât „Removed Top Rows”.</p></article>
+                <article><span class="n">03</span><h3>Ștergi cu grijă</h3><p>Dacă un pas de mai jos folosește o coloană creată aici, pașii următori capătă semn de eroare. Nu ștergi din mijloc fără să te uiți.</p></article>
+                <article><span class="n">04</span><h3>Rotița</h3><p>Pașii cu rotiță își păstrează dialogul. Schimbi 2 în 3 la Remove Top Rows fără să refaci nimic după.</p></article>
+              </div>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>Trim sau Clean?</h3>
+            <p class="ask">Două operații pe text, din Transform → Format. Care e diferența?</p>
+            <div class="s4-picks is-two">
+              <article class="s4-pick is-info">
+                <h4>Trim</h4>
+                <span class="s4-mark">Capetele</span>
+                <p class="s4-why">Scoate spațiile de la începutul și de la sfârșitul textului. Spațiul dintre cuvinte rămâne. „ Franta ” devine „Franta”. Îl folosești când distribution arată două bare pentru aceeași valoare.</p>
+              </article>
+              <article class="s4-pick is-info">
+                <h4>Clean</h4>
+                <span class="s4-mark">Invizibile</span>
+                <p class="s4-why">Scoate caracterele care nu se tipăresc: trecere la rând nou, tab, coduri de control. Textul arată corect, dar nu se potrivește la filtru sau Merge. „Bruges” cu un Enter la final revine la înălțimea normală.</p>
+              </article>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+        </div>
+      </article>
+
+      <!-- Concepte · start modelare -->
+      <article class="slide s3-concepts-slide">
+        <span class="slide-eyebrow">Sesiunea 4 · hartă</span>
+        <h2>Conceptele sesiunii</h2>
+        <p class="s3-lead">Datele sunt curate din sesiunea 3. Azi le aranjăm în model: de la tabel plat la fact și dimensiuni, relații pe care le desenăm, stea, calendar și modul în care filtrul ajunge la numere.</p>
+        <div class="s3-concepts s4-concepts-map">
+          <article><span class="n">01</span><div><h3>Data modeling</h3><p>Ce este modelarea, de ce contează, ERD și dimensional. Flat table vs tabele legate, apoi de la Vacante_flat la ideea de model.</p></div></article>
+          <article><span class="n">02</span><div><h3>Fact și dimensiune</h3><p>Eveniment vs context, ce coloane rămân unde, cinci pași de identificare. Practică: cafenea, cabinet medical, hotel.</p></div></article>
+          <article><span class="n">03</span><div><h3>Relații</h3><p>PK și FK, apoi linia în Model view: cardinalitate, direcția filtrului. Practică: școală, magazin, clinică.</p></div></article>
+          <article><span class="n">04</span><div><h3>Star schema</h3><p>De ce steaua, exemple schematice. Comparăm flat table, snowflake și star pe aceleași întrebări de business.</p></div></article>
+          <article><span class="n">05</span><div><h3>Tabel de date</h3><p>Dim_Date: zile continue, atribute de timp, Mark as date table și legarea la Data_Plecare din fact.</p></div></article>
+          <article><span class="n">06</span><div><h3>Filtre în model</h3><p>Cum circulă selecția din dimensiune spre fact. Demo interactiv pe vacanțe: același total, dintr-un click.</p></div></article>
+        </div>
+      </article>
+
+      <!-- Data modeling · capitole -->
+      <article class="slide s4-what">
+        <span class="slide-eyebrow">Data modeling</span>
+        <h2>Ce este data modeling</h2>
+        <p class="s3-lead">Data modeling înseamnă să organizezi datele înainte să le folosești, nu pe măsură ce lucrezi cu ele. Practic, te oprești și decizi trei lucruri: ce tabele ai, ce informații conține fiecare, și cum se leagă între ele.</p>
+        <div class="s3-card-grid is-open s4-intro-steps">
+          <article class="s3-info-card">
+            <span class="n">01</span>
+            <strong>Identifici tabelele</strong>
+            <p>Grupurile mari de date: Călători, Vacanțe, Cheltuieli. Fiecare tabel vorbește despre un singur subiect: Călători știe cine sunt oamenii, Vacanțe știe ce plecări există.</p>
+          </article>
+          <article class="s3-info-card">
+            <span class="n">02</span>
+            <strong>Stabilești atributele</strong>
+            <p>Pe Călători: nume, oraș, vârstă. Pe Vacanțe: destinație, dată, cost. Fiecare coloană e un <strong class="is-keep">attribute</strong> al tabelului: o proprietate care descrie entitatea.</p>
+          </article>
+          <article class="s3-info-card is-emphasis">
+            <span class="n">03</span>
+            <strong>Legi tabelele</strong>
+            <p>Un călător poate avea mai multe vacanțe. Legătura e o coloană comună în ambele tabele (de exemplu ID_Calator); altfel tabelele nu se recunosc.</p>
+          </article>
+        </div>
+        <div class="s3-duo">
+          <article>
+            <span class="tag">De ce contează</span>
+            <h4>Fără coloană comună, nu combini</h4>
+            <p>Nu poți construi un raport care aduce informații din mai multe tabele deodată. N-ai cum să afișezi numele călătorului lângă vacanța lui dacă modelul nu știe cum se potrivesc rândurile.</p>
+          </article>
+          <article class="is-build">
+            <span class="tag">În Power BI</span>
+            <h4>Imediat după Power Query</h4>
+            <p>Odată ce datele sunt curate, construiești legăturile dintre tabele în Model view. Asta e <strong>modelul de date</strong>, fundația oricărui raport de aici încolo.</p>
+          </article>
+        </div>
+      </article>
+
+      <article class="slide s4-why">
+        <span class="slide-eyebrow">Data modeling</span>
+        <h2>De ce se face data modeling</h2>
+        <p class="s3-lead">Motivul e simplu: cu cât ai mai multe tabele într-un raport Power BI, cu atât e mai ușor să te pierzi fără o structură clară. Modelarea arată, dintr-o privire, ce tabele ai, ce conține fiecare și cum se leagă între ele, înainte să construiești orice vizual sau măsură DAX.</p>
+        <div class="s3-duo">
+          <article>
+            <span class="tag">Nu doar linii</span>
+            <h4>Reguli pe coloane</h4>
+            <p>Modelarea te obligă să decizi, explicit, ce poate conține fiecare coloană: ce valori sunt permise, dacă un câmp poate lipsi, dacă un identificator trebuie să fie unic. Odată stabilite, aceste reguli devin consistente în tot raportul; orice măsură sau vizual se bazează pe aceleași presupuneri corecte.</p>
+          </article>
+          <article class="is-build">
+            <span class="tag">La scară mare</span>
+            <h4>De la câteva tabele, la zeci</h4>
+            <p>Aceeași logică pe care o aplici pe un model mic se aplică, mai târziu, pe un model Power BI cu zeci de tabele: fiecare tabel are un nume clar, coloane bine definite și o cheie prin care se leagă de restul modelului. Cu cât modelul crește, cu atât contează mai mult ca aceste reguli să fi fost stabilite de la început, nu adăugate pe parcurs.</p>
+          </article>
+        </div>
+        <div class="s3-note"><strong>De reținut.</strong> Nu ai nevoie de un titlu special ca să faci asta. De fiecare dată când legi două tabele printr-o coloană comună, într-un Merge sau într-o relație de model, aplici deja principiul de bază al data modeling, chiar dacă lucrezi pe un singur raport, nu pe zeci de sisteme.</div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Data modeling</span>
+        <h2>Tehnici de data modeling</h2>
+        <p class="s3-lead">De-a lungul timpului au apărut mai multe moduri de a construi un model de date, fiecare potrivit pentru alt tip de nevoie. Le trecem pe toate în revistă, ca să recunoști numele dacă le întâlnești, dar ne oprim în detaliu doar la două dintre ele. Cele pe care chiar le vei folosi în Power BI: <strong>entity relationship</strong> și <strong>dimensional</strong>.</p>
+        <div class="s4-tech">
+          <span>Hierarchical</span>
+          <span>Network</span>
+          <span>Relational</span>
+          <span class="is-on">Entity relationship</span>
+          <span class="is-on">Dimensional</span>
+          <span>Object-oriented</span>
+          <span>Graph</span>
+        </div>
+        <div class="s3-duo">
+          <article class="is-build">
+            <span class="tag">Le aprofundăm</span>
+            <h4>Entity relationship · Dimensional</h4>
+            <p>Modelul entity relationship desenează vizual entitățile, atributele lor și relațiile dintre ele. Practic, harta pe care am descris-o pe pagina anterioară. E potrivit pentru sisteme unde datele se introduc și se actualizează constant, cum ar fi o aplicație de vânzări care înregistrează comenzi în timp real.</p>
+            <p>Modelul dimensional funcționează diferit: pune un tabel central de fapte (de exemplu, vacanțele efectuate) înconjurat de tabele de dimensiuni (călătorii, destinațiile, perioadele). Această structură nu e gândită pentru introducere rapidă de date, ci pentru citire rapidă. Exact ce ai nevoie într-un raport Power BI, unde interoghezi date deja existente, nu le modifici constant. Pe paginile următoare vedem cum arată, apoi construim un exemplu concret.</p>
+          </article>
+          <article>
+            <span class="tag">Le pomenim</span>
+            <h4>Hierarchical · Network · Relational · Object-oriented · Graph</h4>
+            <p>Există și aceste tehnici, folosite în contexte specifice (baze de date ierarhice vechi, grafuri de relații complexe, sisteme orientate pe obiecte). Nu le construim și nu intrăm în detalii. Dacă le întâlnești vreodată într-un articol sau o discuție tehnică, e suficient să știi că există, nu că trebuie să le stăpânești pentru ce faci aici.</p>
+          </article>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Data modeling techniques</span>
+        <h2>Entity relationship data modeling</h2>
+        <p class="s3-lead">Un ERD (entity-relationship diagram) este harta vizuală a datelor: ce „lucruri” există, ce le caracterizează pe fiecare și cum se leagă între ele. Nu e un desen decorativ: e planul pe care se construiește tot modelul de date de mai departe, exact ca planul unei clădiri înainte de prima cărămidă.</p>
+        <p class="s3-lead">Ideea de bază: în loc să ții totul într-un singur tabel plat, unde informația se repetă la fiecare rând, descompui datele în componente separate, care comunică prin relații clare. Un ERD folosește trei piese pentru asta: entități, atribute și relații, pe care le recunoști apoi în schița de mai jos.</p>
+        <div class="s4-terms">
+          <article>
+            <h3>Entity <small>cutia</small></h3>
+            <p>Ce există. Un obiect de evidență, de sine stătător. În desen e <strong>cutia</strong>. Exemple: Călător, Vacanță, Destinație, Cheltuială.</p>
+          </article>
+          <article>
+            <h3>Attribute <small>în cutie</small></h3>
+            <p>Cum arată acea entitate. Nu primește cutie proprie: e o <strong>coloană</strong> în tabel. Exemple: numele călătorului, data vacanței, costul.</p>
+          </article>
+          <article>
+            <h3>Relationship <small>linia</small></h3>
+            <p>Cum se leagă două cutii. <strong>1</strong> și <strong>*</strong> spun câte rânduri stau de fiecare parte: un Călător are * Vacanțe.</p>
+          </article>
+        </div>
+        <div class="s4-schema s4-er is-mini" data-s4-draw aria-label="ERD: tabele și legături">
+          <div class="s4-ent e1">Călător</div>
+          <div class="s4-link l1" aria-hidden="true"><b>1</b><i></i><b>*</b><em>are</em></div>
+          <div class="s4-ent e2 is-mid">Vacanță</div>
+          <div class="s4-link l2" aria-hidden="true"><b>*</b><i></i><b>1</b><em>spre</em></div>
+          <div class="s4-ent e3">Destinație</div>
+          <div class="s4-link l3 is-vert" aria-hidden="true"><b>1</b><i></i><b>*</b><em>are</em></div>
+          <div class="s4-ent e4">Cheltuială</div>
+        </div>
+        <div class="s3-note">Odată desenat, acest plan devine referința pentru tot ce urmează: tabelele din model, relațiile dintre ele în Power BI, chiar și modul în care scrii măsurile DAX.</div>
+      </article>
+
+      <article class="slide s4-dim-slide">
+        <span class="slide-eyebrow">Data modeling techniques</span>
+        <h2>Dimensional data modeling</h2>
+        <div class="s4-dim-split">
+          <div class="s4-dim-copy">
+            <article>
+              <span class="tag">Fact · Dimension</span>
+              <h4>Ce merge unde</h4>
+              <p>Un <strong>fact table</strong> ține evenimentele și numerele: ce s-a întâmplat și cât a costat, cât a durat, câte unități. O <strong>dimension table</strong> ține contextul: cine, ce, unde, când. Dacă o coloană se schimbă la fiecare rând (cost, dată), e în fapt; dacă descrie o categorie stabilă (nume călător, destinație), e dimensiune.</p>
+            </article>
+            <article class="is-build">
+              <span class="tag">Star · Snowflake</span>
+              <h4>Cum se leagă</h4>
+              <p>În <strong>star schema</strong>, fact table-ul stă în centru; fiecare dimensiune se leagă direct la el, un singur pas. Forma amintește de o stea. În <strong>snowflake schema</strong>, o dimensiune se sparge în sub-tabele în lanț. În Power BI rămânem la star schema: mai simplu de întreținut și mai rapid pentru motor.</p>
+            </article>
+          </div>
+          <div class="s4-schema s4-star-simple s4-dim-star" data-s4-draw aria-label="Star schema: fact și dimensiuni">
+            <p class="s4-dim-star-cap">Exemplu · vacanțe</p>
+            <svg class="s4-star-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <line x1="50" y1="50" x2="18" y2="22"/>
+              <line x1="50" y1="50" x2="82" y2="22"/>
+              <line x1="50" y1="50" x2="18" y2="78"/>
+              <line x1="50" y1="50" x2="82" y2="78"/>
+            </svg>
+            <div class="s4-ent d1">Dim_Calator</div>
+            <div class="s4-ent d2">Dim_Date</div>
+            <div class="s4-ent d3">Dim_Destinatie</div>
+            <div class="s4-ent d4">Dim_Transport</div>
+            <div class="s4-ent is-fact">Fact_Vacante</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s4-dm-process-slide">
+        <span class="slide-eyebrow">Data modeling</span>
+        <h2>Care e procesul de data modeling</h2>
+        <p class="s3-lead s4-dm-process-lead">Ideal, cele trei niveluri se fac în ordine, cu echipa de data management și cu business-ul. La final, physical data model comunică cerințele tehnice. La noi, către Model view în Power BI.</p>
+        <div class="s4-types s4-types-compact">
+          <article>
+            <span class="n">01</span>
+            <h3>Conceptual</h3>
+            <p>Ce date, cum se leagă, ce reguli. Public: business. Fără tehnologie.</p>
+          </article>
+          <span class="s4-types-arrow" aria-hidden="true">→</span>
+          <article>
+            <span class="n">02</span>
+            <h3>Logical</h3>
+            <p>Entități, relații, atribute, chei, tipuri. Plan tehnic, încă fără Power BI.</p>
+          </article>
+          <span class="s4-types-arrow" aria-hidden="true">→</span>
+          <article>
+            <span class="n">03</span>
+            <h3>Physical</h3>
+            <p>Tabele, coloane, constrângeri pe platformă. De aici construiești schema.</p>
+          </article>
+        </div>
+        <div class="s4-wf-wrap" data-s4-wf>
+          <p class="s4-wf-cap">Exemplu · vacanțe angajaților</p>
+          <p class="s4-wf-context">HR vrea să știe cine a plecat în vacanță, unde, cu ce mijloc, câte zile și cât a costat. Rapoartele se citesc pe persoană, destinație și lună. Granularitatea e o vacanță.</p>
+          <div class="s3-pipe s4-wf-pipe">
+            <button type="button" class="is-on" data-s4-wf-step="objects"><span class="n">A</span><strong>Obiecte</strong></button>
+            <button type="button" data-s4-wf-step="attrs"><span class="n">B</span><strong>Atribute</strong></button>
+            <button type="button" data-s4-wf-step="rels"><span class="n">C</span><strong>Relații</strong></button>
+          </div>
+          <div class="s4-wf-stage is-on" data-s4-wf-panel="objects">
+            <p class="s4-wf-lead"><strong>Obiecte (entități).</strong> Substantive cu identitate proprie. Nu coloane răzlete, ci „lucruri” despre care ținem evidență.</p>
+            <div class="s4-wf-ents">
+              <div class="s4-wf-ent">Călător</div>
+              <div class="s4-wf-ent">Destinație</div>
+              <div class="s4-wf-ent">Transport</div>
+              <div class="s4-wf-ent is-ev">Vacanță</div>
+              <div class="s4-wf-ent">Calendar</div>
+            </div>
+            <p class="s4-wf-note">Vacanța e evenimentul central; restul descriu contextul.</p>
+          </div>
+          <div class="s4-wf-stage" data-s4-wf-panel="attrs" hidden>
+            <p class="s4-wf-lead"><strong>Atribute = coloanele</strong> pe care le vei avea în fiecare entitate. Acum numeri câmpurile, nu tragi încă linii.</p>
+            <div class="s4-wf-attr-grid">
+              <article>
+                <h4>Călător</h4>
+                <ul><li>Nume</li><li>Oraș reședință</li><li>Vârstă</li></ul>
+              </article>
+              <article>
+                <h4>Destinație</h4>
+                <ul><li>Oraș</li><li>Țară</li><li>Continent</li></ul>
+              </article>
+              <article>
+                <h4>Vacanță</h4>
+                <ul><li>Data plecare</li><li>Durată zile</li><li>Cost total</li></ul>
+              </article>
+            </div>
+          </div>
+          <div class="s4-wf-stage" data-s4-wf-panel="rels" hidden>
+            <p class="s4-wf-lead"><strong>Relații.</strong> ERD simplu: legi entitățile între ele. Un călător are mai multe vacanțe; o vacanță are o destinație.</p>
+            <div class="s4-schema s4-er is-mini s4-wf-simple-erd" aria-label="ERD simplu: călător, vacanță, destinație">
+              <div class="s4-ent e1">Călător</div>
+              <div class="s4-link l1" aria-hidden="true"><b>1</b><i></i><b>*</b><em>are</em></div>
+              <div class="s4-ent e2 is-mid">Vacanță</div>
+              <div class="s4-link l2" aria-hidden="true"><b>*</b><i></i><b>1</b><em>spre</em></div>
+              <div class="s4-ent e3">Destinație</div>
+            </div>
+            <p class="s4-wf-note">La fel se leagă Transport și Calendar: fiecare 1 : * către Vacanță.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s4-stepq-slide">
+        <span class="slide-eyebrow">Data modeling · proces</span>
+        <h2>Verificare teoretică · șase concepte</h2>
+        <p class="s3-lead s4-stepq-lead">Verificare teoretică: conceptele din sesiune. Apasă pe card, apoi compară cu răspunsul scurt.</p>
+        <div class="s2-stages-reveal" data-bi-stages>
+          <div class="s2-reveal-grid is-three s4-stepq">
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">01</span>
+              <span class="s2-reveal-ask">Ce tehnică de modelare folosim când schițăm modelul de entități (înainte de tabele în Power BI)?</span>
+              <div class="s2-reveal-content">
+                <h3>Entity relationship (ER)</h3>
+                <p>Modelare entitate–relație: desenăm entitățile și legăturile (ERD). E pasul logical, fără încă platformă.</p>
+              </div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">02</span>
+              <span class="s2-reveal-ask">Ce tehnică folosim în modelarea din Power BI?</span>
+              <div class="s2-reveal-content">
+                <h3>Modelare dimensională</h3>
+                <p>Star schema: fact table în centru, dimensiuni în jur, relații *:1 spre fact. Asta construim în Model view.</p>
+              </div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">03</span>
+              <span class="s2-reveal-ask">Ce identifici prima dată când faci un ERD?</span>
+              <div class="s2-reveal-content">
+                <h3>Entitățile</h3>
+                <p>Obiectele de business cu identitate proprie (substantive: client, produs, vacanță), nu coloanele amestecate.</p>
+              </div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">04</span>
+              <span class="s2-reveal-ask">După entități, ce mai adaugi pe fiecare?</span>
+              <div class="s2-reveal-content">
+                <h3>Atributele</h3>
+                <p>Coloanele fiecărei entități: ce proprietăți descriu acel obiect (nume, dată, cantitate).</p>
+              </div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">05</span>
+              <span class="s2-reveal-ask">După atribute, ce desenezi între entități?</span>
+              <div class="s2-reveal-content">
+                <h3>Relațiile</h3>
+                <p>Legături pe chei comune: cine se leagă de cine, cardinalitate (de obicei one-to-many în stea).</p>
+              </div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">06</span>
+              <span class="s2-reveal-ask">Ce stabilești pentru fiecare atribut, pe lângă numele coloanei?</span>
+              <div class="s2-reveal-content">
+                <h3>Tip de date · PK · FK</h3>
+                <p>Tip: Text, Număr, Dată. PK (identificator unic) pe dimensiune; FK în fact repetă PK-ul. Fără asta, relațiile nu se potrivesc.</p>
+              </div>
+            </button>
+          </div>
+        </div>
+      </article>
+      <!-- A. Două forme, apoi flat table -->
+      <article class="slide">
+        <span class="slide-eyebrow">Modelul · două forme</span>
+        <h2>Flat table vs. Tabele legate</h2>
+        <p class="s3-lead">Datele pe care le primești pot ajunge în două forme fundamental diferite, și forma aleasă influențează tot ce construiești mai departe: cât de ușor adaugi informație nouă, cât de mult se repetă aceeași dată, cât de rapid citește Power BI modelul. Le parcurgem pe rând. Întâi forma cu un singur tabel, cunoscută în literatură ca <strong>flat table</strong>, apoi forma cu tabele multiple, legate prin identificatori comuni.</p>
+        <div class="s3-duo">
+          <article>
+            <span class="tag">01 · Flat table</span>
+            <h4>Un singur tabel</h4>
+            <p>Tot ce ține de o vacanță, un bon, o deplasare stă pe același rând: cine, unde, când, cât a durat. Nu există o a doua sursă la care să te raportezi. E forma tipică a unui export din Excel, aceeași cu care ai lucrat până acum.</p>
+          </article>
+          <article class="is-build">
+            <span class="tag">02 · Mai multe tabele</span>
+            <h4>Fiecare informație, la locul ei</h4>
+            <p>Plecările stau într-un tabel, călătorii în altul, destinațiile în altul. Fiecare conține o singură categorie de informație, o singură dată. Un identificator comun (o cheie) le leagă între ele. Un filtru aplicat pe o persoană ajunge la toate tabelele conectate, fără ca acea informație să fie copiată pe fiecare rând.</p>
+          </article>
+        </div>
+        <div class="s3-note"><strong>De reținut.</strong> Niciuna dintre cele două forme nu e „greșită” în sine. Alegerea depinde de problema pe care o rezolvi. Continuăm mai întâi cu flat table, până îl înțelegi complet: ce este, când e util, ce avantaje și ce limite are. Apoi trecem la un exemplu concret, pe datele tale de vacanțe.</div>
+      </article>
+
+      <article class="slide s4-flat-def-slide">
+        <span class="slide-eyebrow">Flat table · definiție</span>
+        <h2>Flat table</h2>
+        <div class="s4-flat-split">
+          <div class="s4-flat-copy">
+            <article>
+              <span class="tag">Un singur tabel</span>
+              <h4>Ce este</h4>
+              <p>Un <strong>flat table</strong> (tabel plat) este un singur tabel în care fiecare eveniment apare cu tot contextul lui pe aceeași linie: cine, unde, când, cât. Nu există tabele separate pentru călători sau destinații. Totul stă într-un singur loc.</p>
+            </article>
+            <article class="is-accent">
+              <span class="tag">Repetiție</span>
+              <h4>Denormalizare</h4>
+              <p>Consecința e repetiția: dacă aceeași persoană a plecat de patru ori, numele ei apare de patru ori. Această repetiție se numește <strong>denormalizare</strong>.</p>
+            </article>
+          </div>
+          <div class="s4-flat-aside">
+            <div class="s4-flat-formula" aria-label="Formula unui rând">
+              <span class="s4-flat-formula-k">Un rând =</span>
+              <span class="s4-flat-formula-v">evenimentul + cine + unde + când + cât</span>
+            </div>
+            <article>
+              <span class="tag">Sursa tipică</span>
+              <h4>De ce apare atât de des</h4>
+              <p>Aproape orice sursă externă arată inițial așa: un export, un CSV, un raport primit pe mail. Nu e o greșeală, e forma naturală de transport a datelor între sisteme.</p>
+            </article>
+          </div>
+        </div>
+        <div class="s3-note"><strong>De reținut.</strong> Flat înseamnă plat, fără adâncime: informația e deja întinsă rând cu rând, nu poți „coborî” într-un tabel separat. Ușor de citit cu ochiul; greu de întreținut pe măsură ce volumul crește.</div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Flat table · în modelul nostru</span>
+        <h2>Când e util un singur tabel în model</h2>
+        <p class="s3-lead">Sursa îți dă adesea un flat table. Uneori îl lași așa și în Power BI: un Get Data, Close &amp; Apply, zero relații. Nu e lene, e o alegere. Contează cât de mare e lista, dacă un rând este deja ce vrei să numeri, și dacă mai vine un al doilea set de date de legat. Motorul din Power BI poate desena grafice pe un tabel unic. Pentru o listă scurtă, un prototip sau o singură întrebare, e suficient. Pentru un slicer de țară pe zeci de mii de vacanțe, motorul scanează tot tabelul ca să afle țările. Nu o listă scurtă de destinații.</p>
+        <div class="s3-flow">
+          <article><span class="n">01</span><h3>Listă scurtă</h3><p>Zeci de rânduri, un raport de o pagină. Ochiul încă ține evidența. Un card cu suma zilelor ajunge.</p></article>
+          <article><span class="n">02</span><h3>Un rând = ce numeri</h3><p>Granularitatea e deja bună: o vânzare, o vacanță, o deplasare. Nu amesteci oameni și zile pe aceeași linie din greșeală.</p></article>
+          <article><span class="n">03</span><h3>Fără a doua sursă</h3><p>Nu ai un tabel de angajați sau de buget care trebuie să se prindă. Nu e ce să legi, deci nu pierzi o relație.</p></article>
+          <article><span class="n">04</span><h3>Prototip</h3><p>Vrei un grafic azi, ca să vezi dacă întrebarea merită. Modelul cu mai multe tabele îl faci când răspunsul contează și se repetă.</p></article>
+        </div>
+        <div class="s3-note"><strong>De reținut.</strong> „Util” nu înseamnă „forma pe care o vrem la finalul cursului”. Înseamnă: aici un tabel unic nu minte și nu te încetinește încă. De îndată ce același nume e pe patru rânduri, sau vrei un filtru care e o entitate, nu o coloană. Ai ieșit din zona lui.</div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Flat table · bilanț</span>
+        <h2>Avantaje și dezavantaje</h2>
+        <p class="s3-lead">Un flat table se încarcă cu un Get Data, fără chei și fără cardinalitate. Începutul e rapid, iar cineva din business recunoaște foaia. Prețul se vede în trei locuri: același text se repetă, o corecție se uită pe un rând, iar un slicer nu are o listă scurtă. Are tot tabelul. Power BI e construit ca filtrul să coboare din tabele mici de context către evenimente. Pe un tabel unic, contextul și evenimentul sunt aceeași grămadă.</p>
+        <div class="s4-pair">
+          <article>
+            <span class="ok">Avantaje</span>
+            <h3>Simplu de adus</h3>
+            <p>Un fișier, un query, Close &amp; Apply. Zero relații. Pentru 20 de rânduri și un card, e suficient.</p>
+            <h3>Se citește ca Excel</h3>
+            <p>Un rând, o vacanță. Nu trebuie să înveți un model ca să înțelegi foaia. Antrenamentul din sesiunile 2–3 se recunoaște.</p>
+            <h3>Bun pentru un prototip</h3>
+            <p>Un grafic pe lună, o sumă de zile. Dacă întrebarea e una și moare mâine, nu construiești o stea pentru o pagină.</p>
+          </article>
+          <article>
+            <span class="no">Dezavantaje</span>
+            <h3>Contextul se repetă</h3>
+            <p>Numele, vârsta, țara se copiază pe fiecare eveniment. Corectezi „Franta” pe un rând, uiți pe altul. Raportul vede două țări.</p>
+            <h3>Întrebările cer vânătoare</h3>
+            <p>„Câte zile a avut X?” înseamnă să scanezi tot tabelul. Fără un loc al călătorului, nu ai un filtru: ai ochiul. Power BI face același scan.</p>
+            <h3>Nu are ce să se lege</h3>
+            <p>Un tabel de buget sau de angajați rămâne o insulă. Modelul e un bloc, nu o rețea. De-acolo nu mai crești, iar un slicer de țară citește toate vacanțele, nu 19 destinații.</p>
+          </article>
+        </div>
+      </article>
+
+      <article class="slide" data-s4-flat>
+        <span class="slide-eyebrow">Flat table · verificare</span>
+        <h2>Câte zile de vacanță a avut?</h2>
+        <p class="s3-lead">Alege un călător din tabel. Click pe <strong>nume</strong> și pe <strong>numărul de zile</strong>, pe fiecare rând al lui. Sunt împrăștiate. Când le-ai luat pe toate, apasă Gata. Totalul apare dreapta-sus.</p>
+        <div class="s4-sheet-frame">
+          <div class="s4-sheet-head">
+            <button type="button" class="s3-btn is-primary" data-s4-flat-done>Gata</button>
+            <p class="s4-sheet-total" data-s4-flat-total hidden></p>
+          </div>
+          <div class="s4-scroll"><table class="s4-sheet" data-s4-flat-table></table></div>
+        </div>
+      </article>
+
+      <!-- B. Fact și dimensiuni -->
+      <article class="slide">
+        <span class="slide-eyebrow">Modelul · definiție</span>
+        <h2>De la un tabel la un model</h2>
+        <p class="s3-lead">Un <strong>model de date</strong> este un set de tabele, împreună cu regulile care spun cum se leagă între ele: ce coloană dintr-un tabel corespunde unei coloane din alt tabel, și cum circulă informația de la unul la celălalt atunci când filtrezi sau agregi date. Nu e doar o colecție de tabele separate puse alături, e o structură conectată, în care fiecare tabel are un rol clar și o legătură definită cu restul.</p>
+        <p class="s3-lead">Elementul central al oricărui model este <strong>relația</strong>. O relație se stabilește între două tabele, printr-o coloană comună, prezentă în ambele, de obicei un identificator unic, numit <strong>cheie</strong>. Fără o relație definită, două tabele rămân izolate unul de celălalt, ca două insule separate: o informație din primul tabel nu are niciun efect asupra celui de-al doilea, oricât ar fi ele, de fapt, legate logic.</p>
+        <div class="s3-duo">
+          <article>
+            <span class="tag">Rolurile unui tabel</span>
+            <h4>Tabel cu evenimente</h4>
+            <p>Ține ce s-a întâmplat, când și cât. E locul numerelor pe care le aduni.</p>
+          </article>
+          <article class="is-build">
+            <span class="tag">Rolurile unui tabel</span>
+            <h4>Tabel cu context</h4>
+            <p>Ține cine a fost implicat, unde și ce categorie. Selectezi o singură valoare aici, iar filtrul se propagă singur spre tabelul cu evenimente, fără nicio formulă scrisă manual.</p>
+          </article>
+        </div>
+      </article>
+
+      <article class="slide s4-fd-slide">
+        <span class="slide-eyebrow">Modelul · fact și dimensiuni</span>
+        <h2>Structura modelului: Fact &amp; Dimensions</h2>
+        <p class="s3-lead">De ce împărțim un model în tabele cu roluri diferite, în loc să le lăsăm pe toate la fel? Pentru că orice întrebare de analiză are aceeași structură: un eveniment măsurabil, privit prin context. „Câte produse a vândut fiecare magazin luna trecută” combină un eveniment (vânzarea) cu context (magazinul, luna). Dacă ții totul amestecat într-un singur tabel, contextul se repetă la fiecare rând, iar calculele devin tot mai lente pe măsură ce datele cresc.</p>
+        <p class="s3-lead">Soluția standard, folosită în aproape orice sistem de analiză, se numește structură de tip <strong>data warehouse</strong>: evenimentul într-un tabel (fact), contextul în tabele separate (dimensiuni), legate prin chei comune. E structura pe care Power BI o citește cel mai eficient, nu doar o convenție arbitrară.</p>
+        <p class="s4-fd-pick">Alege un buton ca să vezi cum recunoști fiecare tip de tabel, cu exemple simple.</p>
+        <div data-s4-norm>
+          <div class="s3-pipe s4-fd-pipe">
+            <button type="button" class="is-on" data-s4-norm-step="fact"><span class="n">01</span><strong>Fact</strong></button>
+            <button type="button" data-s4-norm-step="dim"><span class="n">02</span><strong>Dimensiune</strong></button>
+          </div>
+          <div class="s4-fd-body" data-s4-norm-panel="fact">
+            <article>
+              <span class="s4-fd-kicker">Fact · evenimentul</span>
+              <h3>Tabel lung și îngust</h3>
+              <p>Un tabel fact ține evenimentele: ce s-a întâmplat, o dată anume. Are multe rânduri, câte unul pentru fiecare eveniment, dar puține coloane.</p>
+              <p class="s4-fd-spot"><strong>Cum recunoști un fact table.</strong> Dacă informația descrie ceva ce „s-a întâmplat” la un moment dat, o acțiune, un eveniment, aparține unui fact.</p>
+            </article>
+            <article>
+              <span class="s4-fd-kicker">Ce conține, de fapt</span>
+              <ul>
+                <li><strong>Numere pe care le aduni:</strong> o sumă, o cantitate, o durată.</li>
+                <li><strong>Chei către context:</strong> nu scrie numele orașului direct, scrie doar codul care duce spre tabelul cu orașe.</li>
+                <li><strong>O linie per eveniment:</strong> dacă același client a cumpărat de cinci ori, apar cinci rânduri.</li>
+              </ul>
+              <p class="s4-fd-ex"><strong>Exemplu.</strong> Un tabel de Vânzări: ID_Client, ID_Produs, Data, Cantitate, Preț. Fiecare rând e o vânzare separată. Numele clientului sau al produsului nu apar direct aici, doar codurile care le leagă de alte tabele.</p>
+            </article>
+          </div>
+          <div class="s4-fd-body" data-s4-norm-panel="dim" hidden>
+            <article>
+              <span class="s4-fd-kicker">Dimensiune · contextul</span>
+              <h3>Tabel scurt și mai lat</h3>
+              <p>Un tabel dimensiune ține contextul: cine, ce, unde, când. Are puține rânduri, dar mai multe coloane descriptive.</p>
+              <p class="s4-fd-spot"><strong>Cum recunoști o dimensiune.</strong> Dacă informația descrie o categorie stabilă, pe care o folosești ca să filtrezi sau să grupezi datele, aparține unei dimensiuni.</p>
+            </article>
+            <article>
+              <span class="s4-fd-kicker">Ce conține, de fapt</span>
+              <ul>
+                <li><strong>Text și categorii:</strong> nume, oraș, tip de produs. Informație pe care o folosești pentru a filtra sau grupa.</li>
+                <li><strong>O singură apariție per element:</strong> un client apare o singură dată, oricâte cumpărături a făcut.</li>
+                <li><strong>O cheie unică:</strong> codul prin care fact table-ul îl identifică.</li>
+              </ul>
+              <p class="s4-fd-ex"><strong>Exemplu.</strong> Un tabel de Clienți: ID_Client, Nume, Oraș, Vârstă, o dată pentru fiecare persoană. Un tabel de Produse: ID_Produs, Nume_Produs, Categorie, Preț_Unitar, o dată pentru fiecare produs, oricâte vânzări a avut.</p>
+            </article>
+          </div>
+        </div>
+        <div class="s3-note"><strong>De reținut.</strong> Același set de date poate fi împărțit corect în fact și dimensiuni: rândurile de eveniment merg în fact, informațiile unice despre context merg în dimensiuni. Alegerea se face după tipul de informație, nu după cum arăta fișierul original.</div>
+      </article>
+
+      <article class="slide s4-keys-slide">
+        <span class="slide-eyebrow">Relații · chei</span>
+        <h2>Primary key și foreign key</h2>
+        <p class="s3-lead"><strong>Primary key (PK)</strong> este o regulă pe o coloană (sau pe mai multe coloane împreună): fiecare rând are o valoare, și acea valoare nu se repetă. Niciun gol, niciun duplicat. <strong>Foreign key (FK)</strong> este o regulă pe o coloană din alt tabel: fiecare valoare de acolo trebuie să existe deja ca PK în tabelul de referință. Nu poți avea un FK care nu se regăsește nicăieri ca PK.</p>
+        <p class="s3-lead s4-keys-lead2">Nu sunt proprietăți care apar singure în date. Sunt reguli pe care le pui tu, ca tabelele să rămână coerente. Fără ele, nimic nu oprește un duplicat în dimensiune sau o cheie orfană în fact (un cod care nu există în dimensiune).</p>
+        <div class="s3-duo s4-keys-duo">
+          <article>
+            <span class="tag">Primary key · PK</span>
+            <h4>În dimensiune</h4>
+            <p>Pe Dim_Calator, <strong>ID_Calator</strong> e PK: C01 e prezent o singură dată, pe rândul Violetei. Nu lipsește și nu se repetă.</p>
+          </article>
+          <article class="is-build">
+            <span class="tag">Foreign key · FK</span>
+            <h4>În fact</h4>
+            <p>Pe Fact_Vacante, <strong>ID_Calator</strong> e FK: C01 se poate repeta, câte o vacanță, dar fiecare cod trebuie să existe deja ca PK în Dim_Calator.</p>
+          </article>
+        </div>
+        <div class="s4-keys-diagram" aria-label="PK și FK legate">
+          <div class="s4-keys-table">
+            <p class="s4-keys-cap">Dim_Calator · PK</p>
+            <table class="s4-sheet">
+              <thead><tr><th class="is-pk">ID_Calator</th><th>Nume</th><th>Oras</th></tr></thead>
+              <tbody>
+                <tr class="is-row-on"><td class="is-pk">C01</td><td>Violeta Gutu</td><td>Cluj-Napoca</td></tr>
+                <tr><td class="is-pk">C02</td><td>Silvana Boboescu</td><td>Bucuresti</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="s4-keys-bridge">
+            <span class="s4-keys-eq">FK = PK</span>
+            <p>Aceeași valoare, același sens. Un FK fără PK pereche e o cheie orfană.</p>
+            <span class="s4-keys-arrow" aria-hidden="true"></span>
+          </div>
+          <div class="s4-keys-table">
+            <p class="s4-keys-cap">Fact_Vacante · FK</p>
+            <table class="s4-sheet">
+              <thead><tr><th>ID_Vacanta</th><th class="is-fk">ID_Calator</th><th>Durata_Zile</th></tr></thead>
+              <tbody>
+                <tr class="is-hit"><td>V07</td><td class="is-fk">C01</td><td>7</td></tr>
+                <tr class="is-hit"><td>V12</td><td class="is-fk">C01</td><td>5</td></tr>
+                <tr><td>V01</td><td class="is-fk">C02</td><td>5</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="s3-concepts s4-keys-steps">
+          <article><span class="n">01</span><div><h3>PK: unic și prezent</h3><p>Fiecare rând are valoare. Nicio valoare nu se repetă.</p></div></article>
+          <article><span class="n">02</span><div><h3>FK: trebuie să existe</h3><p>Orice cod din fact se găsește deja ca PK în dimensiune.</p></div></article>
+          <article><span class="n">03</span><div><h3>Regulă, nu întâmplare</h3><p>Le impui tu. Altfel pot apărea duplicate sau chei orfane.</p></div></article>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Modelul · conținut</span>
+        <h2>Ce pui în fact, ce pui în dimensiune</h2>
+        <p class="s3-lead">O coloană are un singur loc corect. Dacă „Franța” stă în fapt, se repetă. Dacă durata stă în dimensiunea călătorului, nu mai poți aduna zilele pe vacanță. Checklist-ul de mai jos e regula de lucru, nu o preferință de design.</p>
+        <div class="s4-check">
+          <article class="is-fact">
+            <h3>În fapt</h3>
+            <ul>
+              <li><strong>O cheie a evenimentului</strong>. ID_Vacanta identifică rândul. Poate rămâne aici fără tabel propriu (cheie degenerată): nu descrie un context, identifică întâmplarea.</li>
+              <li><strong>Chei către dimensiuni</strong>. ID_Calator, ID_Destinatie, ID_Transport, Data_Plecare. Cu ele se trag liniile.</li>
+              <li><strong>Măsurile</strong>. Numere de adunat sau mediat: Durata_Zile, Cost_Total. Nimic text care se repetă.</li>
+            </ul>
+          </article>
+          <article>
+            <h3>În dimensiune</h3>
+            <ul>
+              <li><strong>O cheie unică pe entitate</strong>. Un călător, un rând. Cheia internă (C01) e mai stabilă decât numele, dacă numele se schimbă.</li>
+              <li><strong>Atributele care descriu entitatea</strong>. Reședință, vârstă; oraș, țară, continent, tip.</li>
+              <li><strong>Ierarhii naturale în același tabel</strong>. Țară și oraș țin de destinație. Nu faci un tabel doar pentru continent.</li>
+            </ul>
+          </article>
+        </div>
+        <div class="s4-fd-demo" aria-label="Exemplu: fact și dimensiuni">
+          <section>
+            <h3>Fact_Vacante</h3>
+            <table class="s4-sheet">
+              <thead>
+                <tr><th>ID</th><th>Călător</th><th>Dest.</th><th>Zile</th><th>Cost</th></tr>
+              </thead>
+              <tbody>
+                <tr class="is-hit"><td>V07</td><td>C04</td><td>D12</td><td>7</td><td>1250</td></tr>
+                <tr class="is-hit"><td>V12</td><td>C04</td><td>D03</td><td>5</td><td>1680</td></tr>
+                <tr><td>V01</td><td>C02</td><td>D05</td><td>5</td><td>980</td></tr>
+              </tbody>
+            </table>
+          </section>
+          <section>
+            <h3>Dim_Calator</h3>
+            <table class="s4-sheet">
+              <thead>
+                <tr><th>ID</th><th>Nume</th><th>Oraș</th></tr>
+              </thead>
+              <tbody>
+                <tr class="is-hit"><td>C04</td><td>Violeta Gutu</td><td>Cluj-Napoca</td></tr>
+                <tr><td>C02</td><td>Silvana Boboescu</td><td>București</td></tr>
+              </tbody>
+            </table>
+          </section>
+          <section>
+            <h3>Dim_Destinatie</h3>
+            <table class="s4-sheet">
+              <thead>
+                <tr><th>ID</th><th>Oraș</th><th>Țară</th></tr>
+              </thead>
+              <tbody>
+                <tr class="is-hit"><td>D12</td><td>Paris</td><td>Franța</td></tr>
+                <tr><td>D03</td><td>Londra</td><td>Marea Britanie</td></tr>
+                <tr><td>D05</td><td>Roma</td><td>Italia</td></tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+      </article>
+
+      <article class="slide s4-hier-slide">
+        <span class="slide-eyebrow">Ierarhii naturale</span>
+        <h2>Ce aparține împreună, stă împreună</h2>
+        <p class="s3-lead s4-hier-lead">O ierarhie naturală este un lanț de niveluri în care fiecare element de jos aparține unui singur element de sus, fără excepții. Cluj este doar în România, iar România conține mai multe orașe. Ideea de reținut este că nivelurile unui astfel de lanț nu sunt lucruri diferite, ci același lucru privit la scări diferite. De aceea stau împreună, în aceeași dimensiune.</p>
+        <p class="s4-hier-row">Ce este</p>
+        <div class="s4-hier-choices">
+          <article>
+            <span class="n">01</span>
+            <h3>O relație fixă, care merge într-un singur sens</h3>
+            <p>Dacă știi orașul, știi automat țara: Cluj înseamnă România, de fiecare dată. Invers nu funcționează, pentru că „România” nu îți spune dacă e vorba de Cluj, Iași sau Brașov. Această dependență într-o singură direcție, de la mulți la unu, este semnul distinctiv al unei ierarhii naturale.</p>
+          </article>
+          <article>
+            <span class="n">02</span>
+            <h3>Nivelurile descriu același lucru</h3>
+            <p>Orașul și țara nu sunt două entități diferite, ci același „unde locuiește clientul”, exprimat o dată foarte precis (Cluj) și o dată mai general (România). Când le pui în tabele separate, tratezi ca pe două lucruri distincte o informație care era una singură.</p>
+          </article>
+          <article>
+            <span class="n">03</span>
+            <h3>Stabilitatea o definește</h3>
+            <p>Cluj va rămâne în România și peste zece ani, deci legătura nu se schimbă în timp. Aceasta este linia dintre o ierarhie naturală și una artificială. Dacă un element poate fi mutat dintr-un grup în altul, cum se întâmplă cu o „regiune de vânzări” redesenată în fiecare an, relația nu mai e naturală și cere alt tratament.</p>
+          </article>
+        </div>
+        <p class="s4-hier-row">Cum se aplică</p>
+        <div class="s4-hier-examples">
+          <article>
+            <span class="tag">Pasul 1</span>
+            <h3>Testează dependența</h3>
+            <p>Pentru orice două atribute, pune întrebarea: „dacă îl știu pe A, îl știu automat pe B?”. La Cluj și România răspunsul este da, deci avem o ierarhie naturală. Dacă răspunsul ar fi nu, ar însemna că cele două atribute nu formează un lanț și trebuie tratate separat.</p>
+          </article>
+          <article>
+            <span class="tag">Pasul 2</span>
+            <h3>Adună nivelurile într-o singură dimensiune</h3>
+            <p>Oraș și Țară devin două coloane în același tabel, lângă restul atributelor clientului. „Cluj” și „România” se vor repeta pe mai multe rânduri, iar asta este normal într-o dimensiune. Repetiția costă foarte puțin spațiu și te scutește de o legătură în plus între tabele.</p>
+          </article>
+          <article>
+            <span class="tag">Pasul 3</span>
+            <h3>Separă doar când ai un motiv real</h3>
+            <p>Un nivel primește tabel propriu doar în două situații: are multe atribute proprii (de exemplu o țară cu monedă, prefix, regiune, limbă) sau faptele din model se leagă direct de el la o granularitate diferită (de exemplu vânzări la nivel de țară, nu de client). Dacă niciuna nu se aplică, separarea doar complică modelul, fără niciun câștig.</p>
+          </article>
+        </div>
+      </article>
+
+      <article class="slide s4-id-slide">
+        <span class="slide-eyebrow">Modelul · metodă</span>
+        <h2>Cinci pași ca să identifici tabelele</h2>
+        <div class="s4-id-start">
+          <span class="n">01</span>
+          <div>
+            <h3>Găsești evenimentul</h3>
+            <p>Pui o singură întrebare: ce acțiune sau întâmplare se repetă, o dată pentru fiecare rând din tabelul original? Asta devine numele tabelului Fact.</p>
+            <p class="s4-id-ex">Exemple: <span>Fact_Vanzari</span><span>Fact_Programari</span><span>Fact_Tranzactii</span></p>
+          </div>
+        </div>
+        <div class="s4-id-grid">
+          <article>
+            <span class="n">02</span>
+            <h3>Treci fiecare coloană prin testul din pagina anterioară</h3>
+            <p>Pentru fiecare coloană, întrebi: e un număr pe care îl aduni sau îl calculezi? Sau descrie cine, ce, unde, când, și se repetă la evenimente diferite? Prima variantă rămâne în Fact. A doua pleacă spre o Dimensiune.</p>
+          </article>
+          <article>
+            <span class="n">03</span>
+            <h3>Grupezi coloanele de Dimensiune pe entitate</h3>
+            <p>Nu faci un tabel separat pentru fiecare coloană. Le grupezi după ce descriu împreună. Nume, Oraș_Reședință și Vârstă descriu aceeași entitate, persoana, deci intră într-un singur tabel Dim_Client, nu în trei tabele separate.</p>
+          </article>
+          <article>
+            <span class="n">04</span>
+            <h3>Dai fiecărei Dimensiuni o cheie unică</h3>
+            <p>Alegi sau creezi o coloană care identifică fiecare rând din Dimensiune fără ambiguitate, un ID. Dacă entitatea are deja un identificator stabil în sursă, un cod de produs sau un CNP, îl folosești. Dacă nu, generezi unul.</p>
+          </article>
+          <article>
+            <span class="n">05</span>
+            <h3>Verifici ierarhiile naturale</h3>
+            <p>Înainte să creezi o Dimensiune nouă, verifici dacă orașul și țara nu sunt deja niveluri ale aceleiași ierarhii. Nu faci un tabel separat doar pentru Țară.</p>
+          </article>
+        </div>
+      </article>
+
+      <!-- C. Entități și relații -->
+      <article class="slide">
+        <span class="slide-eyebrow">Relații · înainte de fact</span>
+        <h2>Elementele unui business</h2>
+        <p class="s3-lead">Înainte să etichetăm „fapt” și „dimensiune”, descompunem businessul în lucruri despre care ținem evidență. O <strong>entitate</strong> este un lucru cu identitate: poți arăta cu degetul un elev, un profesor, o sală. Un <strong>atribut</strong> este o proprietate (Nume, Tip_Sala). O <strong>cheie</strong> este cum recunoști un individ, ca să nu amesteci doi oameni cu același nume. Încă nu desenăm steaua. Întâi piesele.</p>
+        <p class="s3-lead">Exemplu: o școală. Nu e despre vacanțe, ca să vezi metoda, nu datele memorate.</p>
+        <div class="s3-concepts">
+          <article><span class="n">01</span><div><h3>Elevi</h3><p>Identitate: un copil înscris. Atribute: nume, clasă, an.</p></div></article>
+          <article><span class="n">02</span><div><h3>Profesori</h3><p>Cine predă. Un profesor, multe ore. Nu e același lucru cu ora de curs.</p></div></article>
+          <article><span class="n">03</span><div><h3>Clase</h3><p>Un grup de elevi (a 10-a B). Mulți elevi, o clasă.</p></div></article>
+          <article><span class="n">04</span><div><h3>Săli</h3><p>Laborator, sală de sport, amfiteatru. Tipul e atribut, nu entitate separată.</p></div></article>
+          <article><span class="n">05</span><div><h3>Materii</h3><p>Matematică, istorie. Catalogul de discipline, nu ora de luni.</p></div></article>
+          <article><span class="n">06</span><div><h3>Ore</h3><p>Evenimentul: o oră, o dată, o sală, un profesor, o materie, o clasă. Acesta va fi faptul.</p></div></article>
+        </div>
+      </article>
+
+      <article class="slide s4-sort-slide">
+        <span class="slide-eyebrow">Practică · 1 din 3</span>
+        <h2>Cafeneaua</h2>
+        <p class="s3-lead s4-sort-lead">Pas 1: identifică <strong>tabelele</strong> (Fact/Dim). Pas 2: apasă <strong>Arată coloanele</strong> și le pui pe fiecare tabel (PK/FK).</p>
+        <div class="s4-sort" data-s4-sort="cafenea">
+          <div class="s4-sort-story">
+            <p>Avem un lanț de cafenele: barista și alți angajați lucrează la tejghea, iar clienții vin să cumpere cafea, ceai și prăjituri. Fiecare articol din meniu are nume, categorie (espresso, patiserie) și preț. Când cineva cumpără, deschidem o comandă: când s-a întâmplat, cât a costat totalul. Comanda este a unui client (îi știm numele, orașul, iar dacă e fidel, de când vine) și o preia, de regulă, un angajat (nume, rol la bar). Fiecare cafenea din lanț are nume și oraș. Uneori plata o notăm separat: același bon poate fi încasat în două tranșe (card și numerar), cu sumă și metodă pentru fiecare încasare. Categoria descrie produsul, rolul descrie angajatul: nu sunt entități noi, ci atribute.</p>
+          </div>
+          <label class="s4-sort-note">Elementele tale
+            <span class="s4-sort-add">
+              <input type="text" data-s4-note placeholder="Scrie un element, apoi adaugă" />
+              <button type="button" class="s3-btn is-primary" data-s4-add>Adaugă</button>
+            </span>
+          </label>
+          <div class="s4-sort-pool" data-s4-pool></div>
+          <p class="s4-sort-hint">Ține apăsat și mută elementul în caseta Fact/Dim, sau click pe element apoi click în casetă. Numele nu trebuie scrise exact (fără diacritice e ok).</p>
+          <div class="s4-sort-board">
+            <section data-s4-zone="fact">
+              <h3>Fact</h3>
+              <div class="s4-slots is-fact" data-s4-slots="fact"></div>
+            </section>
+            <section data-s4-zone="dim">
+              <h3>Dim</h3>
+              <div class="s4-slots is-dim" data-s4-slots="dim"></div>
+            </section>
+            <div class="s4-sort-cols-step" data-s4-cols-step hidden>
+              <p class="s4-sort-note is-cols">Coloane · trage în tabelul corespunzător (PK / FK pe chip)</p>
+              <div class="s4-sort-pool is-attr" data-s4-attr-pool></div>
+            </div>
+            <div class="s4-sort-bar">
+              <button type="button" class="s3-btn" data-s4-show-cols disabled>Arată coloanele</button>
+              <button type="button" class="s3-btn is-primary" data-s4-sort-check>Verifică</button>
+              <button type="button" class="s3-btn" data-s4-sort-solve>Arată soluția</button>
+              <button type="button" class="s3-btn" data-s4-sort-reset>Resetează</button>
+              <p class="s4-status" data-s4-sort-status hidden></p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s4-sort-slide">
+        <span class="slide-eyebrow">Practică · 2 din 3</span>
+        <h2>Cabinetul medical</h2>
+        <p class="s3-lead s4-sort-lead">Pas 1: tabelele la Fact/Dim. Pas 2: <strong>Arată coloanele</strong>, apoi PK/FK pe fiecare tabel.</p>
+        <div class="s4-sort" data-s4-sort="clinica">
+          <div class="s4-sort-story">
+            <p>Conducem o clinică privată: pacienții vin la programări, medicii lucrează în cabinete, iar uneori trimit analize la un laborator partener. Fiecare consultație se notează cu dată, durată și tarif. Analiza de laborator e alt eveniment: dată, rezultat, cost; poate fi legată de o consultație, dar nu e același lucru (pot fi zero, una sau mai multe analize după un consult). Ținem evidența pacienților (nume, vârstă, oraș), a medicilor (nume, specializare), a cabinetelor (număr, etaj) și a laboratoarelor (nume, oraș). Specializarea descrie medicul, nu e o entitate separată.</p>
+          </div>
+          <label class="s4-sort-note">Elementele tale
+            <span class="s4-sort-add">
+              <input type="text" data-s4-note placeholder="Scrie un element, apoi adaugă" />
+              <button type="button" class="s3-btn is-primary" data-s4-add>Adaugă</button>
+            </span>
+          </label>
+          <div class="s4-sort-pool" data-s4-pool></div>
+          <p class="s4-sort-hint">Ține apăsat și mută elementul în caseta Fact/Dim, sau click pe element apoi click în casetă. Numele nu trebuie scrise exact (fără diacritice e ok).</p>
+          <div class="s4-sort-board">
+            <section data-s4-zone="fact">
+              <h3>Fact</h3>
+              <div class="s4-slots is-fact" data-s4-slots="fact"></div>
+            </section>
+            <section data-s4-zone="dim">
+              <h3>Dim</h3>
+              <div class="s4-slots is-dim" data-s4-slots="dim"></div>
+            </section>
+            <div class="s4-sort-cols-step" data-s4-cols-step hidden>
+              <p class="s4-sort-note is-cols">Coloane · trage în tabelul corespunzător (PK / FK pe chip)</p>
+              <div class="s4-sort-pool is-attr" data-s4-attr-pool></div>
+            </div>
+            <div class="s4-sort-bar">
+              <button type="button" class="s3-btn" data-s4-show-cols disabled>Arată coloanele</button>
+              <button type="button" class="s3-btn is-primary" data-s4-sort-check>Verifică</button>
+              <button type="button" class="s3-btn" data-s4-sort-solve>Arată soluția</button>
+              <button type="button" class="s3-btn" data-s4-sort-reset>Resetează</button>
+              <p class="s4-status" data-s4-sort-status hidden></p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s4-sort-slide">
+        <span class="slide-eyebrow">Practică · 3 din 3</span>
+        <h2>Hotelul</h2>
+        <p class="s3-lead s4-sort-lead">Pas 1: tabelele la Fact/Dim. Pas 2: <strong>Arată coloanele</strong>, apoi PK/FK pe fiecare tabel.</p>
+        <div class="s4-sort" data-s4-sort="hotel">
+          <div class="s4-sort-story">
+            <p>Avem un hotel: oaspeții rezervă camere, iar la recepție lucrează angajați care îi înregistrează. O rezervare are dată de sosire, plecare și prețul cazării. Camera are număr și tip (single, dubă). Pe durata sejurului, oaspetele poate comanda extra (spa, minibar, late checkout): fiecare serviciu extra are dată, cantitate și sumă; ține de rezervare, dar se notează separat. Știm numele și orașul oaspetelui, numele hotelului și orașul, numele recepționerului. Tipul camerei rămâne detaliu despre cameră, nu entitate nouă.</p>
+          </div>
+          <label class="s4-sort-note">Elementele tale
+            <span class="s4-sort-add">
+              <input type="text" data-s4-note placeholder="Scrie un element, apoi adaugă" />
+              <button type="button" class="s3-btn is-primary" data-s4-add>Adaugă</button>
+            </span>
+          </label>
+          <div class="s4-sort-pool" data-s4-pool></div>
+          <p class="s4-sort-hint">Ține apăsat și mută elementul în caseta Fact/Dim, sau click pe element apoi click în casetă. Numele nu trebuie scrise exact (fără diacritice e ok).</p>
+          <div class="s4-sort-board">
+            <section data-s4-zone="fact">
+              <h3>Fact</h3>
+              <div class="s4-slots is-fact" data-s4-slots="fact"></div>
+            </section>
+            <section data-s4-zone="dim">
+              <h3>Dim</h3>
+              <div class="s4-slots is-dim" data-s4-slots="dim"></div>
+            </section>
+            <div class="s4-sort-cols-step" data-s4-cols-step hidden>
+              <p class="s4-sort-note is-cols">Coloane · trage în tabelul corespunzător (PK / FK pe chip)</p>
+              <div class="s4-sort-pool is-attr" data-s4-attr-pool></div>
+            </div>
+            <div class="s4-sort-bar">
+              <button type="button" class="s3-btn" data-s4-show-cols disabled>Arată coloanele</button>
+              <button type="button" class="s3-btn is-primary" data-s4-sort-check>Verifică</button>
+              <button type="button" class="s3-btn" data-s4-sort-solve>Arată soluția</button>
+              <button type="button" class="s3-btn" data-s4-sort-reset>Resetează</button>
+              <p class="s4-status" data-s4-sort-status hidden></p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s4-rel-slide">
+        <span class="slide-eyebrow">Relații · definiție</span>
+        <h2>Ce este o relație</h2>
+        <p class="s3-lead">O <strong>relație</strong> este legătura dintre două tabele, stabilită printr-o coloană comună: <strong>cheia</strong>. În Power BI, această legătură se vede ca o linie în Model view, dar rolul ei nu e doar vizual: relația determină cum circulă filtrul între tabele. Fără ea, tabelele rămân izolate. Selectezi un călător într-un slicer, dar coloana de cost din fact table nu reacționează în niciun fel, pentru că nu există nicio regulă care să lege cele două tabele.</p>
+        <div class="s4-rel-split">
+          <article>
+            <h3>Aceeași cheie, același sens</h3>
+            <p>Ca să funcționeze, cheia trebuie să însemne exact același lucru în ambele tabele: ID_Calator din Fact_Vacante trebuie să corespundă exact aceleiași valori ID_Calator din Dim_Calator. De asta o cheie tehnică (un cod, un identificator stabil) e mai sigură decât un nume. Un nume se poate scrie diferit sau se poate schimba, în timp ce un identificator rămâne constant.</p>
+          </article>
+          <article>
+            <div class="s4-rel-demo" aria-hidden="true">
+              <div class="s4-rel-box"><strong>Dim_Calator</strong><em>C01 · Violeta</em></div>
+              <div class="s4-rel-line">ID_Calator<i></i></div>
+              <div class="s4-rel-box"><strong>Fact_Vacante</strong><em>V07, V12, V17, V21</em></div>
+            </div>
+            <p>Dim_Calator conține un rând cu ID_Calator = C01 (Violeta). Fact_Vacante conține patru rânduri cu aceeași cheie (V07, V12, V17, V21): toate patru vacanțele Violetei. Relația spune: dacă filtrezi pe Violeta în Dim_Calator, doar cele patru rânduri cu ID_Calator = C01 rămân vizibile în Fact_Vacante.</p>
+          </article>
+        </div>
+        <div class="s4-rel-example" aria-label="Exemplu: două tabele legate prin cheie">
+          <p class="s4-rel-example-lead">Exemplu concret: coloanele rămân în tabelul lor. Relația leagă doar <strong>ID_Calator</strong> (PK în dim, FK în fact).</p>
+          <div class="s4-keys-diagram s4-rel-diagram">
+            <div class="s4-keys-table">
+              <p class="s4-keys-cap">Dim_Calator</p>
+              <table class="s4-sheet">
+                <thead><tr><th class="is-pk">ID_Calator</th><th>Nume</th><th>Oras</th></tr></thead>
+                <tbody>
+                  <tr class="is-row-on"><td class="is-pk">C01</td><td>Violeta Gutu</td><td>Cluj-Napoca</td></tr>
+                  <tr><td class="is-pk">C02</td><td>Silvana Boboescu</td><td>Bucuresti</td></tr>
+                </tbody>
+              </table>
+              <p class="s4-rel-filter-note">Filtru slicer: Violeta → C01</p>
+            </div>
+            <div class="s4-keys-bridge">
+              <span class="s4-keys-eq">Relație</span>
+              <p>FK din fact = PK din dim. Nu se copiază Nume sau Oras în fact.</p>
+              <span class="s4-keys-arrow" aria-hidden="true"></span>
+            </div>
+            <div class="s4-keys-table">
+              <p class="s4-keys-cap">Fact_Vacante</p>
+              <table class="s4-sheet">
+                <thead><tr><th>ID_Vacanta</th><th class="is-fk">ID_Calator</th><th>Durata_Zile</th><th>Cost_Total</th></tr></thead>
+                <tbody>
+                  <tr class="is-hit"><td>V07</td><td class="is-fk">C01</td><td>7</td><td>1250</td></tr>
+                  <tr class="is-hit"><td>V12</td><td class="is-fk">C01</td><td>5</td><td>980</td></tr>
+                  <tr class="is-hit"><td>V17</td><td class="is-fk">C01</td><td>4</td><td>720</td></tr>
+                  <tr><td>V01</td><td class="is-fk">C02</td><td>5</td><td>640</td></tr>
+                </tbody>
+              </table>
+              <p class="s4-rel-filter-note is-dim">Rândul C02 dispare din calcule cât filtrezi pe Violeta</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s3-roomy">
+        <span class="slide-eyebrow">Relații · cardinalitate</span>
+        <h2>Câte rânduri de o parte, câte de cealaltă</h2>
+        <p class="s3-lead"><strong>Cardinalitatea</strong> descrie câte rânduri dintr-un tabel se pot potrivi cu câte rânduri din celălalt, pe baza cheii care le leagă. Nu e un detaliu tehnic pe care îl setezi și uiți. Alegerea greșită poate dubla sau tripla sumele din raport, fără niciun avertisment vizibil. Cea mai comună formă într-un model bine construit este <strong>one-to-many</strong>: o dimensiune are un rând, fact table-ul are mai multe rânduri cu aceeași cheie.</p>
+        <div class="s3-cat is-split s4-card-cat" data-s3-cat>
+          <div class="s3-cat-nav" role="tablist">
+            <button type="button" class="is-on" data-s3-cat-btn="oneone">One-to-one</button>
+            <button type="button" data-s3-cat-btn="onemany">One-to-many</button>
+            <button type="button" data-s3-cat-btn="manymany">Many-to-many</button>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="oneone">
+            <h3>One-to-one</h3>
+            <p>Un rând dintr-un tabel se potrivește cu exact un rând din celălalt, niciodată mai mult. Exemplu: un angajat și biroul lui personal, dacă fiecare angajat are exact un birou, iar fiecare birou aparține exact unui angajat. E rară în modele de analiză. De obicei, dacă două tabele au relație 1:1, informația poate fi pusă direct într-un singur tabel, fără să mai ai nevoie de două separate.</p>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="onemany" hidden>
+            <h3>One-to-many</h3>
+            <p>Un rând dintr-un tabel se potrivește cu mai multe rânduri din celălalt. Exemplu: un client și comenzile lui. Un client poate avea zece comenzi, dar fiecare comandă aparține unui singur client. Aceasta e forma standard între o dimensiune și un fact table: dimensiunea stă pe partea „one”, fact table-ul pe partea „many”.</p>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="manymany" hidden>
+            <h3>Many-to-many</h3>
+            <p>Mai multe rânduri dintr-un tabel se pot potrivi cu mai multe rânduri din celălalt. Exemplu: studenții și cursurile. Un student urmează mai multe cursuri, iar un curs are mai mulți studenți. E cea mai delicată formă de relație: fără o structură intermediară, filtrele pot deveni ambigue sau pot număra aceleași rânduri de mai multe ori.</p>
+          </div>
+          <div class="s4-card-fig" data-s3-cat-panel="oneone">
+            <div class="s4-card-model">
+              <table class="s4-card-tbl">
+                <caption>Angajat</caption>
+                <tbody>
+                  <tr><td>A01</td><td>Ana</td></tr>
+                  <tr><td>A02</td><td>Ion</td></tr>
+                </tbody>
+              </table>
+              <div class="s4-card-link" aria-hidden="true">
+                <svg viewBox="0 0 100 64" preserveAspectRatio="none">
+                  <line x1="0" y1="16" x2="100" y2="16" />
+                  <line x1="0" y1="48" x2="100" y2="48" />
+                </svg>
+                <b>1</b><b>1</b>
+              </div>
+              <table class="s4-card-tbl">
+                <caption>Birou</caption>
+                <tbody>
+                  <tr><td>B01</td><td>Ana</td></tr>
+                  <tr><td>B02</td><td>Ion</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="s4-card-fig" data-s3-cat-panel="onemany" hidden>
+            <div class="s4-card-model">
+              <table class="s4-card-tbl is-one">
+                <caption>Client</caption>
+                <tbody>
+                  <tr><td>C01</td><td>Ana</td></tr>
+                </tbody>
+              </table>
+              <div class="s4-card-link" aria-hidden="true">
+                <svg viewBox="0 0 100 96" preserveAspectRatio="none">
+                  <line x1="0" y1="48" x2="100" y2="16" />
+                  <line x1="0" y1="48" x2="100" y2="48" />
+                  <line x1="0" y1="48" x2="100" y2="80" />
+                </svg>
+                <b>1</b><b>*</b>
+              </div>
+              <table class="s4-card-tbl">
+                <caption>Comandă</caption>
+                <tbody>
+                  <tr><td>K01</td><td>C01</td></tr>
+                  <tr><td>K02</td><td>C01</td></tr>
+                  <tr><td>K07</td><td>C01</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="s4-card-fig" data-s3-cat-panel="manymany" hidden>
+            <div class="s4-card-model">
+              <table class="s4-card-tbl">
+                <caption>Student</caption>
+                <tbody>
+                  <tr><td>S01</td><td>Ana</td></tr>
+                  <tr><td>S02</td><td>Ion</td></tr>
+                </tbody>
+              </table>
+              <div class="s4-card-link" aria-hidden="true">
+                <svg viewBox="0 0 100 64" preserveAspectRatio="none">
+                  <line x1="0" y1="16" x2="100" y2="16" />
+                  <line x1="0" y1="48" x2="100" y2="48" />
+                  <line x1="0" y1="16" x2="100" y2="48" />
+                  <line x1="0" y1="48" x2="100" y2="16" />
+                </svg>
+                <b>*</b><b>*</b>
+              </div>
+              <table class="s4-card-tbl">
+                <caption>Curs</caption>
+                <tbody>
+                  <tr><td>M01</td><td>Mate</td></tr>
+                  <tr><td>M02</td><td>Istorie</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s4-mm-slide">
+        <span class="slide-eyebrow">Relații · many-to-many</span>
+        <h2>Când două tabele nu se pot lega direct, între ele apare un al treilea</h2>
+        <p class="s3-lead s4-mm-lead">O relație many-to-many apare când fiecare rând dintr-un tabel se poate potrivi cu mai multe rânduri din celălalt, și invers. Un student urmează mai multe cursuri, iar un curs are mai mulți studenți. Într-o astfel de situație, niciun tabel nu poate ține „legătura” în el însuși. Soluția este un tabel intermediar, în care fiecare rând înregistrează o singură potrivire între cele două părți.</p>
+        <p class="s4-hier-row">De ce apare problema</p>
+        <div class="s4-hier-choices">
+          <article>
+            <span class="n">01</span>
+            <h3>Nu există o cheie care să indice un singur rând</h3>
+            <p>Într-o relație normală (1 : *), cheia din tabelul „mare” arată către un singur rând din tabelul „mic”. Aici nu se poate: Ana nu are „un” curs, ci două, deci nu ai ce valoare să pui într-o singură coloană ID_Curs din tabelul Student. Același lucru e valabil și invers pentru Mate.</p>
+          </article>
+          <article>
+            <span class="n">02</span>
+            <h3>Legarea directă produce rezultate greșite</h3>
+            <p>Dacă ai forța o legătură directă, filtrul pe Ana ar ajunge la mai multe cursuri, iar filtrul pe Mate la mai mulți studenți, fără să știe modelul care pereche e care. Rezultatele se dublează sau se amestecă, iar numerele nu mai pot fi de încredere.</p>
+          </article>
+          <article>
+            <span class="n">03</span>
+            <h3>Informația despre „împreună” nu aparține niciunei părți</h3>
+            <p>Faptul că Ana urmează Mate nu ține de Ana (care există și fără Mate), nici de Mate (care există și fără Ana). Ține de întâlnirea lor. Această informație are nevoie de un loc al ei.</p>
+          </article>
+        </div>
+        <p class="s4-hier-row">Cum se rezolvă</p>
+        <div class="s4-hier-examples">
+          <article>
+            <span class="tag">Pasul 1</span>
+            <h3>Recunoaște evenimentul din relație</h3>
+            <p>Întreabă-te: „ce se întâmplă atunci când cele două se întâlnesc?”. Un student se înscrie la un curs. Acel eveniment, „înscrierea”, este chiar tabelul care lipsește. Un bun nume de tabel intermediar vine aproape mereu dintr-un substantiv sau un verb (Înscriere, Comandă, Participare, Alocare).</p>
+          </article>
+          <article>
+            <span class="tag">Pasul 2</span>
+            <h3>Un rând = o pereche</h3>
+            <p>Tabelul intermediar păstrează două chei: ID_Student și ID_Curs. Fiecare rând spune „acest student la acest curs”. Ana la Mate este un rând, Ana la Istorie este alt rând, Ion la Mate este al treilea. Nicio pereche nu se repetă, dar oricâte perechi diferite pot exista.</p>
+          </article>
+          <article>
+            <span class="tag">Pasul 3</span>
+            <h3>Cele două relații devin simple</h3>
+            <p>Student 1 → * Înscriere și Curs 1 → * Înscriere. Fiecare este o relație obișnuită, cu o parte „unu” și o parte „mulți”. Filtrul pornește de la Student, trece prin Înscriere și ajunge la Curs, o singură dată pe fiecare rând, fără dubluri.</p>
+          </article>
+        </div>
+        <div class="s4-mm-model" aria-label="Student, înscriere și curs">
+          <table class="s4-card-tbl">
+            <caption>Student</caption>
+            <tbody>
+              <tr><td>S01</td><td>Ana</td></tr>
+              <tr><td>S02</td><td>Ion</td></tr>
+            </tbody>
+          </table>
+          <div class="s4-mm-link" aria-hidden="true"><b>1</b><i></i><b>*</b></div>
+          <table class="s4-card-tbl is-bridge">
+            <caption>Înscriere</caption>
+            <tbody>
+              <tr><td>S01</td><td>M01</td></tr>
+              <tr><td>S01</td><td>M02</td></tr>
+              <tr><td>S02</td><td>M01</td></tr>
+            </tbody>
+          </table>
+          <div class="s4-mm-link" aria-hidden="true"><b>*</b><i></i><b>1</b></div>
+          <table class="s4-card-tbl">
+            <caption>Curs</caption>
+            <tbody>
+              <tr><td>M01</td><td>Mate</td></tr>
+              <tr><td>M02</td><td>Istorie</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="s4-mm-note">Tabelul din mijloc nu este doar o punte tehnică: este și locul natural pentru tot ce aparține întâlnirii. Nota, data înscrierii, prezența sau taxa plătită sunt atribute ale perechii, nu ale studentului sau ale cursului, așa că se pun aici. Când tabelul intermediar începe să conțină date proprii, ai de fapt un tabel de fapte.</p>
+      </article>
+
+      <article class="slide s4-dir-slide">
+        <span class="slide-eyebrow">Relații · direcție</span>
+        <h2>Încotro curge filtrul</h2>
+        <p class="s3-lead">Direcția filtrului (cross filter direction) stabilește pe care sens al relației circulă efectiv o selecție făcută de utilizator. E o setare separată de cardinalitate: cardinalitatea spune câte rânduri se potrivesc, direcția spune cine influențează pe cine atunci când cineva dă click pe un filtru sau un slicer. Cele două se configurează independent, în Power BI, pe fiecare relație în parte.</p>
+        <div class="s3-cat is-split" data-s3-cat>
+          <div class="s3-cat-nav" role="tablist">
+            <button type="button" class="is-on" data-s3-cat-btn="single">Single</button>
+            <button type="button" data-s3-cat-btn="both">Both</button>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="single">
+            <h3>Single</h3>
+            <p>Filtrul circulă într-un singur sens: dinspre tabelul de pe partea „one” (de regulă, o dimensiune) spre tabelul de pe partea „many” (de regulă, un fact table). O selecție făcută în dimensiune ajunge la fact table. O selecție făcută direct în fact table nu urcă înapoi spre dimensiune. Este direcția implicită și corectă pentru majoritatea relațiilor dintr-un model.</p>
+          </div>
+          <div class="s3-cat-panel" data-s3-cat-panel="both" hidden>
+            <h3>Both</h3>
+            <p>Filtrul circulă în ambele sensuri: o selecție în oricare dintre cele două tabele o afectează pe cealaltă. Se folosește rar, doar când ai nevoie explicită ca o selecție din fact table să filtreze și dimensiunea. De exemplu, când două tabele de fapte trebuie să se filtreze reciproc printr-o dimensiune comună. Riscul: dacă mai multe relații „Both” creează căi multiple către același tabel, Power BI poate ajunge la rezultate ambigue sau chiar poate refuza relația.</p>
+          </div>
+        </div>
+        <div class="s3-note"><strong>De reținut.</strong> Când un tabel are nevoie de două relații către aceeași dimensiune (de exemplu, Data_Plecare și Data_Intoarcere, ambele legate de un calendar), cele două relații nu pot fi active simultan. Ar însemna două drumuri concurente către același tabel. Una rămâne activă implicit. Cealaltă rămâne inactivă și se activează punctual doar în interiorul unei măsuri, printr-o funcție DAX. Subiect pe care îl reiei când ajungi la măsuri.</div>
+      </article>
+
+      <article class="slide s4-flow-slide">
+        <span class="slide-eyebrow">Relații · direcție</span>
+        <h2>Apeși pe Violeta</h2>
+        <div class="s4-flow-setup">
+          <table class="s4-sheet s4-flow-data">
+            <caption>Vacanțe</caption>
+            <thead>
+              <tr><th>Vacanță</th><th>Călător</th><th>Destinație</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>V01</td><td>Ion</td><td>Roma</td></tr>
+              <tr class="is-hit"><td>V07</td><td>Violeta</td><td>Paris</td></tr>
+              <tr class="is-hit"><td>V12</td><td>Violeta</td><td>Londra</td></tr>
+            </tbody>
+          </table>
+          <div>
+            <p>Tabelul de destinații conține Paris, Londra și Roma. Pe pagină sunt două slicere: călători (Ana, Ion, Violeta) și destinații (Paris, Londra, Roma). Apeși pe <strong>Violeta</strong> în primul.</p>
+            <p class="s4-flow-always"><strong>În ambele setări.</strong> Vacanțele se filtrează la fel: rămân V07 și V12, iar V01, a lui Ion, dispare. Violeta are 2 vacanțe, indiferent de direcție.</p>
+          </div>
+        </div>
+        <p class="s4-hier-row">Ce arată slicerul de destinații?</p>
+        <div class="s4-flow-grid">
+          <article>
+            <span class="tag">Single</span>
+            <ul class="s4-flow-slicer">
+              <li>Paris</li>
+              <li>Londra</li>
+              <li>Roma</li>
+            </ul>
+            <h3>Slicerul de destinații arată tot: Paris, Londra, Roma. Filtrul a oprit la vacanțe.</h3>
+            <p class="s4-flow-why">Roma e acolo, deși Violeta n-a fost niciodată la Roma. Filtrul a ajuns până la vacanțe și s-a oprit, iar tabelul de destinații nici nu a aflat că ai apăsat pe ceva. Lista rămâne completă: nu se micșorează.</p>
+          </article>
+          <article class="is-both">
+            <span class="tag">Both</span>
+            <ul class="s4-flow-slicer">
+              <li>Paris</li>
+              <li>Londra</li>
+              <li class="is-off">Roma</li>
+            </ul>
+            <h3>Slicerul de destinații arată doar Paris și Londra. Roma dispare, pentru că nicio vacanță rămasă nu duce acolo.</h3>
+            <p class="s4-flow-why">Filtrul continuă drumul de la vacanțe spre destinații și întreabă „care destinații mai au vreo vacanță rămasă?”. Răspunsul e Paris și Londra.</p>
+          </article>
+        </div>
+        <p class="s4-flow-stop"><strong>De ce se oprește în Single.</strong> Filtrul circulă implicit de la „unu” spre „mulți”: de la un călător spre multele lui vacanțe. Drumul de la vacanțe înapoi spre destinații merge în sens invers, din „mulți” spre „unu”, iar Single nu îl permite. Both îl deschide.</p>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Practică · 1 din 3</span>
+        <h2>Școala</h2>
+        <p class="s3-lead">Trage entitățile pe pânză (sau click în paletă). Click pe două casete, apoi alege tipul din bara de sub pânză. Vrem 1:* de la context către eveniment. Ora de curs este evenimentul.</p>
+        <div class="s4-builder" data-s4-builder="scoala">
+          <div class="s4-palette" data-s4-palette></div>
+          <div class="s4-canvas-wrap">
+            <div class="s4-canvas" data-s4-canvas>
+              <svg data-s4-wires></svg>
+              <div class="s4-pop" data-s4-pop hidden>
+                <button type="button" data-card="1:1">1:1</button>
+                <button type="button" data-card="1:*">1:*</button>
+                <button type="button" data-card="*:1">* :1</button>
+                <button type="button" data-card="*:*">*:*</button>
+              </div>
+            </div>
+          </div>
+          <div class="s4-builder-bar" style="grid-column:1/-1">
+            <button type="button" class="s3-btn is-primary" data-s4-check>Verifică</button>
+            <button type="button" class="s3-btn" data-s4-solve>Arată soluția</button>
+            <button type="button" class="s3-btn" data-s4-reset>Resetează</button>
+          </div>
+          <p class="s4-status" data-s4-status hidden></p>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Practică · 2 din 3</span>
+        <h2>Magazin online</h2>
+        <p class="s3-lead">Un shop vinde produse din categorii. Clientul plasează o comandă, comanda are mai multe linii, un curier o duce. Un rând de fapt este o linie de comandă. Leagă 1:* către evenimentul cel mai fin.</p>
+        <div class="s4-builder" data-s4-builder="magazin">
+          <div class="s4-palette" data-s4-palette></div>
+          <div class="s4-canvas-wrap">
+            <div class="s4-canvas" data-s4-canvas>
+              <svg data-s4-wires></svg>
+              <div class="s4-pop" data-s4-pop hidden>
+                <button type="button" data-card="1:1">1:1</button>
+                <button type="button" data-card="1:*">1:*</button>
+                <button type="button" data-card="*:1">* :1</button>
+                <button type="button" data-card="*:*">*:*</button>
+              </div>
+            </div>
+          </div>
+          <div class="s4-builder-bar" style="grid-column:1/-1">
+            <button type="button" class="s3-btn is-primary" data-s4-check>Verifică</button>
+            <button type="button" class="s3-btn" data-s4-solve>Arată soluția</button>
+            <button type="button" class="s3-btn" data-s4-reset>Resetează</button>
+          </div>
+          <p class="s4-status" data-s4-status hidden></p>
+        </div>
+      </article>
+
+      <article class="slide">
+        <span class="slide-eyebrow">Practică · 3 din 3</span>
+        <h2>Clinică</h2>
+        <p class="s3-lead">Pacienții vin la consultații. Medicul are o specializare. Consultația se ține într-un cabinet. Evenimentul este consultația. Specializarea descrie medicul, nu se leagă direct de consultație.</p>
+        <div class="s4-builder" data-s4-builder="clinica">
+          <div class="s4-palette" data-s4-palette></div>
+          <div class="s4-canvas-wrap">
+            <div class="s4-canvas" data-s4-canvas>
+              <svg data-s4-wires></svg>
+              <div class="s4-pop" data-s4-pop hidden>
+                <button type="button" data-card="1:1">1:1</button>
+                <button type="button" data-card="1:*">1:*</button>
+                <button type="button" data-card="*:1">* :1</button>
+                <button type="button" data-card="*:*">*:*</button>
+              </div>
+            </div>
+          </div>
+          <div class="s4-builder-bar" style="grid-column:1/-1">
+            <button type="button" class="s3-btn is-primary" data-s4-check>Verifică</button>
+            <button type="button" class="s3-btn" data-s4-solve>Arată soluția</button>
+            <button type="button" class="s3-btn" data-s4-reset>Resetează</button>
+          </div>
+          <p class="s4-status" data-s4-status hidden></p>
+        </div>
+      </article>
+
+      <article class="slide s4-star-why">
+        <span class="slide-eyebrow">Star schema · de ce</span>
+        <h2>Star schema</h2>
+        <p class="s3-lead">Un <strong>star schema</strong> (schemă în stea) este structura în care un tabel fact stă în centru, iar dimensiunile se leagă direct de el, fiecare printr-o relație one-to-many. Nu există legături directe între dimensiuni. Orice legătură trece prin fact table. Desenată în Model view, forma rezultată seamănă cu o stea: fact table-ul în mijloc, liniile de relație radiind spre fiecare dimensiune din jur.</p>
+        <p class="s3-lead">Power BI e construit special pentru această formă, nu întâmplător: motorul de calcul comprimă eficient coloanele repetitive dintr-o dimensiune, filtrele urmează un singur drum previzibil (dinspre dimensiune spre fapt), iar calculele scrise mai târziu în DAX pot presupune un model simplu, fără căi multiple sau ambigue.</p>
+        <div class="s3-cat is-split s4-star-cat" data-s3-cat>
+          <div class="s3-cat-nav" role="tablist">
+            <button type="button" class="is-on" data-s3-cat-btn="vac">Vacanțe</button>
+            <button type="button" data-s3-cat-btn="scoala">Școală</button>
+            <button type="button" data-s3-cat-btn="mag">Magazin</button>
+          </div>
+          <div class="s3-cat-panel s4-star-panel" data-s3-cat-panel="vac">
+            <p class="s4-star-cap">Exemplu · modelul pe care îl construim în sesiune</p>
+            <div class="s4-schema s4-star-simple s4-star-ex is-vac" data-s4-star aria-label="Star schema vacanțe">
+              <svg class="s4-star-lines" aria-hidden="true"></svg>
+              <div class="s4-ent d1">Dim_Calator</div>
+              <div class="s4-ent d2">Dim_Date</div>
+              <div class="s4-ent d3">Dim_Destinatie</div>
+              <div class="s4-ent d4">Dim_Transport</div>
+              <div class="s4-ent is-fact">Fact_Vacante</div>
+            </div>
+          </div>
+          <div class="s3-cat-panel s4-star-panel" data-s3-cat-panel="scoala" hidden>
+            <p class="s4-star-cap">Exemplu · ore de curs</p>
+            <div class="s4-schema s4-star-simple s4-star-ex is-five" data-s4-star aria-label="Star schema școală">
+              <svg class="s4-star-lines" aria-hidden="true"></svg>
+              <div class="s4-ent p1">Materii</div>
+              <div class="s4-ent p2">Profesori</div>
+              <div class="s4-ent p3">Clase</div>
+              <div class="s4-ent p4">Elevi</div>
+              <div class="s4-ent p5">Săli</div>
+              <div class="s4-ent is-fact">Fact_Ore</div>
+            </div>
+          </div>
+          <div class="s3-cat-panel s4-star-panel" data-s3-cat-panel="mag" hidden>
+            <p class="s4-star-cap">Exemplu · linii de comandă</p>
+            <div class="s4-schema s4-star-simple s4-star-ex is-mag" data-s4-star aria-label="Star schema magazin">
+              <svg class="s4-star-lines" aria-hidden="true"></svg>
+              <div class="s4-ent m1">Dim_Client</div>
+              <div class="s4-ent m2">Dim_Produs</div>
+              <div class="s4-ent m3">Dim_Curier</div>
+              <div class="s4-ent m4">Dim_Categorie</div>
+              <div class="s4-ent is-fact">Fact_Comenzi</div>
+            </div>
+          </div>
+        </div>
+        <div class="s3-flow s4-star-flow">
+          <article><span class="n">01</span><h3>Un singur drum</h3><p>Un filtru aplicat pe o dimensiune (de exemplu, „Europa” în Dim_Destinatie) ajunge la fact table pe o singură cale, fără ocol prin alte dimensiuni. Nu există ambiguitate despre pe unde circulă selecția.</p></article>
+          <article><span class="n">02</span><h3>Fără repetiție</h3><p>O valoare ca „Franța” există o singură dată, într-un singur rând din Dim_Destinatie. Fact table-ul nu ține textul repetat. Ține doar cheia scurtă, ID_Destinatie, care indică spre acel rând.</p></article>
+          <article><span class="n">03</span><h3>Măsuri simple</h3><p>O măsură care adună Durata_Zile citește direct din fact table, iar contextul de filtrare vine automat din dimensiunile conectate. Formula nu trebuie să știe de existența a zeci de coloane amestecate. Doar de tabelul din care face suma.</p></article>
+          <article><span class="n">04</span><h3>Ușor de extins</h3><p>Un tabel nou, cum ar fi bugetul, angajații sau alt tip de eveniment, se atașează la o dimensiune deja existentă, fără să rescrii sau să restructurezi ce ai construit până acum.</p></article>
+        </div>
+      </article>
+
+      <article class="slide s4-forms-slide">
+        <span class="slide-eyebrow">Star schema · trei forme</span>
+        <h2>Trei moduri de a organiza aceleași date</h2>
+        <p class="s3-lead"><strong>Definiție.</strong> Aceeași informație, o vacanță cu țara și continentul ei, poate fi organizată în trei structuri diferite. Toate trei pot răspunde, teoretic, la aceeași întrebare, de exemplu „câte zile petrecute în Franța?”, dar diferă în cât de ușor și cât de rapid ajungi la răspuns. Comparăm forma cu un singur tabel (denormalizată), forma complet descompusă (snowflake) și forma standard, folosită efectiv în Power BI (star schema).</p>
+        <div class="s4-forms">
+          <article>
+            <h3>Flat table</h3>
+            <p class="s4-mini">Vacante: Calator, Tara, Continent, Zile…</p>
+            <p>Toată informația stă pe un singur rând, într-un singur tabel. Ca să răspunzi la întrebare, parcurgi întregul tabel căutând rândurile cu Tara = „Franța”. Nu există o cale scurtă, doar o scanare completă.</p>
+          </article>
+          <article>
+            <h3>Snowflake schema</h3>
+            <p class="s4-mini">Fact → Oraș → Țară → Continent</p>
+            <p>Informația e descompusă la maximum: fiecare nivel geografic (oraș, țară, continent) are propriul tabel, legat în lanț de cel anterior. Structura e corectă formal, dar filtrarea trece prin mai multe relații succesive. Un filtru pe continent parcurge trei tabele înainte să ajungă la fact table. Utilă doar când o dimensiune e foarte mare și trebuie descompusă explicit; nu e cazul aici.</p>
+          </article>
+          <article>
+            <h3>Star schema</h3>
+            <p class="s4-mini">Fact → Dim_Destinatie (Oraș, Țară, Continent)</p>
+            <p>Oraș, Țară și Continent stau împreună, într-un singur tabel de dimensiune, legat direct de fact table printr-o singură relație. Un filtru pe țară sau pe continent parcurge o singură relație, indiferent de nivelul geografic ales. Aceasta este forma pe care o construim și o încărcăm în Power BI.</p>
+          </article>
+        </div>
+      </article>
+
+      <!-- F. Dim_Date -->
+      <article class="slide s4-dimdate-why">
+        <span class="slide-eyebrow">Calendar</span>
+        <h2>De ce aproape orice model are un tabel de date</h2>
+        <p class="s3-lead"><strong>Definiție.</strong> Aproape orice întrebare de analiză, indiferent de subiect, poate fi legată de „când”: câte vacanțe în martie, ce trimestru a avut cele mai multe cheltuieli, cum arată weekend-urile față de zilele lucrătoare. De asta modelele de date au nevoie de un tabel general de date, un calendar de sine stătător, care se leagă apoi de coloanele de dată din fiecare fact table existent (Data_Plecare din Vacante, Data din Cheltuieli), în loc ca fiecare fact table să-și poarte propriul calendar, izolat.</p>
+        <p class="s3-lead s4-dimdate-lead2">O coloană de tip dată, lăsată direct în fact table, nu se comportă ca un calendar. Conține doar zilele în care s-a întâmplat efectiv ceva. Dacă nicio vacanță n-a început pe 1 martie, acea zi lipsește din date, iar un grafic pe zile sare direct peste ea. Tabelul de date (Dim_Date) rezolvă asta: e o dimensiune separată, cu exact un rând pentru fiecare zi dintr-un interval fix, indiferent dacă acea zi apare sau nu în vreun fact table.</p>
+        <div class="s3-concepts s4-dimdate-grid">
+          <article><span class="n">01</span><div><h3>Zile continue, fără goluri</h3><p>Tabelul acoperă un interval complet, de exemplu de la 1 ianuarie 2022 până la 31 decembrie 2025, cu un rând pentru fiecare zi, inclusiv zilele fără nicio vacanță sau cheltuială. Un grafic construit pe acest tabel nu sare peste zile lipsă, pentru că axa nu mai depinde de ce există în fact table.</p></div></article>
+          <article><span class="n">02</span><div><h3>Atribute gata calculate</h3><p>Pe lângă dată, tabelul conține coloane derivate: an, trimestru, lună, numele lunii, ziua săptămânii, weekend sau nu, sezon. Aceste coloane se pun direct într-un slicer sau pe o axă, fără nicio formulă suplimentară.</p></div></article>
+          <article><span class="n">03</span><div><h3>Sortare corectă, nu alfabetică</h3><p>O coloană cu numele lunii, luată separat, se sortează alfabetic implicit: „Martie” ajunge înaintea lui „August”. În tabelul de date, numele lunii primește o coloană ajutătoare cu numărul lunii (1-12), care controlează sortarea reală, fără să afecteze ce text se vede pe ecran.</p></div></article>
+          <article><span class="n">04</span><div><h3>Un singur calendar, mai multe tabele de fapte</h3><p>Același Dim_Date se leagă simultan de mai multe fact table-uri, atât de Vacante, cât și de Cheltuieli, atâta timp cât fiecare are propria coloană de dată. E o singură sursă de adevăr pentru timp, nu un calendar separat pentru fiecare tabel de fapte, care ar putea ajunge să nu mai coincidă unul cu celălalt.</p></div></article>
+        </div>
+      </article>
+
+      <article class="slide s4-dimdate-struct">
+        <span class="slide-eyebrow">Calendar · structură</span>
+        <h2>Structura tabelului Dim_Date</h2>
+        <p class="s3-lead"><strong>Definiție.</strong> Dim_Date este un tabel cu un rând pentru fiecare zi calendaristică dintr-un interval stabilit, plus coloane derivate din acea dată. Cheia lui este chiar coloana de dată, Date, prin care se leagă de coloanele de dată din fiecare fact table.</p>
+        <div class="s3-duo s4-dimdate-duo">
+          <article>
+            <span class="tag">Coloane</span>
+            <h4>Ce conține</h4>
+            <p>Date, An, Trimestru, Luna (numărul lunii, 1-12), Nume_Luna, Zi, Zi_Saptamana, Weekend, Sezon. Numărul lunii există separat de numele ei: unul controlează sortarea corectă, celălalt controlează ce text apare pe ecran.</p>
+          </article>
+          <article class="is-build">
+            <span class="tag">Relația</span>
+            <h4>Fact_Vacante[Data_Plecare] → Dim_Date[Date]</h4>
+            <p>Relația e many-to-one: mai multe vacanțe pot avea aceeași dată de plecare, dar fiecare zi din calendar apare o singură dată în Dim_Date. Direcția e single: filtrul circulă dinspre Dim_Date spre fact table, nu invers.</p>
+          </article>
+        </div>
+        <div class="s3-note"><strong>Legarea în Power BI.</strong> Click dreapta pe tabel → Mark as date table, apoi selectezi coloana Date. Acest pas spune motorului de calcul care tabel e calendarul oficial al modelului, pas necesar pentru ca funcțiile de time intelligence din DAX (an până acum, lună anterioară) să funcționeze corect mai târziu.</div>
+        <div class="s3-note"><strong>De unde vine tabelul.</strong> Nu se extrage din datele deja curățate: acolo există doar zilele în care chiar s-a plecat în vacanță, cu goluri între ele. Dim_Date se generează separat, ca o secvență completă de zile pe intervalul dorit, fie dintr-o foaie pregătită dinainte, fie construit direct în Power Query cu o listă de date generată automat.</div>
+      </article>
+
+      <!-- G. Filtre -->
+      <article class="slide s4-filter-theory">
+        <span class="slide-eyebrow">Filtre · teorie</span>
+        <h2>Cum circulă filtrul de la dimensiune spre fact</h2>
+        <p class="s3-lead"><strong>Definiție.</strong> Când selectezi o valoare într-un tabel de dimensiune, Power BI nu mută sau copiază date. Restrânge lista de chei valide la acea selecție, apoi păstrează în fact table doar rândurile a căror cheie se regăsește în lista restrânsă. Restul rândurilor rămân neschimbate ca date, dar sunt excluse din orice calcul afișat pe ecran, cât timp selecția e activă.</p>
+        <p class="s3-lead s4-filter-lead2">Acest mecanism funcționează într-un singur sens tocmai din cauza cardinalității: dimensiunea stă pe partea „one”, fact table-ul pe partea „many”. O selecție pe partea „one” restrânge clar ce rămâne pe partea „many”. Inversul nu are aceeași logică: o singură vacanță selectată în fact table nu ar avea niciun motiv să elimine restul călătorilor din dimensiune.</p>
+        <div class="s3-concepts s4-filter-steps" aria-label="Propagarea filtrului">
+          <article><span class="n">01</span><div><h3>Pasul 1 · Dimensiune</h3><p>Selectezi „Europa” în Dim_Destinatie.</p></div></article>
+          <article><span class="n">02</span><div><h3>Pasul 2 · Chei rămase</h3><p>Din toate cheile de destinație, rămân valide doar cele care corespund unui oraș european.</p></div></article>
+          <article><span class="n">03</span><div><h3>Pasul 3 · Fapt</h3><p>Fact_Vacante păstrează, pentru orice calcul activ, doar rândurile a căror cheie de destinație se regăsește printre cele rămase valide. De exemplu, suma zilelor se calculează doar din acele rânduri.</p></div></article>
+        </div>
+      </article>
+
+      <article class="slide" data-s4-filter>
+        <span class="slide-eyebrow">Filtre · demo</span>
+        <h2>Aceeași întrebare, dintr-un click</h2>
+        <p class="s3-lead">Alege un călător, un continent sau un an. Faptul se îngustează. Totalul de zile se recalculează. Filtrele sunt pe dimensiuni; numerele sunt în fapt. Click pe Violeta Gutu: cele 26 de zile, fără vânătoare în tabelul plat.</p>
+        <div class="s4-chips">
+          <button type="button" data-s4-f="calator" data-val="Violeta Gutu">Violeta Gutu</button>
+          <button type="button" data-s4-f="calator" data-val="Silvana Boboescu">Silvana Boboescu</button>
+          <button type="button" data-s4-f="calator" data-val="Costin Vaetisi">Costin Vaetisi</button>
+          <button type="button" data-s4-f="continent" data-val="Europa">Europa</button>
+          <button type="button" data-s4-f="continent" data-val="Asia">Asia</button>
+          <button type="button" data-s4-f="an" data-val="2023">2023</button>
+          <button type="button" data-s4-f="an" data-val="2024">2024</button>
+        </div>
+        <p class="s4-filter-total" data-s4-filter-total>0 zile</p>
+        <p class="s3-lead" data-s4-filter-note></p>
+        <div class="s4-scroll" style="max-height:220px">
+          <table class="s4-sheet">
+            <thead><tr><th>Călător</th><th>Oraș</th><th>Continent</th><th>Plecare</th><th>Zile</th></tr></thead>
+            <tbody data-s4-filter-body></tbody>
+          </table>
+        </div>
+      </article>
+
+      <!-- I. Încheiere -->
+      <article class="slide s4-closing">
+        <div class="closing-hero">
+          <span class="closing-eyebrow">Sesiunea 4 · încheiere</span>
+          <h2 class="closing-title">Ce am învățat astăzi</h2>
+        </div>
+        <div class="closing-band">
+          <div class="band-row is-four">
+            <div class="band-card">
+              <span class="n">01</span>
+              <strong>Fact și dimensiune</strong>
+              <span class="d">Am separat evenimentul de context: un tabel lung și îngust, cu numerele pe care le calculăm, și tabele scurte și late, cu informațiile descriptive din jurul lui.</span>
+            </div>
+            <div class="band-card">
+              <span class="n">02</span>
+              <strong>Relații și direcția filtrului</strong>
+              <span class="d">Am legat tabelele printr-o cheie comună, cu cardinalitate one-to-many și direcție single: filtrul circulă dinspre context spre eveniment, niciodată invers.</span>
+            </div>
+            <div class="band-card">
+              <span class="n">03</span>
+              <strong>Star schema</strong>
+              <span class="d">Am aranjat dimensiunile în jurul unui singur fact table, fiecare conectată direct la el, fără legături ocolite între dimensiuni.</span>
+            </div>
+            <div class="band-card">
+              <span class="n">04</span>
+              <strong>Tabelul de date</strong>
+              <span class="d">Am adăugat un calendar de sine stătător, care completează zilele fără evenimente și se leagă de orice fact table cu o coloană de dată.</span>
+            </div>
+          </div>
+        </div>
+        <div class="s4-close-task">
+          <span class="s4-close-kicker">Temă 1</span>
+          <p>Aveți un fișier gata modelat, cu fact și dimensiuni, fiecare tabel pe sheet-ul lui. Îl trageți în Power BI și creați relațiile dintre tabele.</p>
+          <div class="s3-files"><a href="../../assets/s04/Vacante_model.xlsx" download><span class="s3-file-tag">Excel</span> Vacante_model.xlsx</a></div>
+        </div>
+      </article>
+
+      <!-- J. Temă -->
+      <article class="slide s4-tema-slide s4-tema-req">
+        <span class="slide-eyebrow">Temă · cerințe</span>
+        <h2>Ce ai de făcut (la toate exercițiile)</h2>
+        <p class="s3-lead">Ai <strong>3 scenarii</strong> pe slide-ul următor. Nu primești date modelate: citești povestea, apoi livrezi <strong>câte un tabel pentru fiecare pas</strong>, ca în exemplul de mai jos (poți folosi hârtie, caiet sau Excel), apoi reproduci modelul în Power BI.</p>
+        <p class="s4-tema-ex-cap">Exemplu de răspuns · model vacanțe. Alege un pas. La tema ta, aceleași coloane, alt business.</p>
+        <div class="s4-tema-switch" data-s3-cat>
+          <div class="s4-tema-tabs" role="tablist">
+            <button type="button" class="is-on" data-s3-cat-btn="ent" aria-selected="true"><span class="n">01</span>Entități</button>
+            <button type="button" data-s3-cat-btn="attr" aria-selected="false"><span class="n">02</span>Atribute</button>
+            <button type="button" data-s3-cat-btn="tip" aria-selected="false"><span class="n">03</span>Tipuri de date</button>
+            <button type="button" data-s3-cat-btn="pk" aria-selected="false"><span class="n">04</span>PK și FK</button>
+            <button type="button" data-s3-cat-btn="fd" aria-selected="false"><span class="n">05</span>Fact și dim</button>
+            <button type="button" data-s3-cat-btn="rel" aria-selected="false"><span class="n">06</span>Relații</button>
+          </div>
+          <div class="s4-tema-panel" data-s3-cat-panel="ent">
+            <p class="s4-tema-do"><strong>Ce faci.</strong> Identifici substantivele cu identitate proprie: lucrurile despre care ții evidență, nu coloanele. Scrii o entitate pe rând și, pe scurt, ce este. Nu pui încă atribute, tip de date sau fact/dim.</p>
+            <table class="s4-sheet s4-tema-tbl">
+              <thead><tr><th>Entitate</th><th>Ce este</th></tr></thead>
+              <tbody>
+                <tr><td>Călător</td><td>Persoana care pleacă în vacanță</td></tr>
+                <tr><td>Destinație</td><td>Locul în care se ajunge</td></tr>
+                <tr><td>Transport</td><td>Mijlocul cu care se călătorește</td></tr>
+                <tr><td>Vacanță</td><td>O plecare concretă: cine, unde, când, cât</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="s4-tema-panel" data-s3-cat-panel="attr" hidden>
+            <p class="s4-tema-do"><strong>Ce faci.</strong> Pentru fiecare entitate scrii coloanele care o descriu. Un atribut e o proprietate a entității, nu un tabel nou. La pasul ăsta nu alegi tipul de date și nu marchezi cheile.</p>
+            <table class="s4-sheet s4-tema-tbl">
+              <thead><tr><th>Entitate</th><th>Atribute</th></tr></thead>
+              <tbody>
+                <tr><td>Călător</td><td>Nume, Oraș reședință, Vârstă</td></tr>
+                <tr><td>Destinație</td><td>Oraș, Țară, Continent</td></tr>
+                <tr><td>Transport</td><td>Mijloc</td></tr>
+                <tr><td>Vacanță</td><td>Data plecare, Zile, Cost</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="s4-tema-panel" data-s3-cat-panel="tip" hidden>
+            <p class="s4-tema-do"><strong>Ce faci.</strong> Pentru fiecare coloană alegi un singur tip: Text, Număr întreg, Număr zecimal sau Dată. Tipul spune ce valori poate conține coloana. PK și FK le marchezi la pasul următor.</p>
+            <table class="s4-sheet s4-tema-tbl">
+              <thead><tr><th>Tabel</th><th>Coloană</th><th>Tip</th></tr></thead>
+              <tbody>
+                <tr><td>Fact_Vacante</td><td>ID_Vacanta</td><td>Text</td></tr>
+                <tr><td>Fact_Vacante</td><td>Durata_Zile</td><td>Număr întreg</td></tr>
+                <tr><td>Fact_Vacante</td><td>Cost_Total</td><td>Număr zecimal</td></tr>
+                <tr><td>Fact_Vacante</td><td>Data_Plecare</td><td>Dată</td></tr>
+                <tr><td>Dim_Calator</td><td>Nume</td><td>Text</td></tr>
+                <tr><td>Dim_Date</td><td>Date</td><td>Dată</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="s4-tema-panel" data-s3-cat-panel="pk" hidden>
+            <p class="s4-tema-do"><strong>Ce faci.</strong> PK (primary key) identifică unic un rând: valoarea apare o singură dată în tabelul lui. FK (foreign key) repetă acel cod în tabelul de evenimente, ca să știi cui aparține rândul. Pe dimensiune pui PK. În fact pui FK-urile care duc spre dimensiuni.</p>
+            <table class="s4-sheet s4-tema-tbl">
+              <thead><tr><th>Tabel</th><th>PK</th><th>FK</th></tr></thead>
+              <tbody>
+                <tr><td>Dim_Calator</td><td>ID_Calator</td><td>—</td></tr>
+                <tr><td>Dim_Destinatie</td><td>ID_Destinatie</td><td>—</td></tr>
+                <tr><td>Dim_Transport</td><td>ID_Transport</td><td>—</td></tr>
+                <tr><td>Dim_Date</td><td>Date</td><td>—</td></tr>
+                <tr><td>Fact_Vacante</td><td>ID_Vacanta</td><td>ID_Calator, ID_Destinatie, ID_Transport, Data_Plecare</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="s4-tema-panel" data-s3-cat-panel="fd" hidden>
+            <p class="s4-tema-do"><strong>Ce faci.</strong> Pentru fiecare tabel spui Fact sau Dim. Fact este evenimentul pe care îl numeri: se repetă, câte un rând pe întâmplare. Dim este contextul care descrie evenimentul: o persoană, un loc, o zi. La „Un rând =” scrii ce reprezintă o linie.</p>
+            <table class="s4-sheet s4-tema-tbl">
+              <thead><tr><th>Tabel</th><th>Fact / Dim</th><th>Un rând =</th></tr></thead>
+              <tbody>
+                <tr><td>Fact_Vacante</td><td>Fact</td><td>o vacanță</td></tr>
+                <tr><td>Dim_Calator</td><td>Dim</td><td>un călător</td></tr>
+                <tr><td>Dim_Destinatie</td><td>Dim</td><td>o destinație</td></tr>
+                <tr><td>Dim_Transport</td><td>Dim</td><td>un mijloc</td></tr>
+                <tr><td>Dim_Date</td><td>Dim</td><td>o zi calendaristică</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="s4-tema-panel" data-s3-cat-panel="rel" hidden>
+            <p class="s4-tema-do"><strong>Ce faci.</strong> Legi fiecare FK din fact de PK-ul din dimensiune, pe aceeași coloană. Notezi cardinalitatea, de obicei *:1 (multe evenimente, un singur obiect de context), și direcția filtrului: Single, dinspre dimensiune spre fact.</p>
+            <table class="s4-sheet s4-tema-tbl">
+              <thead><tr><th>Din tabel · coloană</th><th>La tabel · coloană</th><th>Card.</th><th>Dir.</th></tr></thead>
+              <tbody>
+                <tr><td>Fact_Vacante · ID_Calator</td><td>Dim_Calator · ID_Calator</td><td>*:1</td><td>Single</td></tr>
+                <tr><td>Fact_Vacante · ID_Destinatie</td><td>Dim_Destinatie · ID_Destinatie</td><td>*:1</td><td>Single</td></tr>
+                <tr><td>Fact_Vacante · ID_Transport</td><td>Dim_Transport · ID_Transport</td><td>*:1</td><td>Single</td></tr>
+                <tr><td>Fact_Vacante · Data_Plecare</td><td>Dim_Date · Date</td><td>*:1</td><td>Single</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s4-tema-slide s4-tema-scenarii">
+        <span class="slide-eyebrow">Temă · scenarii</span>
+        <h2>Cele 3 companii</h2>
+        <p class="s3-lead">Aplică cei șase pași de pe slide-ul anterior pentru fiecare poveste. Dificultatea crește de la stânga la dreapta.</p>
+        <div class="s4-tema-sc-grid">
+          <article class="s4-tema-sc-card">
+            <span class="s4-tema-sc-lvl">01 · ușor</span>
+            <h3>Magazin online</h3>
+            <p>Magazinul vinde electronice și accesorii online. Clienții plasează comenzi; fiecare comandă poate avea mai multe produse. Pentru fiecare linie se știe: data comenzii, numărul comenzii, numele clientului și orașul clientului, numele produsului, categoria produsului, cantitatea, prețul unitar și totalul liniei. Același client poate comanda de mai multe ori; același produs apare pe comenzi diferite. Contabilul vrea total vânzări pe client, pe categorie și pe lună.</p>
+          </article>
+          <article class="s4-tema-sc-card">
+            <span class="s4-tema-sc-lvl">02 · mediu</span>
+            <h3>Service auto</h3>
+            <p>Service-ul înregistrează vizite în atelier: data vizitei, clientul, mașina (marcă și an fabricație), mecanicul care a lucrat, tipul lucrării, ore de manoperă și cost manoperă. Separat există evidența pieselor montate: data montajului, numărul vizitei la care se referă, cod piesă, denumire, cantitate și preț unitar. O vizită poate avea zero piese sau mai multe rânduri de piese. Întrebări tip: cât manoperă pe mecanic, cât cost piese pe client, câte vizite într-o lună.</p>
+          </article>
+          <article class="s4-tema-sc-card">
+            <span class="s4-tema-sc-lvl">03 · greu</span>
+            <h3>Restaurant cu livrări</h3>
+            <p>Restaurantul are comenzi în sală și comenzi delivery. Comanda conține linii de produse (cantitate, preț). Pentru comandă se știe data, tip (sală sau delivery), clientul (nume, oraș). Livrarea este eveniment separat: data livrării, legătura de număr comandă, curier, taxă livrare, minute până la livrare. Comanda în sală nu are livrare. O comandă delivery are o livrare. Curierul apare doar la livrări, nu la comanda în sine. Gândește două momente de timp (data comenzii vs data livrării) și un calendar comun.</p>
+          </article>
+        </div>
+      </article>
+
+    </main>
+
+    <nav class="slide-nav">
+      <button class="slide-nav-btn" data-slide-prev>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Înapoi
+      </button>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+        <div class="slide-counter" data-slide-counter>1 / 2</div>
+        <div class="slide-dots" data-slide-dots></div>
+      </div>
+      <button class="slide-nav-btn" data-slide-next>
+        Următor
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </nav>
+  </div>
+  <script src="../../js/main.js"></script>
+  <script src="../../js/s04.js?v=65"></script>
+</body>
+</html>

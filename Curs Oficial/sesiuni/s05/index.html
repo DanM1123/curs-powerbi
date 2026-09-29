@@ -1,0 +1,2067 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Power BI · Sesiunea 5 · Vizualizări</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23059669'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='56' font-weight='900' text-anchor='middle' fill='white'%3E5%3C/text%3E%3C/svg%3E" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/session.css" />
+  <link rel="stylesheet" href="../../css/extras.css" />
+  <link rel="stylesheet" href="../../css/s02.css" />
+  <link rel="stylesheet" href="../../css/s03.css" />
+  <link rel="stylesheet" href="../../css/s05.css?v=27" />
+  <script src="../../js/gate.js"></script>
+  <script src="../../js/firebase-init.js"></script>
+</head>
+<body class="hub-page s05-page" data-poll-root="curs-oficial/s05/polls">
+  <div class="hub-orbits" aria-hidden="true">
+    <div class="hub-orb a"></div>
+    <div class="hub-orb b"></div>
+    <div class="hub-orb c"></div>
+  </div>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="../../index.html" class="brand">
+        <span class="brand-mark">P</span>
+        <span>Power BI · Sesiunea 5</span>
+      </a>
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" aria-label="Schimbă tema">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="student-shell">
+    <div class="slide-progress"><div class="fill" data-slide-progress></div></div>
+    <main class="slide-deck">
+
+      <!-- A · Recapitulare s04 -->
+      <article class="slide active">
+        <span class="slide-eyebrow">Recapitulare · sesiunea 4</span>
+        <h2>Data modeling înainte de vizuale</h2>
+        <p class="s3-lead">O întrebare pe ecran. Gândește răspunsul, apoi apasă <strong>Arată răspunsul</strong>.</p>
+        <div data-s3-recap>
+          <div class="s3-recap-top">
+            <span class="s3-recap-count" data-s3-recap-count>01 / 07</span>
+            <div class="s3-recap-nav">
+              <button type="button" data-s3-recap-prev>Înapoi</button>
+              <button type="button" data-s3-recap-next>Înainte</button>
+            </div>
+          </div>
+
+          <section class="s3-q is-on" data-s3-q>
+            <h3>Rolul modelării</h3>
+            <p class="ask">Care este rolul părții de data modeling în procesul de raportare?</p>
+            <div class="s3-answer">
+              <p><strong>Data modeling</strong> înseamnă să organizezi datele înainte să le folosești, nu pe măsură ce lucrezi cu ele. Te oprești și decizi: ce tabele ai, ce informații conține fiecare, și cum se leagă între ele.</p>
+              <p>Odată ce datele sunt curate, construiești legăturile în Model view. Asta e <strong>modelul de date</strong>, fundația raportului: fără coloană comună, nu combini tabelele corect în vizuale și măsuri.</p>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>ERD</h3>
+            <p class="ask">Ce este un ERD (entity-relationship data model) și din ce este format?</p>
+            <div class="s3-answer">
+              <p>Un <strong>ERD</strong> (entity-relationship diagram) este harta vizuală a datelor: ce „lucruri” există, ce le caracterizează pe fiecare și cum se leagă între ele. Planul pe care se construiește modelul de date.</p>
+              <div class="s3-null-grid">
+                <article class="s3-null-card"><span class="n">01</span><h3>Entity</h3><p>Ce există. Obiect de evidență, de sine stătător. În desen e cutia. Ex: Călător, Vacanță, Destinație.</p></article>
+                <article class="s3-null-card"><span class="n">02</span><h3>Attribute</h3><p>Cum arată entitatea. E coloană în tabel, nu cutie separată. Ex: nume, dată, cost.</p></article>
+                <article class="s3-null-card"><span class="n">03</span><h3>Relationship</h3><p>Legătura între cutii. <strong>1</strong> și <strong>*</strong> arată câte rânduri de fiecare parte.</p></article>
+              </div>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>De la ERD la dimensional</h3>
+            <p class="ask">Pentru a trece de la un ERD la un model dimensional, ce elemente mai adăugăm?</p>
+            <div class="s3-answer">
+              <p>Pe ERD ai deja <strong>entități, atribute și relații</strong>. Pentru modelul dimensional mai adaugi:</p>
+              <div class="s3-flow">
+                <article><span class="n">01</span><h3>Fact vs dim</h3><p>Spui ce entitate e eveniment (fact) și ce entitate e context (dimensiune).</p></article>
+                <article><span class="n">02</span><h3>Tip de date</h3><p>Pe fiecare atribut: Text, Număr, Dată. Fără asta, relațiile nu se potrivesc.</p></article>
+                <article><span class="n">03</span><h3>PK și FK</h3><p>PK identifică unic rândul în dimensiune; FK în fact repetă PK-ul ca să lege evenimentul.</p></article>
+              </div>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>Flat table</h3>
+            <p class="ask">Când este util să folosim un model cu un singur flat table?</p>
+            <div class="s3-answer">
+              <p>Un <strong>flat table</strong> (tabel plat) e un singur tabel: fiecare eveniment cu tot contextul pe aceeași linie (cine, unde, când, cât). Fără tabele separate, fără relații. Get Data, Close &amp; Apply.</p>
+              <p><strong>Când e util</strong></p>
+              <ul>
+                <li>listă scurtă (zeci de rânduri, un raport simplu)</li>
+                <li>un rând = exact ce numeri (o vânzare, o vacanță, o deplasare)</li>
+                <li>o singură sursă, fără al doilea tabel de legat (buget, angajați)</li>
+                <li>prototip rapid: vrei un grafic azi, înainte de star schema</li>
+              </ul>
+              <p><strong>Unde doare</strong></p>
+              <ul>
+                <li>același nume, țară sau categorie se repetă pe fiecare rând (denormalizare)</li>
+                <li>corectezi pe un rând, uiți pe altul: raportul vede valori diferite</li>
+                <li>slicerul de țară scanează toate rândurile, nu o listă scurtă de destinații</li>
+                <li>nu poți lega ușor o a doua sursă: modelul rămâne un singur bloc</li>
+              </ul>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>Fact și dimensiune</h3>
+            <p class="ask">Ce este un fact table și ce este un dimension table?</p>
+            <div class="s3-answer">
+              <div class="s3-duo" style="margin-top:0">
+                <article>
+                  <span class="tag">Fact table</span>
+                  <h4>Evenimente și numere</h4>
+                  <p>Ține ce s-a întâmplat și cât a costat, cât a durat, câte unități. Coloana care se schimbă la fiecare rând (cost, dată) stă aici.</p>
+                </article>
+                <article class="is-build">
+                  <span class="tag">Dimension table</span>
+                  <h4>Context</h4>
+                  <p>Ține cine, ce, unde, când. Descrie categorii stabile (nume călător, destinație). De aici vin filtrele și etichetele din raport.</p>
+                </article>
+              </div>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>PK și FK</h3>
+            <p class="ask">Ce este un PK (primary key) și ce este un FK (foreign key)?</p>
+            <div class="s3-answer">
+              <p><strong>PK (primary key)</strong> e regula pe coloana din <strong>dimensiune</strong>: fiecare rând are o valoare, valoarea nu se repetă, nu lipsește. Ex: pe Dim_Calator, <strong>ID_Calator</strong> = C01 apare o singură dată.</p>
+              <p><strong>FK (foreign key)</strong> e aceeași coloană logică, dar în <strong>fact</strong>: codul se poate repeta (câte o vacanță), însă fiecare valoare trebuie să existe deja ca PK în dimensiune. Un FK fără PK pereche e cheie orfană.</p>
+              <div class="s3-null-grid">
+                <article class="s3-null-card"><span class="n">PK</span><h3>Pe dimensiune</h3><p>Un cod, un rând. Alegi ID scurt și stabil, nu doar nume afișat (numele se poate dubla).</p></article>
+                <article class="s3-null-card"><span class="n">FK</span><h3>Pe fact</h3><p>Repetă PK-ul ca să lege evenimentul de context. Nu copii Nume sau Oraș în fact; relația le aduce la filtrare.</p></article>
+              </div>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>Cele trei cardinalități</h3>
+            <p class="ask">Care sunt cele trei tipuri de relație (cardinalitate) și ce presupune fiecare?</p>
+            <div class="s3-answer">
+              <div class="s4-picks is-three">
+                <article class="s4-pick is-info">
+                  <h4>One-to-one</h4>
+                  <span class="s4-mark">1 : 1</span>
+                  <p class="s4-why">Un rând dintr-un tabel = exact un rând din celălalt. Rară; de obicei pui informația într-un singur tabel.</p>
+                </article>
+                <article class="s4-pick is-yes">
+                  <h4>One-to-many</h4>
+                  <span class="s4-mark">1 : *</span>
+                  <p class="s4-why">Un rând din dimensiune, mai multe în fact. Ex: un client, zece comenzi. Forma standard fact–dimensiune.</p>
+                </article>
+                <article class="s4-pick is-info">
+                  <h4>Many-to-many</h4>
+                  <span class="s4-mark">* : *</span>
+                  <p class="s4-why">Mai multe rânduri de ambele părți. Ex: studenți și cursuri. Fără structură intermediară, filtrele pot număra dublu.</p>
+                </article>
+              </div>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+        </div>
+      </article>
+
+      <!-- B · Hartă lecție -->
+      <article class="slide s5-concepts-slide">
+        <span class="slide-eyebrow">Sesiunea 5 · hartă</span>
+        <h2>Structura sesiunii</h2>
+        <p class="s3-lead">Modelul e gata. Acum învățăm <strong>să alegem și să construim vizualuri</strong> — nu doar să punem grafice pe pagină.</p>
+        <div class="s5-lesson-map">
+          <article>
+            <span class="n">01</span>
+            <h3>Intro · Data visualization</h3>
+            <p>De ce vizualizăm, ce întrebări pune un raport și cum legăm datele de modelul din sesiunea 4.</p>
+          </article>
+          <article class="is-now">
+            <span class="n">02</span>
+            <h3>Tipuri de visualuri</h3>
+            <p>Cum alegi graficul: tip de date, mesaj, public. Familii de vizualuri și greșeli de evitat.</p>
+          </article>
+          <article>
+            <span class="n">03</span>
+            <h3>Storytelling</h3>
+            <p>Context, layout și poveste clară — de la KPI la detaliu, fără zgomot vizual.</p>
+          </article>
+        </div>
+      </article>
+
+      <!-- D · Cadru general · 3 întrebări cheie -->
+      <article class="slide s5-framework">
+        <span class="slide-eyebrow">Cum alegem vizualul potrivit</span>
+        <h2>3 întrebări cheie</h2>
+        <p class="s5-oneline">Înainte să alegi tipul de grafic, răspunde la trei întrebări. Ele restrâng lista de opțiuni, înainte să ajungi la detalii de formatare.</p>
+        <div class="s5-keyq-list">
+          <div class="s5-keyq">
+            <span class="s5-keyq-n">1</span>
+            <div>
+              <h3>Ce <strong>tip de date</strong> ai?</h3>
+              <p>Time-series, categorical, geospatial etc. — fiecare tip sugerează alte vizualuri.</p>
+            </div>
+          </div>
+          <div class="s5-keyq">
+            <span class="s5-keyq-n">2</span>
+            <div>
+              <h3>Ce vrei să <strong>comunici</strong>?</h3>
+              <p>Comparație, compoziție, distribuție sau relație între variabile.</p>
+            </div>
+          </div>
+          <div class="s5-keyq">
+            <span class="s5-keyq-n">3</span>
+            <div>
+              <h3>Cine este <strong>publicul</strong> și ce are nevoie?</h3>
+              <p>Analist, manager sau director — același KPI, alt nivel de detaliu.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- D · Întrebarea 1 · Tip de date -->
+      <article class="slide s5-framework s5-dtype-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Cum alegem vizualul potrivit</span>
+          <span class="s5-concept-pill is-fw">Întrebarea 1 · Tipul de date</span>
+        </div>
+        <h2>Ce tip de date ai?</h2>
+        <p class="s5-oneline">Apasă un tip. Vezi un exemplu de date și ce vizual se potrivește de obicei.</p>
+        <div class="s5-dtypes" data-s5-dtypes>
+          <button type="button" class="s5-dtype is-on" data-s5-dtype="timeseries">Time-series</button>
+          <button type="button" class="s5-dtype" data-s5-dtype="geospatial">Geospatial</button>
+          <button type="button" class="s5-dtype" data-s5-dtype="categorical">Categorical</button>
+          <button type="button" class="s5-dtype" data-s5-dtype="hierarchical">Hierarchical</button>
+          <button type="button" class="s5-dtype" data-s5-dtype="financial">Financial</button>
+          <button type="button" class="s5-dtype" data-s5-dtype="textual">Textual</button>
+          <button type="button" class="s5-dtype" data-s5-dtype="funnel">Funnel</button>
+          <button type="button" class="s5-dtype" data-s5-dtype="survey">Survey</button>
+        </div>
+        <div class="s5-dtype-panel" data-s5-dtype-panel>
+          <div class="s5-dtype-panel-inner is-on" data-s5-dtype-content="timeseries">
+            <p class="s5-dtype-hint"><strong>Vizual potrivit:</strong> Line chart, Area chart — ordinea pe axă contează (timp).</p>
+            <table class="s5-mini-tbl s5-dtype-tbl">
+              <thead><tr><th>Lună</th><th>Tranzacții</th></tr></thead>
+              <tbody>
+                <tr><td>Aug</td><td>620</td></tr>
+                <tr><td>Sep</td><td>718</td></tr>
+                <tr><td>Oct</td><td>690</td></tr>
+              </tbody>
+            </table>
+            <div class="s5-dtype-viz">
+              <figure class="s5-schem s5-schem-dtype">
+                <figcaption>Line chart · exemplu</figcaption>
+                <svg class="s5-schem-line is-tall" viewBox="0 0 420 135" aria-hidden="true">
+                  <g stroke="currentColor" stroke-opacity=".14"><line x1="44" y1="20" x2="400" y2="20"/><line x1="44" y1="58" x2="400" y2="58"/><line x1="44" y1="96" x2="400" y2="96"/></g>
+                  <g fill="currentColor" opacity=".58" font-size="11"><text x="5" y="24">750</text><text x="5" y="62">650</text><text x="5" y="100">550</text><text x="78" y="124">Aug</text><text x="205" y="124">Sep</text><text x="334" y="124">Oct</text></g>
+                  <polyline fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" points="86,70 215,32 344,43"/>
+                  <g fill="currentColor"><circle cx="86" cy="70" r="5"/><circle cx="215" cy="32" r="5"/><circle cx="344" cy="43" r="5"/></g>
+                  <g fill="currentColor" font-size="11" font-weight="700"><text x="72" y="60">620</text><text x="201" y="22">718</text><text x="330" y="33">690</text></g>
+                </svg>
+              </figure>
+            </div>
+          </div>
+          <div class="s5-dtype-panel-inner" data-s5-dtype-content="geospatial" hidden>
+            <p class="s5-dtype-hint"><strong>Vizual potrivit:</strong> Map, Filled map — valoarea e legată de locație.</p>
+            <table class="s5-mini-tbl s5-dtype-tbl">
+              <thead><tr><th>Regiune</th><th>Vânzări (k)</th></tr></thead>
+              <tbody>
+                <tr><td>Cluj</td><td>120</td></tr>
+                <tr><td>București</td><td>210</td></tr>
+                <tr><td>Timișoara</td><td>68</td></tr>
+              </tbody>
+            </table>
+            <div class="s5-dtype-viz">
+              <figure class="s5-schem s5-schem-dtype">
+                <figcaption>Filled map · exemplu</figcaption>
+                <svg class="s5-schem-map" viewBox="0 0 120 72" aria-hidden="true">
+                  <path fill="currentColor" fill-opacity="0.12" stroke="currentColor" stroke-opacity="0.35" d="M18 36 L42 14 L78 22 L98 40 L72 58 L38 52 Z"/>
+                  <circle cx="48" cy="32" r="10" fill="currentColor" fill-opacity="0.35"/>
+                  <circle cx="72" cy="38" r="16" fill="currentColor" fill-opacity="0.55"/>
+                  <circle cx="58" cy="48" r="7" fill="currentColor" fill-opacity="0.28"/>
+                  <g fill="currentColor" font-size="5" font-weight="700"><text x="35" y="20">Cluj · 120k</text><text x="75" y="22">București · 210k</text><text x="50" y="64">Timișoara · 68k</text></g>
+                </svg>
+              </figure>
+            </div>
+          </div>
+          <div class="s5-dtype-panel-inner" data-s5-dtype-content="categorical" hidden>
+            <p class="s5-dtype-hint"><strong>Vizual potrivit:</strong> Bar / Column chart — categorii fără ordine obligatorie.</p>
+            <table class="s5-mini-tbl s5-dtype-tbl">
+              <thead><tr><th>Categorie</th><th>Total</th></tr></thead>
+              <tbody>
+                <tr><td>Electronice</td><td>420</td></tr>
+                <tr><td>Îmbrăcăminte</td><td>310</td></tr>
+                <tr><td>Alimente</td><td>185</td></tr>
+              </tbody>
+            </table>
+            <div class="s5-dtype-viz">
+              <figure class="s5-schem s5-schem-dtype">
+                <figcaption>Column chart · exemplu</figcaption>
+                <div class="s5-schem-cols">
+                  <div><b>420</b><i style="--h:88%"></i><span>Electronice</span></div>
+                  <div><b>310</b><i style="--h:65%"></i><span>Îmbrăcăminte</span></div>
+                  <div><b>185</b><i style="--h:39%"></i><span>Alimente</span></div>
+                </div>
+              </figure>
+            </div>
+          </div>
+          <div class="s5-dtype-panel-inner" data-s5-dtype-content="hierarchical" hidden>
+            <p class="s5-dtype-hint"><strong>Vizual potrivit:</strong> Treemap, Sunburst, Decomposition tree.</p>
+            <table class="s5-mini-tbl s5-dtype-tbl">
+              <thead><tr><th>Nivel</th><th>Valoare</th></tr></thead>
+              <tbody>
+                <tr><td>Total companie</td><td>1 000</td></tr>
+                <tr><td>↳ Divizia Nord</td><td>520</td></tr>
+                <tr><td>↳ Divizia Sud</td><td>480</td></tr>
+              </tbody>
+            </table>
+            <div class="s5-dtype-viz">
+              <figure class="s5-schem s5-schem-dtype">
+                <figcaption>Treemap · exemplu</figcaption>
+                <div class="s5-schem-treemap">
+                  <div class="a"><span>Divizia Nord</span><b>520</b></div>
+                  <div class="b"><span>Divizia Sud</span><b>480</b></div>
+                </div>
+              </figure>
+            </div>
+          </div>
+          <div class="s5-dtype-panel-inner" data-s5-dtype-content="financial" hidden>
+            <p class="s5-dtype-hint"><strong>Vizual potrivit:</strong> Waterfall, KPI cards cu variații (+/−).</p>
+            <table class="s5-mini-tbl s5-dtype-tbl">
+              <thead><tr><th>Element</th><th>Suma (k)</th></tr></thead>
+              <tbody>
+                <tr><td>Venit</td><td>+850</td></tr>
+                <tr><td>Salarii</td><td>−320</td></tr>
+                <tr><td>Profit</td><td>315</td></tr>
+              </tbody>
+            </table>
+            <div class="s5-dtype-viz">
+              <figure class="s5-schem s5-schem-dtype">
+                <figcaption>Waterfall · exemplu</figcaption>
+                <div class="s5-schem-waterfall">
+                  <div class="up"><i style="--h:85%"></i><span>+850</span></div>
+                  <div class="dn"><i style="--h:32%"></i><span>−320</span></div>
+                  <div class="tot"><i style="--h:31%"></i><span>315</span></div>
+                </div>
+              </figure>
+            </div>
+          </div>
+          <div class="s5-dtype-panel-inner" data-s5-dtype-content="textual" hidden>
+            <p class="s5-dtype-hint"><strong>Vizual potrivit:</strong> Table, Matrix; analiză text în afara Power BI.</p>
+            <table class="s5-mini-tbl s5-dtype-tbl">
+              <thead><tr><th>ID</th><th>Comentariu (extras)</th></tr></thead>
+              <tbody>
+                <tr><td>R-104</td><td>„Livrare rapidă”</td></tr>
+                <tr><td>R-105</td><td>„Ambalaj deteriorat”</td></tr>
+                <tr><td>R-106</td><td>„Recomand produsul”</td></tr>
+              </tbody>
+            </table>
+            <div class="s5-dtype-viz">
+              <figure class="s5-schem s5-schem-dtype">
+                <figcaption>Table / Matrix · exemplu</figcaption>
+                <div class="s5-mock-table s5-mock-table--dtype">
+                  <table>
+                    <thead><tr><th>ID</th><th>Text</th><th>Sentiment</th></tr></thead>
+                    <tbody>
+                      <tr><td>R-104</td><td>Livrare rapidă</td><td class="pos">+</td></tr>
+                      <tr><td>R-105</td><td>Ambalaj…</td><td class="neg">−</td></tr>
+                      <tr><td>R-106</td><td>Recomand…</td><td class="pos">+</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </figure>
+            </div>
+          </div>
+          <div class="s5-dtype-panel-inner" data-s5-dtype-content="funnel" hidden>
+            <p class="s5-dtype-hint"><strong>Vizual potrivit:</strong> Funnel chart — pași secvențiali, conversie.</p>
+            <table class="s5-mini-tbl s5-dtype-tbl">
+              <thead><tr><th>Etapă</th><th>Utilizatori</th></tr></thead>
+              <tbody>
+                <tr><td>Vizite site</td><td>12 000</td></tr>
+                <tr><td>Coș</td><td>4 200</td></tr>
+                <tr><td>Plată</td><td>1 680</td></tr>
+              </tbody>
+            </table>
+            <div class="s5-dtype-viz">
+              <figure class="s5-schem s5-schem-dtype">
+                <figcaption>Funnel chart · exemplu</figcaption>
+                <div class="s5-schem-funnel">
+                  <i style="--w:100%">12k</i>
+                  <i style="--w:72%">4,2k</i>
+                  <i style="--w:48%">1,7k</i>
+                </div>
+              </figure>
+            </div>
+          </div>
+          <div class="s5-dtype-panel-inner" data-s5-dtype-content="survey" hidden>
+            <p class="s5-dtype-hint"><strong>Vizual potrivit:</strong> Gauge, stacked bar pe categorii de răspuns.</p>
+            <table class="s5-mini-tbl s5-dtype-tbl">
+              <thead><tr><th>Întrebare</th><th>Scor mediu</th></tr></thead>
+              <tbody>
+                <tr><td>NPS</td><td>7,8</td></tr>
+                <tr><td>Satisfacție</td><td>4,2 / 5</td></tr>
+                <tr><td>Recomandare</td><td>82%</td></tr>
+              </tbody>
+            </table>
+            <div class="s5-dtype-viz">
+              <figure class="s5-schem s5-schem-dtype">
+                <figcaption>Gauge + stacked bar · exemplu</figcaption>
+                <div class="s5-schem-survey">
+                  <div class="s5-schem-gauge" style="--pct:78"><span>7,8</span></div>
+                  <div class="s5-schem-stack-h"><i class="a" style="width:45%"></i><i class="b" style="width:30%"></i><i class="c" style="width:25%"></i></div>
+                </div>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- D · Întrebarea 2 · Ce comunici -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Cum alegem vizualul potrivit</span>
+          <span class="s5-concept-pill is-fw">Întrebarea 2 · Ce comunici</span>
+        </div>
+        <h2>Ce vrei să comunici?</h2>
+        <p class="s5-oneline">Alege o categorie. Detaliile apar jos.</p>
+        <div class="s5-communicate is-compact" data-s5-communicate>
+          <button type="button" class="s5-comm-card is-on" data-s5-comm="compare">
+            <h3>Comparație</h3>
+            <p>Care e mai mare / mai mic?</p>
+          </button>
+          <button type="button" class="s5-comm-card" data-s5-comm="compose">
+            <h3>Compoziție</h3>
+            <p>Din ce e făcut totalul?</p>
+          </button>
+          <button type="button" class="s5-comm-card" data-s5-comm="distribute">
+            <h3>Distribuție</h3>
+            <p>Cât de des apar valorile?</p>
+          </button>
+          <button type="button" class="s5-comm-card" data-s5-comm="relate">
+            <h3>Relație</h3>
+            <p>Corelație între variabile?</p>
+          </button>
+        </div>
+        <div class="s5-comm-detail" data-s5-comm-detail>
+          <div class="s5-comm-panel is-on" data-s5-comm-panel="compare">
+            <div class="s5-comm-detail-grid">
+              <div class="s5-comm-detail-text">
+                <p><strong>Întrebare tip:</strong> „Care regiune vinde cel mai mult?” sau „Cum stă Q3 față de Q2?”</p>
+                <p><strong>Grafice frecvente:</strong> Clustered Bar/Column, Line chart (dacă e și timp).</p>
+                <p><strong>Evită:</strong> Pie chart când compari multe categorii sau când diferențele sunt mici.</p>
+              </div>
+              <div class="s5-comm-viz" aria-hidden="true">
+                <figure class="s5-schem">
+                  <figcaption>Column chart</figcaption>
+                  <div class="s5-schem-cols">
+                    <div><b>420k</b><i style="--h:56%"></i><span>Nord</span></div>
+                    <div><b>590k</b><i style="--h:88%"></i><span>Sud</span></div>
+                    <div><b>470k</b><i style="--h:67%"></i><span>Est</span></div>
+                    <div><b>510k</b><i style="--h:75%"></i><span>Vest</span></div>
+                  </div>
+                </figure>
+                <figure class="s5-schem">
+                  <figcaption>Line chart</figcaption>
+                  <svg class="s5-schem-line" viewBox="0 0 180 105" role="img">
+                    <g stroke="currentColor" stroke-opacity=".14"><line x1="16" y1="18" x2="172" y2="18"/><line x1="16" y1="50" x2="172" y2="50"/><line x1="16" y1="82" x2="172" y2="82"/></g>
+                    <polyline fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" points="24,72 66,54 108,61 150,28"/>
+                    <g fill="currentColor"><circle cx="24" cy="72" r="4"/><circle cx="66" cy="54" r="4"/><circle cx="108" cy="61" r="4"/><circle cx="150" cy="28" r="4"/></g>
+                    <g fill="currentColor" opacity=".62" font-size="9"><text x="17" y="98">Q1</text><text x="59" y="98">Q2</text><text x="101" y="98">Q3</text><text x="143" y="98">Q4</text></g>
+                  </svg>
+                </figure>
+              </div>
+            </div>
+          </div>
+          <div class="s5-comm-panel" data-s5-comm-panel="compose" hidden>
+            <div class="s5-comm-detail-grid">
+              <div class="s5-comm-detail-text">
+                <p><strong>Întrebare tip:</strong> „Din ce canale vine venitul?” — părți ale unui total fix.</p>
+                <p><strong>Grafice frecvente:</strong> Stacked Bar/Column, 100% Stacked, Treemap, Donut (puține segmente).</p>
+                <p><strong>Evită:</strong> prea multe culori în stacked bar (max. 5–7 segmente lizibile).</p>
+              </div>
+              <div class="s5-comm-viz" aria-hidden="true">
+                <figure class="s5-schem">
+                  <figcaption>100% Stacked bar</figcaption>
+                  <div class="s5-schem-stack-h"><i class="a" style="width:35%"></i><i class="b" style="width:28%"></i><i class="c" style="width:22%"></i><i class="d" style="width:15%"></i></div>
+                  <div class="s5-chart-legend"><span><i></i>Online 35%</span><span><i></i>Magazin 28%</span><span><i></i>Parteneri 22%</span><span><i></i>Altele 15%</span></div>
+                </figure>
+                <figure class="s5-schem">
+                  <figcaption>Donut chart</figcaption>
+                  <div class="s5-schem-donut" style="--a:35; --b:28; --c:22; --d:15"></div>
+                  <div class="s5-chart-legend"><span><i></i>Online</span><span><i></i>Magazin</span><span><i></i>Parteneri</span></div>
+                </figure>
+              </div>
+            </div>
+          </div>
+          <div class="s5-comm-panel" data-s5-comm-panel="distribute" hidden>
+            <div class="s5-comm-detail-grid">
+              <div class="s5-comm-detail-text">
+                <p><strong>Întrebare tip:</strong> „Cum se împart comenzile după valoare?” — frecvență, nu total partajat.</p>
+                <p><strong>Grafice frecvente:</strong> Histogram, Box plot, Heat map pe intervale.</p>
+                <p><strong>Evită:</strong> line chart pentru distribuție pur categorială fără ordine.</p>
+              </div>
+              <div class="s5-comm-viz" aria-hidden="true">
+                <figure class="s5-schem">
+                  <figcaption>Histogram</figcaption>
+                  <div class="s5-schem-hist">
+                    <i style="--h:18%"></i><i style="--h:32%"></i><i style="--h:55%"></i><i style="--h:78%"></i><i style="--h:62%"></i><i style="--h:40%"></i><i style="--h:22%"></i>
+                  </div>
+                </figure>
+                <figure class="s5-schem">
+                  <figcaption>Box plot</figcaption>
+                  <div class="s5-schem-box">
+                    <span class="whisker"></span><span class="box"></span><span class="med"></span><span class="whisker r"></span>
+                  </div>
+                </figure>
+              </div>
+            </div>
+          </div>
+          <div class="s5-comm-panel" data-s5-comm-panel="relate" hidden>
+            <div class="s5-comm-detail-grid">
+              <div class="s5-comm-detail-text">
+                <p><strong>Întrebare tip:</strong> „Crește odată bugetul de marketing și vânzările?”</p>
+                <p><strong>Grafice frecvente:</strong> Scatter plot, Bubble chart, matrice de corelație.</p>
+                <p><strong>Evită:</strong> bar chart simplu când ai două măsuri numerice independente.</p>
+              </div>
+              <div class="s5-comm-viz" aria-hidden="true">
+                <figure class="s5-schem">
+                  <figcaption>Scatter plot</figcaption>
+                  <svg class="s5-schem-scatter" viewBox="0 0 100 56" role="img">
+                    <circle cx="12" cy="44" r="3" fill="currentColor"/><circle cx="22" cy="38" r="3" fill="currentColor"/>
+                    <circle cx="34" cy="32" r="3" fill="currentColor"/><circle cx="48" cy="26" r="3" fill="currentColor"/>
+                    <circle cx="58" cy="22" r="3" fill="currentColor"/><circle cx="72" cy="16" r="3" fill="currentColor"/>
+                    <circle cx="88" cy="10" r="3" fill="currentColor"/>
+                  </svg>
+                </figure>
+                <figure class="s5-schem">
+                  <figcaption>Bubble chart</figcaption>
+                  <svg class="s5-schem-scatter" viewBox="0 0 100 56" role="img">
+                    <circle cx="18" cy="40" r="6" fill="currentColor" opacity=".35"/><circle cx="38" cy="28" r="10" fill="currentColor" opacity=".5"/>
+                    <circle cx="62" cy="22" r="14" fill="currentColor" opacity=".65"/><circle cx="82" cy="12" r="8" fill="currentColor" opacity=".45"/>
+                  </svg>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- D · Întrebarea 3 · Publicul -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Cum alegem vizualul potrivit</span>
+          <span class="s5-concept-pill is-fw">Întrebarea 3 · Publicul</span>
+        </div>
+        <h2>Cine este publicul și ce are nevoie?</h2>
+        <p class="s5-oneline">Același indicator, alt layout. Apasă un rol — vezi un exemplu schematic.</p>
+        <div class="s5-audience is-pick" data-s5-audience>
+          <button type="button" class="s5-aud-card is-on" data-s5-aud="analyst">
+            <span class="s5-aud-tag">Analistul</span>
+            <p>Detaliu granular, root-cause.</p>
+          </button>
+          <button type="button" class="s5-aud-card" data-s5-aud="manager">
+            <span class="s5-aud-tag">Managerul</span>
+            <p>Sumar + insight acționabil.</p>
+          </button>
+          <button type="button" class="s5-aud-card" data-s5-aud="executive">
+            <span class="s5-aud-tag">Directorul</span>
+            <p>KPI clar, minim zgomot.</p>
+          </button>
+        </div>
+        <div class="s5-aud-mock" data-s5-aud-mock>
+          <div class="s5-aud-scene is-on" data-s5-aud-scene="analyst">
+            <p class="s5-aud-scene-cap">Exemplu · același subiect (vânzări)</p>
+            <div class="s5-mock-table">
+              <table>
+                <thead><tr><th>Dată</th><th>Produs</th><th>Canal</th><th>Sumă</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr><td>12.10</td><td>Laptop Pro</td><td>Online</td><td>4 200</td><td>OK</td></tr>
+                  <tr><td>12.10</td><td>Monitor</td><td>Magazin</td><td>890</td><td>Retur</td></tr>
+                  <tr><td>13.10</td><td>Căști</td><td>Online</td><td>310</td><td>OK</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="s5-aud-scene-note">Table / Matrix + filtre — poate face drill-down până la rând.</p>
+          </div>
+          <div class="s5-aud-scene" data-s5-aud-scene="manager" hidden>
+            <p class="s5-aud-scene-cap">Exemplu · același subiect (vânzări)</p>
+            <div class="s5-mock-dash">
+              <div class="s5-mock-kpi-sm"><span>Vânzări luna</span><strong>690 k</strong><em>+9% Y-o-Y</em></div>
+              <div class="s5-mock-bars">
+                <div><span>Nord</span><i style="width:78%"></i><b>286k</b></div>
+                <div><span>Sud</span><i style="width:62%"></i><b>228k</b></div>
+                <div><span>Est</span><i style="width:45%"></i><b>176k</b></div>
+              </div>
+            </div>
+            <p class="s5-aud-scene-note">Câteva grafice + un KPI — detaliu doar când susține decizia.</p>
+          </div>
+          <div class="s5-aud-scene" data-s5-aud-scene="executive" hidden>
+            <p class="s5-aud-scene-cap">Exemplu · același subiect (vânzări)</p>
+            <div class="s5-mock-exec">
+              <div class="s5-mock-kpi-lg"><span>Tranzacții · oct</span><strong>690</strong></div>
+              <div class="s5-mock-spark">
+                <svg viewBox="0 0 120 32" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2" points="0,28 20,22 40,24 60,12 80,14 100,8 120,10"/></svg>
+                <span>Trend ascendent</span>
+              </div>
+            </div>
+            <p class="s5-aud-scene-note">Card KPI + trend simplu — fără tabel cu zeci de coloane.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- D · Greșeli comune -->
+      <article class="slide s5-framework">
+        <span class="slide-eyebrow">Cum alegem vizualul potrivit</span>
+        <h2>Greșeli comune de vizualizare</h2>
+        <p class="s5-oneline">Apasă o categorie — jos vezi exemplul schematic al greșelii.</p>
+        <div class="s5-mistakes is-pick" data-s5-mistakes>
+          <button type="button" class="s5-mistake-card is-on" data-s5-mistake="wrong-type">
+            <h3>Tip de grafic greșit</h3>
+            <p>Pie pentru time-series etc.</p>
+          </button>
+          <button type="button" class="s5-mistake-card" data-s5-mistake="no-focus">
+            <h3>Lipsă de focus</h3>
+            <p>Prea multe serii odată.</p>
+          </button>
+          <button type="button" class="s5-mistake-card" data-s5-mistake="noise">
+            <h3>Zgomot vizual</h3>
+            <p>3D, fundal, culori random.</p>
+          </button>
+          <button type="button" class="s5-mistake-card" data-s5-mistake="form-func">
+            <h3>Formă peste funcție</h3>
+            <p>Frumos, dar ilizibil.</p>
+          </button>
+          <button type="button" class="s5-mistake-card" data-s5-mistake="misleading">
+            <h3>Narativă înșelătoare</h3>
+            <p>Axă trunchiată.</p>
+          </button>
+          <button type="button" class="s5-mistake-card" data-s5-mistake="no-context">
+            <h3>Context lipsă</h3>
+            <p>Fără etichete / axe.</p>
+          </button>
+        </div>
+        <div class="s5-mistake-detail" data-s5-mistake-detail>
+          <div class="s5-mistake-panel is-on" data-s5-mistake-panel="wrong-type">
+            <p class="s5-mistake-cap">Exemplu · pie chart pe luni (greșit) vs line chart (potrivit)</p>
+            <div class="s5-mistake-viz is-split">
+              <figure class="s5-schem is-bad">
+                <figcaption>Pie + time-series ✕</figcaption>
+                <div class="s5-schem-donut is-small" style="--a:20; --b:18; --c:22; --d:40"></div>
+                <span class="s5-schem-tag">Ian–Apr</span>
+              </figure>
+              <figure class="s5-schem is-good">
+                <figcaption>Line chart ✓</figcaption>
+                <svg class="s5-schem-line" viewBox="0 0 100 48"><polyline fill="none" stroke="currentColor" stroke-width="2.5" points="0,40 33,28 66,32 100,12"/></svg>
+              </figure>
+            </div>
+            <p class="s5-mistake-note">Ordinea temporală nu se citește din felii de pie — folosești line sau column pe timp.</p>
+          </div>
+          <div class="s5-mistake-panel" data-s5-mistake-panel="no-focus" hidden>
+            <p class="s5-mistake-cap">Exemplu · 8 serii pe același line chart</p>
+            <figure class="s5-schem is-bad is-wide">
+              <svg class="s5-schem-lines-busy" viewBox="0 0 120 56" aria-hidden="true">
+                <polyline fill="none" stroke="currentColor" stroke-width="1.5" opacity=".9" points="0,40 30,35 60,38 90,30 120,28"/>
+                <polyline fill="none" stroke="currentColor" stroke-width="1.5" opacity=".7" points="0,32 30,38 60,22 90,26 120,18"/>
+                <polyline fill="none" stroke="currentColor" stroke-width="1.5" opacity=".6" points="0,28 30,20 60,30 90,14 120,22"/>
+                <polyline fill="none" stroke="currentColor" stroke-width="1.5" opacity=".5" points="0,44 30,42 60,36 90,40 120,34"/>
+                <polyline fill="none" stroke="currentColor" stroke-width="1.5" opacity=".8" points="0,24 30,30 60,18 90,20 120,10"/>
+                <polyline fill="none" stroke="currentColor" stroke-width="1.5" opacity=".55" points="0,36 30,28 60,34 90,32 120,26"/>
+              </svg>
+            </figure>
+            <p class="s5-mistake-note">Highlight 1–2 serii relevante; restul în tooltip sau pagină separată.</p>
+          </div>
+          <div class="s5-mistake-panel" data-s5-mistake-panel="noise" hidden>
+            <p class="s5-mistake-cap">Exemplu · 3D + fundal + gradient inutil</p>
+            <figure class="s5-schem is-bad is-wide s5-schem-noise">
+              <div class="s5-schem-cols is-3d">
+                <div><i style="--h:55%"></i></div>
+                <div><i style="--h:78%"></i></div>
+                <div><i style="--h:42%"></i></div>
+              </div>
+            </figure>
+            <p class="s5-mistake-note">Elimină efectele care nu adaugă informație — flat, contrast clar.</p>
+          </div>
+          <div class="s5-mistake-panel" data-s5-mistake-panel="form-func" hidden>
+            <p class="s5-mistake-cap">Exemplu · culori pastel, fără contrast</p>
+            <figure class="s5-schem is-bad is-wide s5-schem-fade">
+              <div class="s5-schem-cols">
+                <div><i style="--h:70%"></i><span>A</span></div>
+                <div><i style="--h:68%"></i><span>B</span></div>
+                <div><i style="--h:72%"></i><span>C</span></div>
+              </div>
+            </figure>
+            <p class="s5-mistake-note">Diferențele mici trebuie vizibile — nu estetica în detrimentul lecturii.</p>
+          </div>
+          <div class="s5-mistake-panel" data-s5-mistake-panel="misleading" hidden>
+            <p class="s5-mistake-cap">Exemplu · axa Y începe la 99 — diferența pare uriașă</p>
+            <figure class="s5-schem is-bad is-wide">
+              <div class="s5-schem-cols is-trunc">
+                <div><i style="--h:15%"></i><span>99</span></div>
+                <div><i style="--h:95%"></i><span>100</span></div>
+                <div><i style="--h:100%"></i><span>101</span></div>
+              </div>
+              <span class="s5-schem-axis-note">Axă de la 99, nu de la 0</span>
+            </figure>
+            <p class="s5-mistake-note">Pornește de la zero (sau marchează clar break-ul) când compari magnitudini.</p>
+          </div>
+          <div class="s5-mistake-panel" data-s5-mistake-panel="no-context" hidden>
+            <p class="s5-mistake-cap">Exemplu · bare fără titlu, legendă sau etichete axă</p>
+            <figure class="s5-schem is-bad is-wide s5-schem-blank">
+              <div class="s5-schem-cols">
+                <div><i style="--h:45%"></i></div>
+                <div><i style="--h:80%"></i></div>
+                <div><i style="--h:60%"></i></div>
+                <div><i style="--h:70%"></i></div>
+              </div>
+            </figure>
+            <p class="s5-mistake-note">Titlu vizual, nume serie, unități pe axă — altfel cifra nu se interpretează.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- D · Contextul contează -->
+      <article class="slide s5-framework">
+        <span class="slide-eyebrow">Cum alegem vizualul potrivit</span>
+        <h2>Contextul contează</h2>
+        <p class="s5-oneline">Cifra singură răspunde la „cât?”. Apasă <strong>Context</strong> pentru interpretare.</p>
+        <div class="s5-context is-kpi-only" data-s5-context>
+          <div class="s5-kpi-hero">
+            <span class="s5-kpi-label">Tranzacții · octombrie</span>
+            <span class="s5-kpi-value">690</span>
+            <div class="s5-kpi-deltas" data-s5-context-deltas hidden>
+              <span class="is-neg">-4% M-o-M</span>
+              <span class="is-pos">+9% Y-o-Y</span>
+              <span class="is-pos">+6% vs țintă</span>
+            </div>
+            <button type="button" class="s3-btn s5-context-btn" data-s5-context-toggle>Context</button>
+          </div>
+          <div class="s5-context-extra" data-s5-context-extra hidden>
+            <ul class="s5-context-list">
+              <li>Au fost <strong>690</strong> de tranzacții în octombrie.</li>
+              <li>Vânzările sunt cu <strong>4% mai mici</strong> decât luna trecută, dar cu <strong>9% mai mari</strong> față de anul trecut.</li>
+              <li>Am <strong>depășit ținta</strong> în septembrie–octombrie, după ce am rămas sub ea în august.</li>
+              <li>Vedem un <strong>trend crescător</strong>, cu un vârf semnificativ în iulie.</li>
+              <li>Pe baza sezonalității, ne putem aștepta la un trimestru final puternic (Nov–Dec).</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- D · Storytelling & dashboard design -->
+      <article class="slide s5-framework">
+        <span class="slide-eyebrow">Cum alegem vizualul potrivit</span>
+        <h2>Storytelling &amp; dashboard design</h2>
+        <p class="s5-oneline"><strong>Poveștile din date</strong> sunt spuse, de obicei, prin rapoarte ad-hoc sau <strong>dashboard-uri</strong> explicative. Dashboard-urile consolidează datele, urmăresc indicatorii cheie și susțin decizii bazate pe date.</p>
+        <div class="s4-steps">
+          <article><span class="n">01</span><h3>Definește scopul</h3><p>Ce decizie sau întrebare susține raportul?</p></article>
+          <article><span class="n">02</span><h3>Alege indicatorii potriviți</h3><p>Metrics relevante pentru scopul definit, nu tot ce ai la dispoziție.</p></article>
+          <article><span class="n">03</span><h3>Prezintă datele eficient</h3><p>Vizualul potrivit pentru fiecare întrebare, nu doar ce arată bine.</p></article>
+          <article><span class="n">04</span><h3>Elimină aglomerarea</h3><p>Clutter &amp; noise: elemente care nu ajută la înțelegere.</p></article>
+          <article><span class="n">05</span><h3>Folosește layout-ul</h3><p>Poziția și mărimea direcționează atenția către ce contează.</p></article>
+          <article><span class="n">06</span><h3>Spune o poveste clară</h3><p>Cititorul înțelege mesajul într-o singură trecere.</p></article>
+        </div>
+      </article>
+
+      <!-- C · Partea 1 · Stacked bar chart -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Graficele bar (orizontale)</span>
+          <span class="s5-concept-pill">1 · Stacked bar chart</span>
+        </div>
+        <h2>Stacked bar chart</h2>
+
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Ce este?</h3>
+            <p>Un grafic cu bare orizontale, în care fiecare bară este împărțită în segmente colorate puse unul după altul. Lungimea totală a barei este suma segmentelor.</p>
+            <h3>Cum se citește?</h3>
+            <ul>
+              <li>Lungimea barei întregi = totalul categoriei.</li>
+              <li>Fiecare culoare = o subcategorie (din Legend).</li>
+              <li>Lungimea unui segment = cât contribuie subcategoria la total.</li>
+            </ul>
+            <figure class="s5-hbar-ex">
+              <figcaption>Exemplu · vânzări pe produs, împărțite pe canal</figcaption>
+              <div class="s5-hbar">
+                <span>Laptop Pro</span>
+                <div class="s5-hbar-track" style="--w:100%">
+                  <i class="on" style="--seg:70%"></i>
+                  <i class="shop" style="--seg:30%"></i>
+                </div>
+              </div>
+              <div class="s5-hbar">
+                <span>Monitor</span>
+                <div class="s5-hbar-track" style="--w:75%">
+                  <i class="on" style="--seg:47%"></i>
+                  <i class="shop" style="--seg:53%"></i>
+                </div>
+              </div>
+              <div class="s5-hbar">
+                <span>Mouse</span>
+                <div class="s5-hbar-track" style="--w:27%">
+                  <i class="on" style="--seg:56%"></i>
+                  <i class="shop" style="--seg:44%"></i>
+                </div>
+              </div>
+              <div class="s5-hbar-legend"><span><i class="on"></i>Online</span><span><i class="shop"></i>Magazin</span></div>
+            </figure>
+          </section>
+
+          <section class="s5-bar-card">
+            <h3>La ce se folosește?</h3>
+            <p>Când vrem să vedem, într-un singur grafic, două lucruri:</p>
+            <ul>
+              <li>Cât are fiecare categorie în total.</li>
+              <li>Din ce este format acel total.</li>
+            </ul>
+            <h3>La ce întrebări răspunde?</h3>
+            <ul class="s5-bar-qs">
+              <li>Care sunt cele mai mari 10 produse ca vânzări și cum se împarte fiecare între canalele online și magazin?</li>
+              <li>Care regiune vinde cel mai mult, și ce categorii contribuie?</li>
+              <li>Care client aduce cei mai mulți bani, și din ce tipuri de produse?</li>
+            </ul>
+          </section>
+
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Cum îl construim în Power BI?</h3>
+            <p class="s5-bar-path">Vizualizări → Stacked bar chart</p>
+            <table class="s5-bar-tbl">
+              <thead>
+                <tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Y-axis</td><td>Categoria principală</td><td>Text</td><td>Product Name</td></tr>
+                <tr><td>X-axis</td><td>Valoarea măsurată</td><td>Numeric (agregat)</td><td>Sum of Sales</td></tr>
+                <tr><td>Legend</td><td>Subcategoria</td><td>Text (max. 5–7 valori)</td><td>Sales Channel</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section class="s5-bar-card">
+            <h3>Avantaje și limite</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes">Arată totalul și componența simultan.</li>
+              <li class="is-yes">Numele lungi se citesc ușor (text orizontal).</li>
+              <li class="is-limit">Doar primul segment (cel de la baza barei) se compară ușor între bare. Restul „plutesc”.</li>
+              <li class="is-limit">Cu mai mult de 5–6 segmente devine greu de citit.</li>
+            </ul>
+          </section>
+
+          <section class="s5-bar-card s5-bar-when">
+            <h3>Când îl alegem?</h3>
+            <p>Când ne interesează totalul și, secundar, din ce e făcut.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- C · 2 · Clustered bar -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Graficele bar (orizontale)</span>
+          <span class="s5-concept-pill">2 · Clustered bar chart</span>
+        </div>
+        <h2>Clustered bar chart</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Ce este?</h3>
+            <p>Un grafic cu bare orizontale grupate. Pentru fiecare categorie apar mai multe bare, una sub alta, câte una pentru fiecare subcategorie. Toate pornesc de la aceeași linie de bază.</p>
+            <h3>Cum se citește?</h3>
+            <ul>
+              <li>Un grup de bare = o categorie.</li>
+              <li>Fiecare culoare din grup = o subcategorie.</li>
+              <li>Comparăm lungimile direct, pentru că toate pornesc din același punct.</li>
+            </ul>
+            <figure class="s5-hbar-ex">
+              <figcaption>Exemplu · vânzări pe regiune, 2024 față de 2025</figcaption>
+              <div class="s5-hc">
+                <span>Nord</span>
+                <div class="s5-hc-bars">
+                  <div class="s5-hbar-track" style="--w:73%"><i class="on" style="--seg:100%"></i></div>
+                  <div class="s5-hbar-track" style="--w:100%"><i class="shop" style="--seg:100%"></i></div>
+                </div>
+              </div>
+              <div class="s5-hc">
+                <span>Sud</span>
+                <div class="s5-hc-bars">
+                  <div class="s5-hbar-track" style="--w:80%"><i class="on" style="--seg:100%"></i></div>
+                  <div class="s5-hbar-track" style="--w:59%"><i class="shop" style="--seg:100%"></i></div>
+                </div>
+              </div>
+              <div class="s5-hc">
+                <span>Vest</span>
+                <div class="s5-hc-bars">
+                  <div class="s5-hbar-track" style="--w:45%"><i class="on" style="--seg:100%"></i></div>
+                  <div class="s5-hbar-track" style="--w:66%"><i class="shop" style="--seg:100%"></i></div>
+                </div>
+              </div>
+              <div class="s5-hbar-legend"><span><i class="on"></i>2024</span><span><i class="shop"></i>2025</span></div>
+            </figure>
+          </section>
+          <section class="s5-bar-card">
+            <h3>La ce se folosește?</h3>
+            <p>Pentru compararea exactă a valorilor între subcategorii, în interiorul fiecărei categorii.</p>
+            <h3>La ce întrebări răspunde?</h3>
+            <ul class="s5-bar-qs">
+              <li>Pentru fiecare regiune, ce an a avut vânzări mai mari, 2024 sau 2025?</li>
+              <li>La fiecare produs, cum se compară vânzările reale cu ținta (Sales vs. Target)?</li>
+              <li>Ce canal de vânzare „câștigă” în fiecare țară?</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Cum îl construim în Power BI?</h3>
+            <p class="s5-bar-path">Vizualizări → Clustered bar chart</p>
+            <table class="s5-bar-tbl">
+              <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
+              <tbody>
+                <tr><td>Y-axis</td><td>Categoria principală</td><td>Text</td><td>Region</td></tr>
+                <tr><td>X-axis</td><td>Valoarea măsurată</td><td>Numeric (agregat)</td><td>Sum of Sales</td></tr>
+                <tr><td>Legend</td><td>Subcategoria comparată</td><td>Text (puține valori)</td><td>Year</td></tr>
+              </tbody>
+            </table>
+            <p class="s5-bar-note"><strong>Variantă.</strong> Fără Legend, punem două sau mai multe măsuri în X-axis (de exemplu Sales și Target). Fiecare devine o bară în grup.</p>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Avantaje și limite</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes">Cea mai precisă comparație între valori.</li>
+              <li class="is-yes">Foarte ușor de înțeles pentru audiențe fără experiență.</li>
+              <li class="is-limit">Nu arată totalul categoriei.</li>
+              <li class="is-limit">Cu multe categorii și multe subcategorii se aglomerează repede.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-when">
+            <h3>Când îl alegem?</h3>
+            <p>Când întrebarea este „care e mai mare?” între subcategorii.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- C · 3 · 100% stacked bar -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Graficele bar (orizontale)</span>
+          <span class="s5-concept-pill">3 · 100% stacked bar chart</span>
+        </div>
+        <h2>100% stacked bar chart</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Ce este?</h3>
+            <p>Ca Stacked bar, dar toate barele au aceeași lungime (100%). Segmentele arată ponderea procentuală, nu valoarea absolută.</p>
+            <h3>Cum se citește?</h3>
+            <ul>
+              <li>Fiecare bară = 100% din categoria respectivă.</li>
+              <li>Lungimea segmentului = ce procent din total reprezintă subcategoria.</li>
+            </ul>
+            <figure class="s5-hbar-ex">
+              <figcaption>Exemplu · ponderea canalului, pe țară</figcaption>
+              <div class="s5-hbar">
+                <span>România</span>
+                <div class="s5-hbar-track" style="--w:100%">
+                  <i class="on" style="--seg:32%"></i>
+                  <i class="shop" style="--seg:68%"></i>
+                </div>
+              </div>
+              <div class="s5-hbar">
+                <span>Germania</span>
+                <div class="s5-hbar-track" style="--w:100%">
+                  <i class="on" style="--seg:74%"></i>
+                  <i class="shop" style="--seg:26%"></i>
+                </div>
+              </div>
+              <div class="s5-hbar">
+                <span>Franța</span>
+                <div class="s5-hbar-track" style="--w:100%">
+                  <i class="on" style="--seg:51%"></i>
+                  <i class="shop" style="--seg:49%"></i>
+                </div>
+              </div>
+              <div class="s5-hbar-legend"><span><i class="on"></i>Online</span><span><i class="shop"></i>Magazin</span></div>
+            </figure>
+          </section>
+          <section class="s5-bar-card">
+            <h3>La ce se folosește?</h3>
+            <p>Pentru a compara structura (mixul) între categorii, indiferent cât de mari sunt acestea.</p>
+            <h3>La ce întrebări răspunde?</h3>
+            <ul class="s5-bar-qs">
+              <li>În ce țări se vinde proporțional mai mult online?</li>
+              <li>Ce pondere au produsele premium în fiecare regiune?</li>
+              <li>Care departament are cea mai mare rată de răspunsuri „Mulțumit” într-un sondaj?</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Cum îl construim în Power BI?</h3>
+            <p class="s5-bar-path">Vizualizări → 100% Stacked bar chart</p>
+            <table class="s5-bar-tbl">
+              <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
+              <tbody>
+                <tr><td>Y-axis</td><td>Categoria principală</td><td>Text</td><td>Country</td></tr>
+                <tr><td>X-axis</td><td>Valoarea de împărțit</td><td>Numeric (agregat)</td><td>Sum of Sales</td></tr>
+                <tr><td>Legend</td><td>Componentele</td><td>Text (puține valori)</td><td>Sales Channel</td></tr>
+              </tbody>
+            </table>
+            <p class="s5-bar-note">Power BI calculează procentele automat. Activăm <strong>Data labels</strong> (Format → Data labels) ca să vedem procentele.</p>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Avantaje și limite</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes">Compară foarte bine proporțiile între grupuri de mărimi diferite.</li>
+              <li class="is-limit">Se pierd valorile absolute: o țară mică și una mare arată identic ca lungime.</li>
+              <li class="is-tip">Soluție: adăugăm valoarea absolută în Tooltips.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-when">
+            <h3>Când îl alegem?</h3>
+            <p>Când întrebarea este „ce pondere are?” și nu „cât are?”.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- C · 4 · Stacked column -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Graficele column (verticale)</span>
+          <span class="s5-concept-pill">4 · Stacked column chart</span>
+        </div>
+        <h2>Stacked column chart</h2>
+        <p class="s5-oneline">Logica este identică cu graficele bar, dar categoria stă pe axa orizontală (X), iar valoarea pe axa verticală (Y).</p>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Ce este?</h3>
+            <p>Un grafic cu coloane verticale, fiecare împărțită în segmente suprapuse. Înălțimea totală a coloanei este suma segmentelor.</p>
+            <h3>Cum se citește?</h3>
+            <ul>
+              <li>Înălțimea coloanei = totalul categoriei (de exemplu, un an).</li>
+              <li>Fiecare culoare = o subcategorie.</li>
+              <li>Înălțimea segmentului = contribuția lui la total.</li>
+            </ul>
+            <figure class="s5-hbar-ex">
+              <figcaption>Exemplu · vânzări pe an, pe categorie de produs</figcaption>
+              <div class="s5-vchart">
+                <div class="s5-vitem">
+                  <div class="s5-vstack" style="--h:58%">
+                    <i class="on" style="--seg:62%"></i>
+                    <i class="shop" style="--seg:38%"></i>
+                  </div>
+                  <span>2023</span>
+                </div>
+                <div class="s5-vitem">
+                  <div class="s5-vstack" style="--h:78%">
+                    <i class="on" style="--seg:54%"></i>
+                    <i class="shop" style="--seg:46%"></i>
+                  </div>
+                  <span>2024</span>
+                </div>
+                <div class="s5-vitem">
+                  <div class="s5-vstack" style="--h:100%">
+                    <i class="on" style="--seg:48%"></i>
+                    <i class="shop" style="--seg:52%"></i>
+                  </div>
+                  <span>2025</span>
+                </div>
+              </div>
+              <div class="s5-hbar-legend"><span><i class="on"></i>Electronice</span><span><i class="shop"></i>Îmbrăcăminte</span></div>
+            </figure>
+          </section>
+          <section class="s5-bar-card">
+            <h3>La ce se folosește?</h3>
+            <p>Pentru a vedea evoluția totalului în timp și, în același timp, din ce este format el.</p>
+            <h3>La ce întrebări răspunde?</h3>
+            <ul class="s5-bar-qs">
+              <li>Cum au evoluat vânzările totale de la an la an?</li>
+              <li>Cât din vânzările fiecărui an vine din fiecare categorie de produs?</li>
+              <li>În ce lună a fost totalul cel mai mare, și cine a contribuit cel mai mult?</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Cum îl construim în Power BI?</h3>
+            <p class="s5-bar-path">Vizualizări → Stacked column chart</p>
+            <table class="s5-bar-tbl">
+              <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
+              <tbody>
+                <tr><td>X-axis</td><td>Categoria / timpul</td><td>Text sau dată</td><td>Year</td></tr>
+                <tr><td>Y-axis</td><td>Valoarea măsurată</td><td>Numeric (agregat)</td><td>Sum of Sales</td></tr>
+                <tr><td>Legend</td><td>Subcategoria</td><td>Text (max. 5–7 valori)</td><td>Product Category</td></tr>
+              </tbody>
+            </table>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Avantaje și limite</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes">Perfect pentru „total + componență” pe axa timpului.</li>
+              <li class="is-limit">Doar segmentul de jos se compară ușor de la o coloană la alta.</li>
+              <li class="is-limit">Prea multe segmente fac graficul greu de citit.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-when">
+            <h3>Când îl alegem?</h3>
+            <p>Când ne interesează cum crește sau scade totalul și ce îl compune.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- C · 5 · Clustered column -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Graficele column (verticale)</span>
+          <span class="s5-concept-pill">5 · Clustered column chart</span>
+        </div>
+        <h2>Clustered column chart</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Ce este?</h3>
+            <p>Un grafic cu coloane verticale grupate. Pentru fiecare categorie apar mai multe coloane, una lângă alta, toate pornind de la aceeași bază.</p>
+            <h3>Cum se citește?</h3>
+            <ul>
+              <li>Un grup de coloane = o categorie (de exemplu, o lună).</li>
+              <li>Fiecare culoare = o subcategorie (de exemplu, un an).</li>
+              <li>Comparăm înălțimile direct.</li>
+            </ul>
+            <figure class="s5-hbar-ex">
+              <figcaption>Exemplu · vânzări pe lună, 2024 față de 2025</figcaption>
+              <div class="s5-vchart">
+                <div class="s5-vitem">
+                  <div class="s5-vpair">
+                    <i class="on" style="--bh:46%"></i>
+                    <i class="shop" style="--bh:64%"></i>
+                  </div>
+                  <span>Ian</span>
+                </div>
+                <div class="s5-vitem">
+                  <div class="s5-vpair">
+                    <i class="on" style="--bh:72%"></i>
+                    <i class="shop" style="--bh:80%"></i>
+                  </div>
+                  <span>Iun</span>
+                </div>
+                <div class="s5-vitem">
+                  <div class="s5-vpair">
+                    <i class="on" style="--bh:90%"></i>
+                    <i class="shop" style="--bh:100%"></i>
+                  </div>
+                  <span>Dec</span>
+                </div>
+              </div>
+              <div class="s5-hbar-legend"><span><i class="on"></i>2024</span><span><i class="shop"></i>2025</span></div>
+            </figure>
+          </section>
+          <section class="s5-bar-card">
+            <h3>La ce se folosește?</h3>
+            <p>Pentru comparații precise între subcategorii, pe fiecare categorie sau perioadă.</p>
+            <h3>La ce întrebări răspunde?</h3>
+            <ul class="s5-bar-qs">
+              <li>Cum se compară vânzările din 2025 cu cele din 2024, lună de lună?</li>
+              <li>În fiecare regiune, cine a vândut mai mult: Produs A sau Produs B?</li>
+              <li>Ne-am atins ținta în fiecare trimestru (Real vs. Target)?</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Cum îl construim în Power BI?</h3>
+            <p class="s5-bar-path">Vizualizări → Clustered column chart</p>
+            <table class="s5-bar-tbl">
+              <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
+              <tbody>
+                <tr><td>X-axis</td><td>Categoria / timpul</td><td>Text sau dată</td><td>Month</td></tr>
+                <tr><td>Y-axis</td><td>Valoarea măsurată</td><td>Numeric (agregat)</td><td>Sum of Sales</td></tr>
+                <tr><td>Legend</td><td>Subcategoria comparată</td><td>Text (puține valori)</td><td>Year</td></tr>
+              </tbody>
+            </table>
+            <p class="s5-bar-note"><strong>Variantă.</strong> Fără Legend, punem Sales și Target ca două măsuri în Y-axis.</p>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Avantaje și limite</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes">Cea mai clară comparație între valori.</li>
+              <li class="is-yes">Ideal pentru „Real vs. Plan” sau „anul curent vs. anul trecut”.</li>
+              <li class="is-limit">Nu arată totalul.</li>
+              <li class="is-limit">Cu 12 luni × 3 ani devine aglomerat.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-when">
+            <h3>Când îl alegem?</h3>
+            <p>Când întrebarea este „care e mai mare și cu cât?” pe perioade.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- C · 6 · 100% stacked column -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Graficele column (verticale)</span>
+          <span class="s5-concept-pill">6 · 100% stacked column chart</span>
+        </div>
+        <h2>100% stacked column chart</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Ce este?</h3>
+            <p>Ca Stacked column, dar toate coloanele au aceeași înălțime (100%). Segmentele arată ponderea fiecărei subcategorii.</p>
+            <h3>Cum se citește?</h3>
+            <ul>
+              <li>Fiecare coloană = 100%.</li>
+              <li>Înălțimea segmentului = procentul din total.</li>
+              <li>Urmărim cum crește sau scade ponderea unei culori de la o coloană la alta.</li>
+            </ul>
+            <figure class="s5-hbar-ex">
+              <figcaption>Exemplu · ponderea canalului, de la an la an</figcaption>
+              <div class="s5-vchart">
+                <div class="s5-vitem">
+                  <div class="s5-vstack is-full">
+                    <i class="on" style="--seg:28%"></i>
+                    <i class="shop" style="--seg:72%"></i>
+                  </div>
+                  <span>2023</span>
+                </div>
+                <div class="s5-vitem">
+                  <div class="s5-vstack is-full">
+                    <i class="on" style="--seg:46%"></i>
+                    <i class="shop" style="--seg:54%"></i>
+                  </div>
+                  <span>2024</span>
+                </div>
+                <div class="s5-vitem">
+                  <div class="s5-vstack is-full">
+                    <i class="on" style="--seg:71%"></i>
+                    <i class="shop" style="--seg:29%"></i>
+                  </div>
+                  <span>2025</span>
+                </div>
+              </div>
+              <div class="s5-hbar-legend"><span><i class="on"></i>Online</span><span><i class="shop"></i>Magazin</span></div>
+            </figure>
+          </section>
+          <section class="s5-bar-card">
+            <h3>La ce se folosește?</h3>
+            <p>Pentru a urmări cum se schimbă structura (mixul) în timp sau între grupuri.</p>
+            <h3>La ce întrebări răspunde?</h3>
+            <ul class="s5-bar-qs">
+              <li>Cum s-a schimbat ponderea vânzărilor online de la an la an?</li>
+              <li>Ce procent din clienți sunt noi vs. existenți în fiecare lună?</li>
+              <li>Mixul de produse este același în toate trimestrele?</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Cum îl construim în Power BI?</h3>
+            <p class="s5-bar-path">Vizualizări → 100% Stacked column chart</p>
+            <table class="s5-bar-tbl">
+              <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
+              <tbody>
+                <tr><td>X-axis</td><td>Categoria / timpul</td><td>Text sau dată</td><td>Year</td></tr>
+                <tr><td>Y-axis</td><td>Valoarea de împărțit</td><td>Numeric (agregat)</td><td>Sum of Sales</td></tr>
+                <tr><td>Legend</td><td>Componentele</td><td>Text (puține valori)</td><td>Sales Channel</td></tr>
+              </tbody>
+            </table>
+            <p class="s5-bar-note">Activăm <strong>Data labels</strong> pentru procente. Adăugăm valorile absolute în <strong>Tooltips</strong>.</p>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Avantaje și limite</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes">Arată clar schimbările de structură în timp.</li>
+              <li class="is-limit">Nu se vede dacă totalul a crescut sau a scăzut.</li>
+              <li class="is-limit">Segmentele mici sunt greu de citit.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-when">
+            <h3>Când îl alegem?</h3>
+            <p>Când întrebarea este „cum s-a schimbat structura?”.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- C · Recapitulare -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Bar și column</span>
+          <span class="s5-concept-pill">Recapitulare</span>
+        </div>
+        <h2>Care grafic pentru ce întrebare?</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Întrebarea decide tipul</h3>
+            <table class="s5-bar-tbl">
+              <thead><tr><th>Întrebarea</th><th>Graficul potrivit</th></tr></thead>
+              <tbody>
+                <tr><td>„Cât am în total și din ce e format?”</td><td>Stacked</td></tr>
+                <tr><td>„Care subcategorie e mai mare?”</td><td>Clustered</td></tr>
+                <tr><td>„Ce pondere are fiecare?”</td><td>100% Stacked</td></tr>
+              </tbody>
+            </table>
+          </section>
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Orientarea decide axa</h3>
+            <table class="s5-bar-tbl">
+              <thead><tr><th>Tipul axei</th><th>Orientarea</th></tr></thead>
+              <tbody>
+                <tr><td>Timp sau puține categorii</td><td>Column (vertical)</td></tr>
+                <tr><td>Nume lungi sau multe categorii</td><td>Bar (orizontal)</td></tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+      </article>
+
+      <!-- C · Exercițiu -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Bar și column</span>
+          <span class="s5-concept-pill">Exercițiu</span>
+        </div>
+        <h2>Ce grafic alegeți?</h2>
+        <p class="s5-oneline">Pentru fiecare situație, tipul de grafic urmează întrebarea, iar orientarea urmează axa.</p>
+        <div class="s5-pick-list">
+          <article>
+            <p>Vânzările pe luni, anul curent vs. anul trecut.</p>
+            <span>Clustered column</span>
+          </article>
+          <article>
+            <p>Topul celor 15 produse, împărțite pe canale.</p>
+            <span>Stacked bar</span>
+          </article>
+          <article>
+            <p>Ponderea clienților noi vs. existenți pe trimestre.</p>
+            <span>100% stacked column</span>
+          </article>
+          <article>
+            <p>Bugetul vs. realizatul pe 8 departamente cu nume lungi.</p>
+            <span>Clustered bar</span>
+          </article>
+        </div>
+      </article>
+
+      <!-- C · Demo live -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Bar și column</span>
+          <span class="s5-concept-pill">Demo live</span>
+        </div>
+        <h2>Aceleași câmpuri, altă întrebare</h2>
+        <p class="s5-oneline">Construiește un Stacked column cu Year, Sum of Sales și Product Category. Apoi schimbă doar tipul vizualului, fără să muți câmpurile.</p>
+        <ol class="s5-demo-steps">
+          <li>Stacked column: totalul pe an și din ce categorii e făcut.</li>
+          <li>Clustered column: care categorie e mai mare în fiecare an.</li>
+          <li>100% stacked column: cum se schimbă ponderea, nu mărimea.</li>
+          <li>Varianta bar: aceeași logică, doar orientarea se schimbă. Arată și <strong>Sort axis</strong> și <strong>Data labels</strong>.</li>
+        </ol>
+      </article>
+
+      <!-- E · 1 · Line -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Evoluția în timp</span>
+          <span class="s5-concept-pill">1 · Line chart</span>
+        </div>
+        <h2>Line chart</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Ce este?</h3>
+            <p>Un grafic în care valorile sunt reprezentate prin puncte unite printr-o linie. Este graficul standard pentru evoluția în timp.</p>
+            <h3>Cum se citește?</h3>
+            <ul>
+              <li>Axa orizontală = timpul (zile, luni, ani).</li>
+              <li>Axa verticală = valoarea măsurată.</li>
+              <li>Panta liniei = viteza schimbării. O linie care urcă înseamnă creștere, una care coboară înseamnă scădere.</li>
+              <li>Mai multe linii (din Legend) = mai multe categorii comparate în timp.</li>
+            </ul>
+            <figure class="s5-hbar-ex">
+              <figcaption>Exemplu · vânzări lunare, Nord față de Sud</figcaption>
+              <svg class="s5-mini-svg" viewBox="0 0 340 128" aria-hidden="true">
+                <g stroke="currentColor" stroke-opacity=".16"><line x1="28" y1="24" x2="310" y2="24"/><line x1="28" y1="58" x2="310" y2="58"/><line x1="28" y1="92" x2="310" y2="92"/></g>
+                <polyline fill="none" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="28,70 98,76 168,58 238,62 308,52"/>
+                <polyline fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="28,84 98,66 168,72 238,46 308,28"/>
+                <g fill="#059669"><circle cx="28" cy="84" r="3.5"/><circle cx="98" cy="66" r="3.5"/><circle cx="168" cy="72" r="3.5"/><circle cx="238" cy="46" r="3.5"/><circle cx="308" cy="28" r="3.5"/></g>
+                <g fill="currentColor" opacity=".7"><text x="18" y="116">Ian</text><text x="88" y="116">Apr</text><text x="158" y="116">Iul</text><text x="228" y="116">Oct</text><text x="292" y="116">Dec</text></g>
+              </svg>
+              <div class="s5-hbar-legend"><span><i class="on"></i>Nord</span><span><i class="shop"></i>Sud</span></div>
+            </figure>
+          </section>
+          <section class="s5-bar-card">
+            <h3>La ce se folosește?</h3>
+            <p>Pentru a vedea tendințe (trenduri), sezonalitate și valori neobișnuite în timp.</p>
+            <h3>La ce întrebări răspunde?</h3>
+            <ul class="s5-bar-qs">
+              <li>Cum au evoluat vânzările lună de lună?</li>
+              <li>Există sezonalitate? Vindem mai mult în anumite luni?</li>
+              <li>Care regiune crește mai repede în timp?</li>
+              <li>Când a apărut o scădere neobișnuită?</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Cum îl construim în Power BI?</h3>
+            <p class="s5-bar-path">Vizualizări → Line chart</p>
+            <table class="s5-bar-tbl">
+              <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
+              <tbody>
+                <tr><td>X-axis</td><td>Timpul</td><td>Dată (sau text ordonat)</td><td>Date sau Month</td></tr>
+                <tr><td>Y-axis</td><td>Valoarea măsurată</td><td>Numeric (agregat)</td><td>Sum of Sales</td></tr>
+                <tr><td>Legend</td><td>Categoria care împarte linia</td><td>Text (max. 5–7 valori)</td><td>Region</td></tr>
+                <tr><td>Secondary Y-axis</td><td>O a doua măsură, cu altă scară</td><td>Numeric</td><td>Profit Margin %</td></tr>
+                <tr><td>Small multiples</td><td>Un grafic separat pentru fiecare valoare</td><td>Text</td><td>Product Category</td></tr>
+              </tbody>
+            </table>
+            <p class="s5-bar-note"><strong>Sfat.</strong> Din panoul Analytics (iconița cu lupă) putem adăuga o linie de trend, o linie de medie sau o prognoză (Forecast).</p>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Avantaje și limite</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes">Cel mai clar mod de a arăta un trend.</li>
+              <li class="is-yes">Suportă multe puncte de date (sute de zile).</li>
+              <li class="is-limit">Cu mai mult de 5–6 linii devine un „ghem” greu de urmărit. Folosim Small multiples.</li>
+              <li class="is-limit">Nu se potrivește pentru categorii fără ordine naturală (de exemplu, țări).</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-when">
+            <h3>Când îl alegem?</h3>
+            <p>Ori de câte ori axa este timpul și ne interesează tendința.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- E · 2 · Area -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Evoluția în timp</span>
+          <span class="s5-concept-pill">2 · Area chart</span>
+        </div>
+        <h2>Area chart</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Ce este?</h3>
+            <p>Un Line chart la care zona de sub linie este colorată. Culoarea dă senzația de volum sau de cantitate acumulată.</p>
+            <p>Există trei variante: Area chart (simplu), Stacked area chart (zone suprapuse, arată totalul și componența) și 100% Stacked area chart (arată doar ponderile).</p>
+            <h3>Cum se citește?</h3>
+            <ul>
+              <li>Linia de sus = valoarea în fiecare moment.</li>
+              <li>Suprafața colorată = volumul.</li>
+              <li>La Stacked area, grosimea fiecărei benzi = contribuția categoriei, iar marginea de sus = totalul.</li>
+            </ul>
+            <figure class="s5-hbar-ex">
+              <figcaption>Exemplu · stacked area, vânzări pe categorie</figcaption>
+              <svg class="s5-mini-svg" viewBox="0 0 340 128" aria-hidden="true">
+                <polygon fill="#0ea5e9" fill-opacity=".85" points="28,96 28,78 98,70 168,74 238,58 308,46 308,96"/>
+                <polygon fill="#059669" fill-opacity=".9" points="28,78 98,70 168,74 238,58 308,46 308,30 238,40 168,52 98,48 28,58"/>
+                <polyline fill="none" stroke="currentColor" stroke-opacity=".45" stroke-width="2" points="28,58 98,48 168,52 238,40 308,30"/>
+                <g fill="currentColor" opacity=".7"><text x="18" y="116">Ian</text><text x="88" y="116">Apr</text><text x="158" y="116">Iul</text><text x="228" y="116">Oct</text><text x="292" y="116">Dec</text></g>
+              </svg>
+              <div class="s5-hbar-legend"><span><i class="on"></i>Electronice</span><span><i class="shop"></i>Îmbrăcăminte</span></div>
+            </figure>
+          </section>
+          <section class="s5-bar-card">
+            <h3>La ce se folosește?</h3>
+            <p>Pentru a arăta evoluția în timp a unui volum și, la varianta stacked, cum se schimbă compoziția totalului.</p>
+            <h3>La ce întrebări răspunde?</h3>
+            <ul class="s5-bar-qs">
+              <li>Cum a evoluat volumul total al vânzărilor în timp?</li>
+              <li>Cum s-a schimbat contribuția fiecărei categorii la total, lună de lună?</li>
+              <li>Cât de mare a fost cererea cumulată în perioadele de vârf?</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Cum îl construim în Power BI?</h3>
+            <p class="s5-bar-path">Vizualizări → Area chart (sau Stacked area chart)</p>
+            <table class="s5-bar-tbl">
+              <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
+              <tbody>
+                <tr><td>X-axis</td><td>Timpul</td><td>Dată</td><td>Date</td></tr>
+                <tr><td>Y-axis</td><td>Valoarea măsurată</td><td>Numeric (agregat)</td><td>Sum of Sales</td></tr>
+                <tr><td>Legend</td><td>Subcategoria</td><td>Text (puține valori)</td><td>Product Category</td></tr>
+              </tbody>
+            </table>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Avantaje și limite</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes">Transmite intuitiv ideea de volum și „mărime”.</li>
+              <li class="is-yes">Stacked area arată bine compoziția în timp.</li>
+              <li class="is-limit">La Area simplu cu mai multe serii, zonele se acoperă între ele (folosim transparență sau Stacked).</li>
+              <li class="is-limit">La Stacked, doar banda de jos se compară ușor. Nu este cel mai precis pentru comparații exacte.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-when">
+            <h3>Când îl alegem?</h3>
+            <p>Când vrem să subliniem volumul în timp sau cum se schimbă compoziția totalului. Pentru simplul trend rămânem la Line chart.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- E · 3 · Line and stacked column -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Evoluția în timp</span>
+          <span class="s5-concept-pill">3 · Line and stacked column</span>
+        </div>
+        <h2>Line and stacked column chart</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Ce este?</h3>
+            <p>Un grafic combinat: coloane stacked și o linie în același grafic, pe aceeași axă de timp. Coloanele arată o măsură cu componență, iar linia arată o altă măsură, de obicei cu altă unitate.</p>
+            <h3>Cum se citește?</h3>
+            <ul>
+              <li>Coloanele (citite pe axa din stânga) = volumul, împărțit pe subcategorii.</li>
+              <li>Linia (citită pe axa din dreapta) = o a doua măsură, de exemplu un procent.</li>
+              <li>Ambele se citesc pe aceeași lună sau același an, deci putem vedea legătura între ele.</li>
+            </ul>
+            <figure class="s5-hbar-ex">
+              <figcaption>Exemplu · vânzări pe categorie și marja</figcaption>
+              <svg class="s5-mini-svg" viewBox="0 0 340 140" aria-hidden="true">
+                <g stroke="currentColor" stroke-opacity=".12"><line x1="24" y1="28" x2="316" y2="28"/><line x1="24" y1="62" x2="316" y2="62"/><line x1="24" y1="96" x2="316" y2="96"/></g>
+                <g>
+                  <rect x="46" y="58" width="28" height="38" fill="#059669"/><rect x="46" y="40" width="28" height="18" fill="#0ea5e9"/>
+                  <rect x="124" y="48" width="28" height="48" fill="#059669"/><rect x="124" y="32" width="28" height="16" fill="#0ea5e9"/>
+                  <rect x="202" y="62" width="28" height="34" fill="#059669"/><rect x="202" y="44" width="28" height="18" fill="#0ea5e9"/>
+                  <rect x="280" y="40" width="28" height="56" fill="#059669"/><rect x="280" y="22" width="28" height="18" fill="#0ea5e9"/>
+                </g>
+                <polyline fill="none" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="60,70 138,52 216,64 294,36"/>
+                <g fill="#f59e0b"><circle cx="60" cy="70" r="3.5"/><circle cx="138" cy="52" r="3.5"/><circle cx="216" cy="64" r="3.5"/><circle cx="294" cy="36" r="3.5"/></g>
+                <g fill="currentColor" opacity=".7"><text x="44" y="122">T1</text><text x="122" y="122">T2</text><text x="200" y="122">T3</text><text x="278" y="122">T4</text></g>
+              </svg>
+              <div class="s5-hbar-legend"><span><i class="on"></i>Electronice</span><span><i class="shop"></i>Îmbrăcăminte</span><span><i class="ln"></i>Marjă %</span></div>
+            </figure>
+          </section>
+          <section class="s5-bar-card">
+            <h3>La ce se folosește?</h3>
+            <p>Pentru a pune în același loc volumul cu componență și un indicator diferit (marjă, procent, medie), ca să vedem cum se leagă.</p>
+            <h3>La ce întrebări răspunde?</h3>
+            <ul class="s5-bar-qs">
+              <li>Cum evoluează vânzările pe categorii (coloane) și cum se comportă marja de profit (linie)?</li>
+              <li>Când vânzările cresc, crește și profitabilitatea?</li>
+              <li>Cum se compară volumul pe canale cu numărul de clienți?</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Cum îl construim în Power BI?</h3>
+            <p class="s5-bar-path">Vizualizări → Line and stacked column chart</p>
+            <table class="s5-bar-tbl">
+              <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
+              <tbody>
+                <tr><td>Shared axis</td><td>Timpul (comun)</td><td>Dată / text</td><td>Month</td></tr>
+                <tr><td>Column y-axis</td><td>Măsura pentru coloane</td><td>Numeric (agregat)</td><td>Sum of Sales</td></tr>
+                <tr><td>Column legend</td><td>Împărțirea coloanelor</td><td>Text (puține valori)</td><td>Product Category</td></tr>
+                <tr><td>Line y-axis</td><td>Măsura pentru linie</td><td>Numeric (agregat)</td><td>Profit Margin %</td></tr>
+              </tbody>
+            </table>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Avantaje și limite</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes">Combină două perspective într-un singur vizual.</li>
+              <li class="is-yes">Foarte des folosit în rapoarte de management.</li>
+              <li class="is-limit">Cele două axe verticale au scări diferite și pot induce în eroare. Explicăm mereu ce arată fiecare.</li>
+              <li class="is-limit">Nu supraîncărcăm: o măsură pentru linie, maximum două.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-when">
+            <h3>Când îl alegem?</h3>
+            <p>Când vrem volum cu componență și un indicator de alt tip, în timp.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- E · 4 · Line and clustered column -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Evoluția în timp</span>
+          <span class="s5-concept-pill">4 · Line and clustered column</span>
+        </div>
+        <h2>Line and clustered column chart</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Ce este?</h3>
+            <p>Același principiu ca la cel anterior, dar coloanele sunt clustered (grupate, una lângă alta), nu suprapuse.</p>
+            <h3>Cum se citește?</h3>
+            <ul>
+              <li>Coloanele grupate (axa din stânga) = comparație directă între subcategorii.</li>
+              <li>Linia (axa din dreapta) = o măsură suplimentară.</li>
+            </ul>
+            <figure class="s5-hbar-ex">
+              <figcaption>Exemplu · vânzări vs. țintă și gradul de realizare</figcaption>
+              <svg class="s5-mini-svg" viewBox="0 0 340 140" aria-hidden="true">
+                <line x1="24" y1="96" x2="316" y2="96" stroke="currentColor" stroke-opacity=".2"/>
+                <g>
+                  <rect x="40" y="52" width="16" height="44" fill="#059669"/><rect x="58" y="40" width="16" height="56" fill="#0ea5e9"/>
+                  <rect x="118" y="44" width="16" height="52" fill="#059669"/><rect x="136" y="36" width="16" height="60" fill="#0ea5e9"/>
+                  <rect x="196" y="58" width="16" height="38" fill="#059669"/><rect x="214" y="48" width="16" height="48" fill="#0ea5e9"/>
+                  <rect x="274" y="34" width="16" height="62" fill="#059669"/><rect x="292" y="28" width="16" height="68" fill="#0ea5e9"/>
+                </g>
+                <polyline fill="none" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="57,62 135,46 213,68 291,32"/>
+                <g fill="#f59e0b"><circle cx="57" cy="62" r="3.5"/><circle cx="135" cy="46" r="3.5"/><circle cx="213" cy="68" r="3.5"/><circle cx="291" cy="32" r="3.5"/></g>
+                <g fill="currentColor" opacity=".7"><text x="40" y="122">T1</text><text x="118" y="122">T2</text><text x="196" y="122">T3</text><text x="274" y="122">T4</text></g>
+              </svg>
+              <div class="s5-hbar-legend"><span><i class="on"></i>Sales</span><span><i class="shop"></i>Target</span><span><i class="ln"></i>Realizare %</span></div>
+            </figure>
+          </section>
+          <section class="s5-bar-card">
+            <h3>La ce se folosește?</h3>
+            <p>Pentru a compara precis valori între ele (de exemplu Real vs. Target) și a adăuga peste ele un indicator sub formă de linie.</p>
+            <h3>La ce întrebări răspunde?</h3>
+            <ul class="s5-bar-qs">
+              <li>Cum se compară vânzările reale cu ținta lună de lună, și care este gradul de realizare (%)?</li>
+              <li>Cum se compară vânzările din 2025 cu 2024, și cum evoluează creșterea procentuală?</li>
+              <li>Ce volum avem pe canale, și care este prețul mediu pe lună?</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Cum îl construim în Power BI?</h3>
+            <p class="s5-bar-path">Vizualizări → Line and clustered column chart</p>
+            <table class="s5-bar-tbl">
+              <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
+              <tbody>
+                <tr><td>Shared axis</td><td>Timpul (comun)</td><td>Dată / text</td><td>Month</td></tr>
+                <tr><td>Column y-axis</td><td>Măsurile pentru coloane</td><td>Numeric</td><td>Sales, Target</td></tr>
+                <tr><td>Column legend</td><td>(opțional) Împărțirea coloanelor</td><td>Text</td><td>Year</td></tr>
+                <tr><td>Line y-axis</td><td>Măsura pentru linie</td><td>Numeric</td><td>Achievement %</td></tr>
+              </tbody>
+            </table>
+            <p class="s5-bar-note"><strong>Diferența.</strong> Stacked = „cât în total și din ce e făcut”. Clustered = „care e mai mare între ele”.</p>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Avantaje și limite</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes">Comparație precisă (coloane) și tendință sau indicator (linie).</li>
+              <li class="is-yes">Ideal pentru rapoarte „Real vs. Plan” cu procent de realizare.</li>
+              <li class="is-limit">Aceleași limite cu axa dublă: explicăm scările.</li>
+              <li class="is-limit">Prea multe coloane grupate fac graficul aglomerat.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-when">
+            <h3>Când îl alegem?</h3>
+            <p>Când vrem comparație directă și un indicator pe aceeași axă de timp.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- E · 5 · Treemap -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Compoziție și indicatori</span>
+          <span class="s5-concept-pill">5 · Treemap</span>
+        </div>
+        <h2>Treemap</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Ce este?</h3>
+            <p>Un grafic format din dreptunghiuri așezate unele lângă altele. Mărimea fiecărui dreptunghi este proporțională cu valoarea.</p>
+            <h3>Cum se citește?</h3>
+            <ul>
+              <li>Suprafața dreptunghiului = cât de mare este valoarea.</li>
+              <li>Dreptunghiurile mari = contribuții mari la total.</li>
+              <li>Dacă folosim și Details, un dreptunghi mare se împarte în dreptunghiuri mai mici (subcategorii).</li>
+            </ul>
+            <figure class="s5-hbar-ex">
+              <figcaption>Exemplu · vânzări pe categorie de produs</figcaption>
+              <div class="s5-tmap">
+                <div class="a">Electronice<b>48%</b></div>
+                <div class="b">Îmbrăcăminte<b>31%</b></div>
+                <div class="c">Casă<b>21%</b></div>
+              </div>
+            </figure>
+          </section>
+          <section class="s5-bar-card">
+            <h3>La ce se folosește?</h3>
+            <p>Pentru a vedea rapid ce contribuie cel mai mult dintr-un total, mai ales când avem multe categorii (unde Pie chart nu mai funcționează).</p>
+            <h3>La ce întrebări răspunde?</h3>
+            <ul class="s5-bar-qs">
+              <li>Care sunt categoriile și subcategoriile cu cele mai mari vânzări?</li>
+              <li>Cât din total reprezintă fiecare produs?</li>
+              <li>Unde se concentrează cea mai mare parte a valorii, și unde sunt „cozile lungi” de valori mici?</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Cum îl construim în Power BI?</h3>
+            <p class="s5-bar-path">Vizualizări → Treemap</p>
+            <table class="s5-bar-tbl">
+              <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
+              <tbody>
+                <tr><td>Category</td><td>Categoria principală</td><td>Text</td><td>Product Category</td></tr>
+                <tr><td>Details</td><td>(opțional) Subcategoria</td><td>Text</td><td>Product Name</td></tr>
+                <tr><td>Values</td><td>Valoarea care dă mărimea</td><td>Numeric (agregat)</td><td>Sum of Sales</td></tr>
+                <tr><td>Tooltips</td><td>Informații suplimentare</td><td>Orice</td><td>Profit</td></tr>
+              </tbody>
+            </table>
+            <p class="s5-bar-note"><strong>Notă.</strong> În Treemap, zona se numește Category, nu Legend. Ea dă și culorile.</p>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Avantaje și limite</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes">Folosește foarte eficient spațiul, chiar și cu zeci de categorii.</li>
+              <li class="is-yes">Vedem imediat „câștigătorii”.</li>
+              <li class="is-limit">Comparația exactă între dreptunghiuri este dificilă (comparăm suprafețe, nu lungimi).</li>
+              <li class="is-limit">Nu funcționează cu valori negative și nu arată evoluția în timp.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-when">
+            <h3>Când îl alegem?</h3>
+            <p>Când vrem o imagine de ansamblu asupra compoziției, cu multe categorii. Pentru comparații exacte alegem Bar chart.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- E · 6 · Gauge -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Compoziție și indicatori</span>
+          <span class="s5-concept-pill">6 · Gauge</span>
+        </div>
+        <h2>Gauge</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Ce este?</h3>
+            <p>Un grafic în formă de semicerc, ca un vitezometru, care arată cât de aproape suntem de un obiectiv.</p>
+            <h3>Cum se citește?</h3>
+            <ul>
+              <li>Arcul colorat = valoarea curentă.</li>
+              <li>Capătul din stânga = valoarea minimă, capătul din dreapta = valoarea maximă.</li>
+              <li>Linia (acul) de pe arc = ținta (Target).</li>
+            </ul>
+            <figure class="s5-hbar-ex">
+              <figcaption>Exemplu · vânzări față de ținta anuală</figcaption>
+              <svg class="s5-mini-svg" viewBox="0 0 340 156" aria-hidden="true">
+                <path d="M70 122 A100 100 0 0 1 270 122" fill="none" stroke="currentColor" stroke-opacity=".16" stroke-width="18"/>
+                <path d="M70 122 A100 100 0 0 1 247 56" fill="none" stroke="#059669" stroke-width="18"/>
+                <line x1="170" y1="122" x2="265" y2="89" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="170" cy="122" r="5" fill="#f59e0b"/>
+                <text x="58" y="146" fill="currentColor" opacity=".7">0</text>
+                <text x="248" y="146" fill="currentColor" opacity=".7">Buget</text>
+                <text x="150" y="112" fill="currentColor" font-size="16" font-weight="700">78%</text>
+              </svg>
+              <div class="s5-hbar-legend"><span><i class="on"></i>Sales</span><span><i class="ln"></i>Target</span></div>
+            </figure>
+          </section>
+          <section class="s5-bar-card">
+            <h3>La ce se folosește?</h3>
+            <p>Pentru a urmări progresul față de un obiectiv printr-o singură valoare.</p>
+            <h3>La ce întrebări răspunde?</h3>
+            <ul class="s5-bar-qs">
+              <li>Cât din ținta anuală de vânzări am realizat până acum?</li>
+              <li>Cât de aproape suntem de bugetul planificat?</li>
+              <li>Ne încadrăm în limita de costuri?</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Cum îl construim în Power BI?</h3>
+            <p class="s5-bar-path">Vizualizări → Gauge</p>
+            <table class="s5-bar-tbl">
+              <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
+              <tbody>
+                <tr><td>Value</td><td>Valoarea curentă</td><td>Numeric (agregat)</td><td>Sum of Sales</td></tr>
+                <tr><td>Minimum value</td><td>Valoarea de start</td><td>Număr / măsură</td><td>0</td></tr>
+                <tr><td>Maximum value</td><td>Valoarea maximă posibilă</td><td>Număr / măsură</td><td>Budget</td></tr>
+                <tr><td>Target value</td><td>Ținta</td><td>Număr / măsură</td><td>Target Sales</td></tr>
+              </tbody>
+            </table>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Avantaje și limite</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes">Se înțelege instant, fără explicații.</li>
+              <li class="is-yes">Arată clar „cât mai avem până la țintă”.</li>
+              <li class="is-limit">Arată o singură valoare, deci ocupă mult spațiu pentru puțină informație.</li>
+              <li class="is-limit">Nu arată evoluția în timp. Comparația între mai multe gauge-uri este dificilă. Pentru mai multe ținte, folosim Bar chart sau Bullet chart.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-when">
+            <h3>Când îl alegem?</h3>
+            <p>Când avem un singur indicator raportat la o țintă, într-un dashboard de management.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- E · 7 · Card -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Compoziție și indicatori</span>
+          <span class="s5-concept-pill">7 · Card</span>
+        </div>
+        <h2>Card</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Ce este?</h3>
+            <p>Un vizual care afișează o singură valoare, mare și clară. Este KPI-ul din raport.</p>
+            <h3>Cum se citește?</h3>
+            <p>Se citește direct: numărul afișat și eticheta de sub el. Fără axe, fără legende.</p>
+            <figure class="s5-hbar-ex">
+              <figcaption>Exemplu · KPI de vânzări</figcaption>
+              <div class="s5-card-ex">
+                <span>Sum of Sales</span>
+                <strong>1,24 M</strong>
+                <em>+6% față de țintă</em>
+              </div>
+            </figure>
+          </section>
+          <section class="s5-bar-card">
+            <h3>La ce se folosește?</h3>
+            <p>Pentru a scoate în față cele mai importante cifre ale raportului, de obicei în partea de sus.</p>
+            <h3>La ce întrebări răspunde?</h3>
+            <ul class="s5-bar-qs">
+              <li>Care sunt vânzările totale?</li>
+              <li>Câți clienți avem?</li>
+              <li>Care este profitul total? Care este valoarea medie a unei comenzi?</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Cum îl construim în Power BI?</h3>
+            <p class="s5-bar-path">Vizualizări → Card (în versiunile noi, Card (new))</p>
+            <table class="s5-bar-tbl">
+              <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
+              <tbody>
+                <tr><td>Fields</td><td>Valoarea afișată</td><td>Numeric (agregat sau măsură)</td><td>Sum of Sales</td></tr>
+              </tbody>
+            </table>
+            <p class="s5-bar-note">Există și varianta Multi-row card, care afișează mai multe valori într-un singur vizual. Cardul nou permite și adăugarea mai multor valori și a unor referințe (de exemplu, comparație cu anul trecut).</p>
+            <p class="s5-bar-note"><strong>Sfat.</strong> Cardurile reacționează la filtre și slicere. Dacă selectăm o regiune, cifra se schimbă.</p>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Avantaje și limite</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes">Simplu, rapid, impact vizual maxim.</li>
+              <li class="is-yes">Ideal pentru KPI-uri.</li>
+              <li class="is-limit">Nu oferă context (dacă 1 M este mult sau puțin). Adăugăm titlu clar și, dacă se poate, o comparație.</li>
+              <li class="is-limit">Nu arată evoluția.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-when">
+            <h3>Când îl alegem?</h3>
+            <p>Când o cifră este atât de importantă încât trebuie să fie văzută prima.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- E · 8 · Table -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Detaliu și explorare</span>
+          <span class="s5-concept-pill">8 · Table</span>
+        </div>
+        <h2>Table</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Ce este?</h3>
+            <p>Datele afișate sub formă de rânduri și coloane, ca într-un tabel Excel.</p>
+            <h3>Cum se citește?</h3>
+            <ul>
+              <li>Fiecare rând = o înregistrare (sau un grup).</li>
+              <li>Fiecare coloană = un câmp.</li>
+              <li>La final poate apărea un rând de Total.</li>
+            </ul>
+            <figure class="s5-hbar-ex">
+              <figcaption>Exemplu · vânzări pe produs și regiune</figcaption>
+              <table class="s5-bar-tbl">
+                <thead><tr><th>Product</th><th>Region</th><th>Sales</th></tr></thead>
+                <tbody>
+                  <tr><td>Laptop</td><td>Nord</td><td>186.400</td></tr>
+                  <tr><td>Laptop</td><td>Sud</td><td>142.100</td></tr>
+                  <tr><td>Geacă</td><td>Nord</td><td>98.750</td></tr>
+                  <tr><td>Total</td><td></td><td>427.250</td></tr>
+                </tbody>
+              </table>
+            </figure>
+          </section>
+          <section class="s5-bar-card">
+            <h3>La ce se folosește?</h3>
+            <p>Când avem nevoie de valori exacte sau de detalii (nu doar de o imagine de ansamblu).</p>
+            <h3>La ce întrebări răspunde?</h3>
+            <ul class="s5-bar-qs">
+              <li>Care este valoarea exactă a vânzărilor pentru fiecare produs?</li>
+              <li>Care sunt comenzile individuale dintr-o perioadă?</li>
+              <li>Ce clienți au cele mai mari solduri, cu toate detaliile lor?</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Cum îl construim în Power BI?</h3>
+            <p class="s5-bar-path">Vizualizări → Table</p>
+            <table class="s5-bar-tbl">
+              <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
+              <tbody>
+                <tr><td>Columns</td><td>Orice câmpuri dorite</td><td>Text, dată, numeric (agregat)</td><td>Product, Region, Sum of Sales, Quantity</td></tr>
+              </tbody>
+            </table>
+            <p class="s5-bar-note"><strong>Trucuri.</strong> Clic pe antetul coloanei = sortare. Conditional formatting (culori, bare de date, iconițe) evidențiază valorile importante. Putem redenumi coloanele și activa sau dezactiva totalurile.</p>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Avantaje și limite</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes">Precizie maximă, vedem cifrele exacte.</li>
+              <li class="is-yes">Perfect pentru detalii și verificări.</li>
+              <li class="is-limit">Nu arată tendințe sau tipare, ci trebuie citit rând cu rând.</li>
+              <li class="is-limit">Cu multe coloane sau rânduri devine greu de citit.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-when">
+            <h3>Când îl alegem?</h3>
+            <p>Când utilizatorul are nevoie de cifre exacte sau de lista detaliată.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- E · 9 · Matrix -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Detaliu și explorare</span>
+          <span class="s5-concept-pill">9 · Matrix</span>
+        </div>
+        <h2>Matrix</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Ce este?</h3>
+            <p>Un tabel mai avansat, cu rânduri și coloane grupate (asemănător unui Pivot Table din Excel). Poate fi extins și restrâns pe niveluri.</p>
+            <h3>Cum se citește?</h3>
+            <ul>
+              <li>Rândurile = o categorie (sau o ierarhie).</li>
+              <li>Coloanele = o a doua categorie.</li>
+              <li>Celula de la intersecție = valoarea pentru combinația respectivă.</li>
+              <li>Sunt afișate subtotaluri și totaluri.</li>
+            </ul>
+            <figure class="s5-hbar-ex">
+              <figcaption>Exemplu · categorie × regiune, Sum of Sales</figcaption>
+              <table class="s5-bar-tbl">
+                <thead><tr><th></th><th>Nord</th><th>Sud</th><th>Total</th></tr></thead>
+                <tbody>
+                  <tr><td>Electronice</td><td>310</td><td>240</td><td>550</td></tr>
+                  <tr><td>Îmbrăcăminte</td><td>180</td><td>210</td><td>390</td></tr>
+                  <tr><td>Total</td><td>490</td><td>450</td><td>940</td></tr>
+                </tbody>
+              </table>
+            </figure>
+          </section>
+          <section class="s5-bar-card">
+            <h3>La ce se folosește?</h3>
+            <p>Pentru a analiza o valoare pe două dimensiuni simultan și pentru a explora ierarhii (de la an la trimestru, la lună).</p>
+            <h3>La ce întrebări răspunde?</h3>
+            <ul class="s5-bar-qs">
+              <li>Cât s-a vândut pentru fiecare categorie de produs, în fiecare regiune?</li>
+              <li>Care este evoluția pe ani, cu detaliu pe trimestre și luni?</li>
+              <li>Ce combinații regiune × produs performează cel mai bine (sau cel mai slab)?</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Cum îl construim în Power BI?</h3>
+            <p class="s5-bar-path">Vizualizări → Matrix</p>
+            <table class="s5-bar-tbl">
+              <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
+              <tbody>
+                <tr><td>Rows</td><td>Prima dimensiune (poate fi ierarhie)</td><td>Text / dată</td><td>Region → Country</td></tr>
+                <tr><td>Columns</td><td>A doua dimensiune</td><td>Text / dată</td><td>Year</td></tr>
+                <tr><td>Values</td><td>Valoarea din celule</td><td>Numeric (agregat)</td><td>Sum of Sales</td></tr>
+              </tbody>
+            </table>
+            <p class="s5-bar-note"><strong>Trucuri.</strong> Butoanele + / − sau săgețile de drill down deschid nivelurile ierarhiei. Conditional formatting (heatmap în celule) evidențiază rapid valorile mari și mici. Putem afișa sau ascunde subtotalurile.</p>
+            <p class="s5-bar-note"><strong>Diferența Table vs. Matrix.</strong> Table = listă simplă de rânduri. Matrix = grupare pe rânduri și coloane, cu totaluri și niveluri.</p>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Avantaje și limite</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes">Analiză pe două dimensiuni, cu totaluri automate.</li>
+              <li class="is-yes">Exploratoriu: extindem sau restrângem după nevoie.</li>
+              <li class="is-limit">Nu arată vizual tendințe, dar culorile (conditional formatting) ajută mult.</li>
+              <li class="is-limit">Se aglomerează dacă avem prea multe rânduri sau coloane.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-when">
+            <h3>Când îl alegem?</h3>
+            <p>Când vrem un tabel încrucișat (pivot) cu totaluri și posibilitate de explorare.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- E · 10 · Decomposition tree -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Detaliu și explorare</span>
+          <span class="s5-concept-pill">10 · Decomposition tree</span>
+        </div>
+        <h2>Decomposition tree</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Ce este?</h3>
+            <p>Un vizual de explorare: pornim de la o măsură și o descompunem, pas cu pas, pe dimensiunile pe care le alegem. Power BI poate și propune singur împărțirea care separă cel mai bine valorile mari de cele mici.</p>
+            <h3>Cum se citește?</h3>
+            <ul>
+              <li>Nodul din stânga = măsura analizată (de exemplu Sum of Sales).</li>
+              <li>Ramurile = valorile unei dimensiuni (regiune, categorie, canal).</li>
+              <li>Mărimea barei din nod = contribuția acelei valori.</li>
+              <li>Nivelul următor explică nodul pe care am apăsat.</li>
+            </ul>
+            <figure class="s5-hbar-ex">
+              <figcaption>Exemplu · vânzările explicate pe regiune, apoi pe canal</figcaption>
+              <div class="s5-dtree">
+                <div class="s5-dnode">Sum of Sales<b>1,24 M</b></div>
+                <div class="s5-dbranch">
+                  <div class="s5-drow">
+                    <div class="s5-dnode">Nord<b>680 k</b></div>
+                    <div class="s5-dbranch">
+                      <div class="s5-dnode is-ai">Online<b>410 k</b></div>
+                    </div>
+                  </div>
+                  <div class="s5-dnode">Sud<b>560 k</b></div>
+                </div>
+              </div>
+            </figure>
+          </section>
+          <section class="s5-bar-card">
+            <h3>La ce se folosește?</h3>
+            <p>Pentru a căuta cauza unei cifre: unde se concentrează vânzările și ce combinație de regiune, categorie și canal o explică. Este un instrument de explorare, nu un grafic static de dashboard.</p>
+            <h3>La ce întrebări răspunde?</h3>
+            <ul class="s5-bar-qs">
+              <li>De unde vine cea mai mare parte a vânzărilor?</li>
+              <li>În ce regiune, pe ce categorie și pe ce canal se concentrează valoarea?</li>
+              <li>Ce diferențiază valorile mari de cele mici?</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Cum îl construim în Power BI?</h3>
+            <p class="s5-bar-path">Vizualizări → Decomposition tree</p>
+            <table class="s5-bar-tbl">
+              <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
+              <tbody>
+                <tr><td>Analyze</td><td>Măsura pe care o explicăm</td><td>Numeric (agregat)</td><td>Sum of Sales</td></tr>
+                <tr><td>Explain by</td><td>Dimensiunile pe care le putem deschide</td><td>Text / dată</td><td>Region, Product Category, Channel, Year</td></tr>
+              </tbody>
+            </table>
+            <p class="s5-bar-note"><strong>În vizual.</strong> Plusul de lângă un nod alege dimensiunea. AI splits adaugă High value (contribuția cea mai mare) și Low value (cea mai mică); nodul generat așa e marcat cu un bec. Din Format comutăm Absolute (valoarea brută) și Relative (valoarea care iese în evidență față de restul nivelului).</p>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Avantaje și limite</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes">Arată drumul de la total la detaliu, pe dimensiunile alese de utilizator.</li>
+              <li class="is-yes">AI splits sugerează împărțirea care separă cel mai clar valorile.</li>
+              <li class="is-limit">Nu este un grafic de prezentat pasiv: cere click-uri ca să fie citit.</li>
+              <li class="is-limit">Cu prea multe dimensiuni în Explain by, explorarea se pierde. Păstrăm 3–5.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-when">
+            <h3>Când îl alegem?</h3>
+            <p>Când întrebarea este „de ce această cifră?” și vrem să deschidem regiunea, categoria, canalul și anul până găsim combinația care o explică.</p>
+          </section>
+        </div>
+      </article>
+
+    </main>
+
+    <nav class="slide-nav">
+      <button class="slide-nav-btn" data-slide-prev>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Înapoi
+      </button>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+        <div class="slide-counter" data-slide-counter>1 / 2</div>
+        <div class="slide-dots" data-slide-dots></div>
+      </div>
+      <button class="slide-nav-btn" data-slide-next>
+        Următor
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </nav>
+  </div>
+  <script src="../../js/main.js"></script>
+  <script src="../../js/s05.js?v=7"></script>
+</body>
+</html>
