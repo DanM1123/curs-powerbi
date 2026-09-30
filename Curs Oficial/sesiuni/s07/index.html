@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Power BI · Sesiunea 7 · Interactivitate</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23059669'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='56' font-weight='900' text-anchor='middle' fill='white'%3E7%3C/text%3E%3C/svg%3E" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/session.css" />
+  <link rel="stylesheet" href="../../css/extras.css" />
+  <link rel="stylesheet" href="../../css/s02.css" />
+  <link rel="stylesheet" href="../../css/s03.css" />
+  <link rel="stylesheet" href="../../css/s04.css?v=82" />
+  <link rel="stylesheet" href="../../css/s05.css?v=33" />
+  <link rel="stylesheet" href="../../css/s06.css?v=6" />
+  <link rel="stylesheet" href="../../css/s07.css?v=4" />
+  <script src="../../js/gate.js"></script>
+  <script src="../../js/firebase-init.js"></script>
+</head>
+<body class="hub-page s05-page s06-page s07-page" data-poll-root="curs-oficial/s07/polls">
+  <div class="hub-orbits" aria-hidden="true">
+    <div class="hub-orb a"></div>
+    <div class="hub-orb b"></div>
+    <div class="hub-orb c"></div>
+  </div>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="../../index.html" class="brand">
+        <span class="brand-mark">P</span>
+        <span>Power BI · Sesiunea 7</span>
+      </a>
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" aria-label="Schimbă tema">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="student-shell">
+    <div class="slide-progress"><div class="fill" data-slide-progress></div></div>
+    <main class="slide-deck">
+
+      <!-- 01 · Copertă -->
+      <article class="slide active s4-cover">
+        <div class="s4-cover-inner">
+          <span class="slide-eyebrow">Sesiunea 7</span>
+          <h1>Interactivitate</h1>
+          <p>Un raport bun nu doar arată cifre: îl lasă pe utilizator să <strong>pună întrebări</strong>. Azi construim uneltele prin care face asta: <strong>slicere, filtre, interacțiuni, tooltips și bookmarks</strong>.</p>
+          <p class="s6-cover-q">Firul roșu: fiecare click pune un filtru. Întrebarea e <strong>cine îl pune și până unde ajunge</strong>.</p>
+        </div>
+      </article>
+
+      <!-- 02 · Recapitulare S6 -->
+      <article class="slide">
+        <span class="slide-eyebrow">Recapitulare · sesiunea 6</span>
+        <h2>Ce am învățat despre DAX?</h2>
+        <p class="s3-lead">Gândește răspunsul, apoi apasă <strong>Arată răspunsul</strong>.</p>
+        <div data-s3-recap>
+          <div class="s3-recap-top">
+            <span class="s3-recap-count" data-s3-recap-count>01 / 03</span>
+            <div class="s3-recap-nav">
+              <button type="button" data-s3-recap-prev>Înapoi</button>
+              <button type="button" data-s3-recap-next>Înainte</button>
+            </div>
+          </div>
+
+          <section class="s3-q is-on" data-s3-q>
+            <h3>Filter context</h3>
+            <p class="ask">Aceeași măsură <code>[Total Vanzari]</code> arată 560.544,56 într-un card și 167.849,85 în altul. Cum e posibil?</p>
+            <div class="s3-answer">
+              <p>Formula e aceeași; se schimbă <strong>rândurile</strong> pe care le vede. Al doilea card are un filtru (de exemplu Regiune = Nord-Vest). Asta e <strong>filter context</strong>. Azi vedem toate felurile prin care utilizatorul pune astfel de filtre.</p>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>CALCULATE</h3>
+            <p class="ask">Slicerul spune Categorie = Alimente, măsura <code>[Vanzari Electronice]</code> spune Categorie = Electronice. Ce câștigă?</p>
+            <div class="s3-answer">
+              <p>Filtrul din <strong>CALCULATE</strong> înlocuiește filtrul din slicer pe aceeași coloană. Măsura arată tot vânzările de Electronice. Reține asta: când un slicer „nu merge”, uneori vina e în măsură, nu în slicer.</p>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>Măsuri gata de folosit</h3>
+            <p class="ask">Ce măsuri din sesiunea 6 ne trebuie azi?</p>
+            <div class="s3-answer">
+              <p><code>[Total Vanzari]</code>, <code>[Numar linii]</code> și <code>[Numar clienti]</code>. Dacă lipsesc din fișier, scrie-le acum: SUM, COUNTROWS și DISTINCTCOUNT pe tabelul <code>Vanzari</code>.</p>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+        </div>
+      </article>
+
+      <!-- 03 · Harta -->
+      <article class="slide s5-framework">
+        <span class="slide-eyebrow">Sesiunea 7 · hartă</span>
+        <h2>Patru unelte, un singur mecanism</h2>
+        <p class="s5-oneline">Toate uneltele de azi adaugă, schimbă sau salvează <strong>filtre</strong>. Fiecare parte se încheie cu un exercițiu în Power BI Desktop.</p>
+        <div class="s6-route">
+          <article>
+            <span class="n">01</span>
+            <h3>Slicere</h3>
+            <p>Filtrul pe care îl vede și îl alege utilizatorul, direct pe pagină.</p>
+            <span class="s6-route-fx">listă · dropdown · butoane · interval</span>
+          </article>
+          <article>
+            <span class="n">02</span>
+            <h3>Filtre și interacțiuni</h3>
+            <p>Panoul de filtre, click-ul pe grafice și drill-ul spre detaliu.</p>
+            <span class="s6-route-fx">Filters pane · Edit interactions · drillthrough</span>
+          </article>
+          <article>
+            <span class="n">03</span>
+            <h3>Tooltips</h3>
+            <p>Informație în plus la hover, fără să aglomerezi pagina.</p>
+            <span class="s6-route-fx">câmpuri · report page tooltip</span>
+          </article>
+          <article>
+            <span class="n">04</span>
+            <h3>Bookmarks</h3>
+            <p>Salvezi o stare a paginii și o readuci cu un buton.</p>
+            <span class="s6-route-fx">Bookmarks · Selection · butoane</span>
+          </article>
+        </div>
+        <p class="s06-takeaway"><strong>Date:</strong> fișierul din sesiunea 6 (modelul <code>Vanzari</code> din S5, cu măsurile DAX). Rezultatele așteptate din exerciții sunt calculate pe acest set.</p>
+      </article>
+
+      <!-- 04 · Pagina de lucru -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Pregătire</span>
+          <span class="s5-concept-pill is-fw">Pagina de lucru</span>
+        </div>
+        <h2>Construim o pagină pe care o folosim toată sesiunea</h2>
+        <p class="s5-oneline">Pagină nouă, numită <strong>Explorare</strong>. Lasă o coloană liberă în stânga pentru slicere.</p>
+        <div class="s7-canvas">
+          <div class="is-slicer"><b>Zona de slicere</b>o completăm în partea 1</div>
+          <div class="is-card"><b><span class="n">1</span>Card</b><strong>560.544,56</strong>[Total Vanzari]</div>
+          <div><b><span class="n">2</span>Clustered bar chart</b>Y: <code>Dim_Produse[Categorie]</code> · X: <code>[Total Vanzari]</code></div>
+          <div><b><span class="n">3</span>Clustered column chart</b>X: <code>Vanzari[Canal_Vanzare]</code> · Y: <code>[Total Vanzari]</code></div>
+          <div><b><span class="n">4</span>Table</b><code>Dim_Produse[Nume_Produs]</code>, <code>[Total Vanzari]</code>, <code>[Numar linii]</code></div>
+        </div>
+        <div class="s5-bar-grid" style="margin-top:12px">
+          <section class="s5-bar-card">
+            <h3>Verifică înainte să mergi mai departe</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes">Cardul arată <strong>560.544,56</strong>.</li>
+              <li class="is-yes">Bara cea mai lungă e <strong>Electronice</strong> (415.101,05).</li>
+              <li class="is-yes">Canalul cel mai mare e <strong>Telefon</strong> (185.644,47), la mică distanță de Partener B2B.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card">
+            <h3>De ce așa?</h3>
+            <p>Patru vizuale care arată aceleași date din unghiuri diferite. Când apeși pe unul, vezi imediat ce se întâmplă cu celelalte. Folosește <strong>măsurile</strong> tale, nu coloana <code>Valoare_Totala</code> trasă direct.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- 05 · Unde ajunge un filtru -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Ideea de bază</span>
+          <span class="s5-concept-pill is-fw">Raza unui filtru</span>
+        </div>
+        <h2>Până unde ajunge un filtru?</h2>
+        <p class="s5-oneline">Fiecare filtru are o <strong>rază</strong>. Toate filtrele active se adună și formează filter contextul din sesiunea 6.</p>
+        <div class="s7-scope">
+          <div class="s7-nest">
+            <div class="s7-nest-lbl"><b>Toate paginile</b><span>Filters pane · Filters on all pages</span></div>
+            <div class="s7-nest">
+              <div class="s7-nest-lbl"><b>O pagină</b><span>Filters on this page · slicer (implicit)</span></div>
+              <div class="s7-nest is-visual">
+                <div class="s7-nest-lbl"><b>Un singur vizual</b><span>Filters on this visual · Top N</span></div>
+                <div class="s7-nest is-click">
+                  <div class="s7-nest-lbl"><b>Click pe un grafic</b><span>cross-filter · temporar</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <section class="s5-bar-card">
+            <h3>Cum citești schema</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-tip"><strong>Toate paginile:</strong> reguli pentru tot raportul. Ex: doar anii 2022–2025.</li>
+              <li class="is-tip"><strong>O pagină:</strong> slicerele și filtrele de pagină. Ex: pagina „Online” vede doar canalul Online.</li>
+              <li class="is-tip"><strong>Un vizual:</strong> doar acel grafic. Ex: Top 3 categorii.</li>
+              <li class="is-tip"><strong>Click:</strong> filtrul pus de utilizator apăsând pe o bară. Dispare la al doilea click.</li>
+            </ul>
+            <p style="margin-top:10px">Când un număr te surprinde, verifică pe rând toate nivelurile.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- 06 · Slicer · ce este -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Slicere</span>
+          <span class="s5-concept-pill">Ce este un slicer</span>
+        </div>
+        <h2>Slicer: filtrul pus la vedere</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Ce este?</h3>
+            <p>Un vizual care nu arată cifre, ci <strong>opțiuni</strong>. Utilizatorul alege una sau mai multe, iar toate vizualele de pe pagină se recalculează pe rândurile rămase.</p>
+            <h3>Pe ce coloane îl pui?</h3>
+            <ul>
+              <li>Coloane din <strong>dimensiuni</strong>: Regiune, Categorie, An, Segment client.</li>
+              <li>Coloane text din fact cu puține valori: Canal_Vanzare, Status_Plata.</li>
+              <li>Nu pe coloane cu mii de valori unice (ID-uri, sume).</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Cum îl construim în Power BI?</h3>
+            <ol class="s7-steps">
+              <li>Click pe o zonă goală a paginii (ca să nu modifici alt vizual).</li>
+              <li><span class="s7-ui">Visualizations</span> → pictograma <strong>Slicer</strong>.</li>
+              <li>Trage <code>Dim_Magazine[Regiune]</code> în <span class="s7-ui">Field</span>.</li>
+              <li><span class="s7-ui">Format visual</span> → <span class="s7-ui">Slicer settings</span> → <span class="s7-ui">Style</span>: alegi forma (listă, dropdown…).</li>
+            </ol>
+          </section>
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Stiluri de slicer și când le folosești</h3>
+            <table class="s5-bar-tbl">
+              <thead><tr><th>Stil</th><th>Arată</th><th>Potrivit pentru</th><th>Exemplu în Vanzari</th></tr></thead>
+              <tbody>
+                <tr><td>Vertical list</td><td>Listă cu bife</td><td>5–15 valori, vrei să le vezi pe toate</td><td>Regiune (5)</td></tr>
+                <tr><td>Dropdown</td><td>Listă ascunsă, se deschide la click</td><td>Multe valori, spațiu puțin</td><td>Nume_Produs (24)</td></tr>
+                <tr><td>Tile / Buttons</td><td>Butoane una lângă alta</td><td>2–6 valori, alegere rapidă</td><td>An, Canal_Vanzare</td></tr>
+                <tr><td>Between</td><td>Interval cu două capete</td><td>Numere și date</td><td>Dim_Date[Data], Cantitate</td></tr>
+                <tr><td>Relative date</td><td>„Ultimele N zile / luni”</td><td>Rapoarte care se actualizează singure</td><td>Ultimele 3 luni</td></tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+      </article>
+
+      <!-- 07 · Setările slicerului -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Slicere</span>
+          <span class="s5-concept-pill">Setări care contează</span>
+        </div>
+        <h2>Cum se comportă slicerul</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Selecție</h3>
+            <p class="s5-bar-path">Format visual → Slicer settings → Selection</p>
+            <ul class="s5-bar-limits">
+              <li class="is-tip"><strong>Single select:</strong> o singură valoare odată. Bun pentru An.</li>
+              <li class="is-tip"><strong>Multi-select with Ctrl:</strong> pornit = selecție multiplă doar cu Ctrl. Oprit = fiecare click adaugă.</li>
+              <li class="is-tip"><strong>Show "Select all":</strong> o opțiune care bifează tot.</li>
+            </ul>
+            <h3>Utile pentru cititor</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes"><strong>Search</strong> (meniul <span class="s7-ui">…</span> al slicerului) la liste lungi.</li>
+              <li class="is-yes"><strong>Clear selections</strong> (radiera din colț) readuce „toate valorile”.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Sync slicers · același filtru pe mai multe pagini</h3>
+            <p>Implicit, un slicer filtrează doar pagina lui. Dacă vrei ca alegerea „2024” să rămână când treci pe altă pagină, îl sincronizezi.</p>
+            <ol class="s7-steps">
+              <li>Selectează slicerul.</li>
+              <li><span class="s7-ui">View</span> → <span class="s7-ui">Sync slicers</span>.</li>
+              <li>Coloana <strong>sync</strong> (↻): bifezi paginile pe care slicerul <em>filtrează</em>.</li>
+              <li>Coloana <strong>visible</strong> (👁): bifezi paginile pe care slicerul <em>apare</em>.</li>
+            </ol>
+            <p style="margin-top:8px">Poți sincroniza fără să-l afișezi: filtrează pagina, dar nu ocupă loc.</p>
+          </section>
+          <section class="s5-bar-card s5-bar-when">
+            <h3>Regula de aur</h3>
+            <p>Maximum 3–4 slicere pe pagină, aliniate în aceeași zonă (stânga sau sus). Dacă ai nevoie de mai multe, mută-le în panoul de filtre.</p>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Capcane</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-limit">Slicer pe <code>Dim_Clienti[Regiune]</code> când graficele folosesc <code>Dim_Magazine[Regiune]</code>: filtrezi alt lucru decât crezi.</li>
+              <li class="is-limit">Slicerul arată o selecție veche pentru că raportul a fost salvat așa. Curăță selecțiile înainte de publicare.</li>
+            </ul>
+          </section>
+        </div>
+      </article>
+
+      <!-- 08 · Exercițiu 1 -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Slicere</span>
+          <span class="s5-concept-pill is-fw">Exercițiu 1</span>
+        </div>
+        <h2>Trei slicere pe pagina Explorare</h2>
+        <div class="s7-ex-head"><span class="s7-ex-tag">În Power BI</span> <span>Lucrează pas cu pas. După fiecare pas, compară cardul <strong>[Total Vanzari]</strong> cu coloana din dreapta.</span></div>
+        <table class="s5-bar-tbl s7-ex-tbl">
+          <thead><tr><th>#</th><th>Ce faci</th><th>Cardul arată</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Slicer <strong>Vertical list</strong> pe <code>Dim_Magazine[Regiune]</code>. Alege <strong>Nord-Vest</strong>.</td><td>167.849,85</td></tr>
+            <tr><td>2</td><td>Slicer <strong>Dropdown</strong> pe <code>Dim_Produse[Categorie]</code>. Alege <strong>Electronice</strong> (Nord-Vest rămâne).</td><td>107.574,57</td></tr>
+            <tr><td>3</td><td>Curăță ambele slicere (radiera). Slicer <strong>Tile</strong> pe <code>Dim_Date[An]</code>, <strong>Single select</strong>. Alege <strong>2024</strong>.</td><td>220.350,16</td></tr>
+            <tr><td>4</td><td>Adaugă o pagină nouă cu un card <code>[Total Vanzari]</code>. Sincronizează slicerul An pe ea (sync bifat, visible debifat).</td><td>220.350,16 și pe pagina nouă</td></tr>
+            <tr><td>5</td><td>Înapoi pe Explorare: alege <strong>2023</strong> în slicerul An și verifică pagina nouă.</td><td>69.977,29</td></tr>
+          </tbody>
+        </table>
+        <p class="s06-takeaway"><strong>Observă la pasul 2:</strong> slicerele se adună (Nord-Vest <em>și</em> Electronice). La final, curăță toate slicerele, ca să pornești exercițiul următor de la 560.544,56.</p>
+      </article>
+
+      <!-- 09 · Panoul de filtre -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Filtre și interacțiuni</span>
+          <span class="s5-concept-pill">Panoul de filtre</span>
+        </div>
+        <h2>Filters pane: filtre fără loc pe pagină</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Trei niveluri</h3>
+            <p>Panoul <span class="s7-ui">Filters</span> din dreapta are trei zone. Tragi un câmp în zona care corespunde razei dorite.</p>
+            <ul class="s5-bar-limits">
+              <li class="is-tip"><strong>Filters on this visual:</strong> apare doar când ai un vizual selectat.</li>
+              <li class="is-tip"><strong>Filters on this page:</strong> toată pagina curentă.</li>
+              <li class="is-tip"><strong>Filters on all pages:</strong> tot raportul.</li>
+            </ul>
+            <h3>Pentru cine e</h3>
+            <p>Pentru tine, autorul: reguli pe care cititorul nu trebuie să le schimbe. Le poți <strong>bloca</strong> (lacăt) sau <strong>ascunde</strong> (ochi) înainte de publicare.</p>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Tipuri de filtru</h3>
+            <table class="s5-bar-tbl">
+              <thead><tr><th>Tip</th><th>Ce face</th><th>Exemplu</th></tr></thead>
+              <tbody>
+                <tr><td>Basic</td><td>Bifezi valori din listă</td><td>Status_Plata fără „Anulat”</td></tr>
+                <tr><td>Advanced</td><td>Condiții: conține, începe cu, &gt;, &lt;</td><td>Nume_Produs conține „Laptop”</td></tr>
+                <tr><td>Top N</td><td>Primele / ultimele N după o măsură</td><td>Top 3 categorii după [Total Vanzari]</td></tr>
+                <tr><td>Relative date</td><td>Perioadă relativă la azi</td><td>Ultimele 12 luni</td></tr>
+              </tbody>
+            </table>
+            <ul class="s5-bar-limits" style="margin-top:10px">
+              <li class="is-limit"><strong>Top N</strong> merge doar la nivel de vizual.</li>
+              <li class="is-tip">Filtrele pe măsuri (ex. <code>[Total Vanzari]</code> &gt; 10.000) se pun tot la nivel de vizual.</li>
+            </ul>
+          </section>
+        </div>
+      </article>
+
+      <!-- 10 · Slicer vs filtru -->
+      <article class="slide s4-stepq-slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Filtre și interacțiuni</span>
+          <span class="s5-concept-pill">Slicer sau filtru?</span>
+        </div>
+        <h2>Cine decide filtrul: cititorul sau autorul?</h2>
+        <table class="s5-bar-tbl" style="margin-bottom:14px">
+          <thead><tr><th></th><th>Slicer</th><th>Filtru în panou</th></tr></thead>
+          <tbody>
+            <tr><td>Cine îl schimbă</td><td>Cititorul, des</td><td>Autorul; cititorul doar dacă îl lași</td></tr>
+            <tr><td>Se vede pe pagină</td><td>Da, ocupă loc</td><td>Nu, stă în panoul din dreapta</td></tr>
+            <tr><td>Rază</td><td>Pagina (sau mai multe, cu sync)</td><td>Vizual, pagină sau tot raportul</td></tr>
+            <tr><td>Folosești pentru</td><td>Întrebările principale ale cititorului</td><td>Reguli fixe și filtre rar schimbate</td></tr>
+          </tbody>
+        </table>
+        <div class="s2-stages-reveal" data-bi-stages>
+          <div class="s2-reveal-grid is-three s4-stepq">
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">01</span>
+              <span class="s2-reveal-ask">„Managerul regional vrea să-și aleagă singur regiunea.”</span>
+              <div class="s2-reveal-content"><h3>Slicer</h3><p>E întrebarea principală a cititorului; trebuie să fie la vedere.</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">02</span>
+              <span class="s2-reveal-ask">„Comenzile anulate nu trebuie să apară nicăieri.”</span>
+              <div class="s2-reveal-content"><h3>Filtru pe toate paginile, blocat</h3><p>E regulă de business, nu alegere. Sau o măsură cu CALCULATE, ca în S6.</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">03</span>
+              <span class="s2-reveal-ask">„Graficul de produse să arate doar primele 5.”</span>
+              <div class="s2-reveal-content"><h3>Top N pe vizual</h3><p>Afectează un singur grafic; restul paginii rămâne complet.</p></div>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 11 · Interacțiuni -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Filtre și interacțiuni</span>
+          <span class="s5-concept-pill is-fw">Edit interactions</span>
+        </div>
+        <h2>Ce se întâmplă când dai click pe o bară?</h2>
+        <p class="s5-oneline">Click pe <strong>Electronice</strong> în graficul de categorii. Graficul de canale poate reacționa în trei feluri. Tu alegi care.</p>
+        <div class="s7-xf">
+          <article class="is-highlight">
+            <h3><span class="s7-ico">▥</span>Highlight</h3>
+            <p class="s7-xf-sub">implicit la grafice</p>
+            <div class="s7-bar"><span>Telefon</span><i style="--w:100%;--h:79%"></i></div>
+            <div class="s7-bar"><span>Partener B2B</span><i style="--w:99.6%;--h:82%"></i></div>
+            <div class="s7-bar"><span>Magazin fizic</span><i style="--w:66%;--h:79%"></i></div>
+            <div class="s7-bar"><span>Online</span><i style="--w:36%;--h:28%"></i></div>
+            <p>Barele întregi rămân estompate, partea de Electronice e plină. Vezi <strong>partea din întreg</strong>: la Online, Electronice e doar 28%.</p>
+          </article>
+          <article class="is-filter">
+            <h3><span class="s7-ico">⏷</span>Filter</h3>
+            <p class="s7-xf-sub">graficul se recalculează</p>
+            <div class="s7-bar"><span>Partener B2B</span><i style="--w:100%"></i></div>
+            <div class="s7-bar"><span>Telefon</span><i style="--w:97%"></i></div>
+            <div class="s7-bar"><span>Magazin fizic</span><i style="--w:65%"></i></div>
+            <div class="s7-bar"><span>Online</span><i style="--w:13%"></i></div>
+            <p>Rămân doar vânzările de Electronice; axa se rescalează. Vezi <strong>clasamentul în interiorul selecției</strong>: B2B trece pe primul loc (151.337,68).</p>
+          </article>
+          <article class="is-none">
+            <h3><span class="s7-ico">⊘</span>None</h3>
+            <p class="s7-xf-sub">graficul nu reacționează</p>
+            <div class="s7-bar"><span>Telefon</span><i style="--w:100%"></i></div>
+            <div class="s7-bar"><span>Partener B2B</span><i style="--w:99.6%"></i></div>
+            <div class="s7-bar"><span>Magazin fizic</span><i style="--w:66%"></i></div>
+            <div class="s7-bar"><span>Online</span><i style="--w:36%"></i></div>
+            <p>Graficul ignoră click-ul. Util pentru un card „Total general” care trebuie să rămână fix ca reper.</p>
+          </article>
+        </div>
+        <div class="s5-bar-grid" style="margin-top:12px">
+          <section class="s5-bar-card">
+            <h3>Cum schimbi comportamentul</h3>
+            <ol class="s7-steps">
+              <li>Selectează vizualul <strong>pe care dai click</strong> (sursa).</li>
+              <li><span class="s7-ui">Format</span> (ribbon) → <span class="s7-ui">Edit interactions</span>.</li>
+              <li>Pe fiecare alt vizual apar pictogramele Filter / Highlight / None. Alege una.</li>
+              <li>Apasă din nou <span class="s7-ui">Edit interactions</span> ca să ieși.</li>
+            </ol>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Bine de știut</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-tip">Setarea e <strong>pe pereche</strong>: sursă → țintă. Click pe canal poate face altceva decât click pe categorie.</li>
+              <li class="is-tip">Ctrl + click pe mai multe bare = selecție multiplă.</li>
+              <li class="is-tip">Slicerele au și ele interacțiuni: poți face un slicer să nu afecteze un anumit vizual.</li>
+            </ul>
+          </section>
+        </div>
+      </article>
+
+      <!-- 12 · Drill -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Filtre și interacțiuni</span>
+          <span class="s5-concept-pill">Drill down · drillthrough</span>
+        </div>
+        <h2>De la total la detaliu</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Drill down · în același grafic</h3>
+            <p>Pui mai multe câmpuri pe axă, de la general la detaliu: <code>An</code> → <code>Trimestru</code> → <code>Luna_Nume</code>. Graficul arată întâi anii; cobori un nivel la click.</p>
+            <ul class="s5-bar-limits">
+              <li class="is-tip"><strong>↓ (drill mode)</strong> pornit: click pe 2024 → vezi trimestrele din 2024.</li>
+              <li class="is-tip"><strong>⇊</strong> arată nivelul următor pentru toți anii odată.</li>
+              <li class="is-tip"><strong>↑</strong> urcă înapoi.</li>
+            </ul>
+            <p style="margin-top:8px">Exemplu: 2024 = 220.350,16 → T1 89.763,37 · T2 38.680,95 · T3 14.027,07 · T4 77.878,77.</p>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Drillthrough · pe altă pagină</h3>
+            <p>O pagină de detaliu care primește filtrul de la pagina de unde vii. Ex: click dreapta pe Electronice → pagina „Detaliu categorie”, filtrată pe Electronice.</p>
+            <ol class="s7-steps">
+              <li>Pagină nouă, numită <strong>Detaliu categorie</strong>.</li>
+              <li>În <span class="s7-ui">Visualizations</span> → <span class="s7-ui">Build</span>, zona <span class="s7-ui">Drill through</span>: trage <code>Dim_Produse[Categorie]</code>.</li>
+              <li>Power BI adaugă automat un buton <strong>Back</strong>.</li>
+              <li>Pe Explorare: click dreapta pe o bară → <span class="s7-ui">Drill through</span> → Detaliu categorie.</li>
+            </ol>
+          </section>
+          <section class="s5-bar-card s5-bar-span s5-bar-when">
+            <h3>Când folosești care</h3>
+            <p><strong>Drill down</strong> = aceeași întrebare, mai fin (an → lună). <strong>Drillthrough</strong> = altă întrebare despre elementul ales (ce produse, ce clienți, ce comenzi).</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- 13 · Exercițiu 2 -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Filtre și interacțiuni</span>
+          <span class="s5-concept-pill is-fw">Exercițiu 2</span>
+        </div>
+        <h2>Filtre, interacțiuni și o pagină de detaliu</h2>
+        <div class="s7-ex-head"><span class="s7-ex-tag">În Power BI</span> <span>Click dreapta pe tab-ul <strong>Explorare</strong> → <strong>Duplicate page</strong>. Pașii 1–3 îi faci pe copie, ca pagina originală să rămână curată.</span></div>
+        <table class="s5-bar-tbl s7-ex-tbl">
+          <thead><tr><th>#</th><th>Ce faci</th><th>Rezultat</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td><strong>Filters on this page</strong>: <code>Vanzari[Status_Plata]</code>, Basic, debifează <strong>Anulat</strong>.</td><td>Card: 445.974,08</td></tr>
+            <tr><td>2</td><td>Selectează graficul de categorii. <strong>Filters on this visual</strong>: <code>Categorie</code> → <strong>Top N</strong>, Top 3, By value <code>[Total Vanzari]</code> → Apply.</td><td>Electronice, Servicii, Casa &amp; Gradina</td></tr>
+            <tr><td>3</td><td><strong>Edit interactions</strong> pe graficul de categorii: canalele → <strong>Filter</strong>, cardul → <strong>None</strong>. Click pe Electronice.</td><td>Card rămâne 445.974,08; Telefon primul (146.964,93)</td></tr>
+            <tr><td>4</td><td>Pagină <strong>Detaliu categorie</strong>: drillthrough pe <code>Categorie</code>, <strong>Keep all filters</strong> = Off. Adaugă card <code>[Total Vanzari]</code>, card <code>[Numar linii]</code> și tabel cu <code>Nume_Produs</code>.</td><td>—</td></tr>
+            <tr><td>5</td><td>Pe <strong>Explorare</strong> (originalul): click dreapta pe Electronice → Drill through.</td><td>415.101,05 · 37 linii · Laptop Pro 14 primul</td></tr>
+          </tbody>
+        </table>
+        <p class="s06-takeaway"><strong>Compară cu slide-ul 11:</strong> acolo, fără filtrul pe anulate, B2B era primul la Electronice. Aici, cu anulatele scoase de filtrul de pagină, Telefon trece pe primul loc. Filtrele se adună. <strong>De ce Keep all filters = Off?</strong> Când e pornit, pagina de detaliu primește și celelalte filtre de pe pagina sursă (slicere, click-uri). Oprit, primește doar categoria. Ambele variante sunt corecte; alegi după întrebare.</p>
+      </article>
+
+      <!-- 14 · Tooltips -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Tooltips</span>
+          <span class="s5-concept-pill is-fw">Trei niveluri</span>
+        </div>
+        <h2>Tooltip: informație în plus, la hover</h2>
+        <p class="s5-oneline">Graficul arată o singură măsură. Tooltip-ul răspunde la întrebarea următoare <strong>fără să adaugi vizuale pe pagină</strong>. Exemplu: hover pe bara Electronice.</p>
+        <div class="s7-tips">
+          <article>
+            <h3>1 · Implicit</h3>
+            <p>Power BI arată singur câmpurile din grafic: categoria și valoarea.</p>
+            <div class="s7-tipbox">
+              <div><span>Categorie</span>Electronice</div>
+              <div><span>Total Vanzari</span>415.101,05</div>
+            </div>
+          </article>
+          <article>
+            <h3>2 · Câmpuri adăugate</h3>
+            <p>Tragi măsuri în zona <span class="s7-ui">Tooltips</span> a vizualului (<span class="s7-ui">Build</span>). Apar sub cele implicite.</p>
+            <div class="s7-tipbox">
+              <div><span>Categorie</span>Electronice</div>
+              <div><span>Total Vanzari</span>415.101,05</div>
+              <div><span>Numar linii</span>37</div>
+              <div><span>Numar clienti</span>24</div>
+            </div>
+          </article>
+          <article>
+            <h3>3 · Report page tooltip</h3>
+            <p>O pagină mică, cu propriile vizuale, afișată la hover și filtrată pe elementul de sub cursor.</p>
+            <div class="s7-tipbox">
+              <div class="s7-tip-title">Electronice · top produse</div>
+              <div class="s7-tip-bars">
+                <div><span>Laptop Pro</span><i style="--w:100%"></i></div>
+                <div><span>Monitor 4K</span><i style="--w:54%"></i></div>
+                <div><span>Telefon</span><i style="--w:30%"></i></div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <p class="s06-takeaway"><strong>Regula:</strong> tooltip-ul completează, nu înlocuiește. Ce trebuie văzut imediat stă pe pagină; ce e util „la cerere” stă în tooltip.</p>
+      </article>
+
+      <!-- 15 · Report page tooltip · pași -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Tooltips</span>
+          <span class="s5-concept-pill">Report page tooltip</span>
+        </div>
+        <h2>Cum construiești o pagină-tooltip</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>A · Pagina de tooltip</h3>
+            <ol class="s7-steps">
+              <li>Pagină nouă, numită <strong>TT Categorie</strong>.</li>
+              <li><span class="s7-ui">Format page</span> → <span class="s7-ui">Page information</span> → <strong>Allow use as tooltip</strong> = On.</li>
+              <li><span class="s7-ui">Canvas settings</span> → Type: <strong>Tooltip</strong> (pagina devine mică, 320 × 240).</li>
+              <li>Adaugă 1–2 vizuale simple: un bar chart <code>Nume_Produs</code> × <code>[Total Vanzari]</code>, Top 3 produse.</li>
+              <li>Opțional: click dreapta pe tab → <strong>Hide page</strong>, ca să nu apară în navigare.</li>
+            </ol>
+          </section>
+          <section class="s5-bar-card">
+            <h3>B · Legi pagina de grafic</h3>
+            <ol class="s7-steps">
+              <li>Selectează graficul de categorii de pe Explorare.</li>
+              <li><span class="s7-ui">Format visual</span> → <span class="s7-ui">General</span> → <span class="s7-ui">Tooltips</span>.</li>
+              <li>Type: <strong>Report page</strong> · Page: <strong>TT Categorie</strong>.</li>
+              <li>Fă hover pe Electronice: apare mini-pagina, filtrată pe Electronice.</li>
+            </ol>
+          </section>
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Avantaje și limite</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes">Aceeași pagină-tooltip poate fi folosită de mai multe grafice care au Categorie pe axă.</li>
+              <li class="is-yes">Poți pune orice vizual: grafic, card, tabel mic.</li>
+              <li class="is-limit">Păstreaz-o simplă: utilizatorul o vede o secundă. Maximum 2 vizuale, fără slicere.</li>
+              <li class="is-limit">Pe mobil nu există hover; tooltip-ul apare la atingere.</li>
+            </ul>
+          </section>
+        </div>
+      </article>
+
+      <!-- 16 · Exercițiu 3 -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Tooltips</span>
+          <span class="s5-concept-pill is-fw">Exercițiu 3</span>
+        </div>
+        <h2>Două tooltips pe pagina Explorare</h2>
+        <div class="s7-ex-head"><span class="s7-ex-tag">În Power BI</span> <span>Lucrează pe pagina originală <strong>Explorare</strong>, fără slicere selectate.</span></div>
+        <table class="s5-bar-tbl s7-ex-tbl">
+          <thead><tr><th>#</th><th>Ce faci</th><th>Hover pe Electronice arată</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Graficul de categorii: trage <code>[Numar linii]</code> și <code>[Numar clienti]</code> în zona <strong>Tooltips</strong>.</td><td>415.101,05 · 37 linii · 24 clienți</td></tr>
+            <tr><td>2</td><td>Hover pe <strong>Servicii</strong>. Compară: are mai puține linii, dar valoare mai mare decât Alimente.</td><td>Servicii: 63.355,01 · 20 linii</td></tr>
+            <tr><td>3</td><td>Construiește pagina <strong>TT Categorie</strong> (slide-ul anterior) cu un bar chart Top 3 produse.</td><td>—</td></tr>
+            <tr><td>4</td><td>Setează graficul de categorii: Tooltips → Report page → TT Categorie. Hover pe Electronice.</td><td>Laptop Pro 14 · 190.927,20</td></tr>
+            <tr><td>5</td><td>Bonus: pune aceeași pagină-tooltip pe tabelul de produse. Ce se întâmplă? De ce?</td><td>Filtrat pe produsul de sub cursor</td></tr>
+          </tbody>
+        </table>
+        <p class="s06-takeaway"><strong>La pasul 5:</strong> tooltip-ul primește filtrul <em>rândului</em> de sub cursor. În tabel, rândul e un produs, deci Top 3 produse arată un singur produs. O pagină-tooltip trebuie gândită pentru câmpul pe care îl primește.</p>
+      </article>
+
+      <!-- 17 · Bookmarks · concept -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 4 · Bookmarks</span>
+          <span class="s5-concept-pill">Ce salvează un bookmark</span>
+        </div>
+        <h2>Bookmark: o fotografie a paginii</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Ce este?</h3>
+            <p>Un bookmark ține minte <strong>starea</strong> paginii: ce e selectat în slicere, ce filtre sunt active, ce vizuale sunt vizibile. Când îl apeși, pagina revine exact așa.</p>
+            <h3>Unde îl creezi</h3>
+            <ol class="s7-steps">
+              <li>Aduci pagina în starea dorită.</li>
+              <li><span class="s7-ui">View</span> → <span class="s7-ui">Bookmarks</span> → <span class="s7-ui">Add</span>.</li>
+              <li>Dublu click pe nume → îl redenumești (ex: „Nord-Vest Electronice”).</li>
+              <li><span class="s7-ui">…</span> lângă bookmark → alegi ce salvează (tabelul din dreapta).</li>
+            </ol>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Opțiunile din meniul „…”</h3>
+            <table class="s5-bar-tbl s7-bm-opts">
+              <thead><tr><th>Opțiune</th><th>Salvează</th><th>Oprește-o când</th></tr></thead>
+              <tbody>
+                <tr><td>Data</td><td>Slicere, filtre, sortare, drill</td><td>Vrei ca bookmark-ul să nu atingă filtrele cititorului</td></tr>
+                <tr><td>Display</td><td>Ce vizuale sunt vizibile / ascunse</td><td>Schimbi doar filtre</td></tr>
+                <tr><td>Current page</td><td>Pagina pe care te duce</td><td>Bookmark-ul trebuie să lucreze pe orice pagină</td></tr>
+                <tr><td>Selected visuals</td><td>Doar vizualele selectate la creare</td><td>(implicit: All visuals)</td></tr>
+              </tbody>
+            </table>
+            <p style="margin-top:8px">Ai schimbat pagina după ce l-ai creat? <span class="s7-ui">…</span> → <strong>Update</strong>.</p>
+          </section>
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Selection pane · partenerul bookmark-urilor</h3>
+            <p><span class="s7-ui">View</span> → <span class="s7-ui">Selection</span>: lista tuturor vizualelor de pe pagină. Ochiul 👁 ascunde sau arată un vizual. Redenumește vizualele aici (dublu click): „Grafic canale”, „Tabel produse”. Bookmark-urile cu <strong>Display</strong> salvează exact starea acestor ochi.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- 18 · Butoane · 3 tipare -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 4 · Bookmarks</span>
+          <span class="s5-concept-pill is-fw">Butoane</span>
+        </div>
+        <h2>Trei tipare pe care le vei folosi mereu</h2>
+        <p class="s5-oneline">Un bookmark devine util când îl legi de un buton: <span class="s7-ui">Insert</span> → <span class="s7-ui">Buttons</span> → <span class="s7-ui">Format</span> → <span class="s7-ui">Action</span> = On, Type = <strong>Bookmark</strong>. În Desktop, butoanele se apasă cu <strong>Ctrl + click</strong>.</p>
+        <div class="s7-patterns">
+          <article>
+            <h3>Resetează filtrele</h3>
+            <p class="s7-pat-when">Cititorul s-a pierdut în slicere și vrea să revină la început.</p>
+            <ol class="s7-steps">
+              <li>Curăță toate slicerele și click-urile.</li>
+              <li>Bookmark „Reset” cu <strong>Data</strong> bifat.</li>
+              <li>Buton (Reset / Blank) cu textul „Resetează” → Action: Bookmark „Reset”.</li>
+            </ol>
+          </article>
+          <article>
+            <h3>Grafic ↔ tabel</h3>
+            <p class="s7-pat-when">Aceleași date, două vederi, un singur loc pe pagină.</p>
+            <ol class="s7-steps">
+              <li>Pune graficul și tabelul unul peste altul.</li>
+              <li>Selection: ascunde tabelul → bookmark „Vedere grafic”.</li>
+              <li>Ascunde graficul, arată tabelul → bookmark „Vedere tabel”.</li>
+              <li>Ambele: <strong>Data</strong> debifat, ca să nu șteargă filtrele.</li>
+              <li>Două butoane, câte unul pentru fiecare bookmark.</li>
+            </ol>
+          </article>
+          <article>
+            <h3>Navigare între pagini</h3>
+            <p class="s7-pat-when">Un meniu în locul tab-urilor de jos.</p>
+            <ol class="s7-steps">
+              <li><span class="s7-ui">Insert</span> → <span class="s7-ui">Buttons</span> → <span class="s7-ui">Navigator</span> → <strong>Page navigator</strong>.</li>
+              <li>Power BI creează câte un buton pentru fiecare pagină vizibilă.</li>
+              <li>Alternativ: buton simplu cu Action = <strong>Page navigation</strong>.</li>
+            </ol>
+          </article>
+        </div>
+        <p class="s06-takeaway"><strong>Bookmark navigator</strong> (tot în Navigator) face automat câte un buton pentru fiecare bookmark dintr-un grup. Util pentru o „poveste” pas cu pas, pe care o construim în sesiunea 8.</p>
+      </article>
+
+      <!-- 19 · Exercițiu 4 -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 4 · Bookmarks</span>
+          <span class="s5-concept-pill is-fw">Exercițiu 4</span>
+        </div>
+        <h2>Butoane care lucrează pentru cititor</h2>
+        <div class="s7-ex-head"><span class="s7-ex-tag">În Power BI</span> <span>Pagina <strong>Explorare</strong>. Deschide <strong>Bookmarks</strong> și <strong>Selection</strong> din View.</span></div>
+        <table class="s5-bar-tbl s7-ex-tbl">
+          <thead><tr><th>#</th><th>Ce faci</th><th>Verifică</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Curăță slicerele. Bookmark <strong>Reset</strong> (Data bifat). Buton „Resetează” legat de el.</td><td>Card: 560.544,56</td></tr>
+            <tr><td>2</td><td>Alege Nord-Vest + Electronice în slicere. Ctrl + click pe „Resetează”.</td><td>Înapoi la 560.544,56</td></tr>
+            <tr><td>3</td><td>Pune tabelul de produse peste graficul de canale. Creează bookmark-urile <strong>Vedere grafic</strong> și <strong>Vedere tabel</strong> (Data debifat) + două butoane.</td><td>Butoanele schimbă vederea</td></tr>
+            <tr><td>4</td><td>Alege Nord-Vest în slicer, apoi apasă „Vedere tabel”.</td><td>Slicerul rămâne pe Nord-Vest</td></tr>
+            <tr><td>5</td><td>Adaugă un <strong>Page navigator</strong> sus pe pagină.</td><td>Butoane pentru Explorare și paginile noi</td></tr>
+          </tbody>
+        </table>
+        <p class="s06-takeaway"><strong>Testul de la pasul 4</strong> arată de ce contează opțiunea Data: dacă ai uitat s-o debifezi, butonul „Vedere tabel” șterge și alegerea din slicer.</p>
+      </article>
+
+      <!-- 20 · Verifică-te -->
+      <article class="slide s4-stepq-slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare</span>
+          <span class="s5-concept-pill">Verifică-te</span>
+        </div>
+        <h2>Ce unealtă folosești?</h2>
+        <p class="s3-lead s4-stepq-lead">Citește cererea, alege unealta, apoi apasă pe card.</p>
+        <div class="s2-stages-reveal" data-bi-stages>
+          <div class="s2-reveal-grid is-three s4-stepq">
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">01</span>
+              <span class="s2-reveal-ask">„Când aleg anul pe prima pagină, vreau să rămână ales și pe celelalte.”</span>
+              <div class="s2-reveal-content"><h3>Sync slicers</h3><p>View → Sync slicers; bifezi sync pe toate paginile.</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">02</span>
+              <span class="s2-reveal-ask">„Cardul cu totalul general nu trebuie să se schimbe când dau click pe grafic.”</span>
+              <div class="s2-reveal-content"><h3>Edit interactions → None</h3><p>Sursa: graficul; ținta: cardul.</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">03</span>
+              <span class="s2-reveal-ask">„Vreau să văd clienții unui produs, fără să aglomerez pagina principală.”</span>
+              <div class="s2-reveal-content"><h3>Drillthrough</h3><p>Pagină de detaliu cu Nume_Produs în zona Drill through.</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">04</span>
+              <span class="s2-reveal-ask">„La hover pe o regiune, vreau să văd și câți clienți are.”</span>
+              <div class="s2-reveal-content"><h3>Tooltip cu câmpuri</h3><p>[Numar clienti] în zona Tooltips a graficului.</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">05</span>
+              <span class="s2-reveal-ask">„Utilizatorii se încurcă în filtre și nu mai știu cum să revină.”</span>
+              <div class="s2-reveal-content"><h3>Bookmark Reset + buton</h3><p>Bookmark cu Data bifat, salvat cu slicerele curate.</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">06</span>
+              <span class="s2-reveal-ask">„Graficul arată doar lunile, dar vreau să pot vedea și anii.”</span>
+              <div class="s2-reveal-content"><h3>Drill down</h3><p>An → Trimestru → Luna pe axă; urci și cobori cu săgețile.</p></div>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 21 · Fișă -->
+      <article class="slide s5-framework">
+        <span class="slide-eyebrow">Fișă de buzunar</span>
+        <h2>Unde găsești fiecare unealtă</h2>
+        <table class="s5-bar-tbl s6-cheat">
+          <thead><tr><th>Unealtă</th><th>Unde în Power BI</th><th>Pentru ce</th></tr></thead>
+          <tbody>
+            <tr><td>Slicer</td><td>Visualizations → Slicer · Format → Slicer settings</td><td>Filtru ales de cititor, la vedere</td></tr>
+            <tr><td>Sync slicers</td><td>View → Sync slicers</td><td>Același slicer pe mai multe pagini</td></tr>
+            <tr><td>Filters pane</td><td>Panoul Filters: visual / page / all pages</td><td>Reguli fixe, Top N, filtre ascunse</td></tr>
+            <tr><td>Edit interactions</td><td>Selectezi sursa → Format → Edit interactions</td><td>Filter / Highlight / None între vizuale</td></tr>
+            <tr><td>Drill down</td><td>Mai multe câmpuri pe axă + săgețile din colț</td><td>An → Trimestru → Lună</td></tr>
+            <tr><td>Drillthrough</td><td>Build → Drill through pe pagina de detaliu</td><td>Click dreapta → pagină filtrată</td></tr>
+            <tr><td>Tooltip · câmpuri</td><td>Build → Tooltips</td><td>Măsuri în plus la hover</td></tr>
+            <tr><td>Tooltip · pagină</td><td>Page information → Allow use as tooltip · Format visual → Tooltips → Report page</td><td>Mini-raport la hover</td></tr>
+            <tr><td>Bookmark</td><td>View → Bookmarks → Add · meniul „…” (Data / Display)</td><td>Salvezi și readuci o stare</td></tr>
+            <tr><td>Selection</td><td>View → Selection</td><td>Ascunzi / arăți și redenumești vizuale</td></tr>
+            <tr><td>Buton</td><td>Insert → Buttons → Action (Ctrl + click în Desktop)</td><td>Bookmark, navigare, drillthrough</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <!-- 22 · Încheiere -->
+      <article class="slide s5-closing">
+        <div class="closing-hero">
+          <span class="closing-eyebrow">Sesiunea 7 · încheiere</span>
+          <h2 class="closing-title">Ce am învățat astăzi</h2>
+        </div>
+        <div class="closing-band">
+          <div class="band-row s6-close-row">
+            <div class="band-card">
+              <span class="n">01</span>
+              <strong>Slicere</strong>
+              <span class="d">Filtrul ales de cititor. Stilul potrivit, selecție single sau multiplă, sync pe mai multe pagini.</span>
+            </div>
+            <div class="band-card">
+              <span class="n">02</span>
+              <strong>Filtre și interacțiuni</strong>
+              <span class="d">Trei niveluri în panou, Top N pe vizual, Filter / Highlight / None, drill down și drillthrough.</span>
+            </div>
+            <div class="band-card">
+              <span class="n">03</span>
+              <strong>Tooltips</strong>
+              <span class="d">Câmpuri în plus sau o pagină-tooltip, ca să răspunzi la întrebarea următoare fără vizuale noi.</span>
+            </div>
+            <div class="band-card">
+              <span class="n">04</span>
+              <strong>Bookmarks</strong>
+              <span class="d">Stări salvate, legate de butoane: reset, grafic ↔ tabel, navigare. Atenție la opțiunea Data.</span>
+            </div>
+          </div>
+        </div>
+        <div class="s4-close-task">
+          <span class="s4-close-kicker">Temă</span>
+          <p>Pe proiectul echipei din sesiunea 5 adaugă: <strong>2 slicere</strong> sincronizate pe toate paginile, o pagină de <strong>drillthrough</strong>, un <strong>tooltip</strong> cu măsuri în plus și un buton <strong>Resetează</strong>. Notează pentru fiecare ce întrebare a cititorului rezolvă.</p>
+        </div>
+      </article>
+
+    </main>
+
+    <nav class="slide-nav">
+      <button class="slide-nav-btn" data-slide-prev>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Înapoi
+      </button>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+        <div class="slide-counter" data-slide-counter>1 / 2</div>
+        <div class="slide-dots" data-slide-dots></div>
+      </div>
+      <button class="slide-nav-btn" data-slide-next>
+        Următor
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </nav>
+  </div>
+  <script src="../../js/main.js"></script>
+</body>
+</html>

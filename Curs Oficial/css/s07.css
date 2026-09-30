@@ -1,0 +1,270 @@
+/* Sesiunea 7 · Interactivitate — extinde stilurile S5/S6 */
+
+/* ---------- Pași în Power BI ---------- */
+.s7-steps {
+  list-style: none;
+  counter-reset: s7;
+  margin: 6px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 7px;
+}
+.s7-steps li {
+  counter-increment: s7;
+  position: relative;
+  padding-left: 30px;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--text-2);
+}
+.s7-steps li::before {
+  content: counter(s7);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  display: grid;
+  place-items: center;
+  width: 21px;
+  height: 21px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+.s7-steps strong { color: var(--text); }
+.s7-ui {
+  display: inline-block;
+  padding: 0 6px;
+  border-radius: 5px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  font-size: 0.86em;
+  font-weight: 650;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+/* ---------- Exerciții ---------- */
+.s7-ex-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin-bottom: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px dashed color-mix(in srgb, var(--primary) 45%, var(--border));
+  background: var(--primary-soft);
+  font-size: 0.9rem;
+  color: var(--text-2);
+}
+.s7-ex-head strong { color: var(--text); }
+.s7-ex-head > span:not(.s7-ex-tag) { flex: 1; min-width: 220px; }
+.s7-ex-tag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+}
+.s7-ex-tbl td:nth-child(2) { color: var(--text-2); }
+.s7-ex-tbl td:nth-child(2) strong { color: var(--text); }
+.s7-ex-tbl td:last-child {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--primary-dark);
+  white-space: nowrap;
+}
+[data-theme="dark"] .s7-ex-tbl td:last-child { color: var(--primary-light); }
+.s7-ex-tbl td, .s7-ex-tbl th { padding: 8px 12px !important; }
+
+/* ---------- Pagina de lucru ---------- */
+.s7-canvas {
+  display: grid;
+  grid-template-columns: 180px 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--bg-alt);
+}
+.s7-canvas > div {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 0.82rem;
+  color: var(--text-2);
+}
+.s7-canvas b { display: block; font-size: 0.86rem; color: var(--text); }
+.s7-canvas .is-slicer { grid-row: span 2; border-style: dashed; border-color: color-mix(in srgb, var(--primary) 50%, var(--border)); }
+.s7-canvas .is-card strong { display: block; font-size: 1.35rem; letter-spacing: -0.03em; color: var(--text); }
+.s7-canvas .n {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.66rem;
+  font-weight: 800;
+  vertical-align: 1px;
+}
+
+/* ---------- Unde ajunge un filtru ---------- */
+.s7-scope {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 16px;
+  align-items: stretch;
+}
+.s7-nest {
+  padding: 12px;
+  border-radius: 16px;
+  border: 2px solid color-mix(in srgb, var(--primary) 55%, var(--border));
+  background: color-mix(in srgb, var(--primary) 5%, var(--surface));
+}
+.s7-nest .s7-nest {
+  margin-top: 8px;
+  border-width: 1.5px;
+  border-color: color-mix(in srgb, var(--primary) 40%, var(--border));
+  background: color-mix(in srgb, var(--primary) 7%, var(--surface));
+}
+.s7-nest-lbl { display: flex; justify-content: space-between; gap: 10px; font-size: 0.86rem; color: var(--text-2); }
+.s7-nest-lbl b { color: var(--text); }
+.s7-nest-lbl span { font-size: 0.76rem; color: var(--text-3); text-align: right; }
+.s7-nest.is-visual { border-style: dashed; }
+.s7-nest.is-click { background: color-mix(in srgb, #0ea5e9 10%, var(--surface)); border-color: color-mix(in srgb, #0ea5e9 45%, var(--border)); }
+
+/* ---------- Cross-filter vs highlight ---------- */
+.s7-xf {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+.s7-xf article {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.s7-xf h3 { margin: 0 0 2px; font-size: 0.98rem; }
+.s7-xf .s7-xf-sub { margin: 0 0 10px; font-size: 0.8rem; color: var(--text-3); }
+.s7-bar { display: grid; grid-template-columns: 92px 1fr; align-items: center; gap: 8px; margin: 6px 0; font-size: 0.78rem; color: var(--text-2); }
+.s7-bar i {
+  position: relative;
+  display: block;
+  height: 14px;
+  width: var(--w);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--primary) 25%, transparent);
+}
+.s7-bar i::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--h, 100%);
+  border-radius: 4px;
+  background: var(--primary);
+}
+.s7-xf .is-filter .s7-bar i { background: var(--primary); }
+.s7-xf .is-none .s7-bar i { background: var(--border-strong); }
+.s7-xf .is-none .s7-bar i::after { display: none; }
+.s7-xf p { margin: 10px 0 0; font-size: 0.84rem; line-height: 1.45; }
+.s7-xf .s7-ico {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  margin-right: 6px;
+  padding: 0 5px;
+  border-radius: 6px;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+/* ---------- Tooltip mock ---------- */
+.s7-tips {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.s7-tips article {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.s7-tips h3 { margin: 0 0 4px; font-size: 0.98rem; }
+.s7-tips > article > p { margin: 0 0 10px; font-size: 0.84rem; line-height: 1.45; flex: 1; }
+.s7-tipbox {
+  align-self: flex-start;
+  min-width: min(190px, 100%);
+  max-width: 100%;
+  padding: 9px 11px;
+  border-radius: 8px;
+  background: #1f2937;
+  color: #f1f5f9;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  box-shadow: var(--shadow-md);
+}
+.s7-tipbox div { display: flex; justify-content: space-between; gap: 14px; }
+.s7-tipbox span { color: #94a3b8; }
+.s7-tipbox .s7-tip-title { font-weight: 800; color: #fff; margin-bottom: 4px; }
+.s7-tipbox .s7-tip-bars { display: grid; gap: 4px; margin-top: 4px; }
+.s7-tipbox .s7-tip-bars div { display: grid; grid-template-columns: 76px minmax(60px, 120px); align-items: center; gap: 6px; }
+.s7-tipbox .s7-tip-bars i { display: block; height: 8px; width: var(--w); border-radius: 3px; background: #34d399; }
+
+/* ---------- Bookmarks ---------- */
+.s7-bm-opts td:first-child { white-space: nowrap; }
+.s7-patterns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.s7-patterns article {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.s7-patterns h3 { margin: 0 0 4px; font-size: 1rem; }
+.s7-patterns .s7-pat-when { margin: 0 0 8px; font-size: 0.84rem; line-height: 1.4; color: var(--text-3); }
+.s7-patterns .s7-steps li { font-size: 0.86rem; }
+
+
+/* ---------- Responsive ---------- */
+.s7-scope > *, .s7-xf > *, .s7-tips > *, .s7-patterns > * { min-width: 0; }
+@media (max-width: 1000px) {
+  .s7-xf, .s7-tips, .s7-patterns { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 860px) {
+  .s7-scope, .s7-xf, .s7-tips, .s7-patterns { grid-template-columns: 1fr; }
+  .s7-canvas { grid-template-columns: 1fr 1fr; }
+  .s7-canvas .is-slicer { grid-row: auto; grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .s7-canvas { grid-template-columns: 1fr; }
+  .s7-nest-lbl { flex-direction: column; gap: 2px; }
+  .s7-nest-lbl span { text-align: left; }
+  .s7-ui { white-space: normal; }
+}
+
+/* Tabele în carduri pe două coloane: textul se rupe, nu iese din card */
+.s07-page .s5-bar-grid .s5-bar-card:not(.s5-bar-span) .s5-bar-tbl { font-size: 0.86rem; }
+.s07-page .s5-bar-grid .s5-bar-card:not(.s5-bar-span) .s5-bar-tbl td,
+.s07-page .s5-bar-grid .s5-bar-card:not(.s5-bar-span) .s5-bar-tbl th { padding: 7px 8px; }
+.s07-page .s5-bar-grid .s5-bar-card:not(.s5-bar-span) .s5-bar-tbl td:first-child { white-space: normal; }
+.s6-route-fx { border-radius: 8px; }
