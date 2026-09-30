@@ -1,0 +1,11 @@
+Set date · Echipa Albastru · Sesiunea 5
+=====================================
+
+Companie fictivă: FixAuto (Automotive aftermarket)
+Context și cerințe raport: proiect-echipa.html
+
+Fișier principal: Vanzari_s5_murdar.xlsx (5 foi)
+Alternativ: fișiere separate *_murdar.xlsx
+
+Structură: fact Vanzari + dimensiuni Dim_Clienti, Dim_Produse, Dim_Magazine, Dim_Date.
+Set propriu echipei — probleme de calitate diferite față de exercițiul comun din folderul părinte.

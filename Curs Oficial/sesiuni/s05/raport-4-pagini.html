@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S5 · Raport demo · 4 pagini business</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23059669'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='56' font-weight='900' text-anchor='middle' fill='white'%3E4%3C/text%3E%3C/svg%3E" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #FAFBF7;
+      --surface: #FFFFFF;
+      --surface-alt: #F4F6F0;
+      --border: #E5E7EB;
+      --text: #0A1F17;
+      --text-2: #374151;
+      --text-3: #6B7280;
+      --primary: #059669;
+      --primary-dark: #047857;
+      --primary-soft: #ECFDF5;
+      --accent: #14B8A6;
+      --accent-yellow: #84CC16;
+      --warning-soft: #FFFBEB;
+      --warning-border: #FCD34D;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      font-size: 15px;
+    }
+    a { color: var(--primary-dark); text-decoration: none; font-weight: 600; }
+    a:hover { text-decoration: underline; }
+
+    .topnav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .topnav-inner {
+      max-width: 1040px; margin: 0 auto;
+      display: flex; align-items: center; flex-wrap: wrap; gap: 10px 16px;
+      padding: 12px 20px;
+    }
+    .brand {
+      font-weight: 800; font-size: 0.92rem; color: var(--text);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .brand-mark {
+      width: 28px; height: 28px; border-radius: 7px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff; display: grid; place-items: center;
+      font-weight: 900; font-size: 0.75rem;
+    }
+    .topnav-links {
+      display: flex; flex-wrap: wrap; gap: 4px;
+      margin-left: auto;
+    }
+    .topnav-links a {
+      font-size: 0.78rem; font-weight: 700;
+      padding: 5px 10px; border-radius: 6px;
+      color: var(--text-2); text-decoration: none;
+    }
+    .topnav-links a:hover { background: var(--primary-soft); color: var(--primary-dark); }
+    .topnav-links a.is-back { background: var(--primary); color: #fff; }
+    .topnav-links a.is-back:hover { background: var(--primary-dark); color: #fff; }
+
+    main { max-width: 1040px; margin: 0 auto; padding: 28px 20px 64px; }
+
+    .hero {
+      padding: 24px 28px;
+      background: linear-gradient(135deg, var(--primary-soft) 0%, #ECFCCB 55%, #fff 100%);
+      border: 1px solid rgba(5,150,105,0.2);
+      border-radius: 16px;
+      margin-bottom: 24px;
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--primary-dark);
+      margin-bottom: 6px;
+    }
+    .hero h1 { font-size: 1.55rem; margin: 0 0 8px; letter-spacing: -0.02em; line-height: 1.25; }
+    .hero p { margin: 0; color: var(--text-2); font-size: 0.95rem; max-width: 62ch; }
+
+    .overview {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .overview-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .overview-card span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; font-weight: 700;
+      color: var(--primary);
+    }
+    .overview-card h2 {
+      font-size: 0.95rem; margin: 4px 0 6px;
+    }
+    .overview-card p {
+      margin: 0; font-size: 0.82rem; color: var(--text-3);
+    }
+
+    .page-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 0;
+      margin-bottom: 28px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(10,31,23,0.05);
+    }
+    .page-block header {
+      padding: 20px 24px 18px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--surface-alt) 0%, var(--surface) 100%);
+    }
+    .page-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+    }
+    .page-block header h2 {
+      margin: 6px 0 4px;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+    }
+    .page-tab {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+      border: 1px solid rgba(5,150,105,0.25);
+    }
+    .page-meta {
+      margin: 10px 0 0;
+      font-size: 0.88rem;
+      color: var(--text-2);
+    }
+    .page-meta strong { color: var(--text); }
+
+    .page-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    @media (max-width: 820px) {
+      .page-body { grid-template-columns: 1fr; }
+    }
+    .page-col {
+      padding: 20px 24px 22px;
+    }
+    .page-col + .page-col {
+      border-left: 1px solid var(--border);
+    }
+    @media (max-width: 820px) {
+      .page-col + .page-col {
+        border-left: none;
+        border-top: 1px solid var(--border);
+      }
+    }
+    .page-col h3 {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-3);
+      margin: 0 0 12px;
+      font-weight: 800;
+    }
+    .page-col ul {
+      margin: 0; padding-left: 1.15rem;
+      font-size: 0.9rem;
+      color: var(--text-2);
+    }
+    .page-col li { margin-bottom: 8px; }
+    .page-col li strong { color: var(--text); }
+
+    .wire {
+      margin-top: 4px;
+      padding: 14px;
+      background: var(--surface-alt);
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+      font-size: 0.78rem;
+      color: var(--text-3);
+    }
+    .wire-kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    @media (max-width: 520px) {
+      .wire-kpis { grid-template-columns: repeat(2, 1fr); }
+    }
+    .wire-kpi {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 6px;
+      text-align: center;
+    }
+    .wire-kpi b {
+      display: block;
+      font-size: 0.65rem;
+      color: var(--text-3);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .wire-kpi i {
+      display: block;
+      margin-top: 4px;
+      height: 10px;
+      background: linear-gradient(90deg, var(--primary-soft), rgba(20,184,166,0.35));
+      border-radius: 3px;
+    }
+    .wire-row {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 8px;
+    }
+    @media (max-width: 520px) {
+      .wire-row { grid-template-columns: 1fr; }
+    }
+    .wire-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      min-height: 72px;
+      padding: 8px 10px;
+    }
+    .wire-panel label {
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--primary-dark);
+      letter-spacing: 0.05em;
+    }
+    .wire-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      height: 48px;
+      margin-top: 8px;
+    }
+    .wire-bars span {
+      flex: 1;
+      background: var(--primary);
+      opacity: 0.35;
+      border-radius: 3px 3px 0 0;
+    }
+    .wire-bars span:nth-child(2) { opacity: 0.55; height: 70%; align-self: flex-end; }
+    .wire-bars span:nth-child(1) { height: 45%; align-self: flex-end; }
+    .wire-bars span:nth-child(3) { opacity: 0.75; height: 55%; align-self: flex-end; }
+    .wire-bars span:nth-child(4) { opacity: 1; height: 90%; align-self: flex-end; }
+    .wire-line {
+      height: 48px;
+      margin-top: 8px;
+      border-bottom: 2px solid var(--border);
+      position: relative;
+    }
+    .wire-line::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: -1px;
+      height: 36px;
+      border-bottom: 2.5px solid var(--primary);
+      clip-path: polygon(0 80%, 25% 50%, 50% 60%, 75% 20%, 100% 35%, 100% 100%, 0 100%);
+      opacity: 0.5;
+    }
+
+    .takeaway {
+      margin: 0 24px 22px;
+      padding: 14px 16px;
+      background: var(--warning-soft);
+      border: 1px solid var(--warning-border);
+      border-radius: 10px;
+      font-size: 0.88rem;
+      color: var(--text-2);
+    }
+    .takeaway strong { color: var(--text); }
+    .takeaway em {
+      font-style: normal;
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .footer-note {
+      font-size: 0.85rem;
+      color: var(--text-3);
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      margin-top: 8px;
+    }
+    .footer-note code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      background: var(--surface-alt);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .viz-spec {
+      padding: 0 24px 20px;
+      border-top: 1px solid var(--border);
+    }
+    .viz-spec > h3 {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-3);
+      margin: 18px 0 12px;
+      font-weight: 800;
+    }
+    .viz-spec ol {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .viz-item {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px 14px;
+    }
+    .viz-item h4 {
+      margin: 0 0 8px;
+      font-size: 0.92rem;
+      color: var(--primary-dark);
+    }
+    .viz-ask {
+      margin: 0 0 10px;
+      padding: 9px 11px;
+      font-size: 0.88rem;
+      line-height: 1.45;
+      color: var(--text-2);
+      background: var(--primary-soft);
+      border-radius: 8px;
+      border-left: 3px solid var(--primary);
+    }
+    .viz-ask strong {
+      color: var(--primary-dark);
+      font-weight: 800;
+    }
+    .viz-answer {
+      margin: 0 0 8px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+    .viz-facil-tip {
+      margin: 0 0 14px;
+      padding: 10px 12px;
+      font-size: 0.86rem;
+      color: var(--text-2);
+      background: var(--surface-alt);
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+    }
+    .viz-spec-count {
+      margin: -4px 0 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+    .viz-fields {
+      margin: 0;
+      font-size: 0.84rem;
+      color: var(--text-2);
+      display: grid;
+      gap: 4px;
+    }
+    .viz-fields dt {
+      font-weight: 800;
+      color: var(--text);
+      display: inline;
+    }
+    .viz-fields dt::after { content: " "; }
+    .viz-fields dd {
+      margin: 0 0 6px 0;
+      padding-left: 0;
+    }
+    .viz-fields code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      background: var(--surface);
+      padding: 1px 5px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    .viz-fields .agg {
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+    .viz-note {
+      margin: 12px 0 0;
+      font-size: 0.8rem;
+      color: var(--text-3);
+    }
+    .page-slicers {
+      margin: 0 24px 18px;
+      padding: 12px 14px;
+      background: var(--primary-soft);
+      border-radius: 10px;
+      border: 1px solid rgba(5,150,105,0.2);
+      font-size: 0.86rem;
+      color: var(--text-2);
+    }
+    .page-slicers strong { color: var(--text); }
+    .agg {
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+
+    .clean-block .page-body { grid-template-columns: 1fr; }
+    .clean-block .page-col { padding-top: 16px; }
+    .clean-table {
+      margin: 0 0 20px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--surface);
+    }
+    .clean-table header {
+      padding: 14px 18px;
+      background: var(--surface-alt);
+      border-bottom: 1px solid var(--border);
+    }
+    .clean-table header h3 {
+      margin: 0;
+      font-size: 1.05rem;
+      color: var(--primary-dark);
+    }
+    .clean-table header p {
+      margin: 4px 0 0;
+      font-size: 0.84rem;
+      color: var(--text-3);
+    }
+    .clean-steps {
+      margin: 0;
+      padding: 16px 18px 18px 2.2rem;
+      font-size: 0.9rem;
+      color: var(--text-2);
+    }
+    .clean-steps li { margin-bottom: 10px; }
+    .clean-steps li:last-child { margin-bottom: 0; }
+    .clean-steps strong { color: var(--text); }
+    .clean-tip {
+      margin: 0 24px 22px;
+      padding: 12px 16px;
+      font-size: 0.86rem;
+      color: var(--text-2);
+      background: var(--warning-soft);
+      border: 1px solid var(--warning-border);
+      border-radius: 10px;
+    }
+    .clean-tip.is-danger {
+      background: #FEF2F2;
+      border-color: #FECACA;
+    }
+    .clean-tip.is-info {
+      background: var(--primary-soft);
+      border-color: rgba(5,150,105,0.25);
+    }
+    .clean-wrap { padding: 0 24px 8px; }
+    .clean-toc {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .clean-toc a {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-2);
+      text-decoration: none;
+    }
+    .clean-toc a:hover { border-color: var(--primary); color: var(--primary-dark); background: var(--primary-soft); }
+    .clean-toc a span {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--primary);
+      margin-bottom: 2px;
+    }
+    .clean-roadmap {
+      margin: 0 0 22px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      font-size: 0.88rem;
+      color: var(--text-2);
+    }
+    .clean-roadmap ol {
+      margin: 8px 0 0;
+      padding-left: 1.25rem;
+    }
+    .clean-roadmap li { margin-bottom: 4px; }
+    .clean-phase {
+      margin: 0;
+      padding: 12px 18px 10px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+    .clean-phase h4 {
+      margin: 0 0 8px;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--primary-dark);
+    }
+    .clean-phase ol {
+      margin: 0;
+      padding-left: 1.2rem;
+      font-size: 0.88rem;
+      color: var(--text-2);
+    }
+    .clean-phase li { margin-bottom: 8px; }
+    .clean-phase li:last-child { margin-bottom: 0; }
+    .clean-recipe {
+      margin: 10px 0 0;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #FFFBEB;
+      list-style: decimal;
+      padding-left: 2rem;
+    }
+    .clean-recipe li { margin-bottom: 6px; }
+    .clean-cols {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 6px;
+      margin-top: 8px;
+      font-size: 0.82rem;
+    }
+    .clean-cols code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      background: var(--surface);
+      padding: 1px 4px;
+      border-radius: 4px;
+    }
+    .clean-final {
+      margin: 0 24px 22px;
+      padding: 14px 16px 14px 2.2rem;
+      border-radius: 12px;
+      border: 2px solid var(--primary);
+      background: var(--primary-soft);
+      font-size: 0.88rem;
+      color: var(--text-2);
+    }
+    .clean-final li { margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+  <nav class="topnav" aria-label="Navigare raport">
+    <div class="topnav-inner">
+      <div class="brand">
+        <span class="brand-mark">S5</span>
+        <span>Raport demo · 4 pagini</span>
+      </div>
+      <div class="topnav-links">
+        <a href="#p1">Pag. 1</a>
+        <a href="#p2">Pag. 2</a>
+        <a href="#p3">Pag. 3</a>
+        <a href="#p4">Pag. 4</a>
+        <a href="#curatare">Curățare</a>
+        <a href="index.html" class="is-back">← Sesiunea 5</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <p class="hero-eyebrow">Set date · Vanzari_s5_murdar · model star</p>
+      <h1>Ce conține fiecare pagină din raportul Power BI</h1>
+      <p>
+        Patru pagini complete, fiecare cu întrebări de business și vizuale potrivite.
+        Model: <strong>Vanzari</strong> + <strong>Dim_Date</strong>, <strong>Dim_Clienti</strong>,
+        <strong>Dim_Produse</strong>, <strong>Dim_Magazine</strong>.
+        <strong>Fără măsuri DAX</strong> — doar câmpuri trase în vizuale; Power BI folosește agregări implicite
+        (<span class="agg">Sumă</span>, <span class="agg">Medie</span>, <span class="agg">Număr</span>) după ce ai curățat tipurile în Power Query.
+      </p>
+    </section>
+
+    <div class="overview" aria-label="Rezumat pagini">
+      <article class="overview-card">
+        <span>01</span>
+        <h2>Performanță vânzări</h2>
+        <p>Cât și când? Macro + trend + regiuni.</p>
+      </article>
+      <article class="overview-card">
+        <span>02</span>
+        <h2>Mix produse</h2>
+        <p>Ce se vinde? Categorii, SKU, mărci.</p>
+      </article>
+      <article class="overview-card">
+        <span>03</span>
+        <h2>Clienți</h2>
+        <p>Cine cumpără? Tip client, valoare, discount.</p>
+      </article>
+      <article class="overview-card">
+        <span>04</span>
+        <h2>Rețea magazine</h2>
+        <p>Unde performăm? Magazine, regiuni, sortiment local.</p>
+      </article>
+      <article class="overview-card">
+        <span>PQ</span>
+        <h2><a href="#curatare" style="color:inherit;text-decoration:none">Curățare date</a></h2>
+        <p>Pași Power Query pe fiecare tabel, înainte de vizuale.</p>
+      </article>
+    </div>
+
+    <!-- Pagina 1 -->
+    <article class="page-block" id="p1">
+      <header>
+        <p class="page-num">Pagina 01</p>
+        <h2>Performanță vânzări</h2>
+        <span class="page-tab">Tab Power BI: Performanță</span>
+        <p class="page-meta"><strong>Public:</strong> director comercial · <strong>Decizie:</strong> merge perioada? unde e presiunea?</p>
+      </header>
+      <div class="page-body">
+        <div class="page-col">
+          <h3>Întrebări de business</h3>
+          <ul>
+            <li>Care este <strong>cifra de afaceri</strong> și <strong>cantitatea</strong> în perioada selectată?</li>
+            <li>Cum <strong>evoluează vânzările</strong> lună de lună (trend, sezon)?</li>
+            <li>Care <strong>regiuni</strong> și care <strong>magazine</strong> trag totalul în sus sau în jos?</li>
+            <li>Care este <strong>discountul mediu</strong> și cum influențează valoarea?</li>
+          </ul>
+        </div>
+        <div class="page-col">
+          <h3>Layout sugerat (wireframe)</h3>
+          <div class="wire">
+            <div class="wire-kpis">
+              <div class="wire-kpi"><b>Valoare</b><i></i></div>
+              <div class="wire-kpi"><b>Cantitate</b><i></i></div>
+              <div class="wire-kpi"><b>Linii</b><i></i></div>
+              <div class="wire-kpi"><b>Disc. mediu</b><i></i></div>
+            </div>
+            <div class="wire-row">
+              <div class="wire-panel">
+                <label>Line · Lună × Valoare totală</label>
+                <div class="wire-line" aria-hidden="true"></div>
+              </div>
+              <div class="wire-panel">
+                <label>Column · Regiune × Valoare</label>
+                <div class="wire-bars" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+              </div>
+            </div>
+            <p style="margin:10px 0 0;font-size:0.75rem;">Vezi lista exactă de vizuale mai jos.</p>
+          </div>
+        </div>
+      </div>
+      <section class="viz-spec" aria-label="Vizuale pagina 1">
+        <h3>Întrebare → grafic → câmpuri (agregare implicită)</h3>
+        <p class="viz-spec-count">8 vizuale · 8 întrebări (câte una per grafic/card)</p>
+        <p class="viz-facil-tip"><strong>Facilitator:</strong> citești întrebarea din caseta verde → cursanții spun tipul de vizual → verifici cu „Răspuns” → construiești cu câmpurile de dedesubt.</p>
+        <ol>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Care e <em>cifra totală de vânzări</em> (lei) în perioada selectată?”</p>
+            <p class="viz-answer">→ Răspuns: Card (KPI)</p>
+            <h4>Card · Valoare totală</h4>
+            <dl class="viz-fields">
+              <dt>Valori:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span></dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Câte <em>bucăți</em> am vândut în total?”</p>
+            <p class="viz-answer">→ Răspuns: Card (KPI)</p>
+            <h4>Card · Cantitate</h4>
+            <dl class="viz-fields">
+              <dt>Valori:</dt><dd><code>Vanzari[Cantitate]</code> → <span class="agg">Sumă</span></dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Câte <em>linii de vânzare</em> avem (cât de multă activitate)?”</p>
+            <p class="viz-answer">→ Răspuns: Card (KPI)</p>
+            <h4>Card · Nr. linii</h4>
+            <dl class="viz-fields">
+              <dt>Valori:</dt><dd><code>Vanzari[ID_Client]</code> → <span class="agg">Număr (nu-blank)</span> <em style="font-weight:500;color:var(--text-3)">(proxy linii)</em></dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Care e <em>discountul mediu</em> acordat pe linii?”</p>
+            <p class="viz-answer">→ Răspuns: Card (KPI)</p>
+            <h4>Card · Discount mediu</h4>
+            <dl class="viz-fields">
+              <dt>Valori:</dt><dd><code>Vanzari[Discount_Pct]</code> → <span class="agg">Medie</span></dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Vreau să văd <em>trendul vânzărilor pe lună</em> — crește, scade, sezon?”</p>
+            <p class="viz-answer">→ Răspuns: Line chart</p>
+            <h4>Line chart (evoluție)</h4>
+            <dl class="viz-fields">
+              <dt>Axă X:</dt><dd><strong>Ierarhie</strong> <code>Calendar</code> din <code>Dim_Date</code>: <code>An</code> → <code>Luna_Nume</code> → <code>Data</code> (o singură intrare pe axă; drill down în grafic). Sortează <code>Luna_Nume</code> după <code>Luna</code>.</dd>
+              <dt>Axă Y:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span></dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Care <em>regiune</em> vinde cel mai mult — comparație rapidă între câteva zone?”</p>
+            <p class="viz-answer">→ Răspuns: Clustered column chart</p>
+            <h4>Clustered column chart (regiuni)</h4>
+            <dl class="viz-fields">
+              <dt>Axă X:</dt><dd><code>Dim_Magazine[Regiune]</code></dd>
+              <dt>Axă Y:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span></dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Care <em>magazine</em> sunt în top la vânzări (nume lungi, multe locații)?”</p>
+            <p class="viz-answer">→ Răspuns: Bar chart (orizontal)</p>
+            <h4>Bar chart (orizontal, top magazine)</h4>
+            <dl class="viz-fields">
+              <dt>Axă Y:</dt><dd><code>Dim_Magazine[Nume_Magazin]</code></dd>
+              <dt>Axă X:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span></dd>
+              <dt>Filtru pe vizual:</dt><dd>Top N = 10 după sumă (fără DAX)</dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Cât vindem prin <em>magazin fizic vs online vs telefon</em> — cine e mai mare?”</p>
+            <p class="viz-answer">→ Răspuns: Clustered column chart</p>
+            <h4>Clustered column chart (opțional · canal)</h4>
+            <dl class="viz-fields">
+              <dt>Axă X:</dt><dd><code>Vanzari[Canal_Vanzare]</code></dd>
+              <dt>Axă Y:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span></dd>
+            </dl>
+          </li>
+        </ol>
+        <p class="viz-note">După PQ: <code>Cantitate</code> trebuie numerică; sumele din fact sunt deja numere în Excel — doar confirmă tipul Decimal.</p>
+      </section>
+      <p class="page-slicers"><strong>Slicere pe pagină:</strong> <code>Dim_Date[Data]</code> (interval) · <code>Dim_Magazine[Regiune]</code> · opțional <code>Dim_Date[An]</code></p>
+      <p class="takeaway"><strong>Răspuns în 30 sec:</strong> <em>„În perioada X am Y lei; Sud conduce; luna Z a scăzut față de luna anterioară; discountul mediu e …”</em></p>
+    </article>
+
+    <!-- Pagina 2 -->
+    <article class="page-block" id="p2">
+      <header>
+        <p class="page-num">Pagina 02</p>
+        <h2>Mix produse și categorii</h2>
+        <span class="page-tab">Tab Power BI: Produse</span>
+        <p class="page-meta"><strong>Public:</strong> category manager · <strong>Decizie:</strong> pe ce mă bazez? ce crește / scade?</p>
+      </header>
+      <div class="page-body">
+        <div class="page-col">
+          <h3>Întrebări de business</h3>
+          <ul>
+            <li>Ce <strong>categorii / subcategorii</strong> generează cea mai mare parte din vânzări?</li>
+            <li>Care <strong>produse</strong> sunt top la valoare vs top la cantitate?</li>
+            <li>Unde vindem <strong>mult volum, valoare mică</strong> (promo, preț mic)?</li>
+            <li>Cum stă <strong>marca</strong> față de restul în aceeași categorie?</li>
+          </ul>
+        </div>
+        <div class="page-col">
+          <h3>Layout sugerat (wireframe)</h3>
+          <div class="wire">
+            <div class="wire-row">
+              <div class="wire-panel">
+                <label>Stacked column · Lună × Cat. (legendă Subcat.)</label>
+                <div class="wire-bars" aria-hidden="true"><span></span><span></span><span></span></div>
+              </div>
+              <div class="wire-panel">
+                <label>Bar orizontal · Top produse × Valoare</label>
+                <div class="wire-bars" style="flex-direction:column;height:auto;gap:5px;margin-top:10px" aria-hidden="true">
+                  <span style="height:8px;width:92%;opacity:.9"></span>
+                  <span style="height:8px;width:78%;opacity:.7"></span>
+                  <span style="height:8px;width:65%;opacity:.5"></span>
+                  <span style="height:8px;width:50%;opacity:.35"></span>
+                </div>
+              </div>
+            </div>
+            <p style="margin:10px 0 0;font-size:0.75rem;">Vezi lista exactă de vizuale mai jos.</p>
+          </div>
+        </div>
+      </div>
+      <section class="viz-spec" aria-label="Vizuale pagina 2">
+        <h3>Întrebare → grafic → câmpuri (agregare implicită)</h3>
+        <p class="viz-spec-count">7 vizuale · 7 întrebări</p>
+        <p class="viz-facil-tip"><strong>Facilitator:</strong> fiecare item = un vizual pe pagina Produse; nu trece la câmpuri până nu ați numit tipul de chart.</p>
+        <ol>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Din ce <em>categorii</em> e făcut totalul și cum se schimbă asta <em>luna de lună</em>?”</p>
+            <p class="viz-answer">→ Răspuns: Stacked column chart</p>
+            <h4>Stacked column chart (mix în timp)</h4>
+            <dl class="viz-fields">
+              <dt>Axă X:</dt><dd><code>Dim_Date[Luna_Nume]</code> (sau <code>Dim_Date[Trimestru]</code>)</dd>
+              <dt>Legendă:</dt><dd><code>Dim_Produse[Categorie]</code></dd>
+              <dt>Axă Y:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span></dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Ce <em>pondere</em> are fiecare categorie din vânzări (perioada filtrată)?”</p>
+            <p class="viz-answer">→ Răspuns: Donut chart</p>
+            <h4>Donut chart (pondere categorii · o perioadă)</h4>
+            <dl class="viz-fields">
+              <dt>Legendă:</dt><dd><code>Dim_Produse[Categorie]</code></dd>
+              <dt>Valori:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span> (procentele sunt implicite pe donut)</dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Compar doar <em>proporțiile</em> (100%), nu valoarea absolută — cum stau mărcile ca structură?”</p>
+            <p class="viz-answer">→ Răspuns: 100% Stacked bar chart</p>
+            <h4>100% Stacked bar chart (pondere mărci)</h4>
+            <dl class="viz-fields">
+              <dt>Axă Y:</dt><dd><code>Dim_Produse[Brand]</code></dd>
+              <dt>Legendă:</dt><dd><code>Dim_Produse[Subcategorie]</code></dd>
+              <dt>Axă X:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span></dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Care <em>produse</em> aduc cei mai mulți bani (top 10)?”</p>
+            <p class="viz-answer">→ Răspuns: Bar chart (orizontal)</p>
+            <h4>Bar chart (orizontal · top produse după valoare)</h4>
+            <dl class="viz-fields">
+              <dt>Axă Y:</dt><dd><code>Dim_Produse[Nume_Produs]</code></dd>
+              <dt>Axă X:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span> · Top N 10 · sort descrescător</dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Ce produse se vând cel mai mult ca <em>bucăți</em>, nu neapărat ca valoare?”</p>
+            <p class="viz-answer">→ Răspuns: Bar chart (orizontal)</p>
+            <h4>Bar chart (orizontal · top produse după cantitate)</h4>
+            <dl class="viz-fields">
+              <dt>Axă Y:</dt><dd><code>Dim_Produse[Nume_Produs]</code></dd>
+              <dt>Axă X:</dt><dd><code>Vanzari[Cantitate]</code> → <span class="agg">Sumă</span> · Top N 10</dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Într-o categorie, care <em>mărci</em> sunt mai mari una lângă alta?”</p>
+            <p class="viz-answer">→ Răspuns: Clustered bar chart</p>
+            <h4>Clustered bar chart (marci · comparație directă)</h4>
+            <dl class="viz-fields">
+              <dt>Axă Y:</dt><dd><code>Dim_Produse[Brand]</code></dd>
+              <dt>Axă X:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span></dd>
+              <dt>Filtru pe vizual:</dt><dd><code>Dim_Produse[Categorie]</code> = o categorie (sau slicer pe pagină)</dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Vreau <em>cifre exacte</em> pe produs, categorie și marcă — nu doar un grafic?”</p>
+            <p class="viz-answer">→ Răspuns: Table</p>
+            <h4>Table (detaliu sortiment)</h4>
+            <dl class="viz-fields">
+              <dt>Coloane rând:</dt><dd><code>Dim_Produse[Nume_Produs]</code>, <code>Dim_Produse[Categorie]</code>, <code>Dim_Produse[Subcategorie]</code>, <code>Dim_Produse[Brand]</code></dd>
+              <dt>Valori:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span> · <code>Vanzari[Cantitate]</code> → <span class="agg">Sumă</span></dd>
+            </dl>
+          </li>
+        </ol>
+      </section>
+      <p class="page-slicers"><strong>Slicere pe pagină:</strong> <code>Dim_Produse[Categorie]</code> · <code>Dim_Produse[Brand]</code> · <code>Dim_Date[Data]</code> sau <code>Dim_Date[An]</code></p>
+      <p class="takeaway"><strong>Răspuns în 30 sec:</strong> <em>„Jumătate din vânzări vin din 2 subcategorii; produsul A e #1 la valoare, B la bucăți; marca X e sub așteptări în categorie Y.”</em></p>
+    </article>
+
+    <!-- Pagina 3 -->
+    <article class="page-block" id="p3">
+      <header>
+        <p class="page-num">Pagina 03</p>
+        <h2>Clienți și tipuri de client</h2>
+        <span class="page-tab">Tab Power BI: Clienți</span>
+        <p class="page-meta"><strong>Public:</strong> sales / marketing B2B · <strong>Decizie:</strong> unde investim relația?</p>
+      </header>
+      <div class="page-body">
+        <div class="page-col">
+          <h3>Întrebări de business</h3>
+          <ul>
+            <li>Cât reprezintă fiecare <strong>tip de client</strong> în vânzări (valoare și nr. linii)?</li>
+            <li>Cine sunt <strong>clienții cu cea mai mare valoare</strong> în perioadă?</li>
+            <li>Unde e <strong>discountul mediu</strong> cel mai mare — tip client vs marjă?</li>
+            <li>Există <strong>concentrare</strong> (puțini clienți = mult din total)?</li>
+          </ul>
+        </div>
+        <div class="page-col">
+          <h3>Layout sugerat (wireframe)</h3>
+          <div class="wire">
+            <div class="wire-kpis" style="grid-template-columns:repeat(3,1fr)">
+              <div class="wire-kpi"><b>Share tip 1</b><i></i></div>
+              <div class="wire-kpi"><b>Share tip 2</b><i></i></div>
+              <div class="wire-kpi"><b>Disc. mediu</b><i></i></div>
+            </div>
+            <div class="wire-row">
+              <div class="wire-panel">
+                <label>Column / Donut · Tip client × Valoare</label>
+                <div class="wire-bars" aria-hidden="true"><span></span><span></span><span></span></div>
+              </div>
+              <div class="wire-panel">
+                <label>Tabel · Top clienți</label>
+                <p style="margin:8px 0 0;font-size:0.72rem;line-height:1.6">Client · Tip · Valoare · Cantitate · Disc. mediu</p>
+              </div>
+            </div>
+            <p style="margin:10px 0 0;font-size:0.75rem;">Vezi lista exactă de vizuale mai jos.</p>
+          </div>
+        </div>
+      </div>
+      <section class="viz-spec" aria-label="Vizuale pagina 3">
+        <h3>Întrebare → grafic → câmpuri (agregare implicită)</h3>
+        <p class="viz-spec-count">6 vizuale · 6 întrebări</p>
+        <p class="viz-facil-tip"><strong>Facilitator:</strong> accent pe diferența Donut (pondere) vs Column (compară mărimi).</p>
+        <ol>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Cât la sută din vânzări vine de la <em>PJ vs PF</em>?”</p>
+            <p class="viz-answer">→ Răspuns: Donut chart</p>
+            <h4>Donut chart (share tip client)</h4>
+            <dl class="viz-fields">
+              <dt>Legendă:</dt><dd><code>Dim_Clienti[Tip_Client]</code> <em style="font-weight:500;color:var(--text-3)">(după PQ: PJ/PF unificate)</em></dd>
+              <dt>Valori:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span></dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Compar tipurile de client: cine aduce mai multă <em>valoare</em> și cine mai mult <em>volum</em>?”</p>
+            <p class="viz-answer">→ Răspuns: Clustered column chart</p>
+            <h4>Clustered column chart (tip client · valoare + volum)</h4>
+            <dl class="viz-fields">
+              <dt>Axă X:</dt><dd><code>Dim_Clienti[Tip_Client]</code></dd>
+              <dt>Axă Y:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span> și <code>Vanzari[Cantitate]</code> → <span class="agg">Sumă</span> (două coloane în același grafic)</dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „La ce <em>tip de client</em> acordăm discount mai mare în medie?”</p>
+            <p class="viz-answer">→ Răspuns: Clustered column chart</p>
+            <h4>Clustered column chart (discount mediu pe tip)</h4>
+            <dl class="viz-fields">
+              <dt>Axă X:</dt><dd><code>Dim_Clienti[Tip_Client]</code></dd>
+              <dt>Axă Y:</dt><dd><code>Vanzari[Discount_Pct]</code> → <span class="agg">Medie</span></dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Cine sunt cei <em>10 clienți</em> după valoarea cumpărăturilor?”</p>
+            <p class="viz-answer">→ Răspuns: Bar chart (orizontal)</p>
+            <h4>Bar chart (orizontal · top clienți)</h4>
+            <dl class="viz-fields">
+              <dt>Axă Y:</dt><dd><code>Dim_Clienti[Denumire]</code></dd>
+              <dt>Axă X:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span> · Top N 10</dd>
+              <dt>Tooltip (opțional):</dt><dd><code>Dim_Clienti[Tip_Client]</code>, <code>Dim_Clienti[Oras]</code></dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Care <em>segment</em> CRM (Enterprise, SMB, retail mic…) vinde cel mai mult?”</p>
+            <p class="viz-answer">→ Răspuns: Column chart</p>
+            <h4>Column chart (segment CRM)</h4>
+            <dl class="viz-fields">
+              <dt>Axă X:</dt><dd><code>Dim_Clienti[Segment]</code></dd>
+              <dt>Axă Y:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span></dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Listă detaliată client cu valoare, cantitate și discount — pentru export / urmărire?”</p>
+            <p class="viz-answer">→ Răspuns: Table</p>
+            <h4>Table (fișă clienți)</h4>
+            <dl class="viz-fields">
+              <dt>Coloane rând:</dt><dd><code>Dim_Clienti[Denumire]</code>, <code>Dim_Clienti[Tip_Client]</code>, <code>Dim_Clienti[Segment]</code>, <code>Dim_Clienti[Regiune]</code></dd>
+              <dt>Valori:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span> · <code>Vanzari[Cantitate]</code> → <span class="agg">Sumă</span> · <code>Vanzari[Discount_Pct]</code> → <span class="agg">Medie</span></dd>
+            </dl>
+          </li>
+        </ol>
+      </section>
+      <p class="page-slicers"><strong>Slicere pe pagină:</strong> <code>Dim_Clienti[Tip_Client]</code> · <code>Dim_Clienti[Segment]</code> · <code>Dim_Date[Data]</code></p>
+      <p class="takeaway"><strong>Răspuns în 30 sec:</strong> <em>„En-gros e majoritar la valoare dar cu discount dublu; clientul C e #1; retail aduce mai multe linii, valoare mai mică per linie.”</em></p>
+    </article>
+
+    <!-- Pagina 4 -->
+    <article class="page-block" id="p4">
+      <header>
+        <p class="page-num">Pagina 04</p>
+        <h2>Rețea magazine și operațiuni</h2>
+        <span class="page-tab">Tab Power BI: Magazine</span>
+        <p class="page-meta"><strong>Public:</strong> regional manager · <strong>Decizie:</strong> promoții, sortiment, resurse pe locație</p>
+      </header>
+      <div class="page-body">
+        <div class="page-col">
+          <h3>Întrebări de business</h3>
+          <ul>
+            <li>Cum se <strong>compară magazinele</strong> (vânzări, cantitate, medie per magazin în regiune)?</li>
+            <li>În fiecare <strong>regiune</strong>, ce categorie „trage” (magazin × categorie)?</li>
+            <li>Care magazine sunt <strong>sub medie</strong> rețea — candidat la acțiune?</li>
+            <li>Care <strong>format de magazin</strong> (Franciză, Supermarket…) performează mai bine?</li>
+          </ul>
+        </div>
+        <div class="page-col">
+          <h3>Layout sugerat (wireframe)</h3>
+          <div class="wire">
+            <div class="wire-row">
+              <div class="wire-panel">
+                <label>Bar orizontal · Magazin × Valoare</label>
+                <div class="wire-bars" style="flex-direction:column;height:auto;gap:4px;margin-top:10px" aria-hidden="true">
+                  <span style="height:7px;width:88%"></span>
+                  <span style="height:7px;width:72%;opacity:.8"></span>
+                  <span style="height:7px;width:61%;opacity:.6"></span>
+                  <span style="height:7px;width:45%;opacity:.45"></span>
+                </div>
+              </div>
+              <div class="wire-panel">
+                <label>Matrix · Rând Magazin · Coloană Categorie</label>
+                <p style="margin:8px 0 0;font-size:0.72rem;line-height:1.5">Heatmap valoare · filtru regiune</p>
+              </div>
+            </div>
+            <p style="margin:10px 0 0;font-size:0.75rem;">Vezi lista exactă de vizuale mai jos.</p>
+          </div>
+        </div>
+      </div>
+      <section class="viz-spec" aria-label="Vizuale pagina 4">
+        <h3>Întrebare → grafic → câmpuri (agregare implicită)</h3>
+        <p class="viz-spec-count">7 vizuale · 7 întrebări</p>
+        <p class="viz-facil-tip"><strong>Facilitator:</strong> Matrix și Map sunt opționale la nivel; întrebările rămân pentru când le incluzi pe pagină.</p>
+        <ol>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Care <em>regiune</em> are cele mai mari vânzări în rețea?”</p>
+            <p class="viz-answer">→ Răspuns: Clustered column chart</p>
+            <h4>Clustered column chart (regiuni)</h4>
+            <dl class="viz-fields">
+              <dt>Axă X:</dt><dd><code>Dim_Magazine[Regiune]</code></dd>
+              <dt>Axă Y:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span></dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Clasament <em>magazine</em> — cine e primul, cine e ultimul?”</p>
+            <p class="viz-answer">→ Răspuns: Bar chart (orizontal)</p>
+            <h4>Bar chart (orizontal · toate magazinele)</h4>
+            <dl class="viz-fields">
+              <dt>Axă Y:</dt><dd><code>Dim_Magazine[Nume_Magazin]</code></dd>
+              <dt>Axă X:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span> · sort descrescător</dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „În fiecare magazin, ce <em>categorii</em> domină (heatmap / matrix)?”</p>
+            <p class="viz-answer">→ Răspuns: Matrix</p>
+            <h4>Matrix (magazin × categorie sortiment)</h4>
+            <dl class="viz-fields">
+              <dt>Rânduri:</dt><dd><code>Dim_Magazine[Nume_Magazin]</code></dd>
+              <dt>Coloane:</dt><dd><code>Dim_Produse[Categorie]</code></dd>
+              <dt>Valori:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span></dd>
+              <dt>Formatare:</dt><dd>Conditional formatting → fundal pe celule (heatmap), fără DAX</dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Performează mai bine <em>magazin propriu, franciză sau online</em>?”</p>
+            <p class="viz-answer">→ Răspuns: Clustered column chart</p>
+            <h4>Clustered column chart (format magazin)</h4>
+            <dl class="viz-fields">
+              <dt>Axă X:</dt><dd><code>Dim_Magazine[Format_Magazin]</code></dd>
+              <dt>Axă Y:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span></dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Câte <em>magazine</em> sunt în selecția curentă (după filtre)?”</p>
+            <p class="viz-answer">→ Răspuns: Card (KPI)</p>
+            <h4>Card · Nr. magazine</h4>
+            <dl class="viz-fields">
+              <dt>Valori:</dt><dd><code>Dim_Magazine[Nume_Magazin]</code> → <span class="agg">Număr distinct</span></dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Care e <em>totalul de vânzări</em> afișat pe această pagină?”</p>
+            <p class="viz-answer">→ Răspuns: Card (KPI)</p>
+            <h4>Card · Total vânzări pagină</h4>
+            <dl class="viz-fields">
+              <dt>Valori:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span></dd>
+            </dl>
+          </li>
+          <li class="viz-item">
+            <p class="viz-ask"><strong>Întrebare:</strong> „Unde sunt magazinele pe hartă și cât vând <em>vizual</em> (mărime bulă)?”</p>
+            <p class="viz-answer">→ Răspuns: Map</p>
+            <h4>Map (opțional · după PQ pe coordonate)</h4>
+            <dl class="viz-fields">
+              <dt>Locație:</dt><dd><code>Dim_Magazine[Latitudine]</code>, <code>Dim_Magazine[Longitudine]</code> (sau câmp Location din ambele)</dd>
+              <dt>Mărime bulă:</dt><dd><code>Vanzari[Valoare_Totala]</code> → <span class="agg">Sumă</span></dd>
+              <dt>Legendă (opțional):</dt><dd><code>Dim_Magazine[Regiune]</code></dd>
+            </dl>
+          </li>
+        </ol>
+      </section>
+      <p class="page-slicers"><strong>Slicere pe pagină:</strong> <code>Dim_Magazine[Regiune]</code> · <code>Dim_Magazine[Format_Magazin]</code> · <code>Dim_Magazine[Oras]</code> · <code>Dim_Date[Data]</code></p>
+      <p class="takeaway"><strong>Răspuns în 30 sec:</strong> <em>„Vest are media cea mai mică per magazin; M3 depășește rețeaua pe băuturi; franciza X bate supermarketul Y în Sud.”</em></p>
+    </article>
+
+    <!-- Curățare Power Query -->
+    <article class="page-block clean-block" id="curatare">
+      <header>
+        <p class="page-num">Înainte de raport</p>
+        <h2>Curățare · Power Query</h2>
+        <span class="page-tab">Ghid complet · Vanzari_s5_murdar.xlsx</span>
+        <p class="page-meta">
+          Lucrezi <strong>tabel cu tabel</strong>, apoi construiești modelul. În raport, timpul vine din <code>Dim_Date</code>;
+          în fact rămân <code>Data_Facturare</code> (audit) + <code>ID_Date</code> (FK).
+        </p>
+      </header>
+
+      <div class="clean-wrap">
+        <nav class="clean-toc" aria-label="Cuprins curățare">
+          <a href="#clean-fact"><span>01</span> Vanzari</a>
+          <a href="#clean-date"><span>02</span> Dim_Date</a>
+          <a href="#clean-clienti"><span>03</span> Dim_Clienti</a>
+          <a href="#clean-produse"><span>04</span> Dim_Produse</a>
+          <a href="#clean-magazine"><span>05</span> Dim_Magazine</a>
+          <a href="#clean-model"><span>06</span> Model &amp; verificare</a>
+        </nav>
+
+        <div class="clean-roadmap">
+          <strong>Ordinea obligatorie</strong>
+          <ol>
+            <li><strong>Dim_Date</strong> → <strong>Dim_Clienti</strong> → <strong>Dim_Produse</strong> → <strong>Dim_Magazine</strong> (chei curate, unice).</li>
+            <li><strong>Vanzari</strong> (tipuri + ID-uri numerice, fără null).</li>
+            <li><strong>Model view</strong> — patru relații many-to-one; apoi paginile de raport.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="page-body">
+        <div class="page-col">
+
+          <div class="clean-table" id="clean-fact">
+            <header>
+              <h3>1 · Vanzari</h3>
+              <p>Export ERP · ordine coloane: <code>ID_Date</code>, <code>ID_Client</code>, <code>ID_Produs</code>, <code>ID_Magazin</code>, <code>Data_Facturare</code>, apoi măsuri</p>
+            </header>
+
+            <div class="clean-phase">
+              <h4>A · Structură (rânduri)</h4>
+              <ol>
+                <li>Elimină primele <strong>2 rânduri</strong> (titlu + subtitlu export).</li>
+                <li><em>Use First Row as Headers</em>.</li>
+                <li>Elimină ultimul rând (<code>Total linii export…</code>).</li>
+                <li><em>Remove Blank Rows</em> unde întreg rândul e gol.</li>
+              </ol>
+            </div>
+
+            <div class="clean-phase">
+              <h4>B · Dată facturare &amp; cheie calendar</h4>
+              <ol>
+                <li><strong>Data_Facturare:</strong> <em>Trim</em> → tip <strong>Date</strong>, locală <strong>Română (România)</strong> (<code>dd.MM.yyyy</code>).</li>
+                <li>Date invalide din set (<code>31.02.2024</code>, <code>2024-13-40</code>): ștergi rândul sau <em>Replace Errors</em> → null, apoi filtrezi null dacă nu vrei linii fără dată.</li>
+                <li><strong>ID_Date:</strong> <em>Trim</em> → <strong>Whole Number</strong> — FK către <code>Dim_Date[ID]</code> (nu recalcula ID din dată dacă sursa îl dă deja).</li>
+              </ol>
+            </div>
+
+            <div class="clean-phase">
+              <h4>C · Cantitate &amp; procente</h4>
+              <ol>
+                <li><strong>Cantitate:</strong> <em>Trim</em> → <em>Replace</em> <code> buc</code>, <code>buc.</code>, <code>BUC</code> → gol → <code>,</code> → <code>.</code> la zecimale → <strong>Decimal Number</strong>.</li>
+                <li><strong>Discount_Pct, Cota_TVA:</strong> <strong>Whole Number</strong> (în sursă sunt deja numere, fără <code>%</code>).</li>
+              </ol>
+            </div>
+
+            <div class="clean-phase">
+              <h4>D · Sumă (deja numeric în Excel)</h4>
+              <p style="margin:0 0 8px;font-size:0.86rem;color:var(--text-2)">
+                <code>Pret_Lista</code>, <code>Valoare_Neta</code>, <code>Valoare_TVA</code>, <code>Valoare_Totala</code> — nu au <code>RON</code> sau text; nu folosi Trim aici.
+              </p>
+              <ol class="clean-recipe">
+                <li>Verifică tipul: <strong>Decimal Number</strong> (sau Fixed Decimal). Dacă Power Query le-a citit greșit, schimbă tipul o singură dată — fără Replace pe text.</li>
+                <li>În <strong>Model</strong> sau pe coloană: format <strong>Currency</strong>, monedă <strong>RON</strong> (doar afișare).</li>
+              </ol>
+            </div>
+
+            <div class="clean-phase">
+              <h4>E · Text &amp; duplicate</h4>
+              <ol>
+                <li><strong>Canal_Vanzare, Status_Plata, Moneda, UM:</strong> <em>Trim</em> → Text (ex. <code>  Online  </code> → <code>Online</code>).</li>
+                <li><strong>Duplicat intenționat:</strong> un rând e copiat — la final <em>Remove Duplicates</em> pe toate coloanele dacă vrei fact fără dubluri.</li>
+              </ol>
+            </div>
+
+            <div class="clean-phase">
+              <h4>F · ID-uri fact (înainte de Close &amp; Apply)</h4>
+              <ol>
+                <li><strong>ID_Client, ID_Produs, ID_Magazin, ID_Date:</strong> <em>Trim</em> → <strong>Whole Number</strong>.</li>
+                <li>Elimină rândurile cu oricare dintre aceste ID-uri <strong>null</strong> sau <strong>gol</strong> (inclusiv după erori la conversie).</li>
+                <li>Seturile cursului nu conțin ID care lipsesc din dimensiuni — după pașii de mai sus, FK-urile se potrivesc modelului star.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="clean-table" id="clean-date">
+            <header>
+              <h3>2 · Dim_Date</h3>
+              <p>2022–2025 · ID + atribute calendar · fără coloană sărbători</p>
+            </header>
+            <ol class="clean-steps">
+              <li>Elimină 2 rânduri titlu/notă → header: <code>ID</code>, <code>Data</code>, <code>An</code>, <code>Trimestru</code>, <code>Luna</code>, <code>Luna_Nume</code>, …</li>
+              <li><strong>ID:</strong> Whole Number, unic (PK).</li>
+              <li><strong>Data:</strong> <em>Trim</em> → Date, locală România; serial Excel / <code>yyyy/mm/dd</code> → corectezi sau <em>Replace Errors</em>.</li>
+              <li>Fix punctual: <code>32.01.2022</code>, celule goale.</li>
+              <li><strong>An, Luna, Trimestru, Luna_Nume, Zi_Saptamana, …</strong> — tip corect; sortare grafice lună după <code>Luna</code>.</li>
+              <li><strong>Zi_Lucratoare:</strong> Da/Nu; <code>YES</code> → <code>Da</code> sau <code>Nu</code>.</li>
+            </ol>
+          </div>
+
+          <div class="clean-table" id="clean-clienti">
+            <header>
+              <h3>3 · Dim_Clienti</h3>
+              <p>CRM · 2 rânduri junk · tip client inconsistent · duplicat ID 36</p>
+            </header>
+            <ol class="clean-steps">
+              <li>Elimină junk → header cu <code>ID</code>, <code>Denumire</code>, <code>Tip_Client</code>, …</li>
+              <li><strong>ID:</strong> Trim → Whole Number; duplicat <code>36</code> → <em>Remove Duplicates</em> pe ID (Keep First).</li>
+              <li><strong>Tip_Client:</strong> unifică PJ/PF vs Persoana Juridica/Fizica.</li>
+              <li><strong>Oras, Regiune, Email:</strong> Trim; text <code>NULL</code> → null.</li>
+              <li><strong>Data_Inregistrare:</strong> Date, locală RO.</li>
+              <li><strong>NPS_Ultim:</strong> fără <code>/10</code>; virgulă zecimală → punct → număr.</li>
+            </ol>
+          </div>
+
+          <div class="clean-table" id="clean-produse">
+            <header>
+              <h3>4 · Dim_Produse</h3>
+              <p>Header dublu · categorie fill-down</p>
+            </header>
+            <ol class="clean-steps">
+              <li>Elimină rând gol + rând header vechi (<code>Cod produs</code>, <code>Cat.</code>).</li>
+              <li>Corectează rândul cu categorie/subcategorie inversată → <strong>Fill Down</strong> pe <code>Categorie</code>.</li>
+              <li><strong>Pret_Catalog:</strong> <strong>Decimal Number</strong> (număr în sursă).</li>
+              <li><strong>ID, Greutate_Kg:</strong> numere; <strong>Activ:</strong> Da/NU; <strong>Nume_Produs, SKU:</strong> Trim.</li>
+            </ol>
+          </div>
+
+          <div class="clean-table" id="clean-magazine">
+            <header>
+              <h3>5 · Dim_Magazine</h3>
+              <p>Abrevieri regiune · lat/long cu virgulă · ID 11 duplicat</p>
+            </header>
+            <ol class="clean-steps">
+              <li>Elimină rând titlu → header.</li>
+              <li><strong>Regiune:</strong> <code>NW</code>, <code>SE</code>, <code>B-IF</code> → nume complete.</li>
+              <li><strong>Latitudine, Longitudine:</strong> virgulă → punct → Decimal.</li>
+              <li><strong>Suprafata_mp:</strong> fără <code> mp</code> → Whole Number.</li>
+              <li><strong>ID 11</strong> duplicat: dedupe sau redenumește magazinul înainte de model.</li>
+            </ol>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="clean-wrap" id="clean-model">
+        <p class="clean-tip is-info">
+          <strong>Relații (Model view):</strong>
+          <code>Fact[ID_Date]</code> → <code>Dim_Date[ID]</code> ·
+          <code>Fact[ID_Client]</code> → <code>Dim_Clienti[ID]</code> ·
+          <code>Fact[ID_Produs]</code> → <code>Dim_Produse[ID]</code> ·
+          <code>Fact[ID_Magazin]</code> → <code>Dim_Magazine[ID]</code>.
+          Toate many-to-one, single direction de la fact la dim.
+        </p>
+        <p class="clean-tip is-danger">
+          <strong>Orfani — nu în model:</strong> factul încărcat nu trebuie să conțină FK fără rând în dimensiune. Dacă la raport vezi blank pe denumiri magazin/produs/client, ai ratat filtrarea în PQ — revino la pasul <strong>F</strong> pe fact.
+        </p>
+        <ol class="clean-final">
+          <li><strong>Checklist final:</strong> toate dimensiunile au <code>ID</code> unic, tip număr.</li>
+          <li>Fact: fără rânduri junk; FK numerice (Trim, fără null); bani și cantități numerice.</li>
+          <li>Model: 4 relații active; fără warnings de tip „many-to-many” nedorit.</li>
+          <li>Abia apoi construiești cele 4 pagini de raport (Card, Line, Bar, Matrix…).</li>
+        </ol>
+      </div>
+    </article>
+
+    <p class="footer-note">
+      <strong>Model (Model view):</strong> relații many-to-one de la fact la dimensiuni:
+      <code>Vanzari[ID_Date]</code> → <code>Dim_Date[ID]</code>,
+      <code>Vanzari[ID_Client]</code> → <code>Dim_Clienti[ID]</code>,
+      <code>Vanzari[ID_Produs]</code> → <code>Dim_Produse[ID]</code>,
+      <code>Vanzari[ID_Magazin]</code> → <code>Dim_Magazine[ID]</code>.
+      Numele tabelelor în raport pot fi redenumite după import; păstrează aceleași nume de coloane ca în Excel curățat.
+    </p>
+  </main>
+</body>
+</html>

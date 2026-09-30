@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Echipa Galben · Proiect · BuildMat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root { --primary: #CA8A04; --soft: color-mix(in srgb, #CA8A04 14%, white); }
+    body { font-family: Inter, sans-serif; margin: 0; background: #f6f6f6; color: #111; line-height: 1.6; }
+    main { max-width: 880px; margin: 0 auto; padding: 28px 20px 56px; }
+    a { color: var(--primary); font-weight: 600; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .hero { background: var(--soft); border: 1px solid color-mix(in srgb, var(--primary) 30%, #ccc);
+      border-radius: 14px; padding: 26px 28px; margin-bottom: 22px; }
+    .badge { display: inline-block; background: var(--primary); color: #fff; font-weight: 700;
+      font-size: 0.72rem; padding: 4px 10px; border-radius: 999px; margin-bottom: 10px; }
+    .hero h1 { margin: 0 0 6px; font-size: 1.55rem; }
+    .tag { color: #444; margin: 0 0 14px; }
+    .members { background: #fff; border: 2px dashed #bbb; border-radius: 8px; padding: 14px 18px; margin: 14px 0; }
+    .members ul { margin: 8px 0 0; padding-left: 1.2rem; }
+    .members li { margin: 4px 0; }
+    .context-box { background: #fff; border-radius: 10px; padding: 18px 20px; margin-top: 12px;
+      border-left: 4px solid var(--primary); }
+    .context-box p { margin: 0 0 10px; }
+    .context-box p:last-child { margin-bottom: 0; }
+    h2 { color: var(--primary); font-size: 1.15rem; margin: 0 0 12px; }
+    .steps { counter-reset: st; list-style: none; padding: 0; margin: 0; }
+    .steps li { counter-increment: st; margin: 14px 0; padding-left: 38px; position: relative; }
+    .steps li::before { content: counter(st); position: absolute; left: 0; top: 2px;
+      width: 26px; height: 26px; border-radius: 50%; background: var(--primary); color: #fff;
+      font-weight: 800; font-size: 0.82rem; display: grid; place-items: center; }
+    .page-block { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px;
+      padding: 20px 22px; margin-bottom: 16px; }
+    .page-num { font-weight: 800; color: var(--primary); margin: 0 0 6px; font-size: 0.95rem; }
+    .focus { color: #374151; margin: 0 0 14px; }
+    h3 { font-size: 0.95rem; margin: 0 0 8px; }
+    .rec-heading { margin-top: 16px; color: #6b7280; font-weight: 600; }
+    .q-list li, .rec-list li { margin: 6px 0; }
+    .rec-list { color: #4b5563; font-size: 0.94rem; }
+    .note-pages { font-size: 0.92rem; color: #555; margin: 0 0 18px; }
+  </style>
+</head>
+<body>
+  <main>
+    <p><a href="../index.html">← Înapoi la Sesiunea 5</a></p>
+    <header class="hero">
+      <span class="badge">Echipa Galben</span>
+      <h1>BuildMat</h1>
+      <p class="tag">depozite materiale construcții · Construcții & bricolaj</p>
+      <div class="members"><strong>Membri echipă</strong><ul><li>Mariana Vasile</li><li>Beatrice Antonievici</li><li>Ruxandra Gheorghita</li><li>Horea Stanescu</li></ul></div>
+      <div class="context-box">
+        <p><strong>Despre firmă.</strong> BuildMat vinde materiale de construcții și unelte din depozite din țară.</p>
+        <p>Linii de vânzare din depozite: material sau unealtă, cantitate, valoare, client, canal (depozit, livrare șantier, B2B). Dimensiuni pentru constructori vs bricolaj, categorii produse, depozite și calendar. Conducerea urmărește volumul pe regiuni și mix materiale vs unelte.</p>
+      </div>
+    </header>
+
+    <section class="page-block">
+      <h2>Misiune</h2>
+      <ol class="steps">
+        <li><strong>Explorați datele</strong> — înțelegeți ce reprezintă fiecare fișier, ce granulație are o linie și ce rol au coloanele (identificatori, descrieri, măsuri, date).</li>
+        <li><strong>Curățați datele</strong> — folosiți tehnicile învățate până acum în Power Query, adaptate la ce găsiți în setul echipei voastre.</li>
+        <li><strong>Creați un model star schema</strong> — legați tabelul de facturi / linii de vânzare de dimensiunile de context (clienți, produse, locații, calendar).</li>
+        <li><strong>Creați un raport de 4 pagini</strong> — folosiți titlurile de mai jos. Pe fiecare pagină, 3–4 vizuale care răspund la întrebări. Alegeți voi tipul de diagramă.</li>
+      </ol>
+    </section>
+
+    <p class="note-pages">Cele 4 pagini ale raportului:</p>
+
+    <section class="page-block">
+      <p class="page-num">Pagina 1 · Performanță vânzări</p>
+      <p class="focus">Pagina de deschidere pentru directorul comercial: total, timp, depozite.</p>
+      <h3>Întrebări pentru această pagină</h3>
+      <ul class="q-list"><li>Care este valoarea totală a vânzărilor?</li><li>Cum evoluează vânzările pe luni (sezon construcții)?</li><li>Ce regiuni au depozite mai active?</li><li>Top depozite după valoare?</li></ul>
+      <h3 class="rec-heading">Recomandări (opțional — puteți alege altfel)</h3>
+      <ul class="rec-list"><li>Recomandare: KPI-uri + diagramă linie pe calendar.</li><li>Recomandare: coloane pe depozit sau regiune.</li></ul>
+    </section>
+
+    <section class="page-block">
+      <p class="page-num">Pagina 2 · Mix produse</p>
+      <p class="focus">Materiale grele, finisaje, unelte — ce mișcă stocul.</p>
+      <h3>Întrebări pentru această pagină</h3>
+      <ul class="q-list"><li>Materiale vs Unelte vs Finisaje — cum stau la valoare?</li><li>Ce subcategorii (Ciment, Gresie, Manual…) sunt cele mai cerute?</li><li>Care SKU-uri sunt în top ca încasări?</li></ul>
+      <h3 class="rec-heading">Recomandări (opțional — puteți alege altfel)</h3>
+      <ul class="rec-list"><li>Recomandare: stacked column pe categorie.</li><li>Recomandare: bar chart produse; opțional filtru categorie.</li></ul>
+    </section>
+
+    <section class="page-block">
+      <p class="page-num">Pagina 3 · Clienți</p>
+      <p class="focus">Constructori, renovatori, bricolaj (PF).</p>
+      <h3>Întrebări pentru această pagină</h3>
+      <ul class="q-list"><li>PJ vs PF — cine aduce bulk-ul vânzărilor?</li><li>Segmente (Constructor, Bricolaj, Renovari, Instalator): diferențe?</li><li>Care firme constructori sunt clienții cei mai mari?</li></ul>
+      <h3 class="rec-heading">Recomandări (opțional — puteți alege altfel)</h3>
+      <ul class="rec-list"><li>Recomandare: donut Tip_Client sau Segment.</li><li>Recomandare: top clienți PJ — tabel sau bar chart.</li></ul>
+    </section>
+
+    <section class="page-block">
+      <p class="page-num">Pagina 4 · Depozite și livrări</p>
+      <p class="focus">Ridicare din depozit vs livrare șantier vs portal B2B.</p>
+      <h3>Întrebări pentru această pagină</h3>
+      <ul class="q-list"><li>Depozitele mari vs mici — aceeași dinamică?</li><li>Canal Depozit vs Livrare santier vs Online B2B — pondere?</li><li>Unde e puternică livrarea pe șantier (locații)?</li></ul>
+      <h3 class="rec-heading">Recomandări (opțional — puteți alege altfel)</h3>
+      <ul class="rec-list"><li>Recomandare: bar chart pe Nume_Magazin (depozit).</li><li>Recomandare: coloane pe Canal_Vanzare; matrice opțională depozit × canal.</li></ul>
+    </section>
+
+  </main>
+</body>
+</html>

@@ -1,0 +1,16 @@
+Set date CURAT · Sesiunea 5
+==============================
+
+Același model star ca setul *_murdar*, fără rânduri junk, fără FK orfane,
+tipuri consistente (gata de Model view după import).
+
+Fișier principal: Vanzari_s5_curat.xlsx (5 foi)
+Sau: Vanzari_curat.xlsx + Dim_*_curat.xlsx
+
+Relații:
+- Vanzari[ID_Date] → Dim_Date[ID]
+- Vanzari[ID_Client] → Dim_Clienti[ID]
+- Vanzari[ID_Produs] → Dim_Produse[ID]
+- Vanzari[ID_Magazin] → Dim_Magazine[ID]
+
+Folosire: soluție facilitator, raport demo final, sau dacă sari peste exercițiul Power Query.

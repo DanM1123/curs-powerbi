@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Echipa Roșu · Proiect · GustRo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root { --primary: #DC2626; --soft: color-mix(in srgb, #DC2626 14%, white); }
+    body { font-family: Inter, sans-serif; margin: 0; background: #f6f6f6; color: #111; line-height: 1.6; }
+    main { max-width: 880px; margin: 0 auto; padding: 28px 20px 56px; }
+    a { color: var(--primary); font-weight: 600; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .hero { background: var(--soft); border: 1px solid color-mix(in srgb, var(--primary) 30%, #ccc);
+      border-radius: 14px; padding: 26px 28px; margin-bottom: 22px; }
+    .badge { display: inline-block; background: var(--primary); color: #fff; font-weight: 700;
+      font-size: 0.72rem; padding: 4px 10px; border-radius: 999px; margin-bottom: 10px; }
+    .hero h1 { margin: 0 0 6px; font-size: 1.55rem; }
+    .tag { color: #444; margin: 0 0 14px; }
+    .members { background: #fff; border: 2px dashed #bbb; border-radius: 8px; padding: 14px 18px; margin: 14px 0; }
+    .members ul { margin: 8px 0 0; padding-left: 1.2rem; }
+    .members li { margin: 4px 0; }
+    .context-box { background: #fff; border-radius: 10px; padding: 18px 20px; margin-top: 12px;
+      border-left: 4px solid var(--primary); }
+    .context-box p { margin: 0 0 10px; }
+    .context-box p:last-child { margin-bottom: 0; }
+    h2 { color: var(--primary); font-size: 1.15rem; margin: 0 0 12px; }
+    .steps { counter-reset: st; list-style: none; padding: 0; margin: 0; }
+    .steps li { counter-increment: st; margin: 14px 0; padding-left: 38px; position: relative; }
+    .steps li::before { content: counter(st); position: absolute; left: 0; top: 2px;
+      width: 26px; height: 26px; border-radius: 50%; background: var(--primary); color: #fff;
+      font-weight: 800; font-size: 0.82rem; display: grid; place-items: center; }
+    .page-block { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px;
+      padding: 20px 22px; margin-bottom: 16px; }
+    .page-num { font-weight: 800; color: var(--primary); margin: 0 0 6px; font-size: 0.95rem; }
+    .focus { color: #374151; margin: 0 0 14px; }
+    h3 { font-size: 0.95rem; margin: 0 0 8px; }
+    .rec-heading { margin-top: 16px; color: #6b7280; font-weight: 600; }
+    .q-list li, .rec-list li { margin: 6px 0; }
+    .rec-list { color: #4b5563; font-size: 0.94rem; }
+    .note-pages { font-size: 0.92rem; color: #555; margin: 0 0 18px; }
+  </style>
+</head>
+<body>
+  <main>
+    <p><a href="../index.html">← Înapoi la Sesiunea 5</a></p>
+    <header class="hero">
+      <span class="badge">Echipa Roșu</span>
+      <h1>GustRo</h1>
+      <p class="tag">lanț de restaurante & catering · HoReCa</p>
+      <div class="members"><strong>Membri echipă</strong><ul><li>Alina Matasaru</li><li>Andreea Filip</li><li>Karola Mocan</li><li>Alexandru-Paul Dima</li><li>Edgar Denes</li></ul></div>
+      <div class="context-box">
+        <p><strong>Despre firmă.</strong> GustRo are restaurante în mai multe orașe. Vinde mâncare și băuturi la locație, la livrare sau catering.</p>
+        <p>În Excel: linii de vânzare (produs, cantitate, valoare, restaurant, client, dată, canal) și tabele Dim pentru clienți, meniu, locații și calendar. Raportul e pentru managementul GustRo: înțelege performanța rețelei, nu doar un total.</p>
+      </div>
+    </header>
+
+    <section class="page-block">
+      <h2>Misiune</h2>
+      <ol class="steps">
+        <li><strong>Explorați datele</strong> — înțelegeți ce reprezintă fiecare fișier, ce granulație are o linie și ce rol au coloanele (identificatori, descrieri, măsuri, date).</li>
+        <li><strong>Curățați datele</strong> — folosiți tehnicile învățate până acum în Power Query, adaptate la ce găsiți în setul echipei voastre.</li>
+        <li><strong>Creați un model star schema</strong> — legați tabelul de facturi / linii de vânzare de dimensiunile de context (clienți, produse, locații, calendar).</li>
+        <li><strong>Creați un raport de 4 pagini</strong> — folosiți titlurile de mai jos. Pe fiecare pagină, 3–4 vizuale care răspund la întrebări. Alegeți voi tipul de diagramă.</li>
+      </ol>
+    </section>
+
+    <p class="note-pages">Cele 4 pagini ale raportului:</p>
+
+    <section class="page-block">
+      <p class="page-num">Pagina 1 · Performanță vânzări</p>
+      <p class="focus">Prima pagină = imagine de ansamblu pentru directorul de operațiuni: cifre mari + trend + locații.</p>
+      <h3>Întrebări pentru această pagină</h3>
+      <ul class="q-list"><li>Care este valoarea totală a vânzărilor (ex. sumă Valoare_Totala)?</li><li>Cum se schimbă vânzările de la o lună la alta sau pe ani?</li><li>Există diferențe clare între regiuni sau orașe?</li><li>Care 5 restaurante sau locații ies în față?</li></ul>
+      <h3 class="rec-heading">Recomandări (opțional — puteți alege altfel)</h3>
+      <ul class="rec-list"><li>Recomandare: 2–3 carduri (total, număr linii, medie) — tu alegi ce are sens.</li><li>Recomandare: linie pe calendar (lună/an) și coloane pe locație sau regiune.</li></ul>
+    </section>
+
+    <section class="page-block">
+      <p class="page-num">Pagina 2 · Mix meniu</p>
+      <p class="focus">Pagina pentru bucătar-șef și marketing: ce categorii și produse trag vânzarea.</p>
+      <h3>Întrebări pentru această pagină</h3>
+      <ul class="q-list"><li>Cum se împarte valoarea între Mancare, Bauturi, Desert și Catering?</li><li>Ce subcategorii (ex. Fel principal, Bar) sunt puternice?</li><li>Care produse din meniu sunt cele mai vândute ca valoare?</li><li>Catering-ul (evenimente, corporate) contează mult față de restaurant?</li></ul>
+      <h3 class="rec-heading">Recomandări (opțional — puteți alege altfel)</h3>
+      <ul class="rec-list"><li>Recomandare: diagramă stacked sau donut pe categorie.</li><li>Recomandare: bar chart sortat pe produse sau subcategorii.</li></ul>
+    </section>
+
+    <section class="page-block">
+      <p class="page-num">Pagina 3 · Clienți</p>
+      <p class="focus">Echipa comercială vrea să vadă cine aduce valoare: familii, corporate, evenimente.</p>
+      <h3>Întrebări pentru această pagină</h3>
+      <ul class="q-list"><li>Ce pondere au clienții PF față de PJ?</li><li>Ce segmente (Corporate, Familie, Evenimente…) domină?</li><li>Cine sunt clienții cu cele mai mari comenzi?</li><li>Există orașe unde un tip de client e mai prezent?</li></ul>
+      <h3 class="rec-heading">Recomandări (opțional — puteți alege altfel)</h3>
+      <ul class="rec-list"><li>Recomandare: donut PF/PJ sau pe Segment din Dim_Clienti.</li><li>Recomandare: tabel sau bar chart cu top clienți + coloană valoare.</li></ul>
+    </section>
+
+    <section class="page-block">
+      <p class="page-num">Pagina 4 · Locații și canale</p>
+      <p class="focus">Unde investim (locație, delivery) și cum comandă oamenii.</p>
+      <h3>Întrebări pentru această pagină</h3>
+      <ul class="q-list"><li>Ce formate (restaurant, delivery hub, food truck) se comportă diferit?</li><li>Compară vânzările pe canal: La masa, Livrare, Glovo, Telefon.</li><li>Există locații unde delivery-ul e mult mai mare decât la masă?</li></ul>
+      <h3 class="rec-heading">Recomandări (opțional — puteți alege altfel)</h3>
+      <ul class="rec-list"><li>Recomandare: bar chart pe Nume_Magazin sau Format_Magazin.</li><li>Recomandare: coloane pe Canal_Vanzare; opțional matrice locație × canal.</li></ul>
+    </section>
+
+  </main>
+</body>
+</html>

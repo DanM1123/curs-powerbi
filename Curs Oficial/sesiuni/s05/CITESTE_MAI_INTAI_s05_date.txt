@@ -1,0 +1,18 @@
+Set date · Sesiunea 5 · Vizualizări
+=====================================
+
+Fișier principal: Vanzari_s5_murdar.xlsx (5 foi)
+Sau fișiere separate: *_murdar.xlsx în același folder.
+Set curat (facilitator / fără PQ): folder date_curat/ sau assets/s05/curat/
+
+Structură model (star):
+- Vanzari (fact) — coloane: ID_Date, ID_Client, ID_Produs, ID_Magazin, apoi Data_Facturare (dd.mm.yyyy) + măsuri
+- Dim_Clienti, Dim_Produse, Dim_Magazine, Dim_Date — coloană ID (1, 2, 3…)
+- Relație date: Vanzari[ID_Date] → Dim_Date[ID]
+
+Curățare diferită pe fiecare tabel (Power Query), similar sesiunea 3:
+- Fact: titlu/footer, câteva date invalide punctual, FK text sau lipsă (fără ID inexistent în dim), cantități text; sumele sunt numere în Excel
+- Clienți: junk sus, ID ca text punctual, tip client inconsistent, duplicat ID 36
+- Produse: header dublu, categorie fill-down
+- Magazine: regiuni abreviate, lat/long cu virgulă, magazin duplicat ID 11
+- Dim_Date: ID + Data; unele date serial Excel, valori invalide punctuale (fără coloană sărbători)

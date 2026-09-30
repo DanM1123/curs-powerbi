@@ -5,6 +5,8 @@ Desktop.ini
 .env
 .env.*
 node_modules/
+__pycache__/
+*.pyc
 .vscode/
 .idea/
 old/

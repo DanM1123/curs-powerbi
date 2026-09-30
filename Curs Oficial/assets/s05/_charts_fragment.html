@@ -1,0 +1,259 @@
+      <!-- C · Grafice în detaliu -->
+      <article class="slide s5-chart-slide">
+        <span class="slide-eyebrow">Vizualizări · Comparație</span>
+        <h2>Stacked column chart</h2>
+        <p class="s5-cat-badge">Comparație · Parte din întreg</p>
+        <p class="s3-lead s5-chart-lead">Valoare totală pe grup, împărțită în segmente colorate pe fiecare coloană.</p>
+        <div class="s5-chart-stage">
+          <div class="s5-chart-box">
+            <div class="s5-chart-toolbar" data-s5-variant-toggle><button type="button" class="is-on" data-s5-variant="stacked">Stacked</button><button type="button" class="" data-s5-variant="clustered">Clustered</button></div>
+            <div data-s5-chart="stacked-column"></div>
+          </div>
+          <div class="s4-tema-switch" data-s3-cat>
+            <div class="s4-tema-tabs" role="tablist"><button type="button" class="is-on" data-s3-cat-btn="use" aria-selected="true"><span class="n">01</span>La ce folosește</button><button type="button" class="" data-s3-cat-btn="ex" aria-selected="false"><span class="n">02</span>Exemple reale</button><button type="button" class="" data-s3-cat-btn="build" aria-selected="false"><span class="n">03</span>Cum îl construiești</button><button type="button" class="" data-s3-cat-btn="q" aria-selected="false"><span class="n">04</span>Întrebări la care răspunde</button><button type="button" class="" data-s3-cat-btn="data" aria-selected="false"><span class="n">05</span>Date potrivite</button><button type="button" class="" data-s3-cat-btn="warn" aria-selected="false"><span class="n">06</span>Atenție / alternativă</button></div>
+            <div class="s4-tema-panel is-on" data-s3-cat-panel="use"><p>Arată o valoare totală, împărțită pe categorii, pentru mai multe grupuri comparate unul lângă altul. Fiecare coloană e o stivă de segmente.</p></div><div class="s4-tema-panel" data-s3-cat-panel="ex" hidden><ul><li>Vânzări lunare supermarket pe categorii (lactate, băuturi, panificație)</li><li>Buget departament pe tipuri de cheltuieli, pe trimestre</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="build" hidden><ol><li>Selectezi vizualul Stacked column chart.</li><li>Câmp categorial principal (ex. luna) → X-axis.</li><li>Măsura (ex. SUM(Vânzări)) → Y-axis.</li><li>Al doilea câmp categorial (ex. categorie produs) → Legend (transformă coloana în segmente).</li></ol><p>Minim: X-axis + măsură pe Y-axis. Legend adaugă segmentarea. Column cu mai multe măsuri pe Y-axis nu suportă Legend simultan.</p></div><div class="s4-tema-panel" data-s3-cat-panel="q" hidden><ul><li>Cât a fost totalul pe fiecare lună, și din ce s-a compus?</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="data" hidden><p>Categorie principală pe X (timp sau grup), categorie secundară pe Legend (4–6 segmente lizibile), o măsură agregabilă.</p></div><div class="s4-tema-panel" data-s3-cat-panel="warn" hidden><p>Peste 6–7 segmente, culorile devin greu de distins. Dacă interesează doar procentul, nu valoarea absolută → 100% Stacked column.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s5-chart-slide">
+        <span class="slide-eyebrow">Vizualizări · Comparație</span>
+        <h2>Stacked bar chart (orizontal)</h2>
+        <p class="s5-cat-badge">Comparație</p>
+        <p class="s3-lead s5-chart-lead">Aceeași logică ca stacked column; categoriile stau pe axa verticală.</p>
+        <div class="s5-chart-stage">
+          <div class="s5-chart-box">
+            <div class="s5-chart-toolbar" data-s5-variant-toggle><button type="button" class="is-on" data-s5-variant="stacked">Stacked</button><button type="button" class="" data-s5-variant="clustered">Clustered</button></div>
+            <div data-s5-chart="stacked-bar"></div>
+          </div>
+          <div class="s4-tema-switch" data-s3-cat>
+            <div class="s4-tema-tabs" role="tablist"><button type="button" class="is-on" data-s3-cat-btn="use" aria-selected="true"><span class="n">01</span>La ce folosește</button><button type="button" class="" data-s3-cat-btn="ex" aria-selected="false"><span class="n">02</span>Exemple reale</button><button type="button" class="" data-s3-cat-btn="build" aria-selected="false"><span class="n">03</span>Cum îl construiești</button><button type="button" class="" data-s3-cat-btn="q" aria-selected="false"><span class="n">04</span>Întrebări la care răspunde</button><button type="button" class="" data-s3-cat-btn="data" aria-selected="false"><span class="n">05</span>Date potrivite</button><button type="button" class="" data-s3-cat-btn="warn" aria-selected="false"><span class="n">06</span>Atenție / alternativă</button></div>
+            <div class="s4-tema-panel is-on" data-s3-cat-panel="use"><p>Identic cu stacked column, dar orizontal: categoriile pe Y, valorile pe X.</p></div><div class="s4-tema-panel" data-s3-cat-panel="ex" hidden><ul><li>Tichete suport pe agent, defalcate pe prioritate (urgent, mediu, scăzut)</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="build" hidden><div class="s5-wells"><div><strong>Y-axis</strong> Agent (dimensiune)</div><div><strong>X-axis</strong> SUM(Ore) sau COUNT(Ticket)</div><div><strong>Legend</strong> Prioritate</div></div><p>Field wells ca la column; se schimbă doar orientarea vizualului.</p></div><div class="s4-tema-panel" data-s3-cat-panel="q" hidden><ul><li>Care agent are cele mai multe tichete, și cum se împart pe priorități?</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="data" hidden><p>Nume de categorii lungi sau multe rânduri; sortare descrescător după total.</p></div><div class="s4-tema-panel" data-s3-cat-panel="warn" hidden><p>Aceleași limite ca la stacked column. Pentru o singură serie simplă, bar simplu e suficient.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s5-chart-slide">
+        <span class="slide-eyebrow">Vizualizări · Parte din întreg</span>
+        <h2>100% stacked bar / column</h2>
+        <p class="s5-cat-badge">Parte din întreg</p>
+        <p class="s3-lead s5-chart-lead">Fiecare bară sau coloană ajunge la 100%; vezi proporția, nu mărimea absolută.</p>
+        <div class="s5-chart-stage">
+          <div class="s5-chart-box">
+            <div class="s5-chart-toolbar" data-s5-variant-toggle><button type="button" class="is-on" data-s5-variant="100">100%</button><button type="button" class="" data-s5-variant="stacked">Absolut</button></div>
+            <div data-s5-chart="pct-stacked"></div>
+          </div>
+          <div class="s4-tema-switch" data-s3-cat>
+            <div class="s4-tema-tabs" role="tablist"><button type="button" class="is-on" data-s3-cat-btn="use" aria-selected="true"><span class="n">01</span>La ce folosește</button><button type="button" class="" data-s3-cat-btn="ex" aria-selected="false"><span class="n">02</span>Exemple reale</button><button type="button" class="" data-s3-cat-btn="build" aria-selected="false"><span class="n">03</span>Cum îl construiești</button><button type="button" class="" data-s3-cat-btn="q" aria-selected="false"><span class="n">04</span>Întrebări la care răspunde</button><button type="button" class="" data-s3-cat-btn="data" aria-selected="false"><span class="n">05</span>Date potrivite</button><button type="button" class="" data-s3-cat-btn="warn" aria-selected="false"><span class="n">06</span>Atenție / alternativă</button></div>
+            <div class="s4-tema-panel is-on" data-s3-cat-panel="use"><p>Fiecare bară/colonă are exact 100%, indiferent de totalul absolut. Util când interesează strict structura procentuală.</p></div><div class="s4-tema-panel" data-s3-cat-panel="ex" hidden><ul><li>Ponderea plăților (card, numerar, online) în fiecare magazin</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="build" hidden><div class="s5-wells"><div><strong>Axis</strong> Magazin sau lună</div><div><strong>Legend</strong> Metodă plată</div><div><strong>Values</strong> SUM(Tranzacții) (Power BI calculează %)</div></div><p>Aceleași field wells ca stacked; alegi tipul 100% stacked din Visualizations pane.</p><p><strong>Demo:</strong> comută 100% ↔ absolut pe același set: stacked arată mărimea, 100% arată doar structura.</p></div><div class="s4-tema-panel" data-s3-cat-panel="q" hidden><ul><li>Cum se compară structura procentuală între grupuri, indiferent de mărimea totală?</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="data" hidden><p>Aceeași măsură, o dimensiune pentru bară, una pentru segment.</p></div><div class="s4-tema-panel" data-s3-cat-panel="warn" hidden><p>Pierzi mărimea absolută: două magazine cu volume diferite pot arăta identic dacă structura % coincide.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s5-chart-slide">
+        <span class="slide-eyebrow">Vizualizări · Evoluție în timp</span>
+        <h2>Line chart</h2>
+        <p class="s5-cat-badge">Evoluție în timp</p>
+        <p class="s3-lead s5-chart-lead">Puncte conectate: tendințe, sezonalitate, schimbări pe termen lung.</p>
+        <div class="s5-chart-stage">
+          <div class="s5-chart-box">
+            
+            <div data-s5-chart="line"></div>
+          </div>
+          <div class="s4-tema-switch" data-s3-cat>
+            <div class="s4-tema-tabs" role="tablist"><button type="button" class="is-on" data-s3-cat-btn="use" aria-selected="true"><span class="n">01</span>La ce folosește</button><button type="button" class="" data-s3-cat-btn="ex" aria-selected="false"><span class="n">02</span>Exemple reale</button><button type="button" class="" data-s3-cat-btn="build" aria-selected="false"><span class="n">03</span>Cum îl construiești</button><button type="button" class="" data-s3-cat-btn="q" aria-selected="false"><span class="n">04</span>Întrebări la care răspunde</button><button type="button" class="" data-s3-cat-btn="data" aria-selected="false"><span class="n">05</span>Date potrivite</button><button type="button" class="" data-s3-cat-btn="warn" aria-selected="false"><span class="n">06</span>Atenție / alternativă</button></div>
+            <div class="s4-tema-panel is-on" data-s3-cat-panel="use"><p>Date continue în timp, afișate ca linii. Potrivit pentru evoluție și comparație între serii.</p></div><div class="s4-tema-panel" data-s3-cat-panel="ex" hidden><ul><li>Vizitatori pe zi pe site</li><li>Temperatură medie lunară</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="build" hidden><ol><li>Câmp de timp → X-axis.</li><li>Măsură numerică → Y-axis.</li><li>Opțional, categorie → Legend (linii multiple).</li></ol><p>Familie înrudită: Line, Area, Stacked area, 100% stacked area (alegi din Visualizations pane).</p><p><strong>Dim_Date:</strong> axa X poate fi Categorical (distanță egală) sau Continuous (scară reală de timp). Cu date table marcat, zilele fără evenimente pot apărea corect; fără el, linia sare peste goluri.</p></div><div class="s4-tema-panel" data-s3-cat-panel="q" hidden><ul><li>Cum a evoluat valoarea în timp?</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="data" hidden><p>Axă timp + măsură; opțional Legend pentru 2–4 serii.</p></div><div class="s4-tema-panel" data-s3-cat-panel="warn" hidden><p>Peste 4–5 linii devine ilizibil (spaghetti). Alternativă: filtru pe o serie sau small multiples.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s5-chart-slide">
+        <span class="slide-eyebrow">Vizualizări · Evoluție în timp</span>
+        <h2>Area chart (stacked area)</h2>
+        <p class="s5-cat-badge">Evoluție în timp</p>
+        <p class="s3-lead s5-chart-lead">Line chart cu suprafața colorată; stacked area arată volumul compus în timp.</p>
+        <div class="s5-chart-stage">
+          <div class="s5-chart-box">
+            
+            <div data-s5-chart="area"></div>
+          </div>
+          <div class="s4-tema-switch" data-s3-cat>
+            <div class="s4-tema-tabs" role="tablist"><button type="button" class="is-on" data-s3-cat-btn="use" aria-selected="true"><span class="n">01</span>La ce folosește</button><button type="button" class="" data-s3-cat-btn="ex" aria-selected="false"><span class="n">02</span>Exemple reale</button><button type="button" class="" data-s3-cat-btn="build" aria-selected="false"><span class="n">03</span>Cum îl construiești</button><button type="button" class="" data-s3-cat-btn="q" aria-selected="false"><span class="n">04</span>Întrebări la care răspunde</button><button type="button" class="" data-s3-cat-btn="data" aria-selected="false"><span class="n">05</span>Date potrivite</button><button type="button" class="" data-s3-cat-btn="warn" aria-selected="false"><span class="n">06</span>Atenție / alternativă</button></div>
+            <div class="s4-tema-panel is-on" data-s3-cat-panel="use"><p>Ca line chart, dar zona sub linie e colorată. Stacked area accentuează volumul acumulat pe surse.</p></div><div class="s4-tema-panel" data-s3-cat-panel="ex" hidden><ul><li>Consum energie casă: rețea vs panouri solare</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="build" hidden><div class="s5-wells"><div><strong>X-axis</strong> Dată</div><div><strong>Y-axis</strong> SUM(kWh)</div><div><strong>Legend</strong> Sursă energie</div></div><p>La stacked area, seriile se suprapun ca părți ale unui total, nu se intersectează ca linii separate.</p></div><div class="s4-tema-panel" data-s3-cat-panel="q" hidden><ul><li>Cum a evoluat volumul total, și din ce s-a compus de-a lungul timpului?</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="data" hidden><p>Timp + 2–4 serii aditive.</p></div><div class="s4-tema-panel" data-s3-cat-panel="warn" hidden><p>Seriile din spate devin greu de citit dacă nu sunt stacked. Dacă interesează comparația directă între serii → line simplu, fără umplere.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s5-chart-slide">
+        <span class="slide-eyebrow">Vizualizări · Evoluție în timp</span>
+        <h2>Line and stacked column chart</h2>
+        <p class="s5-cat-badge">Evoluție în timp</p>
+        <p class="s3-lead s5-chart-lead">Coloane stacked pentru un total compus; linie pentru o a doua măsură (adesea rată sau %).</p>
+        <div class="s5-chart-stage">
+          <div class="s5-chart-box">
+            
+            <div data-s5-chart="combo"></div>
+          </div>
+          <div class="s4-tema-switch" data-s3-cat>
+            <div class="s4-tema-tabs" role="tablist"><button type="button" class="is-on" data-s3-cat-btn="use" aria-selected="true"><span class="n">01</span>La ce folosește</button><button type="button" class="" data-s3-cat-btn="ex" aria-selected="false"><span class="n">02</span>Exemple reale</button><button type="button" class="" data-s3-cat-btn="build" aria-selected="false"><span class="n">03</span>Cum îl construiești</button><button type="button" class="" data-s3-cat-btn="q" aria-selected="false"><span class="n">04</span>Întrebări la care răspunde</button><button type="button" class="" data-s3-cat-btn="data" aria-selected="false"><span class="n">05</span>Date potrivite</button><button type="button" class="" data-s3-cat-btn="warn" aria-selected="false"><span class="n">06</span>Atenție / alternativă</button></div>
+            <div class="s4-tema-panel is-on" data-s3-cat-panel="use"><p>Două măsuri cu scări diferite: coloane = volume compuse, linie = rată sau index.</p></div><div class="s4-tema-panel" data-s3-cat-panel="ex" hidden><ul><li>Venit lunar pe categorii (coloane) + marjă % (linie)</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="build" hidden><ol><li>Câmp de timp → X-axis.</li><li>Prima măsură (venit) → Column y-axis (+ Legend pentru categorii).</li><li>A doua măsură (marjă %) → Line y-axis.</li></ol><p><strong>Pas critic:</strong> dacă venitul e în mii/milioane și marja e 0–100%, activează axa secundară în Format, altfel linia pare plată.</p></div><div class="s4-tema-panel" data-s3-cat-panel="q" hidden><ul><li>Cum evoluează totalul compus, comparat cu o rată sau un procent derivat?</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="data" hidden><p>Axă timp + măsuri cu unități diferite (lei vs %).</p></div><div class="s4-tema-panel" data-s3-cat-panel="warn" hidden><p>Intersecția linie–coloane depinde de scările alese; nu e neapărat un eveniment din date.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s5-chart-slide">
+        <span class="slide-eyebrow">Vizualizări · Contribuție sau pași</span>
+        <h2>Waterfall chart</h2>
+        <p class="s5-cat-badge">Contribuție sau pași</p>
+        <p class="s3-lead s5-chart-lead">De la start la final, pas cu pas, prin creșteri și scăderi cumulate.</p>
+        <div class="s5-chart-stage">
+          <div class="s5-chart-box">
+            
+            <div data-s5-chart="waterfall"></div>
+          </div>
+          <div class="s4-tema-switch" data-s3-cat>
+            <div class="s4-tema-tabs" role="tablist"><button type="button" class="is-on" data-s3-cat-btn="use" aria-selected="true"><span class="n">01</span>La ce folosește</button><button type="button" class="" data-s3-cat-btn="ex" aria-selected="false"><span class="n">02</span>Exemple reale</button><button type="button" class="" data-s3-cat-btn="build" aria-selected="false"><span class="n">03</span>Cum îl construiești</button><button type="button" class="" data-s3-cat-btn="q" aria-selected="false"><span class="n">04</span>Întrebări la care răspunde</button><button type="button" class="" data-s3-cat-btn="data" aria-selected="false"><span class="n">05</span>Date potrivite</button><button type="button" class="" data-s3-cat-btn="warn" aria-selected="false"><span class="n">06</span>Atenție / alternativă</button></div>
+            <div class="s4-tema-panel is-on" data-s3-cat-panel="use"><p>Efect cumulativ al valorilor pozitive și negative introduse secvențial.</p></div><div class="s4-tema-panel" data-s3-cat-panel="ex" hidden><ul><li>De la venit la profit net (costuri, taxe, salarii)</li><li>Sold cont bancar pe lună, tranzacție cu tranzacție</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="build" hidden><ol><li>Câmp categorial (etape) → Category.</li><li>Măsură cu semn (+ creștere, − scădere) → Y-axis.</li><li>Opțional → Breakdown (subcategorie pe fiecare pas).</li></ol><p>Sursa trebuie să aibă deja semn corect; graficul colorează (verde/roșu/gri), nu deduce direcția.</p></div><div class="s4-tema-panel" data-s3-cat-panel="q" hidden><ul><li>Ce factori au contribuit, pas cu pas, la rezultatul final?</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="data" hidden><p>Pași ordonați, valori cu semn; totaluri marcate explicit.</p></div><div class="s4-tema-panel" data-s3-cat-panel="warn" hidden><p>Prea multe categorii → grupează în „Altele”. Greșeală frecventă: toate valorile pozitive → doar creșteri, fără sens.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s5-chart-slide">
+        <span class="slide-eyebrow">Vizualizări · Contribuție sau pași</span>
+        <h2>Funnel chart</h2>
+        <p class="s5-cat-badge">Contribuție sau pași</p>
+        <p class="s3-lead s5-chart-lead">Proces secvențial cu pierderi la fiecare etapă.</p>
+        <div class="s5-chart-stage">
+          <div class="s5-chart-box">
+            
+            <div data-s5-chart="funnel"></div>
+          </div>
+          <div class="s4-tema-switch" data-s3-cat>
+            <div class="s4-tema-tabs" role="tablist"><button type="button" class="is-on" data-s3-cat-btn="use" aria-selected="true"><span class="n">01</span>La ce folosește</button><button type="button" class="" data-s3-cat-btn="ex" aria-selected="false"><span class="n">02</span>Exemple reale</button><button type="button" class="" data-s3-cat-btn="build" aria-selected="false"><span class="n">03</span>Cum îl construiești</button><button type="button" class="" data-s3-cat-btn="q" aria-selected="false"><span class="n">04</span>Întrebări la care răspunde</button><button type="button" class="" data-s3-cat-btn="data" aria-selected="false"><span class="n">05</span>Date potrivite</button><button type="button" class="" data-s3-cat-btn="warn" aria-selected="false"><span class="n">06</span>Atenție / alternativă</button></div>
+            <div class="s4-tema-panel is-on" data-s3-cat-panel="use"><p>Pipeline sau conversie: lățimea = volumul rămas la fiecare etapă.</p></div><div class="s4-tema-panel" data-s3-cat-panel="ex" hidden><ul><li>E-commerce: vizite → coș → checkout → plată</li><li>Recrutare: aplicare → interviu → ofertă → angajare</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="build" hidden><ol><li>Etapă proces → Group (sau Category).</li><li>Număr cazuri → Values.</li></ol><p>Ordinea etapelor trebuie logică, nu alfabetică: folosește coloană de sortare (Sort by column).</p><p>La hover: rată de conversie între etape consecutive.</p></div><div class="s4-tema-panel" data-s3-cat-panel="q" hidden><ul><li>Unde se pierd cei mai mulți oameni sau cazuri în acest proces?</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="data" hidden><p>Etape exclusive, ordonate, aceeași populație prin funnel.</p></div><div class="s4-tema-panel" data-s3-cat-panel="warn" hidden><p>Dacă volumele nu scad strict, forma de pâlnie se rupe. Alternativă: bar chart sortat pe etape.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s5-chart-slide">
+        <span class="slide-eyebrow">Vizualizări · Relație între măsuri</span>
+        <h2>Scatter chart</h2>
+        <p class="s5-cat-badge">Relație între măsuri</p>
+        <p class="s3-lead s5-chart-lead">Fiecare punct = o entitate; poziția arată două (sau trei) măsuri.</p>
+        <div class="s5-chart-stage">
+          <div class="s5-chart-box">
+            
+            <div data-s5-chart="scatter"></div>
+          </div>
+          <div class="s4-tema-switch" data-s3-cat>
+            <div class="s4-tema-tabs" role="tablist"><button type="button" class="is-on" data-s3-cat-btn="use" aria-selected="true"><span class="n">01</span>La ce folosește</button><button type="button" class="" data-s3-cat-btn="ex" aria-selected="false"><span class="n">02</span>Exemple reale</button><button type="button" class="" data-s3-cat-btn="build" aria-selected="false"><span class="n">03</span>Cum îl construiești</button><button type="button" class="" data-s3-cat-btn="q" aria-selected="false"><span class="n">04</span>Întrebări la care răspunde</button><button type="button" class="" data-s3-cat-btn="data" aria-selected="false"><span class="n">05</span>Date potrivite</button><button type="button" class="" data-s3-cat-btn="warn" aria-selected="false"><span class="n">06</span>Atenție / alternativă</button></div>
+            <div class="s4-tema-panel is-on" data-s3-cat-panel="use"><p>Corelație sau tipar între măsuri numerice; fiecare punct e o entitate (magazin, produs).</p></div><div class="s4-tema-panel" data-s3-cat-panel="ex" hidden><ul><li>Buget reclamă vs vânzări, pentru fiecare magazin</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="build" hidden><ol><li>Prima măsură → X Axis.</li><li>A doua măsură → Y Axis.</li><li>Opțional, a treia măsură → Size (bule).</li><li>Opțional, categorie → Legend; dată → Play Axis (animație).</li></ol><p>Dacă mai multe rânduri au aceleași X/Y, pune ID unic în Details, altfel Power BI le agregă într-un singur punct.</p></div><div class="s4-tema-panel" data-s3-cat-panel="q" hidden><ul><li>Există legătură între aceste două măsuri? Cine e outlier?</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="data" hidden><p>Două măsuri continue + opțional Size, Legend; nu funcționează bine cu date pur categoriale.</p></div><div class="s4-tema-panel" data-s3-cat-panel="warn" hidden><p>Corelația vizuală nu înseamnă cauzalitate.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s5-chart-slide">
+        <span class="slide-eyebrow">Vizualizări · Parte din întreg</span>
+        <h2>Treemap</h2>
+        <p class="s5-cat-badge">Parte din întreg</p>
+        <p class="s3-lead s5-chart-lead">Ierarhii ca dreptunghiuri imbricate; mărimea = valoarea numerică.</p>
+        <div class="s5-chart-stage">
+          <div class="s5-chart-box">
+            
+            <div data-s5-chart="treemap"></div>
+          </div>
+          <div class="s4-tema-switch" data-s3-cat>
+            <div class="s4-tema-tabs" role="tablist"><button type="button" class="is-on" data-s3-cat-btn="use" aria-selected="true"><span class="n">01</span>La ce folosește</button><button type="button" class="" data-s3-cat-btn="ex" aria-selected="false"><span class="n">02</span>Exemple reale</button><button type="button" class="" data-s3-cat-btn="build" aria-selected="false"><span class="n">03</span>Cum îl construiești</button><button type="button" class="" data-s3-cat-btn="q" aria-selected="false"><span class="n">04</span>Întrebări la care răspunde</button><button type="button" class="" data-s3-cat-btn="data" aria-selected="false"><span class="n">05</span>Date potrivite</button><button type="button" class="" data-s3-cat-btn="warn" aria-selected="false"><span class="n">06</span>Atenție / alternativă</button></div>
+            <div class="s4-tema-panel is-on" data-s3-cat-panel="use"><p>Parte-din-întreg cu multe categorii: vezi rapid outlierii ca dreptunghiuri mari sau mici.</p></div><div class="s4-tema-panel" data-s3-cat-panel="ex" hidden><ul><li>Buget primărie pe departamente și subdepartamente</li><li>Consum spațiu stocare pe echipe</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="build" hidden><ol><li>Câmp categorial (mai multe niveluri) → Category.</li><li>Măsură → Values (mărimea dreptunghiului).</li></ol><p>Preferat față de bar când ai 20+ categorii: ochiul găsește dominanții fără listă lungă.</p></div><div class="s4-tema-panel" data-s3-cat-panel="q" hidden><ul><li>Cum se distribuie totalul pe multe categorii, și care ies în evidență?</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="data" hidden><p>Ierarhie + o măsură; drill-down pe niveluri.</p></div><div class="s4-tema-panel" data-s3-cat-panel="warn" hidden><p>Categorii mici → text ilizibil. Alternativă: Matrix/Table pentru valori exacte; Decomposition tree pentru „de ce”.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s5-chart-slide">
+        <span class="slide-eyebrow">Vizualizări · Detaliu și cauze</span>
+        <h2>Matrix</h2>
+        <p class="s5-cat-badge">Detaliu și cauze</p>
+        <p class="s3-lead s5-chart-lead">Pivot: rânduri × coloane, valori la intersecție, ierarhii și subtotaluri.</p>
+        <div class="s5-chart-stage">
+          <div class="s5-chart-box">
+            
+            <div data-s5-chart="matrix"></div>
+          </div>
+          <div class="s4-tema-switch" data-s3-cat>
+            <div class="s4-tema-tabs" role="tablist"><button type="button" class="is-on" data-s3-cat-btn="use" aria-selected="true"><span class="n">01</span>La ce folosește</button><button type="button" class="" data-s3-cat-btn="ex" aria-selected="false"><span class="n">02</span>Exemple reale</button><button type="button" class="" data-s3-cat-btn="build" aria-selected="false"><span class="n">03</span>Cum îl construiești</button><button type="button" class="" data-s3-cat-btn="q" aria-selected="false"><span class="n">04</span>Întrebări la care răspunde</button><button type="button" class="" data-s3-cat-btn="data" aria-selected="false"><span class="n">05</span>Date potrivite</button><button type="button" class="" data-s3-cat-btn="warn" aria-selected="false"><span class="n">06</span>Atenție / alternativă</button></div>
+            <div class="s4-tema-panel is-on" data-s3-cat-panel="use"><p>Ca pivot în Excel: încrucișare pe două dimensiuni, agregare la intersecție, expand pe ierarhii.</p></div><div class="s4-tema-panel" data-s3-cat-panel="ex" hidden><ul><li>Vânzări pe regiune (rânduri) și trimestru (coloane)</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="build" hidden><ol><li>Dimensiune → Rows (poate fi ierarhie: Țară → Regiune).</li><li>Altă dimensiune → Columns.</li><li>Măsură → Values (Sum, Average, Count…).</li></ol><p><strong>Matrix vs Table:</strong> Table = listă plată, un rând per înregistrare. Matrix = a treia dimensiune (rând × coloană) + subtotaluri și drill-down.</p></div><div class="s4-tema-panel" data-s3-cat-panel="q" hidden><ul><li>Cum se compară o măsură pe două dimensiuni, cu detaliu la cerere?</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="data" hidden><p>Dimensiuni pe rând/coloană, măsuri în celule; 1–2 niveluri vizibile simultan.</p></div><div class="s4-tema-panel" data-s3-cat-panel="warn" hidden><p>Prea multe combinații → grilă greu de scanat; limitează ierarhia sau filtrează.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s5-chart-slide">
+        <span class="slide-eyebrow">Vizualizări · Detaliu și cauze</span>
+        <h2>Table</h2>
+        <p class="s5-cat-badge">Detaliu și cauze</p>
+        <p class="s3-lead s5-chart-lead">Listă plată: valori exacte, sortare, formatare condiționată.</p>
+        <div class="s5-chart-stage">
+          <div class="s5-chart-box">
+            
+            <div data-s5-chart="table"></div>
+          </div>
+          <div class="s4-tema-switch" data-s3-cat>
+            <div class="s4-tema-tabs" role="tablist"><button type="button" class="is-on" data-s3-cat-btn="use" aria-selected="true"><span class="n">01</span>La ce folosește</button><button type="button" class="" data-s3-cat-btn="ex" aria-selected="false"><span class="n">02</span>Exemple reale</button><button type="button" class="" data-s3-cat-btn="build" aria-selected="false"><span class="n">03</span>Cum îl construiești</button><button type="button" class="" data-s3-cat-btn="q" aria-selected="false"><span class="n">04</span>Întrebări la care răspunde</button><button type="button" class="" data-s3-cat-btn="data" aria-selected="false"><span class="n">05</span>Date potrivite</button><button type="button" class="" data-s3-cat-btn="warn" aria-selected="false"><span class="n">06</span>Atenție / alternativă</button></div>
+            <div class="s4-tema-panel is-on" data-s3-cat-panel="use"><p>Un rând per înregistrare, ideal când ai nevoie de cifre exacte, nu de formă vizuală.</p></div><div class="s4-tema-panel" data-s3-cat-panel="ex" hidden><ul><li>Listă facturi: număr, client, dată, sumă, status</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="build" hidden><ol><li>Tragi câmpuri (dim + măsuri) direct în Columns, în ordinea dorită.</li></ol><p>Alege Table când nu ai nevoie de încrucișare rând × coloană, ci doar de listă simplă.</p></div><div class="s4-tema-panel" data-s3-cat-panel="q" hidden><ul><li>Care sunt valorile individuale, pentru fiecare înregistrare?</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="data" hidden><p>Multe coloane text + câteva numere; granularitate la nivel rând.</p></div><div class="s4-tema-panel" data-s3-cat-panel="warn" hidden><p>Sute de rânduri fără filtru → derulare inutilă; combină cu slicer sau subset filtrat.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s5-chart-slide">
+        <span class="slide-eyebrow">Vizualizări · Detaliu și cauze</span>
+        <h2>Decomposition tree</h2>
+        <p class="s5-cat-badge">Detaliu și cauze</p>
+        <p class="s3-lead s5-chart-lead">Descompui o măsură pe dimensiuni, manual sau cu AI (High/Low value).</p>
+        <div class="s5-chart-stage">
+          <div class="s5-chart-box">
+            
+            <div data-s5-chart="decomp"></div>
+          </div>
+          <div class="s4-tema-switch" data-s3-cat>
+            <div class="s4-tema-tabs" role="tablist"><button type="button" class="is-on" data-s3-cat-btn="use" aria-selected="true"><span class="n">01</span>La ce folosește</button><button type="button" class="" data-s3-cat-btn="ex" aria-selected="false"><span class="n">02</span>Exemple reale</button><button type="button" class="" data-s3-cat-btn="build" aria-selected="false"><span class="n">03</span>Cum îl construiești</button><button type="button" class="" data-s3-cat-btn="q" aria-selected="false"><span class="n">04</span>Întrebări la care răspunde</button><button type="button" class="" data-s3-cat-btn="data" aria-selected="false"><span class="n">05</span>Date potrivite</button><button type="button" class="" data-s3-cat-btn="warn" aria-selected="false"><span class="n">06</span>Atenție / alternativă</button></div>
+            <div class="s4-tema-panel is-on" data-s3-cat-panel="use"><p>Analiză „de ce”, nu doar „cât”: arbore interactiv pe dimensiuni succesive.</p></div><div class="s4-tema-panel" data-s3-cat-panel="ex" hidden><ul><li>De ce au scăzut vânzările: total → regiune → magazin → produs</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="build" hidden><ol><li>Măsura investigată → Analyze (ex. SUM(Vânzări)).</li><li>Dimensiuni candidate → Explain by (regiune, produs, canal…).</li></ol><p>La „+” pe nod: alegi dimensiune sau <strong>High value</strong> / <strong>Low value</strong> (AI alege dimensiunea cu contribuția max/min).</p><p>Nodurile AI au indicator 💡. În Format: <strong>Absolute</strong> vs <strong>Relative</strong> pentru split-uri.</p></div><div class="s4-tema-panel" data-s3-cat-panel="q" hidden><ul><li>Care factor explică cel mai bine rezultatul? Unde investigăm mai departe?</li></ul></div><div class="s4-tema-panel" data-s3-cat-panel="data" hidden><p>O măsură centrală + dimensiuni candidate; model star curat.</p></div><div class="s4-tema-panel" data-s3-cat-panel="warn" hidden><p>Instrument de explorare live, nu raport static pasiv pe dashboard.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s5-closing s4-closing">
+        <div class="closing-hero">
+          <span class="closing-eyebrow">Sesiunea 5 · încheiere</span>
+          <h2 class="closing-title">Ce am învățat astăzi</h2>
+        </div>
+        <div class="closing-band">
+          <div class="band-row is-four">
+            <div class="band-card"><span class="n">01</span><strong>Întrebarea alege graficul</strong><span class="d">Comparație, parte, timp, pași, relație, detaliu: fiecare vizual are rolul lui.</span></div>
+            <div class="band-card"><span class="n">02</span><strong>Dim pe axă, fact la Values</strong><span class="d">Modelul din sesiunea 4 se vede direct în field wells.</span></div>
+            <div class="band-card"><span class="n">03</span><strong>Design simplu</strong><span class="d">Axa de la 0, puține categorii, culori cu sens, fără 3D.</span></div>
+            <div class="band-card"><span class="n">04</span><strong>Detaliu când contează</strong><span class="d">Matrix, table și decomposition tree pentru pivot, liste și „de ce?”.</span></div>
+          </div>
+        </div>
+        <div class="s3-note"><strong>Practică.</strong> Reproduci aceste vizuale în Power BI Desktop pe modelul tău. Slide-urile sunt ghid; exercițiul e în aplicație.</div>
+      </article>
+
+    </main>
+
+    <nav class="slide-nav">
+      <button class="slide-nav-btn" data-slide-prev>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Înapoi
+      </button>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+        <div class="slide-counter" data-slide-counter>1 / 2</div>
+        <div class="slide-dots" data-slide-dots></div>
+      </div>
+      <button class="slide-nav-btn" data-slide-next>
+        Următor
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </nav>
+  </div>
+  <script src="../../js/main.js"></script>
+  <script src="../../js/s05.js?v=2"></script>
+</body>
+</html>
