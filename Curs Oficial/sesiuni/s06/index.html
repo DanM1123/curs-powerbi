@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Power BI · Sesiunea 6 · Introducere în DAX</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23059669'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='56' font-weight='900' text-anchor='middle' fill='white'%3E6%3C/text%3E%3C/svg%3E" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/session.css" />
+  <link rel="stylesheet" href="../../css/extras.css" />
+  <link rel="stylesheet" href="../../css/s02.css" />
+  <link rel="stylesheet" href="../../css/s03.css" />
+  <link rel="stylesheet" href="../../css/s04.css?v=82" />
+  <link rel="stylesheet" href="../../css/s05.css?v=33" />
+  <link rel="stylesheet" href="../../css/s06.css?v=6" />
+  <script src="../../js/gate.js"></script>
+  <script src="../../js/firebase-init.js"></script>
+</head>
+<body class="hub-page s05-page s06-page" data-poll-root="curs-oficial/s06/polls">
+  <div class="hub-orbits" aria-hidden="true">
+    <div class="hub-orb a"></div>
+    <div class="hub-orb b"></div>
+    <div class="hub-orb c"></div>
+  </div>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="../../index.html" class="brand">
+        <span class="brand-mark">P</span>
+        <span>Power BI · Sesiunea 6</span>
+      </a>
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" aria-label="Schimbă tema">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="student-shell">
+    <div class="slide-progress"><div class="fill" data-slide-progress></div></div>
+    <main class="slide-deck">
+
+      <!-- 01 · Copertă -->
+      <article class="slide active s4-cover">
+        <div class="s4-cover-inner">
+          <span class="slide-eyebrow">Sesiunea 6</span>
+          <h1>Introducere în DAX</h1>
+          <p><strong>DAX</strong> (Data Analysis Expressions) este limbajul de formule din Power BI. Seamănă cu formulele din Excel, cu o diferență mare: nu lucrezi cu celule, ci cu <strong>coloane și tabele</strong>. Rezultatul se recalculează la fiecare filtru din raport.</p>
+          <p class="s6-cover-q">O singură întrebare ne ghidează azi: <strong>ce rânduri intră în calcul?</strong></p>
+        </div>
+      </article>
+
+      <!-- 02 · Recapitulare S5 -->
+      <article class="slide">
+        <span class="slide-eyebrow">Recapitulare · sesiunea 5</span>
+        <h2>Ce făceam până acum fără DAX?</h2>
+        <p class="s3-lead">Gândește răspunsul, apoi apasă <strong>Arată răspunsul</strong>.</p>
+        <div data-s3-recap>
+          <div class="s3-recap-top">
+            <span class="s3-recap-count" data-s3-recap-count>01 / 03</span>
+            <div class="s3-recap-nav">
+              <button type="button" data-s3-recap-prev>Înapoi</button>
+              <button type="button" data-s3-recap-next>Înainte</button>
+            </div>
+          </div>
+
+          <section class="s3-q is-on" data-s3-q>
+            <h3>Suma implicită</h3>
+            <p class="ask">Tragi coloana <code>Valoare_Totala</code> într-un card. Ce face Power BI?</p>
+            <div class="s3-answer">
+              <p>Adună automat coloana (<strong>Sum of Valoare_Totala</strong>). Nu ai scris nicio formulă, dar Power BI a creat în spate o <strong>măsură implicită</strong>. Când schimbi un slicer, suma se recalculează doar pe rândurile rămase.</p>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>Unde nu mai ajunge</h3>
+            <p class="ask">Șeful cere „vânzările fără comenzile anulate” și „ce procent are fiecare regiune din total”. Le poți obține doar trăgând coloane?</p>
+            <div class="s3-answer">
+              <p>Nu. Suma implicită știe să adune, să numere și să facă media. Nu știe <strong>reguli de business</strong>: să excludă anulatele, să împartă la totalul general, să compare cu anul trecut. Pentru asta scrii o <strong>măsură DAX</strong>.</p>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>Modelul</h3>
+            <p class="ask">De ce contează modelul star din sesiunea 4 pentru DAX?</p>
+            <div class="s3-answer">
+              <p>Pentru că filtrele <strong>curg pe relații</strong>: alegi o regiune din <code>Dim_Magazine</code>, iar Power BI păstrează doar vânzările din magazinele acelei regiuni. Cu un model curat, formulele rămân scurte. Cu un model greșit, încerci să repari datele din formule.</p>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+        </div>
+      </article>
+
+      <!-- 03 · Harta -->
+      <article class="slide s5-framework">
+        <span class="slide-eyebrow">Sesiunea 6 · hartă</span>
+        <h2>Patru pași, o singură idee</h2>
+        <p class="s5-oneline">Fiecare parte răspunde la o întrebare. Împreună explică orice formulă DAX de bază.</p>
+        <div class="s6-route">
+          <article>
+            <span class="n">01</span>
+            <h3>Unde scriu formula?</h3>
+            <p>Coloană calculată sau măsură. Rând cu rând sau pe un grup de rânduri.</p>
+            <span class="s6-route-fx">SUM · COUNTROWS · DISTINCTCOUNT</span>
+          </article>
+          <article>
+            <span class="n">02</span>
+            <h3>Ce rânduri vede?</h3>
+            <p><strong>Filter context</strong>: slicerele și vizualul aleg rândurile. Formula rămâne aceeași.</p>
+            <span class="s6-route-fx">slicer · matrix · relații</span>
+          </article>
+          <article>
+            <span class="n">03</span>
+            <h3>Cum schimb rândurile?</h3>
+            <p><strong>CALCULATE</strong> adaugă, înlocuiește sau șterge filtre înainte de calcul.</p>
+            <span class="s6-route-fx">CALCULATE · ALL</span>
+          </article>
+          <article>
+            <span class="n">04</span>
+            <h3>Cum combin rezultate?</h3>
+            <p>Rapoarte, medii și procente din măsuri deja scrise. Formule citite ca o rețetă.</p>
+            <span class="s6-route-fx">DIVIDE · VAR · SUMX · IF</span>
+          </article>
+        </div>
+        <p class="s06-takeaway"><strong>Date:</strong> modelul <code>Vanzari</code> din sesiunea 5 (132 linii, 4 dimensiuni). Pe slide-uri vezi și <strong>rezultatul așteptat</strong> al fiecărei măsuri, ca să verifici în Power BI Desktop.</p>
+      </article>
+
+      <!-- 04 · Anatomia unei formule -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Unde scriu formula</span>
+          <span class="s5-concept-pill is-fw">Sintaxa</span>
+        </div>
+        <h2>Anatomia unei formule DAX</h2>
+        <p class="s5-oneline">Orice măsură are aceeași formă: un <strong>nume</strong>, semnul egal și o <strong>expresie</strong> care întoarce un număr.</p>
+        <div class="s6-anatomy">
+          <div class="s6-anatomy-code">
+            <span class="a-m">Total Vanzari</span> <span class="a-eq">=</span> <span class="a-f">SUM</span> ( <span class="a-t">Vanzari</span><span class="a-c">[Valoare_Totala]</span> )
+          </div>
+          <div class="s6-anatomy-parts">
+            <article class="is-m"><span class="tag">Nume</span><p>Cum apare măsura în lista de câmpuri. Scrie-l ca pentru un manager: <em>Total Vanzari</em>, nu <em>Masura1</em>.</p></article>
+            <article class="is-f"><span class="tag">Funcție</span><p>Ce operație faci: SUM adună, COUNTROWS numără, DIVIDE împarte. Intellisense îți propune funcțiile pe măsură ce tastezi.</p></article>
+            <article class="is-t"><span class="tag">Tabel</span><p>De unde iei datele. Fără ghilimele; dacă numele are spații: <code>'Dim Date'</code>.</p></article>
+            <article class="is-c"><span class="tag">[Coloană]</span><p>Mereu între paranteze drepte, după tabel: <code>Vanzari[Cantitate]</code>.</p></article>
+          </div>
+        </div>
+        <div class="s5-bar-grid s6-anatomy-rules">
+          <section class="s5-bar-card">
+            <h3>Convenții de citit</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-tip"><code>Tabel[Coloana]</code> = o coloană. <code>[Masura]</code> = o măsură (fără tabel în față).</li>
+              <li class="is-tip">Text între ghilimele: <code>"Anulat"</code>. Numere fără: <code>5</code>.</li>
+              <li class="is-tip">Comentariu: <code>// explicație</code>. Linie nouă în editor: <strong>Shift + Enter</strong>.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Unde o creezi</h3>
+            <p class="s5-bar-path">Report view → Home → New measure</p>
+            <p>Selectează întâi tabelul <strong>Vanzari</strong> în panoul Data, ca măsura să apară acolo. Măsura aparține modelului: o folosești în orice vizual, de pe orice pagină.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- 05 · Coloană vs măsură -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Unde scriu formula</span>
+          <span class="s5-concept-pill is-fw">Coloană vs măsură</span>
+        </div>
+        <h2>Coloană calculată sau măsură?</h2>
+        <p class="s5-oneline">Pune-ți o singură întrebare: <strong>rezultatul descrie un rând</strong> sau <strong>răspunde despre un grup de rânduri</strong>?</p>
+        <div class="s6-vs">
+          <section class="s6-vs-side">
+            <span class="s6-vs-tag">Coloană calculată · descrie un rând</span>
+            <table class="s5-mini-tbl s6-vs-tbl">
+              <thead><tr><th>Produs</th><th>Cantitate</th><th class="is-new">Marime_Comanda</th></tr></thead>
+              <tbody>
+                <tr><td>Laptop</td><td>2</td><td class="is-new">Mica</td></tr>
+                <tr><td>Mouse</td><td>12</td><td class="is-new">Mare</td></tr>
+                <tr><td>Monitor</td><td>1</td><td class="is-new">Mica</td></tr>
+                <tr><td>Cablu</td><td>8</td><td class="is-new">Mare</td></tr>
+              </tbody>
+            </table>
+            <p>O valoare nouă <strong>pe fiecare rând</strong>, calculată o singură dată, la refresh. O folosești ca pe orice coloană: în slicer, pe axă, ca filtru.</p>
+          </section>
+          <section class="s6-vs-side is-measure">
+            <span class="s6-vs-tag">Măsură · răspunde despre un grup</span>
+            <div class="s6-vs-cards">
+              <div><span>[Total Vanzari]</span><strong>560.544,56</strong><em>toate rândurile</em></div>
+              <div><span>[Total Vanzari]</span><strong>167.849,85</strong><em>slicer Nord-Vest</em></div>
+            </div>
+            <p>Un <strong>singur număr</strong>, calculat de fiecare dată când vizualul se desenează, pe rândurile filtrate în acel moment. Nu ocupă loc în tabel.</p>
+          </section>
+        </div>
+        <table class="s5-bar-tbl s6-vs-rules">
+          <thead><tr><th></th><th>Coloană calculată</th><th>Măsură</th></tr></thead>
+          <tbody>
+            <tr><td>Când se calculează</td><td>La refresh, rând cu rând</td><td>La fiecare vizual, pe rândurile filtrate</td></tr>
+            <tr><td>Unde o pui</td><td>Slicer, axă, legendă, filtru</td><td>Values: card, grafic, matrix</td></tr>
+            <tr><td>Exemple</td><td>Marime_Comanda, Valoare_Linie</td><td>Total Vanzari, % din total, medie</td></tr>
+          </tbody>
+        </table>
+        <p class="s06-takeaway"><strong>Regula practică:</strong> dacă numărul trebuie să se schimbe când utilizatorul apasă pe un slicer, ai nevoie de <strong>măsură</strong>. Totaluri, procente și medii sunt aproape mereu măsuri.</p>
+      </article>
+
+      <!-- 06 · Medie ponderată -->
+      <article class="slide s5-framework" data-s6-weight>
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Unde scriu formula</span>
+          <span class="s5-concept-pill is-fw">De ce contează</span>
+        </div>
+        <h2>Același raport, două răspunsuri</h2>
+        <p class="s5-oneline">Vrei să afli <strong>ce procent din vânzări reprezintă costul</strong>. Ai două comenzi. Care e răspunsul corect?</p>
+        <div class="s06-weight-demo">
+          <div>
+            <table class="s5-mini-tbl">
+              <thead><tr><th>Comandă</th><th>Cost</th><th>Vânzări</th><th>% pe rând</th></tr></thead>
+              <tbody data-s6-weight-body></tbody>
+            </table>
+          </div>
+          <div class="s6-weight-cards">
+            <div class="is-bad">
+              <span class="s6-wc-tag">Coloană % + medie în vizual</span>
+              <strong data-s6-out-col>—</strong>
+              <p>(50% + 20%) ÷ 2. Comanda de 20 lei cântărește cât cea de 125 lei.</p>
+            </div>
+            <div class="is-good">
+              <span class="s6-wc-tag">Măsură · SUM ÷ SUM</span>
+              <strong data-s6-out-meas>—</strong>
+              <p>35 ÷ 145. Fiecare leu vândut contează la fel.</p>
+            </div>
+          </div>
+        </div>
+        <pre class="s06-dax-code"><span class="m">Cost %</span> =
+<span class="f">DIVIDE</span> ( <span class="f">SUM</span> ( <span class="t">Vanzari[Cost]</span> ), <span class="f">SUM</span> ( <span class="t">Vanzari[Vanzari]</span> ) )   <span class="c">// întâi aduni, apoi împarți</span></pre>
+        <p class="s06-takeaway"><strong>Ideea:</strong> un procent pe rând e corect ca detaliu. Media procentelor <strong>nu</strong> e procentul totalului. Rapoartele se calculează ca măsură: întâi aduni numărătorul și numitorul, apoi împarți.</p>
+      </article>
+
+      <!-- 07 · Trusa de bază -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Unde scriu formula</span>
+          <span class="s5-concept-pill is-fw">Primele măsuri</span>
+        </div>
+        <h2>Trusa de bază: adună, numără, unice</h2>
+        <p class="s5-oneline">Patru funcții acoperă majoritatea KPI-urilor simple. Scrie-le pe tabelul <code>Vanzari</code> și verifică rezultatul într-un card.</p>
+        <div class="s6-tools">
+          <article>
+            <span class="s6-tool-q">„Cât am vândut?”</span>
+            <pre class="s06-dax-code"><span class="m">Total Vanzari</span> =
+<span class="f">SUM</span> ( <span class="t">Vanzari[Valoare_Totala]</span> )</pre>
+            <div class="s6-expect"><span>Rezultat așteptat</span><strong>560.544,56</strong></div>
+            <p>Adună o coloană numerică.</p>
+          </article>
+          <article>
+            <span class="s6-tool-q">„Câte linii de vânzare am?”</span>
+            <pre class="s06-dax-code"><span class="m">Numar linii</span> =
+<span class="f">COUNTROWS</span> ( <span class="t">Vanzari</span> )</pre>
+            <div class="s6-expect"><span>Rezultat așteptat</span><strong>132</strong></div>
+            <p>Numără rândurile unui <strong>tabel</strong>, nu valorile unei coloane.</p>
+          </article>
+          <article>
+            <span class="s6-tool-q">„Câți clienți diferiți au cumpărat?”</span>
+            <pre class="s06-dax-code"><span class="m">Numar clienti</span> =
+<span class="f">DISTINCTCOUNT</span> ( <span class="t">Vanzari[ID_Client]</span> )</pre>
+            <div class="s6-expect"><span>Rezultat așteptat</span><strong>33</strong></div>
+            <p>Un client cu 10 comenzi se numără o singură dată.</p>
+          </article>
+          <article>
+            <span class="s6-tool-q">„Cât valorează o linie, în medie?”</span>
+            <pre class="s06-dax-code"><span class="m">Medie linie</span> =
+<span class="f">AVERAGE</span> ( <span class="t">Vanzari[Valoare_Totala]</span> )</pre>
+            <div class="s6-expect"><span>Rezultat așteptat</span><strong>4.246,55</strong></div>
+            <p>Media simplă pe rânduri. O rescriem cu DIVIDE în partea 4.</p>
+          </article>
+        </div>
+        <p class="s06-takeaway"><strong>Măsuri din măsuri:</strong> după ce ai <code>[Total Vanzari]</code>, nu mai rescrii SUM. O refolosești ca pe o cărămidă: <code>[Total Vanzari] / [Numar linii]</code>. Dacă regula se schimbă, o corectezi într-un singur loc.</p>
+      </article>
+
+      <!-- 08 · Filter context · card + slicere -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Ce rânduri vede formula</span>
+          <span class="s5-concept-pill is-fw">Filter context</span>
+        </div>
+        <h2>Aceeași formulă, alte rânduri</h2>
+        <p class="s5-oneline">Mai jos e o versiune de <strong>8 rânduri</strong> din Vanzari. Alege valori în slicere și urmărește ce rânduri rămân verzi. <strong>Formula nu se schimbă.</strong></p>
+        <div class="s6-lab" data-s6-ctx data-mode="card" data-measures="total"></div>
+        <p class="s06-takeaway"><strong>Filter context</strong> = rândurile care au trecut de toate filtrele în momentul calculului: slicere, filtre de pagină, axele vizualului, click pe alt grafic. Nu îl vezi direct, dar îl vezi în rezultat.</p>
+      </article>
+
+      <!-- 09 · Filter context · matrix -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Ce rânduri vede formula</span>
+          <span class="s5-concept-pill is-fw">Filter context în matrix</span>
+        </div>
+        <h2>Fiecare celulă are propriile filtre</h2>
+        <p class="s5-oneline">Matrix cu <strong>Regiune</strong> pe rânduri și <strong>Categorie</strong> pe coloane. Apasă pe celule, inclusiv pe totaluri: aceeași măsură, alt set de rânduri.</p>
+        <div class="s6-lab" data-s6-ctx data-mode="matrix" data-measures="total"></div>
+        <p class="s06-takeaway"><strong>Atenție la totaluri:</strong> celula <em>Total</em> nu adună celulele de deasupra. E aceeași măsură, calculată cu <strong>mai puține filtre</strong>. La SUM coincide cu suma celulelor. La medii sau procente, de obicei nu coincide.</p>
+      </article>
+
+      <!-- 10 · Verificare -->
+      <article class="slide s4-stepq-slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Ce rânduri vede formula</span>
+          <span class="s5-concept-pill">Verifică-te</span>
+        </div>
+        <h2>Ce număr apare?</h2>
+        <p class="s3-lead s4-stepq-lead">Folosește cele 8 rânduri de pe slide-ul anterior. Calculează în minte, apoi apasă pe card.</p>
+        <div class="s2-stages-reveal" data-bi-stages>
+          <div class="s2-reveal-grid is-three s4-stepq">
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">01</span>
+              <span class="s2-reveal-ask">Card <code>[Total Vanzari]</code>, slicer Regiune = <strong>Sud-Est</strong></span>
+              <div class="s2-reveal-content">
+                <h3>600</h3>
+                <p>Rămân rândurile 4, 5, 6: 400 + 50 + 150. Rândul anulat e inclus: suma nu știe de statusuri.</p>
+              </div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">02</span>
+              <span class="s2-reveal-ask">Matrix: celula <strong>Nord-Vest × Electronice</strong></span>
+              <div class="s2-reveal-content">
+                <h3>800</h3>
+                <p>Două filtre simultan: rândurile 1 și 3. 500 + 300.</p>
+              </div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">03</span>
+              <span class="s2-reveal-ask">Slicer Categorie = <strong>Alimente</strong> + click pe bara <strong>Bucuresti</strong></span>
+              <div class="s2-reveal-content">
+                <h3>200</h3>
+                <p>Slicerul și click-ul pe grafic se adună ca filtre: doar rândul 8.</p>
+              </div>
+            </button>
+          </div>
+        </div>
+        <p class="s06-takeaway"><strong>Ce se întâmplă de fapt:</strong> filtrul pe <code>Dim_Magazine[Regiune]</code> ajunge în <code>Vanzari</code> prin relația 1 → *. De aceea pui dimensiuni pe axe și slicere, iar măsurile din fact în Values.</p>
+      </article>
+
+      <!-- 11 · CALCULATE · concept -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Cum schimb rândurile</span>
+          <span class="s5-concept-pill is-fw">CALCULATE</span>
+        </div>
+        <h2>CALCULATE: schimbă filtrele, apoi calculează</h2>
+        <p class="s5-oneline">Filtrele vin de obicei de la utilizator. <strong>CALCULATE</strong> e felul în care pui tu, în formulă, o regulă care se aplică mereu.</p>
+        <div class="s6-flow">
+          <article><span class="n">1</span><h3>Pornește de la filtrele din vizual</h3><p>Slicere, axe, filtre de pagină: rândurile pe care le-ar vedea și SUM simplu.</p></article>
+          <article class="is-key"><span class="n">2</span><h3>Aplică filtrele tale</h3><p>Fiecare argument după virgulă e un filtru: îl <strong>adaugă</strong> sau îl <strong>înlocuiește</strong> pe cel de pe aceeași coloană.</p></article>
+          <article><span class="n">3</span><h3>Calculează expresia</h3><p>Primul argument (SUM, o măsură) rulează doar pe rândurile rămase.</p></article>
+        </div>
+        <div class="s6-calc-syntax">
+          <span class="f">CALCULATE</span> ( <span class="s6-slot is-expr">ce calculez</span> , <span class="s6-slot is-filter">filtru 1</span> , <span class="s6-slot is-filter">filtru 2</span> … )
+        </div>
+        <div class="s6-patterns">
+          <article>
+            <h3>Exclude o valoare</h3>
+            <pre class="s06-dax-code"><span class="m">Vanzari fara anulate</span> =
+<span class="f">CALCULATE</span> (
+    <span class="m">[Total Vanzari]</span>,
+    <span class="t">Vanzari[Status_Plata]</span> &lt;&gt; <span class="s">"Anulat"</span>
+)</pre>
+            <div class="s6-expect"><span>Rezultat așteptat</span><strong>445.974,08</strong></div>
+          </article>
+          <article>
+            <h3>Filtru pe fact</h3>
+            <pre class="s06-dax-code"><span class="m">Vanzari Online</span> =
+<span class="f">CALCULATE</span> (
+    <span class="m">[Total Vanzari]</span>,
+    <span class="t">Vanzari[Canal_Vanzare]</span> = <span class="s">"Online"</span>
+)</pre>
+            <div class="s6-expect"><span>Rezultat așteptat</span><strong>66.935,58</strong></div>
+          </article>
+          <article>
+            <h3>Filtru pe dimensiune</h3>
+            <pre class="s06-dax-code"><span class="m">Vanzari Electronice</span> =
+<span class="f">CALCULATE</span> (
+    <span class="m">[Total Vanzari]</span>,
+    <span class="t">Dim_Produse[Categorie]</span> = <span class="s">"Electronice"</span>
+)</pre>
+            <div class="s6-expect"><span>Rezultat așteptat</span><strong>415.101,05</strong></div>
+          </article>
+        </div>
+        <p class="s06-takeaway"><strong>Pe dimensiune funcționează fără să copiezi Categorie în Vanzari:</strong> filtrul pe <code>Dim_Produse</code> curge pe relație spre fact, la fel ca un slicer.</p>
+      </article>
+
+      <!-- 12 · CALCULATE · laborator -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Cum schimb rândurile</span>
+          <span class="s5-concept-pill is-fw">CALCULATE în acțiune</span>
+        </div>
+        <h2>Adaugă sau înlocuiește?</h2>
+        <p class="s5-oneline">Alege o măsură, apoi joacă-te cu slicerele. Rândurile <span class="s6-inline is-cut">tăiate</span> le-a scos CALCULATE. Rândurile <span class="s6-inline is-add">albastre</span> le-a adus înapoi.</p>
+        <div class="s6-lab" data-s6-ctx data-mode="card" data-measures="total,faraAnulate,electronice"></div>
+        <div class="s5-bar-grid s6-calc-try">
+          <section class="s5-bar-card">
+            <h3>Încearcă 1 · adaugă</h3>
+            <p>Regiune = <strong>Nord-Vest</strong>, măsura <strong>[Vanzari fara anulate]</strong>. Slicerul păstrează 3 rânduri, CALCULATE îl scoate pe cel anulat → <strong>600</strong>. Filtrele pe coloane <em>diferite</em> se adună.</p>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Încearcă 2 · înlocuiește</h3>
+            <p>Categorie = <strong>Alimente</strong>, măsura <strong>[Vanzari Electronice]</strong>. Rezultatul e <strong>1.800</strong>, nu 0. Filtrul din CALCULATE pe <em>aceeași</em> coloană îl înlocuiește pe cel din slicer.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- 13 · ALL și % din total -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Cum schimb rândurile</span>
+          <span class="s5-concept-pill is-fw">ALL · % din total</span>
+        </div>
+        <h2>ALL: uită un filtru ca să ai „întregul”</h2>
+        <p class="s5-oneline">Un procent are nevoie de două numere: <strong>felia</strong> (regiunea din rând) și <strong>întregul</strong> (toate regiunile). <code>ALL(Coloana)</code> șterge filtrul de pe acea coloană, iar numitorul devine totalul.</p>
+        <div class="s6-lab" data-s6-ctx data-mode="matrix" data-measures="total,totalAll,pct"></div>
+        <p class="s06-takeaway"><strong>Apasă pe o celulă cu [% din total]:</strong> rândurile verzi sunt numărătorul, cele verzi + albastre sunt numitorul. ALL șterge doar filtrul pe <em>Regiune</em>; filtrul pe Categorie rămâne. Pe coloana Electronice, procentele arată ponderea fiecărei regiuni <em>în Electronice</em>.</p>
+      </article>
+
+      <!-- 14 · % din total · date reale -->
+      <article class="slide s5-framework" data-s6-pct>
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Cum schimb rândurile</span>
+          <span class="s5-concept-pill is-fw">Pe datele reale</span>
+        </div>
+        <h2>% din total pe Vanzari</h2>
+        <p class="s5-oneline">Aceeași formulă pe modelul din sesiunea 5. Compară rezultatul <strong>cu</strong> și <strong>fără</strong> ALL.</p>
+        <div class="s6-pct-wrap">
+          <div>
+            <pre class="s06-dax-code"><span class="m">% din total vanzari</span> =
+<span class="f">DIVIDE</span> (
+    <span class="m">[Total Vanzari]</span>,
+    <span class="f">CALCULATE</span> (
+        <span class="m">[Total Vanzari]</span>,
+        <span class="f">ALL</span> ( <span class="t">Dim_Magazine[Regiune]</span> )
+    )
+)</pre>
+            <div class="s6-pct-toggle">
+              <button type="button" data-pct-mode="all">Cu ALL</button>
+              <button type="button" data-pct-mode="none">Fără ALL</button>
+            </div>
+            <p class="s6-pct-note" data-pct-note></p>
+          </div>
+          <table class="s5-bar-tbl s6-pct-tbl">
+            <thead><tr><th>Regiune</th><th>[Total Vanzari]</th><th>Numitor</th><th>%</th></tr></thead>
+            <tbody data-pct-rows></tbody>
+          </table>
+        </div>
+        <p class="s06-takeaway"><strong>Capcană reală:</strong> modelul are <code>Regiune</code> și în <code>Dim_Clienti</code>, și în <code>Dim_Magazine</code>. ALL trebuie pus pe <strong>exact coloana de pe axă</strong>. Dacă pui ALL pe regiunea clientului, dar axa e regiunea magazinului, primești 100% peste tot. Format: <strong>Percentage</strong>.</p>
+      </article>
+
+      <!-- 15 · Row context · SUMX -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 4 · Cum combin rezultate</span>
+          <span class="s5-concept-pill is-fw">Row context · SUMX</span>
+        </div>
+        <h2>SUMX: calculează pe fiecare rând, apoi adună</h2>
+        <p class="s5-oneline">Vrei valoarea la preț de listă: <strong>Cantitate × Preț</strong>. Coloana asta nu există în tabel. Nu poți înmulți totalurile; trebuie să înmulțești <strong>pe fiecare rând</strong>.</p>
+        <div class="s6-iter" data-s6-iter>
+          <div class="s6-iter-main">
+            <table class="s5-mini-tbl s6-iter-tbl">
+              <thead><tr><th>Produs</th><th>Cantitate</th><th>Preț</th><th>Cantitate × Preț</th></tr></thead>
+              <tbody data-iter-rows></tbody>
+            </table>
+            <div class="s6-iter-controls">
+              <button type="button" class="s3-btn is-primary" data-iter-next>Rândul următor</button>
+              <button type="button" class="s3-btn" data-iter-all>Tot tabelul</button>
+              <button type="button" class="s3-btn" data-iter-reset>De la capăt</button>
+            </div>
+            <p class="s6-iter-note" data-iter-note></p>
+          </div>
+          <div class="s6-iter-side">
+            <div class="s6-iter-acc"><span>SUMX până acum</span><strong data-iter-acc>0</strong></div>
+            <div class="s6-iter-wrong">
+              <span>Greșit · înmulțești totalurile</span>
+              <code>SUM(Cantitate) × SUM(Preț)</code>
+              <strong>16 × 1.320 = 21.120</strong>
+            </div>
+          </div>
+        </div>
+        <div class="s06-dax-split">
+          <pre class="s06-dax-code"><span class="m">Valoare la pret lista</span> =
+<span class="f">SUMX</span> (
+    <span class="t">Vanzari</span>,                         <span class="c">// 1. tabelul parcurs</span>
+    <span class="t">Vanzari[Cantitate]</span> * <span class="t">Vanzari[Pret_Lista]</span>  <span class="c">// 2. pe fiecare rând</span>
+)                                    <span class="c">// 3. apoi adună</span></pre>
+          <div class="s6-expect-box">
+            <div class="s6-expect"><span>Rezultat așteptat pe Vanzari</span><strong>564.145</strong></div>
+            <p>Funcțiile cu <strong>X</strong> la final (SUMX, AVERAGEX, COUNTX) sunt <strong>iteratori</strong>: parcurg tabelul rând cu rând. Pe durata parcurgerii există un <strong>row context</strong>: „rândul curent”.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 16 · Coloane calculate · IF -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 4 · Cum combin rezultate</span>
+          <span class="s5-concept-pill is-fw">Coloană calculată · IF</span>
+        </div>
+        <h2>Coloane calculate: o etichetă pe fiecare rând</h2>
+        <p class="s5-oneline">Coloanele calculate au row context de la sine: formula vede <strong>rândul curent</strong>. Folosește-le pentru categorii pe care vrei să le pui în slicer sau pe axă.</p>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Corect · categorie cu IF</h3>
+            <p class="s5-bar-path">Table view → Vanzari → New column</p>
+            <pre class="s06-dax-code"><span class="m">Marime_Comanda</span> =
+<span class="f">IF</span> (
+    <span class="t">Vanzari[Cantitate]</span> &gt; <span class="n">5</span>,   <span class="c">// condiția</span>
+    <span class="s">"Comanda mare"</span>,         <span class="c">// dacă e adevărat</span>
+    <span class="s">"Comanda mica"</span>          <span class="c">// altfel</span>
+)</pre>
+            <table class="s5-mini-tbl s6-if-result">
+              <thead><tr><th>Marime_Comanda</th><th>Linii</th><th>[Total Vanzari]</th></tr></thead>
+              <tbody>
+                <tr><td>Comanda mare</td><td>70</td><td>466.116,50</td></tr>
+                <tr><td>Comanda mica</td><td>62</td><td>94.428,06</td></tr>
+              </tbody>
+            </table>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Greșeala clasică · SUM într-o coloană</h3>
+            <pre class="s06-dax-code is-wrong"><span class="m">Total pe rand</span> =
+<span class="f">SUM</span> ( <span class="t">Vanzari[Valoare_Totala]</span> )</pre>
+            <table class="s5-mini-tbl s6-if-result is-wrong">
+              <thead><tr><th>Linie</th><th>Valoare_Totala</th><th>Total pe rand</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>2.374,05</td><td>560.544,56</td></tr>
+                <tr><td>2</td><td>732,56</td><td>560.544,56</td></tr>
+                <tr><td>3</td><td>12.016,62</td><td>560.544,56</td></tr>
+              </tbody>
+            </table>
+            <ul class="s5-bar-limits">
+              <li class="is-limit">SUM nu știe de rândul curent: adună toată coloana și repetă totalul pe fiecare rând.</li>
+              <li class="is-tip">Pe un rând folosești direct coloanele: <code>Vanzari[Cantitate] * Vanzari[Pret_Lista]</code>.</li>
+            </ul>
+          </section>
+        </div>
+      </article>
+
+      <!-- 17 · DIVIDE & VAR -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 4 · Cum combin rezultate</span>
+          <span class="s5-concept-pill is-fw">DIVIDE · VAR</span>
+        </div>
+        <h2>Formule scrise ca o rețetă</h2>
+        <p class="s5-oneline"><strong>DIVIDE</strong> împarte fără erori. <strong>VAR</strong> dă nume pașilor intermediari: citești formula de sus în jos, ca pe o rețetă.</p>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>DIVIDE în loc de /</h3>
+            <pre class="s06-dax-code"><span class="m">Valoare medie linie</span> =
+<span class="f">DIVIDE</span> ( <span class="m">[Total Vanzari]</span>, <span class="m">[Numar linii]</span> )</pre>
+            <table class="s5-mini-tbl s6-num">
+              <thead><tr><th>Regiune</th><th>Total</th><th>Linii</th><th>Medie</th></tr></thead>
+              <tbody>
+                <tr><td>Centru</td><td>40.425,97</td><td>6</td><td>6.737,66</td></tr>
+                <tr><td>Nord-Vest</td><td>167.849,85</td><td>47</td><td>3.571,27</td></tr>
+                <tr><td>Total</td><td>560.544,56</td><td>132</td><td>4.246,55</td></tr>
+              </tbody>
+            </table>
+            <ul class="s5-bar-limits">
+              <li class="is-yes">Dacă numitorul e 0 sau gol, DIVIDE întoarce gol, nu eroare. Vizualul rămâne curat.</li>
+              <li class="is-tip">Nord-Vest vinde cel mai mult, dar are cea mai mică valoare pe linie. Două măsuri, două povești.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card">
+            <h3>VAR · RETURN</h3>
+            <pre class="s06-dax-code"><span class="m">% din total vanzari</span> =
+<span class="k">VAR</span> <span class="v">Felia</span> = <span class="m">[Total Vanzari]</span>
+<span class="k">VAR</span> <span class="v">Intregul</span> =
+    <span class="f">CALCULATE</span> ( <span class="m">[Total Vanzari]</span>, <span class="f">ALL</span> ( <span class="t">Dim_Magazine[Regiune]</span> ) )
+<span class="k">RETURN</span>
+    <span class="f">DIVIDE</span> ( <span class="v">Felia</span>, <span class="v">Intregul</span> )</pre>
+            <ol class="s6-recipe">
+              <li><strong>VAR</strong> calculează un pas și îi dă un nume.</li>
+              <li>Poți avea câte VAR vrei, fiecare pe linia ei.</li>
+              <li><strong>RETURN</strong> spune ce întoarce măsura.</li>
+            </ol>
+            <p>Același rezultat ca înainte, dar îl poți citi cu voce tare: <em>felia împărțită la întreg</em>. Când ceva nu iese, pui <code>RETURN Intregul</code> și verifici fiecare pas.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- 18 · Detectiv -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Practică · pe datele reale</span>
+          <span class="s5-concept-pill">Detectiv DAX</span>
+        </div>
+        <h2>Neta + TVA ar trebui să dea Totalul. Nu dă.</h2>
+        <p class="s5-oneline">Trei măsuri corect scrise, în trei carduri. Matematic, <code>Neta + TVA = Totala</code>. Ce ne spun datele?</p>
+        <div class="s6-detect">
+          <div><span>[Total Valoare Neta]</span><strong>474.658,75</strong><code>SUM ( Vanzari[Valoare_Neta] )</code></div>
+          <div class="s6-op">+</div>
+          <div><span>[Total TVA]</span><strong>95.419,10</strong><code>SUM ( Vanzari[Valoare_TVA] )</code></div>
+          <div class="s6-op">=</div>
+          <div class="is-warn"><span>[Neta + TVA]</span><strong>570.077,85</strong><code>[Total Valoare Neta] + [Total TVA]</code></div>
+        </div>
+        <p class="s6-detect-vs">…dar <code>[Total Vanzari]</code> = <strong>560.544,56</strong>. Diferență: <strong>9.533,29</strong>.</p>
+        <div class="s2-stages-reveal" data-bi-stages>
+          <div class="s2-reveal-grid is-three s4-stepq">
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">01</span>
+              <span class="s2-reveal-ask">Cum afli unde e diferența?</span>
+              <div class="s2-reveal-content">
+                <h3>Taie pe dimensiuni</h3>
+                <p>Scrie <code>Diferenta = [Neta + TVA] - [Total Vanzari]</code> și pune-o într-un tabel cu <code>Status_Plata</code>. Diferența apare doar pe <strong>Anulat</strong>.</p>
+              </div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">02</span>
+              <span class="s2-reveal-ask">Ce e în neregulă în date?</span>
+              <div class="s2-reveal-content">
+                <h3>15 linii anulate</h3>
+                <p>Au <code>Valoare_Neta = 0</code> și <code>Valoare_Totala = 0</code>, dar TVA-ul a rămas completat. Sistemul sursă a „uitat” să-l anuleze.</p>
+              </div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">03</span>
+              <span class="s2-reveal-ask">Ce facem?</span>
+              <div class="s2-reveal-content">
+                <h3>Decizie de business</h3>
+                <p>Corectăm sursa sau Power Query, <strong>sau</strong> raportăm KPI-urile cu <code>[Vanzari fara anulate]</code>. DAX nu ascunde problema; o face vizibilă.</p>
+              </div>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 19 · Greșeli frecvente -->
+      <article class="slide s4-stepq-slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Practică</span>
+          <span class="s5-concept-pill">Greșeli frecvente</span>
+        </div>
+        <h2>Ce vezi și ce înseamnă</h2>
+        <p class="s3-lead s4-stepq-lead">Fiecare card e un simptom pe care îl vei vedea în raport. Ghicește cauza, apoi apasă.</p>
+        <div class="s2-stages-reveal" data-bi-stages>
+          <div class="s2-reveal-grid is-three s4-stepq">
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">01</span>
+              <span class="s2-reveal-ask">„Același număr pe toate rândurile.”</span>
+              <div class="s2-reveal-content">
+                <h3>SUM într-o coloană calculată</h3>
+                <p>Coloana nu filtrează pe rândul curent. Fă calculul pe rând fără SUM sau mută-l într-o măsură.</p>
+              </div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">02</span>
+              <span class="s2-reveal-ask">„100% în fiecare celulă.”</span>
+              <div class="s2-reveal-content">
+                <h3>ALL lipsește sau e pe altă coloană</h3>
+                <p>Numitorul vede aceleași filtre ca numărătorul. Pune ALL pe coloana de pe axă.</p>
+              </div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">03</span>
+              <span class="s2-reveal-ask">„Măsura ignoră slicerul.”</span>
+              <div class="s2-reveal-content">
+                <h3>CALCULATE pe aceeași coloană</h3>
+                <p>Filtrul din formulă îl înlocuiește pe cel din slicer. Uneori e intenționat; alteori ai nevoie de altă măsură.</p>
+              </div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">04</span>
+              <span class="s2-reveal-ask">„Procentul mediu nu bate cu totalul.”</span>
+              <div class="s2-reveal-content">
+                <h3>Medie de procente</h3>
+                <p>AVERAGE pe o coloană %. Folosește DIVIDE ( SUM, SUM ) ca măsură.</p>
+              </div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">05</span>
+              <span class="s2-reveal-ask">„Același număr pe fiecare categorie.”</span>
+              <div class="s2-reveal-content">
+                <h3>Filtrul nu ajunge la fact</h3>
+                <p>Lipsește relația sau câmpul de pe axă e din alt tabel decât crezi. Verifică Model view.</p>
+              </div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">06</span>
+              <span class="s2-reveal-ask">„Cardul arată Sum of…”</span>
+              <div class="s2-reveal-content">
+                <h3>Măsură implicită</h3>
+                <p>Ai tras coloana, nu măsura ta. Folosește măsurile cu nume; ascunde coloanele numerice din fact.</p>
+              </div>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 20 · Fișa DAX -->
+      <article class="slide s5-framework">
+        <span class="slide-eyebrow">Fișă de buzunar</span>
+        <h2>Tot ce am folosit azi, pe o pagină</h2>
+        <table class="s5-bar-tbl s6-cheat">
+          <thead><tr><th>Funcție</th><th>Ce face</th><th>Tipar</th></tr></thead>
+          <tbody>
+            <tr><td>SUM</td><td>Adună o coloană în contextul curent</td><td><code>SUM ( Vanzari[Valoare_Totala] )</code></td></tr>
+            <tr><td>COUNTROWS</td><td>Numără rândurile unui tabel</td><td><code>COUNTROWS ( Vanzari )</code></td></tr>
+            <tr><td>DISTINCTCOUNT</td><td>Numără valori unice</td><td><code>DISTINCTCOUNT ( Vanzari[ID_Client] )</code></td></tr>
+            <tr><td>AVERAGE</td><td>Media simplă a unei coloane</td><td><code>AVERAGE ( Vanzari[Valoare_Totala] )</code></td></tr>
+            <tr><td>CALCULATE</td><td>Schimbă filtrele, apoi calculează</td><td><code>CALCULATE ( [Masura], Tabel[Col] = "x" )</code></td></tr>
+            <tr><td>ALL</td><td>Șterge filtrul de pe o coloană (în CALCULATE)</td><td><code>CALCULATE ( [Masura], ALL ( Tabel[Col] ) )</code></td></tr>
+            <tr><td>DIVIDE</td><td>Împarte fără eroare la 0</td><td><code>DIVIDE ( [A], [B] )</code></td></tr>
+            <tr><td>VAR · RETURN</td><td>Pași cu nume în formulă</td><td><code>VAR x = [A] RETURN DIVIDE ( x, [B] )</code></td></tr>
+            <tr><td>SUMX</td><td>Calculează pe fiecare rând, apoi adună</td><td><code>SUMX ( Vanzari, [Cant] * [Pret] )</code></td></tr>
+            <tr><td>IF</td><td>Condiție pe rând (în coloană) sau pe rezultat (în măsură)</td><td><code>IF ( Vanzari[Cantitate] &gt; 5, "Mare", "Mica" )</code></td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <!-- 21 · Laborator -->
+      <article class="slide s5-framework">
+        <span class="slide-eyebrow">Laborator</span>
+        <h2>Construiește și verifică</h2>
+        <p class="s5-oneline">Deschide modelul din sesiunea 5. Scrie măsurile <strong>în ordine</strong>, pune fiecare într-un card și compară cu rezultatul așteptat. Dacă nu se potrivește, oprește-te și caută cauza.</p>
+        <table class="s5-bar-tbl s6-lab-check">
+          <thead><tr><th>#</th><th>Măsură</th><th>Indiciu</th><th>Rezultat așteptat</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Total Vanzari</td><td>SUM pe Valoare_Totala</td><td>560.544,56</td></tr>
+            <tr><td>2</td><td>Numar linii</td><td>COUNTROWS</td><td>132</td></tr>
+            <tr><td>3</td><td>Numar clienti</td><td>DISTINCTCOUNT pe ID_Client</td><td>33</td></tr>
+            <tr><td>4</td><td>Vanzari fara anulate</td><td>CALCULATE + Status_Plata</td><td>445.974,08</td></tr>
+            <tr><td>5</td><td>Vanzari Electronice</td><td>CALCULATE + Dim_Produse[Categorie]</td><td>415.101,05</td></tr>
+            <tr><td>6</td><td>Valoare medie linie</td><td>DIVIDE ( [1], [2] )</td><td>4.246,55</td></tr>
+            <tr><td>7</td><td>% din total vanzari</td><td>VAR + ALL ( Dim_Magazine[Regiune] )</td><td>Nord-Vest 29,9%</td></tr>
+            <tr><td>8</td><td>Valoare la pret lista</td><td>SUMX, Cantitate × Pret_Lista</td><td>564.145</td></tr>
+            <tr><td>9</td><td>Marime_Comanda <em>(coloană)</em></td><td>IF Cantitate &gt; 5</td><td>70 mari · 62 mici</td></tr>
+          </tbody>
+        </table>
+        <p class="s06-takeaway"><strong>Pagina finală:</strong> un rând de carduri KPI (1, 4, 6), un matrix Regiune × Categorie cu măsurile 1 și 7, și un bar chart <code>Marime_Comanda</code> × <code>[Total Vanzari]</code>.</p>
+        <div class="s3-files">
+          <a href="../s05/date_curat/Vanzari_s5_curat.xlsx"><span class="s3-file-tag">Excel</span> Vanzari_s5_curat.xlsx</a>
+          <a href="../s05/raport-4-pagini.html"><span class="s3-file-tag">Ghid</span> Raport S5 · 4 pagini</a>
+        </div>
+      </article>
+
+      <!-- 22 · Încheiere -->
+      <article class="slide s5-closing">
+        <div class="closing-hero">
+          <span class="closing-eyebrow">Sesiunea 6 · încheiere</span>
+          <h2 class="closing-title">Ce am învățat astăzi</h2>
+        </div>
+        <div class="closing-band">
+          <div class="band-row s6-close-row">
+            <div class="band-card">
+              <span class="n">01</span>
+              <strong>Coloană vs măsură</strong>
+              <span class="d">Coloana descrie un rând și merge în slicer. Măsura răspunde despre un grup și merge în Values.</span>
+            </div>
+            <div class="band-card">
+              <span class="n">02</span>
+              <strong>Filter context</strong>
+              <span class="d">Aceeași formulă, alte rânduri. Slicerele, axele și relațiile aleg ce intră în calcul.</span>
+            </div>
+            <div class="band-card">
+              <span class="n">03</span>
+              <strong>CALCULATE · ALL</strong>
+              <span class="d">Adaugi sau înlocuiești filtre în formulă. ALL șterge un filtru ca să ai întregul pentru procente.</span>
+            </div>
+            <div class="band-card">
+              <span class="n">04</span>
+              <strong>DIVIDE · VAR · SUMX</strong>
+              <span class="d">Împarți sigur, scrii pașii cu nume și calculezi pe rând când coloana nu există.</span>
+            </div>
+          </div>
+        </div>
+        <div class="s4-close-task">
+          <span class="s4-close-kicker">Temă</span>
+          <p>Pe proiectul echipei din sesiunea 5 scrie <strong>5 măsuri</strong> cu nume de business: un total, o numărătoare, un CALCULATE cu regulă de business, un procent din total și o medie cu DIVIDE. Folosește-le în cel puțin <strong>3 vizuale</strong> și notează lângă fiecare măsură rezultatul verificat.</p>
+        </div>
+      </article>
+
+    </main>
+
+    <nav class="slide-nav">
+      <button class="slide-nav-btn" data-slide-prev>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Înapoi
+      </button>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+        <div class="slide-counter" data-slide-counter>1 / 2</div>
+        <div class="slide-dots" data-slide-dots></div>
+      </div>
+      <button class="slide-nav-btn" data-slide-next>
+        Următor
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </nav>
+  </div>
+  <script src="../../js/main.js"></script>
+  <script src="../../js/s06.js?v=3"></script>
+</body>
+</html>
