@@ -4,105 +4,170 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Echipa Albastru · Proiect · FixAuto</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    :root { --primary: #2563EB; --soft: color-mix(in srgb, #2563EB 14%, white); }
-    body { font-family: Inter, sans-serif; margin: 0; background: #f6f6f6; color: #111; line-height: 1.6; }
-    main { max-width: 880px; margin: 0 auto; padding: 28px 20px 56px; }
-    a { color: var(--primary); font-weight: 600; text-decoration: none; }
+    :root {
+      --c: #2563EB;
+      --soft: color-mix(in srgb, #2563EB 10%, white);
+      --line: #e5e7eb;
+      --text: #111827;
+      --text-2: #4b5563;
+      --text-3: #6b7280;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, system-ui, sans-serif; background: #f5f6f7; color: var(--text); line-height: 1.55; }
+    main { max-width: 980px; margin: 0 auto; padding: 22px 20px 64px; }
+    a { color: var(--c); font-weight: 600; text-decoration: none; }
     a:hover { text-decoration: underline; }
-    .hero { background: var(--soft); border: 1px solid color-mix(in srgb, var(--primary) 30%, #ccc);
-      border-radius: 14px; padding: 26px 28px; margin-bottom: 22px; }
-    .badge { display: inline-block; background: var(--primary); color: #fff; font-weight: 700;
-      font-size: 0.72rem; padding: 4px 10px; border-radius: 999px; margin-bottom: 10px; }
-    .hero h1 { margin: 0 0 6px; font-size: 1.55rem; }
-    .tag { color: #444; margin: 0 0 14px; }
-    .members { background: #fff; border: 2px dashed #bbb; border-radius: 8px; padding: 14px 18px; margin: 14px 0; }
-    .members ul { margin: 8px 0 0; padding-left: 1.2rem; }
-    .members li { margin: 4px 0; }
-    .context-box { background: #fff; border-radius: 10px; padding: 18px 20px; margin-top: 12px;
-      border-left: 4px solid var(--primary); }
-    .context-box p { margin: 0 0 10px; }
-    .context-box p:last-child { margin-bottom: 0; }
-    h2 { color: var(--primary); font-size: 1.15rem; margin: 0 0 12px; }
-    .steps { counter-reset: st; list-style: none; padding: 0; margin: 0; }
-    .steps li { counter-increment: st; margin: 14px 0; padding-left: 38px; position: relative; }
-    .steps li::before { content: counter(st); position: absolute; left: 0; top: 2px;
-      width: 26px; height: 26px; border-radius: 50%; background: var(--primary); color: #fff;
-      font-weight: 800; font-size: 0.82rem; display: grid; place-items: center; }
-    .page-block { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px;
-      padding: 20px 22px; margin-bottom: 16px; }
-    .page-num { font-weight: 800; color: var(--primary); margin: 0 0 6px; font-size: 0.95rem; }
-    .focus { color: #374151; margin: 0 0 14px; }
-    h3 { font-size: 0.95rem; margin: 0 0 8px; }
-    .rec-heading { margin-top: 16px; color: #6b7280; font-weight: 600; }
-    .q-list li, .rec-list li { margin: 6px 0; }
-    .rec-list { color: #4b5563; font-size: 0.94rem; }
-    .note-pages { font-size: 0.92rem; color: #555; margin: 0 0 18px; }
+    .back { display: inline-block; margin-bottom: 14px; font-size: 0.92rem; }
+
+    .hero { position: relative; overflow: hidden; padding: 28px 30px; border-radius: 18px; background: #fff; border: 1px solid var(--line); }
+    .hero::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 6px; background: var(--c); }
+    .badge { display: inline-block; padding: 4px 12px; border-radius: 999px; background: var(--c); color: #fff; font-size: 0.74rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+    .hero h1 { margin: 12px 0 2px; font-size: 2rem; letter-spacing: -0.03em; }
+    .tag { margin: 0 0 16px; color: var(--text-3); }
+    .hero-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 18px; }
+    .context p { margin: 0 0 8px; color: var(--text-2); }
+    .members { padding: 14px 16px; border-radius: 12px; background: var(--soft); }
+    .members strong { display: block; margin-bottom: 6px; font-size: 0.78rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--c); }
+    .members ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 3px; font-weight: 600; }
+
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 16px 0 26px; }
+    .stats div { padding: 12px 14px; border-radius: 12px; background: #fff; border: 1px solid var(--line); }
+    .stats b { display: block; font-size: 1.4rem; color: var(--c); line-height: 1.1; }
+    .stats span { font-size: 0.84rem; color: var(--text-2); }
+
+    section { margin-top: 30px; }
+    h2 { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; font-size: 1.3rem; letter-spacing: -0.02em; }
+    h2 .n { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; background: var(--c); color: #fff; font-size: 0.9rem; }
+    .lead { margin: 0 0 14px; color: var(--text-2); }
+
+    .files { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+    .file { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; padding: 12px 16px; border-radius: 12px; background: #fff; border: 1px solid var(--line); }
+    .xl { padding: 5px 8px; border-radius: 6px; background: #e7f5ec; color: #1d6f42; font-size: 0.7rem; font-weight: 800; }
+    .file h3 { margin: 0; font-size: 1rem; }
+    .file p { margin: 2px 0 0; font-size: 0.9rem; color: var(--text-2); }
+    .cnt { font-size: 0.8rem; font-weight: 700; color: var(--text-3); white-space: nowrap; }
+    .note { margin-top: 10px; padding: 10px 14px; border-radius: 10px; background: var(--soft); font-size: 0.92rem; color: var(--text-2); }
+    .note strong { color: var(--text); }
+
+    .steps { display: grid; gap: 10px; }
+    .step { display: grid; grid-template-columns: 44px 1fr; align-items: center; gap: 14px; padding: 12px 18px; border-radius: 14px; background: #fff; border: 1px solid var(--line); }
+    .step .sn { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--soft); color: var(--c); font-weight: 800; font-size: 1.05rem; }
+    .step h3 { margin: 0; font-size: 1.05rem; }
+    .step p { margin: 0 0 6px; color: var(--text-2); }
+    .step ul { margin: 6px 0 8px; padding-left: 1.15rem; color: var(--text-2); font-size: 0.93rem; }
+    .step li { margin: 3px 0; }
+    .done { display: inline-block; margin-top: 4px; padding: 4px 10px; border-radius: 8px; background: #ecfdf5; color: #047857; font-size: 0.86rem; font-weight: 600; }
+    .done::before { content: "✓ "; font-weight: 800; }
+
+    .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .rule { padding: 14px 16px; border-radius: 12px; background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--c); }
+    .rule h3 { margin: 0 0 4px; font-size: 0.98rem; }
+    .rule p { margin: 0; font-size: 0.92rem; color: var(--text-2); }
+
+    .pages { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .rpage { padding: 18px 20px; border-radius: 14px; background: #fff; border: 1px solid var(--line); }
+    .pn { display: inline-block; padding: 3px 10px; border-radius: 999px; background: var(--soft); color: var(--c); font-size: 0.74rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+    .rpage h3 { margin: 8px 0 4px; font-size: 1.12rem; }
+    .focus { margin: 0 0 12px; color: var(--text-2); font-size: 0.93rem; }
+    .rpage h4 { margin: 12px 0 6px; font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text); }
+    .rpage h4.soft { color: var(--text-3); }
+    .qs { margin: 0; padding-left: 1.2rem; }
+    .qs li { margin: 4px 0; }
+    .recs { margin: 0; padding-left: 1.1rem; color: var(--text-3); font-size: 0.9rem; }
+    .recs li { margin: 3px 0; }
+
+    @media (max-width: 760px) {
+      .hero-grid, .rules, .pages { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr 1fr; }
+      .files { grid-template-columns: 1fr 1fr; }
+      .hero { padding: 22px 18px; }
+    }
   </style>
 </head>
 <body>
   <main>
-    <p><a href="../index.html">← Înapoi la Sesiunea 5</a></p>
+    <a class="back" href="../index.html">← Înapoi la Sesiunea 5</a>
+
     <header class="hero">
       <span class="badge">Echipa Albastru</span>
       <h1>FixAuto</h1>
       <p class="tag">rețea service auto & piese · Automotive aftermarket</p>
-      <div class="members"><strong>Membri echipă</strong><ul><li>Violeta Gutu</li><li>Patricia Cadar</li><li>Costin Văetiși</li><li>Ovidiu Borlean</li></ul></div>
-      <div class="context-box">
-        <p><strong>Despre firmă.</strong> FixAuto are service-uri auto în mai multe orașe: revizii, ITP, piese și manoperă.</p>
-        <p>Fiecare linie = o poziție pe deviz (manoperă sau piesă), cu centru service, client și dată. Dimensiunile descriu clienți (inclusiv flote), catalog servicii/piese, centre și calendar. Raportul sprijină decizii despre încărcarea centrelor și mix servicii vs piese.</p>
+      <div class="hero-grid">
+        <div class="context">
+          <p>FixAuto are service-uri auto în mai multe orașe: revizii, ITP, piese și manoperă.</p>
+          <p>Raportul sprijină decizii despre încărcarea centrelor și mixul servicii vs piese.</p>
+        </div>
+        <div class="members"><strong>Membri echipă</strong><ul><li>Violeta Gutu</li><li>Patricia Cadar</li><li>Costin Văetiși</li><li>Ovidiu Borlean</li></ul></div>
       </div>
     </header>
 
-    <section class="page-block">
-      <h2>Misiune</h2>
-      <ol class="steps">
-        <li><strong>Explorați datele</strong> — înțelegeți ce reprezintă fiecare fișier, ce granulație are o linie și ce rol au coloanele (identificatori, descrieri, măsuri, date).</li>
-        <li><strong>Curățați datele</strong> — folosiți tehnicile învățate până acum în Power Query, adaptate la ce găsiți în setul echipei voastre.</li>
-        <li><strong>Creați un model star schema</strong> — legați tabelul de facturi / linii de vânzare de dimensiunile de context (clienți, produse, locații, calendar).</li>
-        <li><strong>Creați un raport de 4 pagini</strong> — folosiți titlurile de mai jos. Pe fiecare pagină, 3–4 vizuale care răspund la întrebări. Alegeți voi tipul de diagramă.</li>
-      </ol>
+    <div class="stats">
+      <div><b>5</b><span>fișiere Excel cu date brute</span></div>
+      <div><b>1</b><span>model star în Power BI</span></div>
+      <div><b>4</b><span>pagini de raport</span></div>
+      <div><b>3–4</b><span>vizuale pe pagină</span></div>
+    </div>
+
+    <section>
+      <h2><span class="n">1</span>Ce găsiți în folder</h2>
+      <div class="files"><article class="file"><span class="xl">XLSX</span><h3>Vanzari.xlsx</h3></article><article class="file"><span class="xl">XLSX</span><h3>Clienti.xlsx</h3></article><article class="file"><span class="xl">XLSX</span><h3>Produse.xlsx</h3></article><article class="file"><span class="xl">XLSX</span><h3>Magazine.xlsx</h3></article><article class="file"><span class="xl">XLSX</span><h3>Date.xlsx</h3></article></div>
     </section>
 
-    <p class="note-pages">Cele 4 pagini ale raportului:</p>
-
-    <section class="page-block">
-      <p class="page-num">Pagina 1 · Performanță rețea</p>
-      <p class="focus">Managementul FixAuto vrea total încasări, evoluție și centre care trac.</p>
-      <h3>Întrebări pentru această pagină</h3>
-      <ul class="q-list"><li>Care este valoarea totală a lucrărilor facturate?</li><li>Cum arată trendul veniturilor pe luni sau trimestre?</li><li>Ce regiuni sau orașe generează cele mai multe încasări?</li><li>Top centre service după valoare?</li></ul>
-      <h3 class="rec-heading">Recomandări (opțional — puteți alege altfel)</h3>
-      <ul class="rec-list"><li>Recomandare: carduri KPI + diagramă linie pe Dim_Date.</li><li>Recomandare: coloane pe Regiune sau Nume_Magazin (centru).</li></ul>
+    <section>
+      <h2><span class="n">2</span>Pașii proiectului</h2>
+      <div class="steps">
+        <article class="step"><span class="sn">1</span><h3>Explorați datele</h3></article>
+        <article class="step"><span class="sn">2</span><h3>Curățați datele în Power Query</h3></article>
+        <article class="step"><span class="sn">3</span><h3>Stabiliți fact și dimensiuni</h3></article>
+        <article class="step"><span class="sn">4</span><h3>Setați tipurile de date și construiți modelul</h3></article>
+        <article class="step"><span class="sn">5</span><h3>Construiți raportul de 4 pagini</h3></article>
+      </div>
     </section>
 
-    <section class="page-block">
-      <p class="page-num">Pagina 2 · Servicii vs piese</p>
-      <p class="focus">Atelier și stoc: manoperă sau vânzare de piese domină?</p>
-      <h3>Întrebări pentru această pagină</h3>
-      <ul class="q-list"><li>Ce procent din valoare vine din categoria Servicii față de Piese?</li><li>Ce tipuri de lucrări (Mentenanta, ITP, Anvelope…) sunt cerute cel mai des?</li><li>Care produse/servicii (SKU) aduc cele mai multe încasări?</li></ul>
-      <h3 class="rec-heading">Recomandări (opțional — puteți alege altfel)</h3>
-      <ul class="rec-list"><li>Recomandare: donut sau coloane pe Categorie din Dim_Produse.</li><li>Recomandare: bar chart pe Subcategorie sau Nume_Produs.</li></ul>
+    <section>
+      <h2><span class="n">3</span>Raportul: cele 4 pagini</h2>
+      <p class="lead">Raportul este pentru managementul FixAuto. Fiecare pagină răspunde unui alt om din firmă.</p>
+      <div class="pages">
+        <article class="rpage">
+          <span class="pn">Pagina 1</span>
+          <h3>Performanță rețea</h3>
+          <p class="focus">Managementul FixAuto vrea total încasări, evoluție și centre care trac.</p>
+          <h4>Întrebări la care răspunde pagina</h4>
+          <ol class="qs"><li>Care este valoarea totală a lucrărilor facturate?</li><li>Cum arată trendul veniturilor pe luni sau trimestre?</li><li>Ce regiuni sau orașe generează cele mai multe încasări?</li><li>Top centre service după valoare?</li></ol>
+          <h4 class="soft">Vizuale sugerate (opțional)</h4>
+          <ul class="recs"><li>Carduri KPI + diagramă linie pe Dim_Date.</li><li>Coloane pe Regiune sau Nume_Magazin (centru).</li></ul>
+        </article>
+        <article class="rpage">
+          <span class="pn">Pagina 2</span>
+          <h3>Servicii vs piese</h3>
+          <p class="focus">Atelier și stoc: manoperă sau vânzare de piese domină?</p>
+          <h4>Întrebări la care răspunde pagina</h4>
+          <ol class="qs"><li>Ce procent din valoare vine din categoria Servicii față de Piese?</li><li>Ce tipuri de lucrări (Mentenanta, ITP, Anvelope…) sunt cerute cel mai des?</li><li>Care produse/servicii (SKU) aduc cele mai multe încasări?</li></ol>
+          <h4 class="soft">Vizuale sugerate (opțional)</h4>
+          <ul class="recs"><li>Donut sau coloane pe Categorie din Dim_Produse.</li><li>Bar chart pe Subcategorie sau Nume_Produs.</li></ul>
+        </article>
+        <article class="rpage">
+          <span class="pn">Pagina 3</span>
+          <h3>Clienți și flote</h3>
+          <p class="focus">Retail (șofer individual) vs contracte B2B și flote.</p>
+          <h4>Întrebări la care răspunde pagina</h4>
+          <ol class="qs"><li>Cum se compară PF cu PJ ca valoare totală?</li><li>Segmentele Flota, Retail, Institutional — care contează mai mult?</li><li>Care clienți PJ (flote) sunt în top?</li></ol>
+          <h4 class="soft">Vizuale sugerate (opțional)</h4>
+          <ul class="recs"><li>Diagramă Tip_Client sau Segment.</li><li>Tabel/top N clienți cu Denumire și valoare.</li></ul>
+        </article>
+        <article class="rpage">
+          <span class="pn">Pagina 4</span>
+          <h3>Centre și acces</h3>
+          <p class="focus">Capacitate și marketing: cum ajung mașinile în service.</p>
+          <h4>Întrebări la care răspunde pagina</h4>
+          <ol class="qs"><li>Centrele au același ritm de încasări sau există lideri?</li><li>Programare online vs walk-in vs Flota B2B — cum se împarte valoarea?</li><li>Unde ar merita extindere (centru puternic vs slab)?</li></ol>
+          <h4 class="soft">Vizuale sugerate (opțional)</h4>
+          <ul class="recs"><li>Bar chart pe centru; opțional pe Format_Magazin.</li><li>Coloane sau donut pe Canal_Vanzare.</li></ul>
+        </article>
+      </div>
     </section>
-
-    <section class="page-block">
-      <p class="page-num">Pagina 3 · Clienți și flote</p>
-      <p class="focus">Retail (șofer individual) vs contracte B2B și flote.</p>
-      <h3>Întrebări pentru această pagină</h3>
-      <ul class="q-list"><li>Cum se compară PF cu PJ ca valoare totală?</li><li>Segmentele Flota, Retail, Institutional — care contează mai mult?</li><li>Care clienți PJ (flote) sunt în top?</li></ul>
-      <h3 class="rec-heading">Recomandări (opțional — puteți alege altfel)</h3>
-      <ul class="rec-list"><li>Recomandare: diagramă Tip_Client sau Segment.</li><li>Recomandare: tabel/top N clienți cu Denumire și valoare.</li></ul>
-    </section>
-
-    <section class="page-block">
-      <p class="page-num">Pagina 4 · Centre și acces</p>
-      <p class="focus">Capacitate și marketing: cum ajung mașinile în service.</p>
-      <h3>Întrebări pentru această pagină</h3>
-      <ul class="q-list"><li>Centrele au același ritm de încasări sau există lideri?</li><li>Programare online vs walk-in vs Flota B2B — cum se împarte valoarea?</li><li>Unde ar merita extindere (centru puternic vs slab)?</li></ul>
-      <h3 class="rec-heading">Recomandări (opțional — puteți alege altfel)</h3>
-      <ul class="rec-list"><li>Recomandare: bar chart pe centru; opțional pe Format_Magazin.</li><li>Recomandare: coloane sau donut pe Canal_Vanzare.</li></ul>
-    </section>
-
   </main>
 </body>
 </html>

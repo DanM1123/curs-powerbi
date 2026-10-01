@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="../../css/extras.css" />
   <link rel="stylesheet" href="../../css/s02.css" />
   <link rel="stylesheet" href="../../css/s03.css" />
-  <link rel="stylesheet" href="../../css/s05.css?v=33" />
+  <link rel="stylesheet" href="../../css/s05.css?v=36" />
   <script src="../../js/gate.js"></script>
   <script src="../../js/firebase-init.js"></script>
 </head>
@@ -181,24 +181,35 @@
       <article class="slide s5-concepts-slide">
         <span class="slide-eyebrow">Sesiunea 5 · hartă</span>
         <h2>Structura sesiunii</h2>
-        <p class="s3-lead">Modelul e gata. Acum învățăm <strong>să alegem și să construim vizualuri</strong> — nu doar să punem grafice pe pagină.</p>
-        <div class="s5-lesson-map">
+        <p class="s3-lead">Modelul e gata. Întâi învățăm <strong>cum alegem</strong> vizualul (trei întrebări), apoi îl construim familie cu familie, pe modelul <strong>Vanzari</strong>: după fiecare explicație urmează slide-ul <strong>Construiește în Power BI</strong>.</p>
+        <div class="s5-lesson-map is-five">
           <article>
             <span class="n">01</span>
-            <h3>Intro · Data visualization</h3>
-            <p>De ce vizualizăm, ce întrebări pune un raport și cum legăm datele de modelul din sesiunea 4.</p>
+            <h3>Comparație și compoziție</h3>
+            <p>Bar și column (stacked, clustered, 100%), pie și donut, treemap, waterfall, funnel.</p>
           </article>
-          <article class="is-now">
+          <article>
             <span class="n">02</span>
-            <h3>Tipuri de visualuri</h3>
-            <p>Cum alegi graficul: tip de date, mesaj, public. Familii de vizualuri și greșeli de evitat.</p>
+            <h3>Evoluția în timp</h3>
+            <p>Line, area și graficele combinate (coloane + linie).</p>
           </article>
           <article>
             <span class="n">03</span>
-            <h3>Storytelling</h3>
-            <p>Context, layout și poveste clară — de la KPI la detaliu, fără zgomot vizual.</p>
+            <h3>Indicatori</h3>
+            <p>Card și gauge: o cifră importantă, singură sau față de o țintă.</p>
+          </article>
+          <article>
+            <span class="n">04</span>
+            <h3>Detaliu și explorare</h3>
+            <p>Table, matrix și decomposition tree.</p>
+          </article>
+          <article>
+            <span class="n">05</span>
+            <h3>Design și storytelling</h3>
+            <p>Culoare, layout, înainte și după, greșeli frecvente și storytelling.</p>
           </article>
         </div>
+        <p class="s5-map-data">Date: <strong>Vanzari_s5_curat.xlsx</strong> (Vanzari + Dim_Produse, Dim_Magazine, Dim_Clienti, Dim_Date). Câmpurile din slide-urile „Construiește” sunt cele din acest model.</p>
       </article>
 
       <!-- D · Cadru general · 3 întrebări cheie -->
@@ -677,13 +688,28 @@
         </div>
       </article>
 
-      <!-- C · Partea 1 · Stacked bar chart -->
-      <article class="slide s5-bar-slide">
+      <!-- C · Familia bar / column -->
+      <article class="slide s5-bar-slide" data-s5f>
         <div class="s5-part-kicker">
-          <span class="slide-eyebrow">Partea 1 · Graficele bar (orizontale)</span>
-          <span class="s5-concept-pill">1 · Stacked bar chart</span>
+          <span class="slide-eyebrow">Partea 1 · Comparație și compoziție</span>
+          <span class="s5-concept-pill">Bar și column</span>
         </div>
-        <h2>Stacked bar chart</h2>
+        <h2 data-s5f-title>Stacked bar chart</h2>
+        <p class="s5-oneline">Șase grafice, o singură logică. Alege <strong>orientarea</strong> și <strong>varianta</strong>: explicația de mai jos se schimbă.</p>
+        <div class="s5f-controls">
+          <div class="s5f-group" data-s5f-group="orient">
+            <span class="s5f-lbl">Orientare</span>
+            <button type="button" class="s5-dtype is-on" data-v="bar">Bar · orizontal</button>
+            <button type="button" class="s5-dtype" data-v="col">Column · vertical</button>
+          </div>
+          <div class="s5f-group" data-s5f-group="var">
+            <span class="s5f-lbl">Variantă</span>
+            <button type="button" class="s5-dtype is-on" data-v="stacked">Stacked</button>
+            <button type="button" class="s5-dtype" data-v="clustered">Clustered</button>
+            <button type="button" class="s5-dtype" data-v="full">100% stacked</button>
+          </div>
+        </div>
+        <div class="s5f-panel is-on" data-s5f-panel="bar|stacked" data-title="Stacked bar chart">
 
         <div class="s5-bar-grid">
           <section class="s5-bar-card">
@@ -767,15 +793,8 @@
             <p>Când ne interesează totalul și, secundar, din ce e făcut.</p>
           </section>
         </div>
-      </article>
-
-      <!-- C · 2 · Clustered bar -->
-      <article class="slide s5-bar-slide">
-        <div class="s5-part-kicker">
-          <span class="slide-eyebrow">Partea 1 · Graficele bar (orizontale)</span>
-          <span class="s5-concept-pill">2 · Clustered bar chart</span>
         </div>
-        <h2>Clustered bar chart</h2>
+        <div class="s5f-panel" data-s5f-panel="bar|clustered" data-title="Clustered bar chart" hidden>
         <div class="s5-bar-grid">
           <section class="s5-bar-card">
             <h3>Ce este?</h3>
@@ -849,15 +868,8 @@
             <p>Când întrebarea este „care e mai mare?” între subcategorii.</p>
           </section>
         </div>
-      </article>
-
-      <!-- C · 3 · 100% stacked bar -->
-      <article class="slide s5-bar-slide">
-        <div class="s5-part-kicker">
-          <span class="slide-eyebrow">Partea 1 · Graficele bar (orizontale)</span>
-          <span class="s5-concept-pill">3 · 100% stacked bar chart</span>
         </div>
-        <h2>100% stacked bar chart</h2>
+        <div class="s5f-panel" data-s5f-panel="bar|full" data-title="100% stacked bar chart" hidden>
         <div class="s5-bar-grid">
           <section class="s5-bar-card">
             <h3>Ce este?</h3>
@@ -929,15 +941,8 @@
             <p>Când întrebarea este „ce pondere are?” și nu „cât are?”.</p>
           </section>
         </div>
-      </article>
-
-      <!-- C · 4 · Stacked column -->
-      <article class="slide s5-bar-slide">
-        <div class="s5-part-kicker">
-          <span class="slide-eyebrow">Partea 2 · Graficele column (verticale)</span>
-          <span class="s5-concept-pill">4 · Stacked column chart</span>
         </div>
-        <h2>Stacked column chart</h2>
+        <div class="s5f-panel" data-s5f-panel="col|stacked" data-title="Stacked column chart" hidden>
         <p class="s5-oneline">Logica este identică cu graficele bar, dar categoria stă pe axa orizontală (X), iar valoarea pe axa verticală (Y).</p>
         <div class="s5-bar-grid">
           <section class="s5-bar-card">
@@ -1012,15 +1017,8 @@
             <p>Când ne interesează cum crește sau scade totalul și ce îl compune.</p>
           </section>
         </div>
-      </article>
-
-      <!-- C · 5 · Clustered column -->
-      <article class="slide s5-bar-slide">
-        <div class="s5-part-kicker">
-          <span class="slide-eyebrow">Partea 2 · Graficele column (verticale)</span>
-          <span class="s5-concept-pill">5 · Clustered column chart</span>
         </div>
-        <h2>Clustered column chart</h2>
+        <div class="s5f-panel" data-s5f-panel="col|clustered" data-title="Clustered column chart" hidden>
         <div class="s5-bar-grid">
           <section class="s5-bar-card">
             <h3>Ce este?</h3>
@@ -1096,15 +1094,8 @@
             <p>Când întrebarea este „care e mai mare și cu cât?” pe perioade.</p>
           </section>
         </div>
-      </article>
-
-      <!-- C · 6 · 100% stacked column -->
-      <article class="slide s5-bar-slide">
-        <div class="s5-part-kicker">
-          <span class="slide-eyebrow">Partea 2 · Graficele column (verticale)</span>
-          <span class="s5-concept-pill">6 · 100% stacked column chart</span>
         </div>
-        <h2>100% stacked column chart</h2>
+        <div class="s5f-panel" data-s5f-panel="col|full" data-title="100% stacked column chart" hidden>
         <div class="s5-bar-grid">
           <section class="s5-bar-card">
             <h3>Ce este?</h3>
@@ -1179,12 +1170,229 @@
             <p>Când întrebarea este „cum s-a schimbat structura?”.</p>
           </section>
         </div>
+        </div>
+      </article>
+
+      <!-- Construiește · Bar și column -->
+      <article class="slide s5-bar-slide s5-build-slide" data-s5f>
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Comparație și compoziție</span>
+          <span class="s5-concept-pill is-build">Construiește în Power BI</span>
+        </div>
+        <h2 data-s5f-title>Construiește: Stacked bar chart</h2>
+        <div class="s5f-controls">
+          <div class="s5f-group" data-s5f-group="orient">
+            <span class="s5f-lbl">Orientare</span>
+            <button type="button" class="s5-dtype is-on" data-v="bar">Bar · orizontal</button>
+            <button type="button" class="s5-dtype" data-v="col">Column · vertical</button>
+          </div>
+          <div class="s5f-group" data-s5f-group="var">
+            <span class="s5f-lbl">Variantă</span>
+            <button type="button" class="s5-dtype is-on" data-v="stacked">Stacked</button>
+            <button type="button" class="s5-dtype" data-v="clustered">Clustered</button>
+            <button type="button" class="s5-dtype" data-v="full">100% stacked</button>
+          </div>
+        </div>
+        <div class="s5f-panel is-on" data-s5f-panel="bar|stacked" data-title="Construiește: Stacked bar chart">
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Întrebarea</h3>
+              <p class="s5b-q">„Care categorii vând cel mai mult și prin ce canale?”</p>
+              <h3>Câmpurile, zonă cu zonă</h3>
+              <div class="s5b-pane">
+                <div class="s5b-pane-h">Build · Stacked bar chart</div>
+                <div class="s5b-well"><span class="s5b-well-l">Y-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Dim_Produse</em>Categorie</span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">X-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Valoare_Totala<i>Sum</i></span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Legend</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Canal_Vanzare</span></div></div>
+              </div>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Pașii în Power BI</h3>
+              <ol class="s5-steps">
+                <li>Pe pagina de lucru, click pe o zonă goală, ca să nu modifici alt vizual.</li>
+                <li><span class='s5-ui'>Visualizations</span> → <strong>Stacked bar chart</strong>.</li>
+                <li>Din panoul <span class='s5-ui'>Data</span>, trage fiecare câmp în zona lui (schema din stânga). <em>Valoare_Totala</em> devine automat <em>Sum of Valoare_Totala</em>.</li>
+                <li>Sortează: <span class='s5-ui'>…</span> (More options) → <strong>Sort axis</strong> → Sum of Valoare_Totala → <strong>Sort descending</strong>.</li>
+              </ol>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Ce trebuie să vezi</h3>
+              <p>Câte o bară pe categorie, împărțită în 4 culori (canalele). Electronice e cea mai lungă.</p>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Finisare</h3>
+              <p>Format visual → General → Title: „Vânzări pe categorie și canal”.</p>
+            </section>
+          </div>
+        </div>
+        <div class="s5f-panel" data-s5f-panel="bar|clustered" data-title="Construiește: Clustered bar chart" hidden>
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Întrebarea</h3>
+              <p class="s5b-q">„În fiecare regiune, care canal vinde cel mai mult?”</p>
+              <h3>Câmpurile, zonă cu zonă</h3>
+              <div class="s5b-pane">
+                <div class="s5b-pane-h">Build · Clustered bar chart</div>
+                <div class="s5b-well"><span class="s5b-well-l">Y-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Dim_Magazine</em>Regiune</span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">X-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Valoare_Totala<i>Sum</i></span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Legend</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Canal_Vanzare</span></div></div>
+              </div>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Pașii în Power BI</h3>
+              <ol class="s5-steps">
+                <li>Pe pagina de lucru, click pe o zonă goală, ca să nu modifici alt vizual.</li>
+                <li><span class='s5-ui'>Visualizations</span> → <strong>Clustered bar chart</strong>.</li>
+                <li>Din panoul <span class='s5-ui'>Data</span>, trage fiecare câmp în zona lui (schema din stânga). <em>Valoare_Totala</em> devine automat <em>Sum of Valoare_Totala</em>.</li>
+                <li>Sortează regiunile: <span class='s5-ui'>…</span> → Sort axis → Sum of Valoare_Totala → Sort descending.</li>
+              </ol>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Ce trebuie să vezi</h3>
+              <p>Pentru fiecare regiune, 4 bare una sub alta, câte una pe canal, toate pornind de la aceeași linie.</p>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Finisare</h3>
+              <p>Cu 4 canale × 5 regiuni = 20 de bare; dacă e aglomerat, păstrează doar canalele importante din Legend.</p>
+            </section>
+          </div>
+        </div>
+        <div class="s5f-panel" data-s5f-panel="bar|full" data-title="Construiește: 100% stacked bar chart" hidden>
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Întrebarea</h3>
+              <p class="s5b-q">„Ce pondere are fiecare canal în vânzările fiecărei regiuni?”</p>
+              <h3>Câmpurile, zonă cu zonă</h3>
+              <div class="s5b-pane">
+                <div class="s5b-pane-h">Build · 100% stacked bar chart</div>
+                <div class="s5b-well"><span class="s5b-well-l">Y-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Dim_Magazine</em>Regiune</span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">X-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Valoare_Totala<i>Sum</i></span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Legend</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Canal_Vanzare</span></div></div>
+              </div>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Pașii în Power BI</h3>
+              <ol class="s5-steps">
+                <li>Pe pagina de lucru, click pe o zonă goală, ca să nu modifici alt vizual.</li>
+                <li><span class='s5-ui'>Visualizations</span> → <strong>100% stacked bar chart</strong>.</li>
+                <li>Din panoul <span class='s5-ui'>Data</span>, trage fiecare câmp în zona lui (schema din stânga). <em>Valoare_Totala</em> devine automat <em>Sum of Valoare_Totala</em>.</li>
+                <li>Format visual → Visual → <strong>Data labels</strong> = On: procentele apar pe fiecare segment.</li>
+              </ol>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Ce trebuie să vezi</h3>
+              <p>Toate barele au aceeași lungime (100%); compari doar culorile. În Centru domină Magazin fizic, în Sud Partener B2B.</p>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Finisare</h3>
+              <p>Adaugă Valoare_Totala și în zona Tooltips, ca la hover să vezi și suma, nu doar procentul.</p>
+            </section>
+          </div>
+        </div>
+        <div class="s5f-panel" data-s5f-panel="col|stacked" data-title="Construiește: Stacked column chart" hidden>
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Întrebarea</h3>
+              <p class="s5b-q">„Cum au evoluat vânzările pe ani și din ce categorii au venit?”</p>
+              <h3>Câmpurile, zonă cu zonă</h3>
+              <div class="s5b-pane">
+                <div class="s5b-pane-h">Build · Stacked column chart</div>
+                <div class="s5b-well"><span class="s5b-well-l">X-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Dim_Date</em>An</span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Y-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Valoare_Totala<i>Sum</i></span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Legend</span><div class="s5b-chips"><span class="s5b-chip"><em>Dim_Produse</em>Categorie</span></div></div>
+              </div>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Pașii în Power BI</h3>
+              <ol class="s5-steps">
+                <li>Pe pagina de lucru, click pe o zonă goală, ca să nu modifici alt vizual.</li>
+                <li><span class='s5-ui'>Visualizations</span> → <strong>Stacked column chart</strong>.</li>
+                <li>Din panoul <span class='s5-ui'>Data</span>, trage fiecare câmp în zona lui (schema din stânga). <em>Valoare_Totala</em> devine automat <em>Sum of Valoare_Totala</em>.</li>
+                <li>Dacă anii apar ca 2.022, 2.022,5…: Format visual → Visual → X-axis → <strong>Type: Categorical</strong>.</li>
+                <li>Sortează cronologic: <span class='s5-ui'>…</span> → Sort axis → An → <strong>Sort ascending</strong>.</li>
+              </ol>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Ce trebuie să vezi</h3>
+              <p>4 coloane (2022–2025), fiecare împărțită pe categorii. 2024 e cea mai înaltă.</p>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Finisare</h3>
+              <p>An trebuie să fie <em>Don't summarize</em> (Column tools → Summarization), altfel Power BI încearcă să-l adune.</p>
+            </section>
+          </div>
+        </div>
+        <div class="s5f-panel" data-s5f-panel="col|clustered" data-title="Construiește: Clustered column chart" hidden>
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Întrebarea</h3>
+              <p class="s5b-q">„Cum se compară canalele de vânzare de la un an la altul?”</p>
+              <h3>Câmpurile, zonă cu zonă</h3>
+              <div class="s5b-pane">
+                <div class="s5b-pane-h">Build · Clustered column chart</div>
+                <div class="s5b-well"><span class="s5b-well-l">X-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Dim_Date</em>An</span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Y-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Valoare_Totala<i>Sum</i></span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Legend</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Canal_Vanzare</span></div></div>
+              </div>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Pașii în Power BI</h3>
+              <ol class="s5-steps">
+                <li>Pe pagina de lucru, click pe o zonă goală, ca să nu modifici alt vizual.</li>
+                <li><span class='s5-ui'>Visualizations</span> → <strong>Clustered column chart</strong>.</li>
+                <li>Din panoul <span class='s5-ui'>Data</span>, trage fiecare câmp în zona lui (schema din stânga). <em>Valoare_Totala</em> devine automat <em>Sum of Valoare_Totala</em>.</li>
+                <li>X-axis → Type: <strong>Categorical</strong>; sortează ascendent după An.</li>
+              </ol>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Ce trebuie să vezi</h3>
+              <p>Pentru fiecare an, 4 coloane una lângă alta. Vezi direct ce canal a câștigat în fiecare an.</p>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Finisare</h3>
+              <p>Format visual → Visual → Columns → Spacing: mărește spațiul dintre ani ca grupurile să se distingă.</p>
+            </section>
+          </div>
+        </div>
+        <div class="s5f-panel" data-s5f-panel="col|full" data-title="Construiește: 100% stacked column chart" hidden>
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Întrebarea</h3>
+              <p class="s5b-q">„Cum s-a schimbat mixul de canale de la un an la altul?”</p>
+              <h3>Câmpurile, zonă cu zonă</h3>
+              <div class="s5b-pane">
+                <div class="s5b-pane-h">Build · 100% stacked column chart</div>
+                <div class="s5b-well"><span class="s5b-well-l">X-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Dim_Date</em>An</span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Y-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Valoare_Totala<i>Sum</i></span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Legend</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Canal_Vanzare</span></div></div>
+              </div>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Pașii în Power BI</h3>
+              <ol class="s5-steps">
+                <li>Pe pagina de lucru, click pe o zonă goală, ca să nu modifici alt vizual.</li>
+                <li><span class='s5-ui'>Visualizations</span> → <strong>100% stacked column chart</strong>.</li>
+                <li>Din panoul <span class='s5-ui'>Data</span>, trage fiecare câmp în zona lui (schema din stânga). <em>Valoare_Totala</em> devine automat <em>Sum of Valoare_Totala</em>.</li>
+                <li>X-axis → Type: <strong>Categorical</strong>; sortează ascendent după An.</li>
+                <li>Format visual → Visual → <strong>Data labels</strong> = On.</li>
+              </ol>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Ce trebuie să vezi</h3>
+              <p>4 coloane de aceeași înălțime. Urmărește aceeași culoare de la stânga la dreapta: crește sau scade?</p>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Finisare</h3>
+              <p>Pune Valoare_Totala și în Tooltips, ca să nu pierzi valoarea absolută.</p>
+            </section>
+          </div>
+        </div>
       </article>
 
       <!-- C · Recapitulare -->
       <article class="slide s4-stepq-slide s5-bar-slide">
         <div class="s5-part-kicker">
-          <span class="slide-eyebrow">Bar și column</span>
+          <span class="slide-eyebrow">Partea 1 · Comparație și compoziție</span>
           <span class="s5-concept-pill">Recapitulare</span>
         </div>
         <h2>Care grafic pentru ce întrebare?</h2>
@@ -1241,11 +1449,553 @@
         </div>
       </article>
 
+      <!-- C · Pie și Donut -->
+      <article class="slide s5-bar-slide" data-s5f>
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Comparație și compoziție</span>
+          <span class="s5-concept-pill">Pie și donut</span>
+        </div>
+        <h2 data-s5f-title>Pie chart</h2>
+        <div class="s5f-controls">
+          <div class="s5f-group" data-s5f-group="tip">
+            <span class="s5f-lbl">Grafic</span>
+            <button type="button" class="s5-dtype is-on" data-v="pie">Pie</button>
+            <button type="button" class="s5-dtype" data-v="donut">Donut</button>
+          </div>
+        </div>
+
+        <div class="s5f-panel is-on" data-s5f-panel="pie" data-title="Pie chart">
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Ce este?</h3>
+              <p>Un cerc împărțit în felii. Cercul întreg este totalul (100%), iar fiecare felie este o parte din el.</p>
+              <h3>Cum se citește?</h3>
+              <ul>
+                <li>Mărimea feliei (unghiul) = ponderea părții în total.</li>
+                <li>Toate feliile împreună = 100%.</li>
+                <li>Fiecare culoare = o valoare din Legend.</li>
+              </ul>
+              <figure class="s5-hbar-ex">
+                <figcaption>Exemplu · Vanzari pe canal de vânzare</figcaption>
+                <div class="s5x-pie-ex">
+                  <div class="s5x-pie" style="--a:33.1; --b:33.0; --c:22.0"></div>
+                  <div class="s5x-pie-leg">
+                    <span><i class="a"></i>Telefon <b>33,1%</b></span>
+                    <span><i class="b"></i>Partener B2B <b>33,0%</b></span>
+                    <span><i class="c"></i>Magazin fizic <b>22,0%</b></span>
+                    <span><i class="d"></i>Online <b>11,9%</b></span>
+                  </div>
+                </div>
+              </figure>
+            </section>
+            <section class="s5-bar-card">
+              <h3>La ce se folosește?</h3>
+              <p>Pentru a arăta cum se împarte un total în <strong>puține</strong> părți, la un singur moment. Mesajul e „cât din întreg”, nu „cât exact”.</p>
+              <h3>La ce întrebări răspunde?</h3>
+              <ul class="s5-bar-qs">
+                <li>Ce pondere are fiecare canal de vânzare în total?</li>
+                <li>Cât din clienți sunt persoane juridice și cât persoane fizice?</li>
+                <li>Ce parte din buget merge la fiecare departament?</li>
+              </ul>
+            </section>
+            <section class="s5-bar-card s5-bar-span">
+              <h3>Cum îl construim în Power BI?</h3>
+              <p class="s5-bar-path">Vizualizări → Pie chart</p>
+              <table class="s5-bar-tbl">
+                <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
+                <tbody>
+                  <tr><td>Legend</td><td>Părțile (feliile)</td><td>Text (2–5 valori)</td><td>Canal_Vanzare</td></tr>
+                  <tr><td>Values</td><td>Valoarea care se împarte</td><td>Numeric (agregat)</td><td>Sum of Valoare_Totala</td></tr>
+                  <tr><td>Details</td><td>Împărțire suplimentară (opțional)</td><td>Text</td><td>Categorie</td></tr>
+                </tbody>
+              </table>
+              <p class="s5-bar-note"><strong>Sfat.</strong> Format visual → Detail labels → Label contents: <em>Category, percent of total</em>. Așa scrie procentul direct pe felie.</p>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Avantaje și limite</h3>
+              <ul class="s5-bar-limits">
+                <li class="is-yes">Ideea „parte din întreg” se înțelege imediat.</li>
+                <li class="is-limit">Peste 5 felii devine greu de citit; feliile mici se pierd.</li>
+                <li class="is-limit">Valori apropiate nu se pot compara: Telefon (33,1%) și B2B (33,0%) arată identic. Pentru comparație, bar chart.</li>
+                <li class="is-limit">Nu arată evoluția în timp.</li>
+              </ul>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Când îl alegem?</h3>
+              <p>Când avem 2–5 părți și ne interesează ponderea, nu diferențele mici dintre ele.</p>
+            </section>
+          </div>
+        </div>
+
+        <div class="s5f-panel" data-s5f-panel="donut" data-title="Donut chart" hidden>
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Ce este?</h3>
+              <p>Un pie chart cu un gol în mijloc. Feliile devin un inel; citirea este aceeași.</p>
+              <h3>Cum se citește?</h3>
+              <ul>
+                <li>Lungimea arcului = ponderea părții în total.</li>
+                <li>Inelul întreg = 100%.</li>
+                <li>Centrul rămâne liber: acolo pui de obicei totalul.</li>
+              </ul>
+              <figure class="s5-hbar-ex">
+                <figcaption>Exemplu · același set, cu totalul în centru</figcaption>
+                <div class="s5x-pie-ex">
+                  <div class="s5x-donut-wrap"><div class="s5x-pie is-donut" style="--a:33.1; --b:33.0; --c:22.0"></div><b>560,5K</b></div>
+                  <div class="s5x-pie-leg">
+                    <span><i class="a"></i>Telefon <b>33,1%</b></span>
+                    <span><i class="b"></i>Partener B2B <b>33,0%</b></span>
+                    <span><i class="c"></i>Magazin fizic <b>22,0%</b></span>
+                    <span><i class="d"></i>Online <b>11,9%</b></span>
+                  </div>
+                </div>
+              </figure>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Pie sau donut?</h3>
+              <p>Spun același lucru. Donut-ul arată mai „ușor” într-un dashboard și lasă loc în centru pentru total sau pentru un titlu scurt.</p>
+              <h3>La ce întrebări răspunde?</h3>
+              <ul class="s5-bar-qs">
+                <li>Din cele 560,5K vânzări, cât vine din fiecare canal?</li>
+                <li>Ce procent din comenzi sunt plătite, parțial plătite sau neplătite?</li>
+                <li>Cum se împarte echipa pe tipuri de contract?</li>
+              </ul>
+            </section>
+            <section class="s5-bar-card s5-bar-span">
+              <h3>Cum îl construim în Power BI?</h3>
+              <p class="s5-bar-path">Vizualizări → Donut chart</p>
+              <table class="s5-bar-tbl">
+                <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
+                <tbody>
+                  <tr><td>Legend</td><td>Părțile (segmentele)</td><td>Text (2–5 valori)</td><td>Canal_Vanzare</td></tr>
+                  <tr><td>Values</td><td>Valoarea care se împarte</td><td>Numeric (agregat)</td><td>Sum of Valoare_Totala</td></tr>
+                </tbody>
+              </table>
+              <p class="s5-bar-note"><strong>Sfat.</strong> Grosimea inelului: Format visual → Slices → Inner radius. Totalul din centru îl pui cu un <strong>Card</strong> mic, fără fundal, așezat peste gol.</p>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Avantaje și limite</h3>
+              <ul class="s5-bar-limits">
+                <li class="is-yes">Ponderea și totalul într-un singur loc.</li>
+                <li class="is-yes">Ocupă puțin spațiu vizual.</li>
+                <li class="is-limit">Aceleași limite ca pie: maxim 5 segmente, nu pentru diferențe mici.</li>
+              </ul>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Când îl alegem?</h3>
+              <p>Ca pie chart, când vrem și totalul la vedere, în mijlocul graficului.</p>
+            </section>
+          </div>
+        </div>
+      </article>
+
+      <!-- Construiește · Pie și donut -->
+      <article class="slide s5-bar-slide s5-build-slide" data-s5f>
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Comparație și compoziție</span>
+          <span class="s5-concept-pill is-build">Construiește în Power BI</span>
+        </div>
+        <h2 data-s5f-title>Construiește: Pie chart</h2>
+        <div class="s5f-controls">
+          <div class="s5f-group" data-s5f-group="tip">
+            <span class="s5f-lbl">Grafic</span>
+            <button type="button" class="s5-dtype is-on" data-v="pie">Pie</button>
+            <button type="button" class="s5-dtype" data-v="donut">Donut</button>
+          </div>
+        </div>
+        <div class="s5f-panel is-on" data-s5f-panel="pie" data-title="Construiește: Pie chart">
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Întrebarea</h3>
+              <p class="s5b-q">„Ce pondere are fiecare canal de vânzare în total?”</p>
+              <h3>Câmpurile, zonă cu zonă</h3>
+              <div class="s5b-pane">
+                <div class="s5b-pane-h">Build · Pie chart</div>
+                <div class="s5b-well"><span class="s5b-well-l">Legend</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Canal_Vanzare</span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Values</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Valoare_Totala<i>Sum</i></span></div></div>
+              </div>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Pașii în Power BI</h3>
+              <ol class="s5-steps">
+                <li>Pe pagina de lucru, click pe o zonă goală, ca să nu modifici alt vizual.</li>
+                <li><span class='s5-ui'>Visualizations</span> → <strong>Pie chart</strong>.</li>
+                <li>Din panoul <span class='s5-ui'>Data</span>, trage fiecare câmp în zona lui (schema din stânga). <em>Valoare_Totala</em> devine automat <em>Sum of Valoare_Totala</em>.</li>
+                <li>Format visual → Visual → Detail labels → Label contents: <strong>Category, percent of total</strong>.</li>
+              </ol>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Ce trebuie să vezi</h3>
+              <p>4 felii. Telefon și Partener B2B au aproape aceeași mărime (33,1% vs 33,0%).</p>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Finisare</h3>
+              <p>Dacă ai peste 5 felii, schimbă vizualul în bar chart (un click pe altă pictogramă, câmpurile rămân).</p>
+            </section>
+          </div>
+        </div>
+        <div class="s5f-panel" data-s5f-panel="donut" data-title="Construiește: Donut chart" hidden>
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Întrebarea</h3>
+              <p class="s5b-q">„Cât din vânzări vine de la firme (PJ) și cât de la persoane fizice (PF)?”</p>
+              <h3>Câmpurile, zonă cu zonă</h3>
+              <div class="s5b-pane">
+                <div class="s5b-pane-h">Build · Donut chart</div>
+                <div class="s5b-well"><span class="s5b-well-l">Legend</span><div class="s5b-chips"><span class="s5b-chip"><em>Dim_Clienti</em>Tip_Client</span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Values</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Valoare_Totala<i>Sum</i></span></div></div>
+              </div>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Pașii în Power BI</h3>
+              <ol class="s5-steps">
+                <li>Pe pagina de lucru, click pe o zonă goală, ca să nu modifici alt vizual.</li>
+                <li><span class='s5-ui'>Visualizations</span> → <strong>Donut chart</strong>.</li>
+                <li>Din panoul <span class='s5-ui'>Data</span>, trage fiecare câmp în zona lui (schema din stânga). <em>Valoare_Totala</em> devine automat <em>Sum of Valoare_Totala</em>.</li>
+                <li>Format visual → Visual → Slices → <strong>Inner radius</strong>: alege grosimea inelului.</li>
+                <li>Totalul în centru: adaugă un <strong>Card</strong> cu Valoare_Totala, Format → Background = Off, și așază-l peste gol.</li>
+              </ol>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Ce trebuie să vezi</h3>
+              <p>Un inel cu 2 segmente (PJ și PF) și totalul în mijloc.</p>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Finisare</h3>
+              <p>Tip_Client vine din Dim_Clienti: filtrul trece în Vanzari prin relația pe ID_Client.</p>
+            </section>
+          </div>
+        </div>
+      </article>
+
+      <!-- E · 5 · Treemap -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Comparație și compoziție</span>
+          <span class="s5-concept-pill">Treemap</span>
+        </div>
+        <h2>Treemap</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Ce este?</h3>
+            <p>Un grafic format din dreptunghiuri așezate unele lângă altele. Mărimea fiecărui dreptunghi este proporțională cu valoarea.</p>
+            <h3>Cum se citește?</h3>
+            <ul>
+              <li>Suprafața dreptunghiului = cât de mare este valoarea.</li>
+              <li>Dreptunghiurile mari = contribuții mari la total.</li>
+              <li>Dacă folosim și Details, un dreptunghi mare se împarte în dreptunghiuri mai mici (subcategorii).</li>
+            </ul>
+            <figure class="s5-hbar-ex">
+              <figcaption>Exemplu · vânzări pe categorie de produs</figcaption>
+              <div class="s5-tmap">
+                <div class="a">Electronice<b>48%</b></div>
+                <div class="b">Îmbrăcăminte<b>31%</b></div>
+                <div class="c">Casă<b>21%</b></div>
+              </div>
+            </figure>
+          </section>
+          <section class="s5-bar-card">
+            <h3>La ce se folosește?</h3>
+            <p>Pentru a vedea rapid ce contribuie cel mai mult dintr-un total, mai ales când avem multe categorii (unde Pie chart nu mai funcționează).</p>
+            <h3>La ce întrebări răspunde?</h3>
+            <ul class="s5-bar-qs">
+              <li>Care sunt categoriile și subcategoriile cu cele mai mari vânzări?</li>
+              <li>Cât din total reprezintă fiecare produs?</li>
+              <li>Unde se concentrează cea mai mare parte a valorii, și unde sunt „cozile lungi” de valori mici?</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-span">
+            <h3>Cum îl construim în Power BI?</h3>
+            <p class="s5-bar-path">Vizualizări → Treemap</p>
+            <table class="s5-bar-tbl">
+              <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
+              <tbody>
+                <tr><td>Category</td><td>Categoria principală</td><td>Text</td><td>Product Category</td></tr>
+                <tr><td>Details</td><td>(opțional) Subcategoria</td><td>Text</td><td>Product Name</td></tr>
+                <tr><td>Values</td><td>Valoarea care dă mărimea</td><td>Numeric (agregat)</td><td>Sum of Sales</td></tr>
+                <tr><td>Tooltips</td><td>Informații suplimentare</td><td>Orice</td><td>Profit</td></tr>
+              </tbody>
+            </table>
+            <p class="s5-bar-note"><strong>Notă.</strong> În Treemap, zona se numește Category, nu Legend. Ea dă și culorile.</p>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Avantaje și limite</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes">Folosește foarte eficient spațiul, chiar și cu zeci de categorii.</li>
+              <li class="is-yes">Vedem imediat „câștigătorii”.</li>
+              <li class="is-limit">Comparația exactă între dreptunghiuri este dificilă (comparăm suprafețe, nu lungimi).</li>
+              <li class="is-limit">Nu funcționează cu valori negative și nu arată evoluția în timp.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card s5-bar-when">
+            <h3>Când îl alegem?</h3>
+            <p>Când vrem o imagine de ansamblu asupra compoziției, cu multe categorii. Pentru comparații exacte alegem Bar chart.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- Construiește · Treemap -->
+      <article class="slide s5-bar-slide s5-build-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Comparație și compoziție</span>
+          <span class="s5-concept-pill is-build">Construiește în Power BI</span>
+        </div>
+        <h2>Construiește: Treemap</h2>
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Întrebarea</h3>
+              <p class="s5b-q">„Ce categorii și ce produse fac cea mai mare parte din vânzări?”</p>
+              <h3>Câmpurile, zonă cu zonă</h3>
+              <div class="s5b-pane">
+                <div class="s5b-pane-h">Build · Treemap</div>
+                <div class="s5b-well"><span class="s5b-well-l">Category</span><div class="s5b-chips"><span class="s5b-chip"><em>Dim_Produse</em>Categorie</span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Details</span><div class="s5b-chips"><span class="s5b-chip"><em>Dim_Produse</em>Nume_Produs</span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Values</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Valoare_Totala<i>Sum</i></span></div></div>
+              </div>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Pașii în Power BI</h3>
+              <ol class="s5-steps">
+                <li>Pe pagina de lucru, click pe o zonă goală, ca să nu modifici alt vizual.</li>
+                <li><span class='s5-ui'>Visualizations</span> → <strong>Treemap</strong>.</li>
+                <li>Din panoul <span class='s5-ui'>Data</span>, trage fiecare câmp în zona lui (schema din stânga). <em>Valoare_Totala</em> devine automat <em>Sum of Valoare_Totala</em>.</li>
+                <li>Format visual → Visual → <strong>Data labels</strong> = On, ca să vezi valoarea în dreptunghi.</li>
+              </ol>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Ce trebuie să vezi</h3>
+              <p>Dreptunghiuri colorate pe categorii, împărțite pe produse. Laptop Pro 14 e cel mai mare.</p>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Finisare</h3>
+              <p>Fără Details vezi doar categoriile; cu Details vezi produsele din fiecare categorie.</p>
+            </section>
+          </div>
+      </article>
+
+      <!-- C · Waterfall și Funnel -->
+      <article class="slide s5-bar-slide" data-s5f>
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Comparație și compoziție</span>
+          <span class="s5-concept-pill">Waterfall și funnel</span>
+        </div>
+        <h2 data-s5f-title>Waterfall chart</h2>
+        <div class="s5f-controls">
+          <div class="s5f-group" data-s5f-group="tip">
+            <span class="s5f-lbl">Grafic</span>
+            <button type="button" class="s5-dtype is-on" data-v="waterfall">Waterfall · cum se formează un total</button>
+            <button type="button" class="s5-dtype" data-v="funnel">Funnel · unde se pierde</button>
+          </div>
+        </div>
+
+        <div class="s5f-panel is-on" data-s5f-panel="waterfall" data-title="Waterfall chart">
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Ce este?</h3>
+              <p>Un grafic cu coloane „plutitoare”: fiecare coloană pornește de unde s-a oprit cea dinainte. Arată cum se construiește (sau se schimbă) un total, pas cu pas.</p>
+              <h3>Cum se citește?</h3>
+              <ul>
+                <li>Fiecare treaptă = cât adaugă (sau scade) un element.</li>
+                <li>Verde = creștere, roșu = scădere.</li>
+                <li>Ultima coloană = totalul la care se ajunge.</li>
+              </ul>
+              <figure class="s5-hbar-ex">
+                <figcaption>Exemplu · cum se adună vânzările pe ani</figcaption>
+                <div class="s5x-wf">
+                  <div style="--b:0; --h:23.7"><b>132,6K</b><i></i><span>2022</span></div>
+                  <div style="--b:23.7; --h:12.5"><b>70,0K</b><i></i><span>2023</span></div>
+                  <div style="--b:36.2; --h:39.3"><b>220,4K</b><i></i><span>2024</span></div>
+                  <div style="--b:75.5; --h:24.5"><b>137,6K</b><i></i><span>2025</span></div>
+                  <div class="is-total" style="--b:0; --h:100"><b>560,5K</b><i></i><span>Total</span></div>
+                </div>
+              </figure>
+            </section>
+            <section class="s5-bar-card">
+              <h3>La ce se folosește?</h3>
+              <p>Pentru a explica <strong>de unde vine</strong> un total sau o diferență: ce a crescut, ce a scăzut și cu cât.</p>
+              <h3>La ce întrebări răspunde?</h3>
+              <ul class="s5-bar-qs">
+                <li>Cum am ajuns de la vânzările de anul trecut la cele de anul acesta?</li>
+                <li>Ce categorii au adus creșterea și care au tras în jos?</li>
+                <li>Cum se transformă venitul în profit (venit − costuri − taxe)?</li>
+              </ul>
+            </section>
+            <section class="s5-bar-card s5-bar-span">
+              <h3>Cum îl construim în Power BI?</h3>
+              <p class="s5-bar-path">Vizualizări → Waterfall chart</p>
+              <table class="s5-bar-tbl">
+                <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
+                <tbody>
+                  <tr><td>Category</td><td>Pașii, în ordine</td><td>Text sau dată</td><td>Dim_Date[An]</td></tr>
+                  <tr><td>Breakdown</td><td>Ce explică schimbarea dintre pași (opțional)</td><td>Text</td><td>Categorie</td></tr>
+                  <tr><td>Y-axis</td><td>Valoarea</td><td>Numeric (agregat)</td><td>Sum of Valoare_Totala</td></tr>
+                </tbody>
+              </table>
+              <p class="s5-bar-note"><strong>Cu Breakdown</strong>, graficul arată diferența de la un an la altul, împărțită pe categorii: vezi direct ce categorie a crescut și care a scăzut.</p>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Avantaje și limite</h3>
+              <ul class="s5-bar-limits">
+                <li class="is-yes">Explică o variație mai clar decât orice alt grafic.</li>
+                <li class="is-yes">Arată în același loc plusurile și minusurile.</li>
+                <li class="is-limit">Cu prea mulți pași devine o scară greu de urmărit (Breakdown arată implicit doar câteva elemente).</li>
+                <li class="is-limit">Pașii trebuie să aibă o ordine logică.</li>
+              </ul>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Când îl alegem?</h3>
+              <p>Când întrebarea este „de ce s-a schimbat totalul?” sau „din ce se compune?”.</p>
+            </section>
+          </div>
+        </div>
+
+        <div class="s5f-panel" data-s5f-panel="funnel" data-title="Funnel chart" hidden>
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Ce este?</h3>
+              <p>Bare orizontale centrate, așezate de sus în jos, de la cea mai mare la cea mai mică. Seamănă cu o pâlnie: arată etapele unui proces și câți „trec” de la o etapă la alta.</p>
+              <h3>Cum se citește?</h3>
+              <ul>
+                <li>Fiecare bară = o etapă.</li>
+                <li>Lățimea = câți au ajuns în etapa respectivă.</li>
+                <li>Diferența dintre două bare = câți s-au pierdut pe drum.</li>
+              </ul>
+              <figure class="s5-hbar-ex">
+                <figcaption>Exemplu · drumul unei comenzi online</figcaption>
+                <div class="s5x-funnel">
+                  <div><span>Vizite</span><i style="--w:100%"><b>1.000</b></i></div>
+                  <div><span>Coș</span><i style="--w:62%"><b>620</b></i></div>
+                  <div><span>Comandă</span><i style="--w:38%"><b>380</b></i></div>
+                  <div><span>Plătită</span><i style="--w:30%"><b>300</b></i></div>
+                </div>
+              </figure>
+            </section>
+            <section class="s5-bar-card">
+              <h3>La ce se folosește?</h3>
+              <p>Pentru procese în etape succesive, ca să vezi <strong>unde se pierd</strong> cei mai mulți (clienți, candidați, cereri).</p>
+              <h3>La ce întrebări răspunde?</h3>
+              <ul class="s5-bar-qs">
+                <li>În ce etapă pierdem cei mai mulți clienți?</li>
+                <li>Câte oferte trimise devin contracte?</li>
+                <li>Câți candidați ajung de la CV la angajare?</li>
+              </ul>
+            </section>
+            <section class="s5-bar-card s5-bar-span">
+              <h3>Cum îl construim în Power BI?</h3>
+              <p class="s5-bar-path">Vizualizări → Funnel</p>
+              <table class="s5-bar-tbl">
+                <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
+                <tbody>
+                  <tr><td>Category</td><td>Etapele procesului</td><td>Text</td><td>Etapa</td></tr>
+                  <tr><td>Values</td><td>Câți sunt în fiecare etapă</td><td>Numeric (agregat)</td><td>Count of ID_Comanda</td></tr>
+                </tbody>
+              </table>
+              <p class="s5-bar-note">Power BI afișează și procentul față de prima etapă. Etapele trebuie să fie <strong>consecutive</strong>: <code>Status_Plata</code> din Vanzari nu e un funnel, pentru că „Anulat” nu e o etapă după „Plătit”.</p>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Avantaje și limite</h3>
+              <ul class="s5-bar-limits">
+                <li class="is-yes">Locul unde „curge” pierderea se vede imediat.</li>
+                <li class="is-limit">Funcționează doar pentru etape în ordine, în care fiecare etapă le include pe următoarele.</li>
+                <li class="is-limit">Pentru categorii fără ordine, folosește bar chart.</li>
+              </ul>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Când îl alegem?</h3>
+              <p>Când datele descriu un proces în pași și întrebarea este „unde pierdem?”.</p>
+            </section>
+          </div>
+        </div>
+      </article>
+
+      <!-- Construiește · Waterfall și funnel -->
+      <article class="slide s5-bar-slide s5-build-slide" data-s5f>
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Comparație și compoziție</span>
+          <span class="s5-concept-pill is-build">Construiește în Power BI</span>
+        </div>
+        <h2 data-s5f-title>Construiește: Waterfall chart</h2>
+        <div class="s5f-controls">
+          <div class="s5f-group" data-s5f-group="tip">
+            <span class="s5f-lbl">Grafic</span>
+            <button type="button" class="s5-dtype is-on" data-v="waterfall">Waterfall</button>
+            <button type="button" class="s5-dtype" data-v="funnel">Funnel</button>
+          </div>
+        </div>
+        <div class="s5f-panel is-on" data-s5f-panel="waterfall" data-title="Construiește: Waterfall chart">
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Întrebarea</h3>
+              <p class="s5b-q">„Cum se formează totalul vânzărilor, an cu an? Ce categorii au schimbat rezultatul?”</p>
+              <h3>Câmpurile, zonă cu zonă</h3>
+              <div class="s5b-pane">
+                <div class="s5b-pane-h">Build · Waterfall chart</div>
+                <div class="s5b-well"><span class="s5b-well-l">Category</span><div class="s5b-chips"><span class="s5b-chip"><em>Dim_Date</em>An</span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Breakdown</span><div class="s5b-chips"><span class="s5b-chip"><em>Dim_Produse</em>Categorie</span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Y-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Valoare_Totala<i>Sum</i></span></div></div>
+              </div>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Pașii în Power BI</h3>
+              <ol class="s5-steps">
+                <li>Pe pagina de lucru, click pe o zonă goală, ca să nu modifici alt vizual.</li>
+                <li><span class='s5-ui'>Visualizations</span> → <strong>Waterfall chart</strong>.</li>
+                <li>Din panoul <span class='s5-ui'>Data</span>, trage fiecare câmp în zona lui (schema din stânga). <em>Valoare_Totala</em> devine automat <em>Sum of Valoare_Totala</em>.</li>
+                <li>Pornește <strong>fără Breakdown</strong>: vezi cum fiecare an adaugă la total.</li>
+                <li>Sortează: <span class='s5-ui'>…</span> → Sort axis → An → Sort ascending.</li>
+                <li>Adaugă apoi <strong>Breakdown</strong> = Categorie: graficul arată ce categorii au crescut sau scăzut între ani.</li>
+              </ol>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Ce trebuie să vezi</h3>
+              <p>Fără Breakdown: 4 trepte și o coloană Total. Cu Breakdown: urcări (verde) și coborâri (roșu) pe categorii.</p>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Finisare</h3>
+              <p>Format visual → Visual → Breakdown → Max breakdowns: câte categorii arată separat.</p>
+            </section>
+          </div>
+        </div>
+        <div class="s5f-panel" data-s5f-panel="funnel" data-title="Construiește: Funnel" hidden>
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Întrebarea</h3>
+              <p class="s5b-q">„Exercițiu de mecanică: cum arată un funnel pe statusul plăților?”</p>
+              <h3>Câmpurile, zonă cu zonă</h3>
+              <div class="s5b-pane">
+                <div class="s5b-pane-h">Build · Funnel</div>
+                <div class="s5b-well"><span class="s5b-well-l">Category</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Status_Plata</span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Values</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>ID_Client<i>Count</i></span></div></div>
+              </div>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Pașii în Power BI</h3>
+              <ol class="s5-steps">
+                <li>Pe pagina de lucru, click pe o zonă goală, ca să nu modifici alt vizual.</li>
+                <li><span class='s5-ui'>Visualizations</span> → <strong>Funnel</strong>.</li>
+                <li>Din panoul <span class='s5-ui'>Data</span>, trage fiecare câmp în zona lui (schema din stânga). <em>Valoare_Totala</em> devine automat <em>Sum of Valoare_Totala</em>.</li>
+                <li>În zona Values, săgeata de lângă ID_Client → <strong>Count</strong> (numărul de linii).</li>
+                <li>Discută: e o pâlnie adevărată? <em>Anulat</em> nu e o etapă după <em>Platit</em>.</li>
+              </ol>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Ce trebuie să vezi</h3>
+              <p>Bare centrate, sortate descrescător. Graficul se construiește, dar povestea e greșită: statusurile nu sunt etape.</p>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Finisare</h3>
+              <p>Un funnel corect cere etape în ordine (ex. Ofertă → Comandă → Factură → Încasare), fiecare incluzând-o pe următoarea.</p>
+            </section>
+          </div>
+        </div>
+      </article>
+
+
       <!-- E · 1 · Line -->
       <article class="slide s5-bar-slide">
         <div class="s5-part-kicker">
-          <span class="slide-eyebrow">Partea 1 · Evoluția în timp</span>
-          <span class="s5-concept-pill">1 · Line chart</span>
+          <span class="slide-eyebrow">Partea 2 · Evoluția în timp</span>
+          <span class="s5-concept-pill">Line chart</span>
         </div>
         <h2>Line chart</h2>
         <div class="s5-bar-grid">
@@ -1313,11 +2063,52 @@
         </div>
       </article>
 
+      <!-- Construiește · Line chart -->
+      <article class="slide s5-bar-slide s5-build-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Evoluția în timp</span>
+          <span class="s5-concept-pill is-build">Construiește în Power BI</span>
+        </div>
+        <h2>Construiește: Line chart</h2>
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Întrebarea</h3>
+              <p class="s5b-q">„Cum evoluează vânzările în timp? Există sezonalitate?”</p>
+              <h3>Câmpurile, zonă cu zonă</h3>
+              <div class="s5b-pane">
+                <div class="s5b-pane-h">Build · Line chart</div>
+                <div class="s5b-well"><span class="s5b-well-l">X-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Dim_Date</em>An</span><span class="s5b-chip"><em>Dim_Date</em>Luna_Nume</span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Y-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Valoare_Totala<i>Sum</i></span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Legend</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Canal_Vanzare<i>opțional</i></span></div></div>
+              </div>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Pașii în Power BI</h3>
+              <ol class="s5-steps">
+                <li>Pe pagina de lucru, click pe o zonă goală, ca să nu modifici alt vizual.</li>
+                <li><span class='s5-ui'>Visualizations</span> → <strong>Line chart</strong>.</li>
+                <li>Din panoul <span class='s5-ui'>Data</span>, trage fiecare câmp în zona lui (schema din stânga). <em>Valoare_Totala</em> devine automat <em>Sum of Valoare_Totala</em>.</li>
+                <li>Înainte: Table view → Dim_Date → selectezi <code>Luna_Nume</code> → Column tools → <strong>Sort by column</strong> → Luna. Altfel lunile apar alfabetic.</li>
+                <li>Pui pe X-axis întâi <code>An</code>, apoi <code>Luna_Nume</code> sub el: ai o ierarhie.</li>
+                <li>Săgețile din colțul graficului: ⇊ <strong>Expand all</strong> arată lunile tuturor anilor; ↓ coboară într-un singur an.</li>
+              </ol>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Ce trebuie să vezi</h3>
+              <p>Întâi o linie pe 4 ani, apoi, după expand, linia pe luni.</p>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Finisare</h3>
+              <p>Analytics (lupa) → Average line sau Trend line, ca reper.</p>
+            </section>
+          </div>
+      </article>
+
       <!-- E · 2 · Area -->
       <article class="slide s5-bar-slide">
         <div class="s5-part-kicker">
-          <span class="slide-eyebrow">Partea 1 · Evoluția în timp</span>
-          <span class="s5-concept-pill">2 · Area chart</span>
+          <span class="slide-eyebrow">Partea 2 · Evoluția în timp</span>
+          <span class="s5-concept-pill">Area chart</span>
         </div>
         <h2>Area chart</h2>
         <div class="s5-bar-grid">
@@ -1380,13 +2171,61 @@
         </div>
       </article>
 
-      <!-- E · 3 · Line and stacked column -->
-      <article class="slide s5-bar-slide">
+      <!-- Construiește · Stacked area chart -->
+      <article class="slide s5-bar-slide s5-build-slide">
         <div class="s5-part-kicker">
-          <span class="slide-eyebrow">Partea 1 · Evoluția în timp</span>
-          <span class="s5-concept-pill">3 · Line and stacked column</span>
+          <span class="slide-eyebrow">Partea 2 · Evoluția în timp</span>
+          <span class="s5-concept-pill is-build">Construiește în Power BI</span>
         </div>
-        <h2>Line and stacked column chart</h2>
+        <h2>Construiește: Stacked area chart</h2>
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Întrebarea</h3>
+              <p class="s5b-q">„Cum a evoluat volumul vânzărilor și cât a contribuit fiecare canal?”</p>
+              <h3>Câmpurile, zonă cu zonă</h3>
+              <div class="s5b-pane">
+                <div class="s5b-pane-h">Build · Stacked area chart</div>
+                <div class="s5b-well"><span class="s5b-well-l">X-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Dim_Date</em>An</span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Y-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Valoare_Totala<i>Sum</i></span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Legend</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Canal_Vanzare</span></div></div>
+              </div>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Pașii în Power BI</h3>
+              <ol class="s5-steps">
+                <li>Pe pagina de lucru, click pe o zonă goală, ca să nu modifici alt vizual.</li>
+                <li><span class='s5-ui'>Visualizations</span> → <strong>Stacked area chart</strong>.</li>
+                <li>Din panoul <span class='s5-ui'>Data</span>, trage fiecare câmp în zona lui (schema din stânga). <em>Valoare_Totala</em> devine automat <em>Sum of Valoare_Totala</em>.</li>
+                <li>X-axis → Type: <strong>Categorical</strong>; sortează ascendent după An.</li>
+              </ol>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Ce trebuie să vezi</h3>
+              <p>Benzi colorate suprapuse; marginea de sus = totalul pe an.</p>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Finisare</h3>
+              <p>Pentru o singură serie fără Legend, alege Area chart simplu.</p>
+            </section>
+          </div>
+      </article>
+
+      <!-- E · Grafice combinate -->
+      <article class="slide s5-bar-slide" data-s5f>
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Evoluția în timp</span>
+          <span class="s5-concept-pill">Coloane + linie</span>
+        </div>
+        <h2 data-s5f-title>Line and stacked column chart</h2>
+        <p class="s5-oneline">Două grafice combinate, aceeași idee: coloane pentru volum, linie pentru o a doua valoare. Diferă doar felul coloanelor.</p>
+        <div class="s5f-controls">
+          <div class="s5f-group" data-s5f-group="var">
+            <span class="s5f-lbl">Coloane</span>
+            <button type="button" class="s5-dtype is-on" data-v="stacked">Stacked</button>
+            <button type="button" class="s5-dtype" data-v="clustered">Clustered</button>
+          </div>
+        </div>
+        <div class="s5f-panel is-on" data-s5f-panel="stacked" data-title="Line and stacked column chart">
         <div class="s5-bar-grid">
           <section class="s5-bar-card">
             <h3>Ce este?</h3>
@@ -1451,15 +2290,8 @@
             <p>Când vrem volum cu componență și un indicator de alt tip, în timp.</p>
           </section>
         </div>
-      </article>
-
-      <!-- E · 4 · Line and clustered column -->
-      <article class="slide s5-bar-slide">
-        <div class="s5-part-kicker">
-          <span class="slide-eyebrow">Partea 1 · Evoluția în timp</span>
-          <span class="s5-concept-pill">4 · Line and clustered column</span>
         </div>
-        <h2>Line and clustered column chart</h2>
+        <div class="s5f-panel" data-s5f-panel="clustered" data-title="Line and clustered column chart" hidden>
         <div class="s5-bar-grid">
           <section class="s5-bar-card">
             <h3>Ce este?</h3>
@@ -1524,81 +2356,163 @@
             <p>Când vrem comparație directă și un indicator pe aceeași axă de timp.</p>
           </section>
         </div>
+        </div>
       </article>
 
-      <!-- E · 5 · Treemap -->
-      <article class="slide s5-bar-slide">
+      <!-- Construiește · Grafice combinate -->
+      <article class="slide s5-bar-slide s5-build-slide" data-s5f>
         <div class="s5-part-kicker">
-          <span class="slide-eyebrow">Partea 2 · Compoziție și indicatori</span>
-          <span class="s5-concept-pill">5 · Treemap</span>
+          <span class="slide-eyebrow">Partea 2 · Evoluția în timp</span>
+          <span class="s5-concept-pill is-build">Construiește în Power BI</span>
         </div>
-        <h2>Treemap</h2>
+        <h2 data-s5f-title>Construiește: Line and stacked column chart</h2>
+        <div class="s5f-controls">
+          <div class="s5f-group" data-s5f-group="var">
+            <span class="s5f-lbl">Coloane</span>
+            <button type="button" class="s5-dtype is-on" data-v="stacked">Stacked</button>
+            <button type="button" class="s5-dtype" data-v="clustered">Clustered</button>
+          </div>
+        </div>
+        <div class="s5f-panel is-on" data-s5f-panel="stacked" data-title="Construiește: Line and stacked column chart">
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Întrebarea</h3>
+              <p class="s5b-q">„Cum evoluează vânzările pe categorii și cum se mișcă numărul de bucăți vândute?”</p>
+              <h3>Câmpurile, zonă cu zonă</h3>
+              <div class="s5b-pane">
+                <div class="s5b-pane-h">Build · Line and stacked column chart</div>
+                <div class="s5b-well"><span class="s5b-well-l">X-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Dim_Date</em>An</span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Column y-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Valoare_Totala<i>Sum</i></span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Column legend</span><div class="s5b-chips"><span class="s5b-chip"><em>Dim_Produse</em>Categorie</span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Line y-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Cantitate<i>Sum</i></span></div></div>
+              </div>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Pașii în Power BI</h3>
+              <ol class="s5-steps">
+                <li>Pe pagina de lucru, click pe o zonă goală, ca să nu modifici alt vizual.</li>
+                <li><span class='s5-ui'>Visualizations</span> → <strong>Line and stacked column chart</strong>.</li>
+                <li>Din panoul <span class='s5-ui'>Data</span>, trage fiecare câmp în zona lui (schema din stânga). <em>Valoare_Totala</em> devine automat <em>Sum of Valoare_Totala</em>.</li>
+                <li>X-axis → Type: <strong>Categorical</strong>; sortează ascendent după An.</li>
+                <li>Format visual → Visual → Y-axis → <strong>Secondary y-axis</strong> = On, ca linia să aibă scara ei.</li>
+              </ol>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Ce trebuie să vezi</h3>
+              <p>Coloane împărțite pe categorii și o linie cu bucățile vândute. În 2024: valoare mare, cantitate mică.</p>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Finisare</h3>
+              <p>Dă titluri clare ambelor axe: „Valoare (lei)” și „Bucăți”.</p>
+            </section>
+          </div>
+        </div>
+        <div class="s5f-panel" data-s5f-panel="clustered" data-title="Construiește: Line and clustered column chart" hidden>
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Întrebarea</h3>
+              <p class="s5b-q">„Cum se compară canalele în fiecare an și cum evoluează discountul mediu?”</p>
+              <h3>Câmpurile, zonă cu zonă</h3>
+              <div class="s5b-pane">
+                <div class="s5b-pane-h">Build · Line and clustered column chart</div>
+                <div class="s5b-well"><span class="s5b-well-l">X-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Dim_Date</em>An</span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Column y-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Valoare_Totala<i>Sum</i></span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Column legend</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Canal_Vanzare</span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Line y-axis</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Discount_Pct<i>Average</i></span></div></div>
+              </div>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Pașii în Power BI</h3>
+              <ol class="s5-steps">
+                <li>Pe pagina de lucru, click pe o zonă goală, ca să nu modifici alt vizual.</li>
+                <li><span class='s5-ui'>Visualizations</span> → <strong>Line and clustered column chart</strong>.</li>
+                <li>Din panoul <span class='s5-ui'>Data</span>, trage fiecare câmp în zona lui (schema din stânga). <em>Valoare_Totala</em> devine automat <em>Sum of Valoare_Totala</em>.</li>
+                <li>În Line y-axis, săgeata de lângă Discount_Pct → <strong>Average</strong> (nu Sum).</li>
+                <li>X-axis → Type: Categorical; Secondary y-axis = On.</li>
+              </ol>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Ce trebuie să vezi</h3>
+              <p>Coloane grupate pe canale pentru fiecare an și o linie cu discountul mediu (%).</p>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Finisare</h3>
+              <p>Sumă de procente nu are sens: verifică mereu agregarea pentru coloane cu procente.</p>
+            </section>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- F · Indicatori -->
+      <article class="slide s5-bar-slide" data-s5f>
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Indicatori</span>
+          <span class="s5-concept-pill">Card · Gauge</span>
+        </div>
+        <h2 data-s5f-title>Card</h2>
+        <p class="s5-oneline">Două feluri de a arăta o singură cifră: doar valoarea sau valoarea față de o țintă.</p>
+        <div class="s5f-controls">
+          <div class="s5f-group" data-s5f-group="tip">
+            <span class="s5f-lbl">Vizual</span>
+            <button type="button" class="s5-dtype is-on" data-v="card">Card</button>
+            <button type="button" class="s5-dtype" data-v="gauge">Gauge</button>
+          </div>
+        </div>
+        <div class="s5f-panel is-on" data-s5f-panel="card" data-title="Card">
         <div class="s5-bar-grid">
           <section class="s5-bar-card">
             <h3>Ce este?</h3>
-            <p>Un grafic format din dreptunghiuri așezate unele lângă altele. Mărimea fiecărui dreptunghi este proporțională cu valoarea.</p>
+            <p>Un vizual care afișează o singură valoare, mare și clară. Este KPI-ul din raport.</p>
             <h3>Cum se citește?</h3>
-            <ul>
-              <li>Suprafața dreptunghiului = cât de mare este valoarea.</li>
-              <li>Dreptunghiurile mari = contribuții mari la total.</li>
-              <li>Dacă folosim și Details, un dreptunghi mare se împarte în dreptunghiuri mai mici (subcategorii).</li>
-            </ul>
+            <p>Se citește direct: numărul afișat și eticheta de sub el. Fără axe, fără legende.</p>
             <figure class="s5-hbar-ex">
-              <figcaption>Exemplu · vânzări pe categorie de produs</figcaption>
-              <div class="s5-tmap">
-                <div class="a">Electronice<b>48%</b></div>
-                <div class="b">Îmbrăcăminte<b>31%</b></div>
-                <div class="c">Casă<b>21%</b></div>
+              <figcaption>Exemplu · KPI de vânzări</figcaption>
+              <div class="s5-card-ex">
+                <span>Sum of Sales</span>
+                <strong>1,24 M</strong>
+                <em>+6% față de țintă</em>
               </div>
             </figure>
           </section>
           <section class="s5-bar-card">
             <h3>La ce se folosește?</h3>
-            <p>Pentru a vedea rapid ce contribuie cel mai mult dintr-un total, mai ales când avem multe categorii (unde Pie chart nu mai funcționează).</p>
+            <p>Pentru a scoate în față cele mai importante cifre ale raportului, de obicei în partea de sus.</p>
             <h3>La ce întrebări răspunde?</h3>
             <ul class="s5-bar-qs">
-              <li>Care sunt categoriile și subcategoriile cu cele mai mari vânzări?</li>
-              <li>Cât din total reprezintă fiecare produs?</li>
-              <li>Unde se concentrează cea mai mare parte a valorii, și unde sunt „cozile lungi” de valori mici?</li>
+              <li>Care sunt vânzările totale?</li>
+              <li>Câți clienți avem?</li>
+              <li>Care este profitul total? Care este valoarea medie a unei comenzi?</li>
             </ul>
           </section>
           <section class="s5-bar-card s5-bar-span">
             <h3>Cum îl construim în Power BI?</h3>
-            <p class="s5-bar-path">Vizualizări → Treemap</p>
+            <p class="s5-bar-path">Vizualizări → Card (în versiunile noi, Card (new))</p>
             <table class="s5-bar-tbl">
               <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
               <tbody>
-                <tr><td>Category</td><td>Categoria principală</td><td>Text</td><td>Product Category</td></tr>
-                <tr><td>Details</td><td>(opțional) Subcategoria</td><td>Text</td><td>Product Name</td></tr>
-                <tr><td>Values</td><td>Valoarea care dă mărimea</td><td>Numeric (agregat)</td><td>Sum of Sales</td></tr>
-                <tr><td>Tooltips</td><td>Informații suplimentare</td><td>Orice</td><td>Profit</td></tr>
+                <tr><td>Fields</td><td>Valoarea afișată</td><td>Numeric (agregat sau măsură)</td><td>Sum of Sales</td></tr>
               </tbody>
             </table>
-            <p class="s5-bar-note"><strong>Notă.</strong> În Treemap, zona se numește Category, nu Legend. Ea dă și culorile.</p>
+            <p class="s5-bar-note">Există și varianta Multi-row card, care afișează mai multe valori într-un singur vizual. Cardul nou permite și adăugarea mai multor valori și a unor referințe (de exemplu, comparație cu anul trecut).</p>
+            <p class="s5-bar-note"><strong>Sfat.</strong> Cardurile reacționează la filtre și slicere. Dacă selectăm o regiune, cifra se schimbă.</p>
           </section>
           <section class="s5-bar-card">
             <h3>Avantaje și limite</h3>
             <ul class="s5-bar-limits">
-              <li class="is-yes">Folosește foarte eficient spațiul, chiar și cu zeci de categorii.</li>
-              <li class="is-yes">Vedem imediat „câștigătorii”.</li>
-              <li class="is-limit">Comparația exactă între dreptunghiuri este dificilă (comparăm suprafețe, nu lungimi).</li>
-              <li class="is-limit">Nu funcționează cu valori negative și nu arată evoluția în timp.</li>
+              <li class="is-yes">Simplu, rapid, impact vizual maxim.</li>
+              <li class="is-yes">Ideal pentru KPI-uri.</li>
+              <li class="is-limit">Nu oferă context (dacă 1 M este mult sau puțin). Adăugăm titlu clar și, dacă se poate, o comparație.</li>
+              <li class="is-limit">Nu arată evoluția.</li>
             </ul>
           </section>
           <section class="s5-bar-card s5-bar-when">
             <h3>Când îl alegem?</h3>
-            <p>Când vrem o imagine de ansamblu asupra compoziției, cu multe categorii. Pentru comparații exacte alegem Bar chart.</p>
+            <p>Când o cifră este atât de importantă încât trebuie să fie văzută prima.</p>
           </section>
         </div>
-      </article>
-
-      <!-- E · 6 · Gauge -->
-      <article class="slide s5-bar-slide">
-        <div class="s5-part-kicker">
-          <span class="slide-eyebrow">Partea 2 · Compoziție și indicatori</span>
-          <span class="s5-concept-pill">6 · Gauge</span>
         </div>
-        <h2>Gauge</h2>
+        <div class="s5f-panel" data-s5f-panel="gauge" data-title="Gauge" hidden>
         <div class="s5-bar-grid">
           <section class="s5-bar-card">
             <h3>Ce este?</h3>
@@ -1660,73 +2574,98 @@
             <p>Când avem un singur indicator raportat la o țintă, într-un dashboard de management.</p>
           </section>
         </div>
+        </div>
       </article>
 
-      <!-- E · 7 · Card -->
-      <article class="slide s5-bar-slide">
+      <!-- Construiește · Indicatori -->
+      <article class="slide s5-bar-slide s5-build-slide" data-s5f>
         <div class="s5-part-kicker">
-          <span class="slide-eyebrow">Partea 2 · Compoziție și indicatori</span>
-          <span class="s5-concept-pill">7 · Card</span>
+          <span class="slide-eyebrow">Partea 3 · Indicatori</span>
+          <span class="s5-concept-pill is-build">Construiește în Power BI</span>
         </div>
-        <h2>Card</h2>
-        <div class="s5-bar-grid">
-          <section class="s5-bar-card">
-            <h3>Ce este?</h3>
-            <p>Un vizual care afișează o singură valoare, mare și clară. Este KPI-ul din raport.</p>
-            <h3>Cum se citește?</h3>
-            <p>Se citește direct: numărul afișat și eticheta de sub el. Fără axe, fără legende.</p>
-            <figure class="s5-hbar-ex">
-              <figcaption>Exemplu · KPI de vânzări</figcaption>
-              <div class="s5-card-ex">
-                <span>Sum of Sales</span>
-                <strong>1,24 M</strong>
-                <em>+6% față de țintă</em>
+        <h2 data-s5f-title>Construiește: Card</h2>
+        <div class="s5f-controls">
+          <div class="s5f-group" data-s5f-group="tip">
+            <span class="s5f-lbl">Vizual</span>
+            <button type="button" class="s5-dtype is-on" data-v="card">Card</button>
+            <button type="button" class="s5-dtype" data-v="gauge">Gauge</button>
+          </div>
+        </div>
+        <div class="s5f-panel is-on" data-s5f-panel="card" data-title="Construiește: Card">
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Întrebarea</h3>
+              <p class="s5b-q">„Care sunt vânzările totale? Câți clienți avem? Ce discount dăm în medie?”</p>
+              <h3>Câmpurile, zonă cu zonă</h3>
+              <div class="s5b-pane">
+                <div class="s5b-pane-h">Build · Card</div>
+                <div class="s5b-well"><span class="s5b-well-l">Fields</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Valoare_Totala<i>Sum</i></span></div></div>
               </div>
-            </figure>
-          </section>
-          <section class="s5-bar-card">
-            <h3>La ce se folosește?</h3>
-            <p>Pentru a scoate în față cele mai importante cifre ale raportului, de obicei în partea de sus.</p>
-            <h3>La ce întrebări răspunde?</h3>
-            <ul class="s5-bar-qs">
-              <li>Care sunt vânzările totale?</li>
-              <li>Câți clienți avem?</li>
-              <li>Care este profitul total? Care este valoarea medie a unei comenzi?</li>
-            </ul>
-          </section>
-          <section class="s5-bar-card s5-bar-span">
-            <h3>Cum îl construim în Power BI?</h3>
-            <p class="s5-bar-path">Vizualizări → Card (în versiunile noi, Card (new))</p>
-            <table class="s5-bar-tbl">
-              <thead><tr><th>Zonă</th><th>Ce punem</th><th>Tip coloană</th><th>Exemplu</th></tr></thead>
-              <tbody>
-                <tr><td>Fields</td><td>Valoarea afișată</td><td>Numeric (agregat sau măsură)</td><td>Sum of Sales</td></tr>
-              </tbody>
-            </table>
-            <p class="s5-bar-note">Există și varianta Multi-row card, care afișează mai multe valori într-un singur vizual. Cardul nou permite și adăugarea mai multor valori și a unor referințe (de exemplu, comparație cu anul trecut).</p>
-            <p class="s5-bar-note"><strong>Sfat.</strong> Cardurile reacționează la filtre și slicere. Dacă selectăm o regiune, cifra se schimbă.</p>
-          </section>
-          <section class="s5-bar-card">
-            <h3>Avantaje și limite</h3>
-            <ul class="s5-bar-limits">
-              <li class="is-yes">Simplu, rapid, impact vizual maxim.</li>
-              <li class="is-yes">Ideal pentru KPI-uri.</li>
-              <li class="is-limit">Nu oferă context (dacă 1 M este mult sau puțin). Adăugăm titlu clar și, dacă se poate, o comparație.</li>
-              <li class="is-limit">Nu arată evoluția.</li>
-            </ul>
-          </section>
-          <section class="s5-bar-card s5-bar-when">
-            <h3>Când îl alegem?</h3>
-            <p>Când o cifră este atât de importantă încât trebuie să fie văzută prima.</p>
-          </section>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Pașii în Power BI</h3>
+              <ol class="s5-steps">
+                <li>Pe pagina de lucru, click pe o zonă goală, ca să nu modifici alt vizual.</li>
+                <li><span class='s5-ui'>Visualizations</span> → <strong>Card</strong>.</li>
+                <li>Din panoul <span class='s5-ui'>Data</span>, trage fiecare câmp în zona lui (schema din stânga). <em>Valoare_Totala</em> devine automat <em>Sum of Valoare_Totala</em>.</li>
+                <li>Al doilea card: Fields = <code>Vanzari[ID_Client]</code> → săgeata → <strong>Count (Distinct)</strong>.</li>
+                <li>Al treilea card: Fields = <code>Vanzari[Discount_Pct]</code> → <strong>Average</strong>.</li>
+                <li>Selectează cele 3 carduri → Format → <strong>Align top</strong> și <strong>Distribute horizontally</strong>.</li>
+              </ol>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Ce trebuie să vezi</h3>
+              <p>Trei cifre mari, una lângă alta, sus pe pagină.</p>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Finisare</h3>
+              <p>Redenumește eticheta: dublu click pe câmpul din Fields → „Vânzări”, „Clienți”, „Discount mediu %”.</p>
+            </section>
+          </div>
+        </div>
+        <div class="s5f-panel" data-s5f-panel="gauge" data-title="Construiește: Gauge" hidden>
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Întrebarea</h3>
+              <p class="s5b-q">„Cât de aproape suntem de ținta de vânzări?”</p>
+              <h3>Câmpurile, zonă cu zonă</h3>
+              <div class="s5b-pane">
+                <div class="s5b-pane-h">Build · Gauge</div>
+                <div class="s5b-well"><span class="s5b-well-l">Value</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Valoare_Totala<i>Sum</i></span></div></div>
+              </div>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Pașii în Power BI</h3>
+              <ol class="s5-steps">
+                <li>Pe pagina de lucru, click pe o zonă goală, ca să nu modifici alt vizual.</li>
+                <li><span class='s5-ui'>Visualizations</span> → <strong>Gauge</strong>.</li>
+                <li>Din panoul <span class='s5-ui'>Data</span>, trage fiecare câmp în zona lui (schema din stânga). <em>Valoare_Totala</em> devine automat <em>Sum of Valoare_Totala</em>.</li>
+                <li>Format visual → Visual → <strong>Gauge axis</strong>: Min = 0, Max = 600000, Target = 500000.</li>
+                <li>Format visual → Visual → Data labels / Target label = On.</li>
+              </ol>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Ce trebuie să vezi</h3>
+              <p>Arcul aproape plin (≈93% din maxim), cu acul țintei depășit.</p>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Finisare</h3>
+              <p>Min, Max și Target pot fi și câmpuri (zonele Minimum / Maximum / Target value), dacă modelul are o coloană cu ținte.</p>
+            </section>
+          </div>
         </div>
       </article>
+
+
+
+
+
 
       <!-- E · 8 · Table -->
       <article class="slide s5-bar-slide">
         <div class="s5-part-kicker">
-          <span class="slide-eyebrow">Partea 3 · Detaliu și explorare</span>
-          <span class="s5-concept-pill">8 · Table</span>
+          <span class="slide-eyebrow">Partea 4 · Detaliu și explorare</span>
+          <span class="s5-concept-pill">Table</span>
         </div>
         <h2>Table</h2>
         <div class="s5-bar-grid">
@@ -1789,11 +2728,50 @@
         </div>
       </article>
 
+      <!-- Construiește · Table -->
+      <article class="slide s5-bar-slide s5-build-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 4 · Detaliu și explorare</span>
+          <span class="s5-concept-pill is-build">Construiește în Power BI</span>
+        </div>
+        <h2>Construiește: Table</h2>
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Întrebarea</h3>
+              <p class="s5b-q">„Care este valoarea exactă și cantitatea vândută pentru fiecare produs?”</p>
+              <h3>Câmpurile, zonă cu zonă</h3>
+              <div class="s5b-pane">
+                <div class="s5b-pane-h">Build · Table</div>
+                <div class="s5b-well"><span class="s5b-well-l">Columns</span><div class="s5b-chips"><span class="s5b-chip"><em>Dim_Produse</em>Nume_Produs</span><span class="s5b-chip"><em>Dim_Produse</em>Categorie</span><span class="s5b-chip"><em>Vanzari</em>Valoare_Totala<i>Sum</i></span><span class="s5b-chip"><em>Vanzari</em>Cantitate<i>Sum</i></span></div></div>
+              </div>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Pașii în Power BI</h3>
+              <ol class="s5-steps">
+                <li>Pe pagina de lucru, click pe o zonă goală, ca să nu modifici alt vizual.</li>
+                <li><span class='s5-ui'>Visualizations</span> → <strong>Table</strong>.</li>
+                <li>Din panoul <span class='s5-ui'>Data</span>, trage fiecare câmp în zona lui (schema din stânga). <em>Valoare_Totala</em> devine automat <em>Sum of Valoare_Totala</em>.</li>
+                <li>Click pe antetul <em>Sum of Valoare_Totala</em> în tabel: sortare descrescătoare.</li>
+                <li>Zona Columns → săgeata de lângă Sum of Valoare_Totala → <strong>Conditional formatting → Data bars</strong>.</li>
+                <li>Format visual → Visual → Totals = On (rândul Total la final).</li>
+              </ol>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Ce trebuie să vezi</h3>
+              <p>Un rând pe produs, cu bare în coloana de valoare; Laptop Pro 14 primul.</p>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Finisare</h3>
+              <p>Redenumește coloanele direct în zona Columns (dublu click): „Produs”, „Vânzări”, „Bucăți”.</p>
+            </section>
+          </div>
+      </article>
+
       <!-- E · 9 · Matrix -->
       <article class="slide s5-bar-slide">
         <div class="s5-part-kicker">
-          <span class="slide-eyebrow">Partea 3 · Detaliu și explorare</span>
-          <span class="s5-concept-pill">9 · Matrix</span>
+          <span class="slide-eyebrow">Partea 4 · Detaliu și explorare</span>
+          <span class="s5-concept-pill">Matrix</span>
         </div>
         <h2>Matrix</h2>
         <div class="s5-bar-grid">
@@ -1859,11 +2837,52 @@
         </div>
       </article>
 
+      <!-- Construiește · Matrix -->
+      <article class="slide s5-bar-slide s5-build-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 4 · Detaliu și explorare</span>
+          <span class="s5-concept-pill is-build">Construiește în Power BI</span>
+        </div>
+        <h2>Construiește: Matrix</h2>
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Întrebarea</h3>
+              <p class="s5b-q">„Cât s-a vândut în fiecare regiune și magazin, pe fiecare an?”</p>
+              <h3>Câmpurile, zonă cu zonă</h3>
+              <div class="s5b-pane">
+                <div class="s5b-pane-h">Build · Matrix</div>
+                <div class="s5b-well"><span class="s5b-well-l">Rows</span><div class="s5b-chips"><span class="s5b-chip"><em>Dim_Magazine</em>Regiune</span><span class="s5b-chip"><em>Dim_Magazine</em>Nume_Magazin</span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Columns</span><div class="s5b-chips"><span class="s5b-chip"><em>Dim_Date</em>An</span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Values</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Valoare_Totala<i>Sum</i></span></div></div>
+              </div>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Pașii în Power BI</h3>
+              <ol class="s5-steps">
+                <li>Pe pagina de lucru, click pe o zonă goală, ca să nu modifici alt vizual.</li>
+                <li><span class='s5-ui'>Visualizations</span> → <strong>Matrix</strong>.</li>
+                <li>Din panoul <span class='s5-ui'>Data</span>, trage fiecare câmp în zona lui (schema din stânga). <em>Valoare_Totala</em> devine automat <em>Sum of Valoare_Totala</em>.</li>
+                <li>Pe Rows: întâi Regiune, apoi Nume_Magazin sub ea. Apare <strong>+</strong> lângă fiecare regiune.</li>
+                <li>Values → săgeata → <strong>Conditional formatting → Background color</strong> (heatmap).</li>
+                <li>Format visual → Visual → Row subtotals / Column subtotals = On.</li>
+              </ol>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Ce trebuie să vezi</h3>
+              <p>Regiunile pe rânduri, anii pe coloane, celulele colorate. Deschizi o regiune cu + și vezi magazinele.</p>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Finisare</h3>
+              <p>Cu ⇊ (Expand all) din colțul vizualului deschizi toate regiunile odată.</p>
+            </section>
+          </div>
+      </article>
+
       <!-- E · 10 · Decomposition tree -->
       <article class="slide s5-bar-slide">
         <div class="s5-part-kicker">
-          <span class="slide-eyebrow">Partea 3 · Detaliu și explorare</span>
-          <span class="s5-concept-pill">10 · Decomposition tree</span>
+          <span class="slide-eyebrow">Partea 4 · Detaliu și explorare</span>
+          <span class="s5-concept-pill">Decomposition tree</span>
         </div>
         <h2>Decomposition tree</h2>
         <div class="s5-bar-grid">
@@ -1931,9 +2950,263 @@
         </div>
       </article>
 
-      <!-- D · Storytelling & dashboard design -->
+      <!-- Construiește · Decomposition tree -->
+      <article class="slide s5-bar-slide s5-build-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 4 · Detaliu și explorare</span>
+          <span class="s5-concept-pill is-build">Construiește în Power BI</span>
+        </div>
+        <h2>Construiește: Decomposition tree</h2>
+          <div class="s5-bar-grid">
+            <section class="s5-bar-card">
+              <h3>Întrebarea</h3>
+              <p class="s5b-q">„De unde vine cea mai mare parte a vânzărilor?”</p>
+              <h3>Câmpurile, zonă cu zonă</h3>
+              <div class="s5b-pane">
+                <div class="s5b-pane-h">Build · Decomposition tree</div>
+                <div class="s5b-well"><span class="s5b-well-l">Analyze</span><div class="s5b-chips"><span class="s5b-chip"><em>Vanzari</em>Valoare_Totala<i>Sum</i></span></div></div>
+                <div class="s5b-well"><span class="s5b-well-l">Explain by</span><div class="s5b-chips"><span class="s5b-chip"><em>Dim_Produse</em>Categorie</span><span class="s5b-chip"><em>Vanzari</em>Canal_Vanzare</span><span class="s5b-chip"><em>Dim_Magazine</em>Regiune</span><span class="s5b-chip"><em>Dim_Clienti</em>Tip_Client</span></div></div>
+              </div>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Pașii în Power BI</h3>
+              <ol class="s5-steps">
+                <li>Pe pagina de lucru, click pe o zonă goală, ca să nu modifici alt vizual.</li>
+                <li><span class='s5-ui'>Visualizations</span> → <strong>Decomposition tree</strong>.</li>
+                <li>Din panoul <span class='s5-ui'>Data</span>, trage fiecare câmp în zona lui (schema din stânga). <em>Valoare_Totala</em> devine automat <em>Sum of Valoare_Totala</em>.</li>
+                <li>În vizual, click pe <strong>+</strong> de lângă nodul total → alege Categorie.</li>
+                <li>Click pe <strong>+</strong> de lângă Electronice → alege Canal_Vanzare. Continuă cu Regiune.</li>
+                <li>Încearcă și <strong>High value</strong> (AI split): Power BI alege singur dimensiunea care explică cel mai mult.</li>
+              </ol>
+            </section>
+            <section class="s5-bar-card">
+              <h3>Ce trebuie să vezi</h3>
+              <p>Arbore: Total → Electronice → Partener B2B → regiunea cu cea mai mare contribuție.</p>
+            </section>
+            <section class="s5-bar-card s5-bar-when">
+              <h3>Finisare</h3>
+              <p>E un vizual de explorare: îl folosești în analiză, mai rar pe pagina finală pentru management.</p>
+            </section>
+          </div>
+      </article>
+
+
+
+      <!-- H · Design 2 · Culoare -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 5 · Design și storytelling</span>
+          <span class="s5-concept-pill">Culoare</span>
+        </div>
+        <h2>Culoarea: o unealtă, nu un decor</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Accent + gri</h3>
+            <p>O singură culoare puternică pentru ce contează, gri pentru rest. Ochiul merge direct unde vrei tu.</p>
+            <div class="s5x-colors">
+              <figure>
+                <figcaption>Curcubeu: totul strigă</figcaption>
+                <div class="s5x-cbar"><i style="--w:100%;--c:#ef4444"></i><i style="--w:15%;--c:#f59e0b"></i><i style="--w:9%;--c:#8b5cf6"></i><i style="--w:8%;--c:#0ea5e9"></i><i style="--w:3%;--c:#ec4899"></i></div>
+              </figure>
+              <figure>
+                <figcaption>Accent: un singur mesaj</figcaption>
+                <div class="s5x-cbar"><i style="--w:100%;--c:#059669"></i><i style="--w:15%;--c:#cbd5e1"></i><i style="--w:9%;--c:#cbd5e1"></i><i style="--w:8%;--c:#cbd5e1"></i><i style="--w:3%;--c:#cbd5e1"></i></div>
+              </figure>
+            </div>
+            <p class="s5-bar-path">Format visual → Visual → Bars / Columns → Colors (culoare pe fiecare valoare)</p>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Reguli simple</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes"><strong>Consecvență:</strong> aceeași categorie are aceeași culoare pe toate paginile (Online e mereu albastru).</li>
+              <li class="is-yes"><strong>Sens:</strong> verde = bine, roșu = rău, doar când chiar înseamnă asta.</li>
+              <li class="is-yes"><strong>Puține culori:</strong> maxim 5–6 într-un grafic.</li>
+              <li class="is-limit"><strong>Accesibilitate:</strong> nu te baza doar pe roșu/verde; adaugă etichete sau iconițe.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Conditional formatting</h3>
+            <p>Culoarea calculată din valoare: celulele mari devin mai închise, barele negative roșii.</p>
+            <ul>
+              <li>Table / Matrix: săgeata câmpului → Conditional formatting → Background color, Font color, Data bars, Icons.</li>
+              <li>Grafice: Format visual → Colors → butonul <strong>fx</strong>.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Teme: o singură setare pentru tot raportul</h3>
+            <p>O temă stabilește culorile, fonturile și stilul tuturor vizualelor deodată.</p>
+            <p class="s5-bar-path">View → Themes → alegi o temă sau Customize current theme</p>
+            <p>Setezi tema <strong>la început</strong>, nu după ce ai colorat manual fiecare grafic.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- H · Design 3 · Layout -->
+      <article class="slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 5 · Design și storytelling</span>
+          <span class="s5-concept-pill">Layout</span>
+        </div>
+        <h2>Layout: unde pui fiecare vizual</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Ordinea de citire</h3>
+            <p>Cititorul începe din stânga-sus și coboară în Z. Pui acolo ce trebuie văzut primul.</p>
+            <div class="s5x-layout">
+              <div class="k">Vânzări<b>560,5K</b></div>
+              <div class="k">Linii<b>132</b></div>
+              <div class="k">Clienți<b>33</b></div>
+              <div class="k">Produse<b>24</b></div>
+              <div class="t">Trend pe ani · line chart</div>
+              <div class="b">Pe categorie · bar chart</div>
+              <div class="b">Pe canal · donut</div>
+              <div class="d">Detaliu · table</div>
+            </div>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Structura clasică a unei pagini</h3>
+            <ol class="s5-steps">
+              <li><strong>Sus:</strong> 3–5 carduri KPI. Răspunsul la „cum stăm?”.</li>
+              <li><strong>Mijloc:</strong> graficul principal, de obicei trendul.</li>
+              <li><strong>Apoi:</strong> defalcări (pe categorie, canal, regiune).</li>
+              <li><strong>Jos:</strong> detaliu (tabel), pentru cine vrea cifre exacte.</li>
+            </ol>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Aliniere și spațiu</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-tip">View → <strong>Gridlines</strong> și <strong>Snap to grid</strong>: vizualele se așază pe grilă.</li>
+              <li class="is-tip">Selectezi mai multe vizuale → Format → <strong>Align</strong> / <strong>Distribute</strong>.</li>
+              <li class="is-tip">Aceeași distanță între vizuale; margini egale.</li>
+              <li class="is-limit">Maxim 5–7 vizuale pe pagină. Restul merge pe altă pagină.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Pagina</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-tip">Format page → Canvas settings: 16:9 (implicit) pentru ecran.</li>
+              <li class="is-tip">Fundal discret; vizualele cu fundal alb ies în evidență.</li>
+              <li class="is-tip">Un titlu de pagină scurt, în stânga-sus (Insert → Text box).</li>
+            </ul>
+          </section>
+        </div>
+      </article>
+
+      <!-- H · Design 4 · Înainte / după -->
+      <article class="slide s5-bar-slide" data-s5f>
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 5 · Design și storytelling</span>
+          <span class="s5-concept-pill">Înainte și după</span>
+        </div>
+        <h2 data-s5f-title>Același grafic, înainte</h2>
+        <div class="s5f-controls">
+          <div class="s5f-group" data-s5f-group="stare">
+            <span class="s5f-lbl">Vezi</span>
+            <button type="button" class="s5-dtype is-on" data-v="inainte">Înainte</button>
+            <button type="button" class="s5-dtype" data-v="dupa">După</button>
+          </div>
+        </div>
+        <div class="s5f-panel is-on" data-s5f-panel="inainte" data-title="Același grafic, înainte">
+          <div class="s5x-mk">
+            <figure class="s5x-mk-chart is-before">
+              <figcaption>Sum of Valoare_Totala by Categorie</figcaption>
+              <div class="s5x-mk-cols">
+                <div style="--h:8%;--c:#ef4444"><span>Imbracaminte</span></div>
+                <div style="--h:100%;--c:#f59e0b"><span>Electronice</span></div>
+                <div style="--h:3%;--c:#8b5cf6"><span>Alimente</span></div>
+                <div style="--h:15%;--c:#0ea5e9"><span>Servicii</span></div>
+                <div style="--h:9%;--c:#ec4899"><span>Casa &amp; Gradina</span></div>
+              </div>
+            </figure>
+            <section class="s5-bar-card">
+              <h3>Ce nu merge</h3>
+              <ul class="s5-bar-limits">
+                <li class="is-limit">Titlul e tehnic și nu spune nimic.</li>
+                <li class="is-limit">Cinci culori fără sens: ochiul nu știe unde să se uite.</li>
+                <li class="is-limit">Ordine alfabetică; clasamentul trebuie ghicit.</li>
+                <li class="is-limit">Fără valori: cât e Servicii? Trebuie citit pe axă.</li>
+                <li class="is-limit">Etichete înclinate, greu de citit.</li>
+              </ul>
+            </section>
+          </div>
+        </div>
+        <div class="s5f-panel" data-s5f-panel="dupa" data-title="Același grafic, după" hidden>
+          <div class="s5x-mk">
+            <figure class="s5x-mk-chart">
+              <figcaption>Electronice aduce 74% din vânzări</figcaption>
+              <div class="s5x-mk-bars">
+                <div><span>Electronice</span><i style="--w:100%" class="is-accent"></i><b>415K</b></div>
+                <div><span>Servicii</span><i style="--w:15%"></i><b>63K</b></div>
+                <div><span>Casa &amp; Gradina</span><i style="--w:9%"></i><b>37K</b></div>
+                <div><span>Imbracaminte</span><i style="--w:8%"></i><b>34K</b></div>
+                <div><span>Alimente</span><i style="--w:3%"></i><b>11K</b></div>
+              </div>
+            </figure>
+            <section class="s5-bar-card">
+              <h3>Ce am schimbat</h3>
+              <ol class="s5-steps">
+                <li>Column → <strong>Bar</strong> (orizontal): numele încap pe un rând.</li>
+                <li>Sort axis → <strong>descrescător</strong> după valoare.</li>
+                <li>Culori: gri pentru toate, verde doar pentru Electronice.</li>
+                <li><strong>Data labels</strong> pornite, Display units: Thousands; axa X ascunsă.</li>
+                <li>Titlu cu mesaj: „Electronice aduce 74% din vânzări”.</li>
+              </ol>
+            </section>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- H · Greșeli frecvente -->
+      <article class="slide s4-stepq-slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 5 · Design și storytelling</span>
+          <span class="s5-concept-pill">Greșeli frecvente</span>
+        </div>
+        <h2>Ce e greșit și cum repari</h2>
+        <p class="s3-lead s4-stepq-lead">Fiecare card e o greșeală pe care o vei vedea în rapoarte reale. Gândește soluția, apoi apasă.</p>
+        <div class="s2-stages-reveal" data-bi-stages>
+          <div class="s2-reveal-grid is-three s4-stepq">
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">01</span>
+              <span class="s2-reveal-ask">Pie chart cu 12 felii</span>
+              <div class="s2-reveal-content"><h3>Bar chart sortat</h3><p>Peste 5 părți, ochiul nu mai compară unghiuri. Barele sortate arată clasamentul instant.</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">02</span>
+              <span class="s2-reveal-ask">Axa barelor începe de la 400.000</span>
+              <div class="s2-reveal-content"><h3>Axa de la 0</h3><p>O diferență de 5% arată ca una de 300%. Format → Y-axis → Range → Minimum = 0.</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">03</span>
+              <span class="s2-reveal-ask">Fiecare bară are altă culoare</span>
+              <div class="s2-reveal-content"><h3>Accent + gri</h3><p>Culoarea trebuie să însemne ceva. O culoare pentru mesaj, gri pentru rest.</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">04</span>
+              <span class="s2-reveal-ask">Titlu „Sum of Valoare_Totala by An”</span>
+              <div class="s2-reveal-content"><h3>Titlu cu mesaj</h3><p>„Vânzările au atins vârful în 2024”. Cititorul află concluzia înainte să citească graficul.</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">05</span>
+              <span class="s2-reveal-ask">14 vizuale pe o pagină</span>
+              <div class="s2-reveal-content"><h3>5–7 vizuale, restul pe alte pagini</h3><p>Fiecare pagină răspunde la o întrebare. Detaliile merg pe o pagină separată.</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">06</span>
+              <span class="s2-reveal-ask">Line chart pe categorii fără ordine</span>
+              <div class="s2-reveal-content"><h3>Bar sau column</h3><p>Linia sugerează o evoluție. Între Alimente și Servicii nu există „drum”; e o comparație.</p></div>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- H · Storytelling & dashboard design -->
       <article class="slide s5-framework">
-        <span class="slide-eyebrow">Încheiere</span>
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 5 · Design și storytelling</span>
+          <span class="s5-concept-pill is-fw">Storytelling</span>
+        </div>
         <h2>Storytelling &amp; dashboard design</h2>
         <p class="s5-oneline"><strong>Poveștile din date</strong> sunt spuse, de obicei, prin rapoarte ad-hoc sau <strong>dashboard-uri</strong> explicative. Dashboard-urile consolidează datele, urmăresc indicatorii cheie și susțin decizii bazate pe date.</p>
         <div class="s4-steps">
@@ -1944,6 +3217,28 @@
           <article><span class="n">05</span><h3>Folosește layout-ul</h3><p>Poziția și mărimea direcționează atenția către ce contează.</p></article>
           <article><span class="n">06</span><h3>Spune o poveste clară</h3><p>Cititorul înțelege mesajul într-o singură trecere.</p></article>
         </div>
+      </article>
+
+
+      <!-- H · Fișă de buzunar -->
+      <article class="slide s5-framework">
+        <span class="slide-eyebrow">Fișă de buzunar</span>
+        <h2>Întrebarea decide vizualul</h2>
+        <table class="s5-bar-tbl s5x-cheat">
+          <thead><tr><th>Întrebarea</th><th>Vizual</th><th>Evită</th></tr></thead>
+          <tbody>
+            <tr><td>Care e mai mare? Care e primul?</td><td>Bar (nume lungi) · Column (puține categorii)</td><td>Pie cu multe felii</td></tr>
+            <tr><td>Cât în total și din ce e format?</td><td>Stacked bar / column</td><td>Prea multe segmente</td></tr>
+            <tr><td>Ce pondere are fiecare?</td><td>100% stacked · Pie / Donut (2–5 părți)</td><td>Pie pentru diferențe mici</td></tr>
+            <tr><td>Multe părți dintr-un total?</td><td>Treemap</td><td>Pie</td></tr>
+            <tr><td>De ce s-a schimbat totalul?</td><td>Waterfall</td><td>Două carduri fără explicație</td></tr>
+            <tr><td>Unde se pierd clienții?</td><td>Funnel</td><td>Funnel pe categorii fără ordine</td></tr>
+            <tr><td>Cum evoluează în timp?</td><td>Line · Area (volum)</td><td>Line pe categorii fără ordine</td></tr>
+            <tr><td>Două măsuri cu scale diferite?</td><td>Line and stacked / clustered column</td><td>Două axe fără etichete clare</td></tr>
+            <tr><td>Cât? (o cifră) · Cât mai e până la țintă?</td><td>Card · Gauge</td><td>Gauge-uri multe, unul lângă altul</td></tr>
+            <tr><td>Cât exact? · Pe două dimensiuni? · De ce?</td><td>Table · Matrix · Decomposition tree</td><td>Tabel cu 20 de coloane pentru director</td></tr>
+          </tbody>
+        </table>
       </article>
 
       <!-- E · Încheiere & temă echipă -->
@@ -1962,12 +3257,12 @@
             <div class="band-card">
               <span class="n">02</span>
               <strong>Familii de vizuale</strong>
-              <span class="d">Bar și column pentru comparații, line pentru evoluție, donut/stacked pentru compoziție, card pentru KPI, tabel și matrix pentru detaliu.</span>
+              <span class="d">Bar și column pentru comparații, pie, treemap și waterfall pentru compoziție, line pentru evoluție, card și gauge pentru indicatori, tabel și matrix pentru detaliu.</span>
             </div>
             <div class="band-card">
               <span class="n">03</span>
-              <strong>De la model la raport</strong>
-              <span class="d">Date curate în Power Query, model star (fact + dimensiuni), apoi pagini de raport cu câteva vizuale clare pe fiecare.</span>
+              <strong>Design și poveste</strong>
+              <span class="d">Titlu cu mesaj, o culoare de accent, layout de sus în jos și 5–7 vizuale pe pagină. Ordinea vizualelor spune povestea.</span>
             </div>
           </div>
         </div>
@@ -2018,6 +3313,6 @@
     </nav>
   </div>
   <script src="../../js/main.js"></script>
-  <script src="../../js/s05.js?v=8"></script>
+  <script src="../../js/s05.js?v=9"></script>
 </body>
 </html>

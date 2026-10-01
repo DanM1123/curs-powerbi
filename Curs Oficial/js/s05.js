@@ -1061,6 +1061,35 @@
     });
   }
 
+  /* Familii de grafice: butoane de variantă care schimbă panoul și titlul */
+  function initFamilies() {
+    document.querySelectorAll('[data-s5f]').forEach((root) => {
+      const groups = Array.from(root.querySelectorAll('[data-s5f-group]'));
+      const title = root.querySelector('[data-s5f-title]');
+      const show = () => {
+        const key = groups.map((g) => (g.querySelector('.is-on') || g.querySelector('[data-v]')).getAttribute('data-v')).join('|');
+        root.querySelectorAll('[data-s5f-panel]').forEach((p) => {
+          const on = p.getAttribute('data-s5f-panel') === key;
+          p.classList.toggle('is-on', on);
+          if (on) {
+            p.removeAttribute('hidden');
+            if (title) title.textContent = p.getAttribute('data-title');
+          } else p.setAttribute('hidden', '');
+        });
+      };
+      groups.forEach((g) => {
+        g.querySelectorAll('[data-v]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            g.querySelectorAll('[data-v]').forEach((b) => b.classList.toggle('is-on', b === btn));
+            show();
+            btn.blur();
+          });
+        });
+      });
+      show();
+    });
+  }
+
   function boot() {
     initVariants();
     initChoose();
@@ -1068,6 +1097,7 @@
     initAnatomy();
     initFrameworkInteractives();
     initStackedRead();
+    initFamilies();
     initSlideWatch();
   }
 

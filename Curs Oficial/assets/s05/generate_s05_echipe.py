@@ -198,7 +198,7 @@ TEAMS: list[TeamSpec] = [
                 "Unde investim (locație, delivery) și cum comandă oamenii.",
                 (
                     "Ce formate (restaurant, delivery hub, food truck) se comportă diferit?",
-                    "Compară vânzările pe canal: La masa, Livrare, Glovo, Telefon.",
+                    "Compară vânzările pe canal: La masa, Livrare, Glovo, Telefon comanda.",
                     "Există locații unde delivery-ul e mult mai mare decât la masă?",
                 ),
                 (
@@ -968,101 +968,10 @@ Set propriu echipei — probleme de calitate diferite față de exercițiul comu
 
 
 def write_proiect_html(team_dir: Path, team: TeamSpec) -> None:
-    members_html = "".join(f"<li>{name}</li>" for name in team.members)
-    pages_html = []
-    for idx, (ptitle, focus, questions, recs) in enumerate(team.pages, start=1):
-        q_items = "".join(f"<li>{q}</li>" for q in questions)
-        rec_items = "".join(f"<li>{r}</li>" for r in recs)
-        pages_html.append(
-            f"""
-            <section class="page-block">
-              <p class="page-num">Pagina {idx} · {ptitle}</p>
-              <p class="focus">{focus}</p>
-              <h3>Întrebări pentru această pagină</h3>
-              <ul class="q-list">{q_items}</ul>
-              <h3 class="rec-heading">Recomandări (opțional — puteți alege altfel)</h3>
-              <ul class="rec-list">{rec_items}</ul>
-            </section>
-            """
-        )
+    """Brief-ul echipei; șablonul e în build_team_briefs.py."""
+    from build_team_briefs import write_brief
 
-    html = dedent(
-        f"""\
-        <!DOCTYPE html>
-        <html lang="ro">
-        <head>
-          <meta charset="UTF-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <title>{team.label} · Proiect · {team.company}</title>
-          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
-          <style>
-            :root {{ --primary: {team.color}; --soft: color-mix(in srgb, {team.color} 14%, white); }}
-            body {{ font-family: Inter, sans-serif; margin: 0; background: #f6f6f6; color: #111; line-height: 1.6; }}
-            main {{ max-width: 880px; margin: 0 auto; padding: 28px 20px 56px; }}
-            a {{ color: var(--primary); font-weight: 600; text-decoration: none; }}
-            a:hover {{ text-decoration: underline; }}
-            .hero {{ background: var(--soft); border: 1px solid color-mix(in srgb, var(--primary) 30%, #ccc);
-              border-radius: 14px; padding: 26px 28px; margin-bottom: 22px; }}
-            .badge {{ display: inline-block; background: var(--primary); color: #fff; font-weight: 700;
-              font-size: 0.72rem; padding: 4px 10px; border-radius: 999px; margin-bottom: 10px; }}
-            .hero h1 {{ margin: 0 0 6px; font-size: 1.55rem; }}
-            .tag {{ color: #444; margin: 0 0 14px; }}
-            .members {{ background: #fff; border: 2px dashed #bbb; border-radius: 8px; padding: 14px 18px; margin: 14px 0; }}
-            .members ul {{ margin: 8px 0 0; padding-left: 1.2rem; }}
-            .members li {{ margin: 4px 0; }}
-            .context-box {{ background: #fff; border-radius: 10px; padding: 18px 20px; margin-top: 12px;
-              border-left: 4px solid var(--primary); }}
-            .context-box p {{ margin: 0 0 10px; }}
-            .context-box p:last-child {{ margin-bottom: 0; }}
-            h2 {{ color: var(--primary); font-size: 1.15rem; margin: 0 0 12px; }}
-            .steps {{ counter-reset: st; list-style: none; padding: 0; margin: 0; }}
-            .steps li {{ counter-increment: st; margin: 14px 0; padding-left: 38px; position: relative; }}
-            .steps li::before {{ content: counter(st); position: absolute; left: 0; top: 2px;
-              width: 26px; height: 26px; border-radius: 50%; background: var(--primary); color: #fff;
-              font-weight: 800; font-size: 0.82rem; display: grid; place-items: center; }}
-            .page-block {{ background: #fff; border: 1px solid #e5e7eb; border-radius: 12px;
-              padding: 20px 22px; margin-bottom: 16px; }}
-            .page-num {{ font-weight: 800; color: var(--primary); margin: 0 0 6px; font-size: 0.95rem; }}
-            .focus {{ color: #374151; margin: 0 0 14px; }}
-            h3 {{ font-size: 0.95rem; margin: 0 0 8px; }}
-            .rec-heading {{ margin-top: 16px; color: #6b7280; font-weight: 600; }}
-            .q-list li, .rec-list li {{ margin: 6px 0; }}
-            .rec-list {{ color: #4b5563; font-size: 0.94rem; }}
-            .note-pages {{ font-size: 0.92rem; color: #555; margin: 0 0 18px; }}
-          </style>
-        </head>
-        <body>
-          <main>
-            <p><a href="../index.html">← Înapoi la Sesiunea 5</a></p>
-            <header class="hero">
-              <span class="badge">{team.label}</span>
-              <h1>{team.company}</h1>
-              <p class="tag">{team.tagline} · {team.industry}</p>
-              <div class="members"><strong>Membri echipă</strong><ul>{members_html}</ul></div>
-              <div class="context-box">
-                <p><strong>Despre firmă.</strong> {team.context}</p>
-                <p>{team.context_detail}</p>
-              </div>
-            </header>
-
-            <section class="page-block">
-              <h2>Misiune</h2>
-              <ol class="steps">
-                <li><strong>Explorați datele</strong> — înțelegeți ce reprezintă fiecare fișier, ce granulație are o linie și ce rol au coloanele (identificatori, descrieri, măsuri, date).</li>
-                <li><strong>Curățați datele</strong> — folosiți tehnicile învățate până acum în Power Query, adaptate la ce găsiți în setul echipei voastre.</li>
-                <li><strong>Creați un model star schema</strong> — legați tabelul de facturi / linii de vânzare de dimensiunile de context (clienți, produse, locații, calendar).</li>
-                <li><strong>Creați un raport de 4 pagini</strong> — folosiți titlurile de mai jos. Pe fiecare pagină, 3–4 vizuale care răspund la întrebări. Alegeți voi tipul de diagramă.</li>
-              </ol>
-            </section>
-
-            <p class="note-pages">Cele 4 pagini ale raportului:</p>
-            {''.join(pages_html)}
-          </main>
-        </body>
-        </html>
-        """
-    )
-    (team_dir / "proiect-echipa.html").write_text(html, encoding="utf-8")
+    write_brief(team_dir, team)
 
 
 def generate_team(team: TeamSpec) -> Path:
