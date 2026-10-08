@@ -661,3 +661,329 @@
   .s6-lab-matrix,
   .s6-lab-tbl { display: block; overflow-x: auto; }
 }
+
+/* ---------- Text de concept și „Ce vezi pe slide” ---------- */
+.s6-concept {
+  margin: 0 0 12px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  background: var(--surface);
+}
+.s6-concept p { margin: 0 0 8px !important; font-size: 0.95rem !important; line-height: 1.6; color: var(--text-2); }
+.s6-concept p:last-child { margin-bottom: 0 !important; }
+.s6-concept strong { color: var(--text); }
+.s6-howto {
+  display: block;
+  margin: 0 0 12px !important;
+  padding: 9px 14px;
+  border-radius: 10px;
+  background: color-mix(in srgb, #0ea5e9 8%, var(--surface));
+  border: 1px dashed color-mix(in srgb, #0ea5e9 40%, var(--border));
+  font-size: 0.88rem !important;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+.s6-howto > span:first-child {
+  display: inline-block;
+  margin-right: 8px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #0284c7;
+}
+.s6-howto strong { color: var(--text); }
+
+/* ---------- Definiție + exemplu ---------- */
+.s6-def { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 16px; align-items: start; }
+.s6-def-text,
+.s6-def-ex { padding: 14px 18px; border-radius: 14px; border: 1px solid var(--border); background: var(--surface); }
+.s6-def-text h3 { margin: 12px 0 4px; font-size: 0.98rem; color: var(--primary); }
+.s6-def-text h3:first-child { margin-top: 0; }
+.s6-def-text p { margin: 0 0 4px !important; font-size: 0.93rem !important; line-height: 1.55; }
+.s6-def-text .s5-bar-path { margin-top: 10px !important; }
+.s6-ex-lbl { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-3); }
+.s6-def-ex .s06-dax-code { margin-top: 6px; }
+.s6-def-ex .s6-vs-tbl { margin-top: 10px; }
+.s6-ex-note { margin: 10px 0 0 !important; font-size: 0.88rem !important; line-height: 1.5; }
+.s6-def-results { display: grid; gap: 6px; margin-top: 10px; }
+.s6-def-results div { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 8px 12px; border-radius: 10px; background: var(--bg-alt); }
+.s6-def-results span { font-size: 0.84rem; color: var(--text-2); }
+.s6-def-results strong { font-family: var(--font-mono); font-size: 1rem; color: var(--text); }
+.s6-names-tbl td { vertical-align: top; }
+.s6-names-tbl td:nth-child(2) code, .s6-names-tbl td:nth-child(3) code { white-space: nowrap; }
+.s6-names-tbl td:last-child { color: var(--text-2); font-size: 0.88rem; }
+.s6-def-tbl td:first-child { white-space: nowrap; }
+@media (max-width: 860px) { .s6-def { grid-template-columns: 1fr; } }
+
+/* ---------- Revizuire: idei în loc de pași, tabel în întrebări, exemple multiple ---------- */
+.s6-route.is-concepts article::after { display: none; }
+.s6-route-ex {
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--text-3);
+}
+.s6-q-table { margin: 4px 0 14px; width: 100%; }
+.s6-q-table th:last-child,
+.s6-q-table td:last-child { text-align: right; font-family: var(--font-mono); }
+.s6-def-ex .s6-ex-lbl { display: block; margin-top: 10px; }
+.s6-def-ex .s6-ex-lbl:first-child { margin-top: 0; }
+.s6-pick { margin-top: 12px; }
+
+/* ---------- Revizuire 2: formulă vizibilă, panou de filtre finale, practică ---------- */
+.s6-lab-code { margin: 0 0 10px; white-space: pre-wrap; overflow: visible; }
+.s6-lab-final {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-alt);
+  font-size: 0.82rem;
+}
+.s6-lab-final-t { display: block; margin-bottom: 4px; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-3); }
+.s6-lab-final ul { margin: 0; padding: 0; list-style: none; }
+.s6-lab-final li { margin: 2px 0; color: var(--text-2); }
+.s6-lab-final b { color: var(--text); }
+.s6-lab-final i { font-style: normal; color: var(--text-3); }
+.s6-lab-final i.is-calc { color: var(--primary); font-weight: 700; }
+.s6-q-formula {
+  display: block;
+  margin: 6px 0 0;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: var(--s6-code-bg);
+  color: #e2e8f0;
+  font-size: 0.7rem;
+  line-height: 1.4;
+  text-align: left;
+  white-space: normal;
+  word-break: break-word;
+}
+.s6-pat-note { margin: 6px 0 0 !important; font-size: 0.8rem !important; color: var(--text-3); }
+.s5-concept-pill.is-prac { background: var(--primary); color: #fff; }
+.s6-win-tbl td, .s6-win-tbl th { font-size: 0.82rem; }
+.s6-win-tbl td:not(:first-child) { text-align: left; }
+.s6-win-tbl td:last-child, .s6-win-tbl th:last-child { text-align: right; font-weight: 700; }
+.s6-q-table { font-size: 0.82rem; }
+.s6-q-table td, .s6-q-table th { padding: 3px 8px; }
+
+/* ==========================================================================
+   Revizuire 3 · teorie / exemplu explicativ / practică
+   ========================================================================== */
+.s5-concept-pill.is-expl { background: color-mix(in srgb, var(--s6-add) 16%, var(--surface)); color: var(--text); border-color: color-mix(in srgb, var(--s6-add) 45%, var(--border)); }
+
+/* Harta conceptelor */
+.s6-map { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 10px; }
+.s6-map section {
+  padding: 16px 18px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.s6-map section.is-prac { border-color: color-mix(in srgb, var(--primary) 50%, var(--border)); background: color-mix(in srgb, var(--primary) 8%, var(--surface)); }
+.s6-map-part { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--primary); }
+.s6-map h3 { margin: 4px 0 10px; font-size: 1.1rem; letter-spacing: -0.02em; }
+.s6-map ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+.s6-map li {
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+/* Sintaxa unei funcții: mare, sus, fără scroll */
+.s6-syntax {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px 8px;
+  margin: 4px 0 14px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: var(--s6-code-bg);
+  color: #e2e8f0;
+  font-family: var(--font-mono);
+  font-size: clamp(0.95rem, 1.7vw, 1.2rem);
+  line-height: 1.6;
+}
+.s6-syntax .f { color: #6ee7b7; font-weight: 700; }
+.s6-syntax .k { color: #f472b6; font-weight: 700; }
+.s6-syntax .s6-slot { font-size: 0.85em; padding: 3px 10px; }
+.s6-slot.is-alt { background: rgba(125, 211, 252, 0.18); color: #7dd3fc; }
+
+/* Pagină de funcție: două cutii */
+.s6-fn-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; align-items: start; }
+.s6-fn-box { padding: 14px 18px; border-radius: 14px; border: 1px solid var(--border); background: var(--surface); }
+.s6-fn-box h3 { margin: 12px 0 6px; font-size: 0.98rem; color: var(--primary); }
+.s6-fn-box h3:first-child { margin-top: 0; }
+.s6-fn-box p { margin: 0 0 8px !important; font-size: 0.92rem !important; line-height: 1.55; }
+.s6-fn-box .s5-bar-limits { margin: 0; }
+.s6-fn-box .s06-dax-code { margin-top: 4px; }
+.s6-args { margin: 0; display: grid; gap: 8px; }
+.s6-args > div { display: grid; grid-template-columns: minmax(120px, auto) 1fr; gap: 10px; align-items: baseline; padding: 8px 10px; border-radius: 10px; background: var(--bg-alt); }
+.s6-args dt { margin: 0; }
+.s6-args dd { margin: 0; font-size: 0.88rem; line-height: 1.45; color: var(--text-2); }
+.s6-diff-tbl { width: 100%; margin-top: 6px; font-size: 0.84rem; }
+.s6-div-tbl { width: 100%; font-size: 0.84rem; }
+.s6-div-tbl .is-bad { color: var(--s6-cut); font-weight: 700; }
+
+/* Pași de creare */
+.s6-steps { margin: 6px 0 10px; padding: 0; list-style: none; counter-reset: s6step; display: grid; gap: 6px; }
+.s6-steps li { counter-increment: s6step; position: relative; padding-left: 32px; font-size: 0.9rem; line-height: 1.45; }
+.s6-steps li::before {
+  content: counter(s6step);
+  position: absolute; left: 0; top: 0;
+  width: 22px; height: 22px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--primary); color: #fff;
+  font-size: 0.74rem; font-weight: 800;
+}
+.s6-def-ex .s6-ex-lbl { display: block; margin-top: 12px; }
+.s6-def-ex .s6-ex-lbl:first-child { margin-top: 0; }
+
+/* Funcțiile de agregare */
+.s6-agg { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.s6-agg article { display: flex; flex-direction: column; padding: 16px; border-radius: 16px; border: 1px solid var(--border); background: var(--surface); }
+.s6-agg h3 { margin: 0 0 6px; font-family: var(--font-mono); font-size: 1.15rem; color: var(--primary); }
+.s6-agg p { margin: 0 !important; font-size: 0.9rem !important; line-height: 1.45; }
+.s6-agg .s06-dax-code { margin: 12px 0; white-space: normal; text-align: center; }
+.s6-agg .s6-slot { font-size: 0.72rem; padding: 1px 6px; }
+.s6-agg .s6-agg-arg { margin-top: auto !important; font-size: 0.82rem !important; color: var(--text-3); }
+
+/* Operații între măsuri */
+.s6-ops { display: flex; flex-wrap: wrap; gap: 8px; margin: 2px 0 6px; }
+.s6-ops span { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px 5px 6px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg-alt); font-size: 0.84rem; }
+.s6-ops b { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--primary); color: #fff; font-family: var(--font-mono); }
+
+/* Quiz „Ce număr apare?” + tab-uri de exerciții */
+.s6-quiz-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.s6-quiz-tabs button {
+  font: inherit; font-size: 0.85rem; font-weight: 700;
+  padding: 7px 14px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--surface); color: var(--text-2); cursor: pointer;
+}
+.s6-quiz-tabs button:hover { border-color: var(--primary); color: var(--text); }
+.s6-quiz-tabs button.is-on { background: var(--primary); border-color: var(--primary); color: #fff; }
+.s6-quiz-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.s6-quiz-card { display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; border-radius: 16px; border: 1px solid var(--border); background: var(--surface); }
+.s6-quiz-n { font-size: 0.72rem; font-weight: 800; color: var(--primary); letter-spacing: 0.06em; }
+.s6-quiz-q { margin: 0 !important; font-size: 1.02rem !important; font-weight: 700; line-height: 1.35; color: var(--text); }
+.s6-quiz-m { display: flex; flex-direction: column; font-size: 0.8rem; color: var(--text-3); }
+.s6-quiz-m b { font-family: var(--font-mono); font-size: 0.86rem; color: var(--text); }
+.s6-quiz-code { margin: 0 !important; white-space: pre-wrap !important; font-size: 0.74rem !important; }
+.s6-quiz-a { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 12px; background: var(--primary-soft); border: 1px solid color-mix(in srgb, var(--primary) 35%, var(--border)); }
+.s6-quiz-a span { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-3); }
+.s6-quiz-a strong { font-family: var(--font-mono); font-size: 1.4rem; color: var(--text); }
+.s6-quiz-a em { font-style: normal; font-size: 0.8rem; color: var(--text-2); }
+.s6-quiz-card[data-step="0"] .s6-quiz-code,
+.s6-quiz-card[data-step="0"] .s6-quiz-a,
+.s6-quiz-card[data-step="1"] .s6-quiz-a { display: none; }
+.s6-quiz-card[data-step="2"] .s6-quiz-btns { display: none; }
+.s6-quiz-btns { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+
+/* Demo slicer pe Categorie */
+.s6-cat .s6-slicer { margin-bottom: 12px; }
+.s6-cat-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 12px; }
+.s6-cat-card {
+  font: inherit; text-align: left; cursor: pointer;
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 12px 14px; border-radius: 14px;
+  border: 1px solid var(--border); background: var(--surface); color: var(--text);
+}
+.s6-cat-card span { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-2); }
+.s6-cat-card strong { font-size: 1.9rem; line-height: 1.1; letter-spacing: -0.03em; }
+.s6-cat-card em { font-style: normal; font-size: 0.82rem; line-height: 1.4; color: var(--text-2); }
+.s6-cat-card.is-on { border-color: var(--primary); background: var(--primary-soft); box-shadow: 0 0 0 1px var(--primary); }
+.s6-cat-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 12px; align-items: start; }
+.s6-cat-grid .s06-dax-code { margin: 0; }
+.s6-cat-sum { margin-top: 12px; }
+
+/* Laborator filter context */
+.s6-lab-sum { margin: 8px 0 4px !important; font-size: 0.84rem !important; line-height: 1.5; color: var(--text-2); }
+.s6-lab-sum b { color: var(--text); }
+.s6-lab-visual .s6-lab-code { margin-top: 10px; }
+
+/* Exerciții */
+.s6-ex-tbl { width: 100%; }
+.s6-ex-tbl tr[hidden] { display: none; }
+.s6-ex-tbl td { vertical-align: top; font-size: 0.88rem; }
+.s6-ex-tbl td:first-child { width: 22%; }
+.s6-ex-tbl td:nth-child(2) { width: 18%; }
+.s6-ex-tbl td:last-child { width: 22%; line-height: 1.5; }
+.s6-ex-tbl .s06-dax-code { margin: 0; white-space: pre-wrap; font-size: 0.74rem; }
+.s6-ex-kind { display: block; margin-top: 4px; font-size: 0.72rem; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; }
+
+@media (max-width: 1000px) {
+  .s6-agg { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .s6-quiz-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 860px) {
+  .s6-map, .s6-fn-grid, .s6-cat-grid { grid-template-columns: 1fr; }
+  .s6-ex-tbl td:first-child, .s6-ex-tbl td:nth-child(2), .s6-ex-tbl td:last-child { width: auto; }
+}
+@media (max-width: 560px) {
+  .s6-agg { grid-template-columns: 1fr; }
+  .s6-args > div { grid-template-columns: 1fr; gap: 2px; }
+}
+
+.s6-fn-box .s06-dax-code { white-space: pre-wrap; }
+.s6-cat-tbl td { padding: 3px 8px; }
+.s6-cat-sum td, .s6-cat-sum th { padding: 6px 10px; }
+
+.s6-lab-final p { margin: 6px 0 0 !important; font-size: 0.84rem !important; color: var(--text-2); }
+.s6-lab-final p b { color: var(--text); }
+
+/* compactare laboratoare și quiz pe 8 rânduri */
+[data-s6-cat] .s6-lab-tbl td { padding: 3px 8px; }
+[data-s6-cat] .s6-lab-card { padding: 10px; }
+[data-s6-cat] .s6-slicer { margin-bottom: 6px; }
+.s6-q-table td, .s6-q-table th { padding: 2px 8px; font-size: 0.78rem; }
+[data-s6-quiz="mini"] .s6-quiz-card { padding: 10px 14px; gap: 6px; }
+.s6-q-table { line-height: 1.25; margin: 0 0 10px !important; }
+[data-s6-quiz="mini"] .s6-quiz-q { font-size: 0.92rem !important; }
+[data-s6-quiz="mini"] .s6-quiz-code { font-size: 0.7rem !important; padding: 8px 10px !important; }
+[data-s6-quiz="mini"] .s3-btn { padding: 6px 12px; font-size: 0.8rem; }
+[data-s6-quiz="mini"] .s6-quiz-tabs { margin-bottom: 8px; }
+
+.s6-quiz-ctx { display: flex; flex-direction: column; gap: 2px; padding: 6px 10px; border-radius: 10px; border-left: 3px solid var(--s6-add); background: var(--bg-alt); font-size: 0.86rem; font-weight: 700; color: var(--text); }
+.s6-quiz-ctx span { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-3); }
+.s5-concepts-slide .s5-lesson-map p { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+
+/* pagini de exemple: compacte, formula se rupe pe rânduri în loc de scroll */
+.s6-tools.is-ex { gap: 10px; }
+.s6-tools.is-ex article { padding: 10px 12px; }
+.s6-tools.is-ex .s06-dax-code { white-space: pre-wrap; margin-top: 6px; padding: 8px 10px; font-size: 0.7rem; }
+.s6-tools.is-ex .s6-expect { margin-top: 6px; padding: 5px 10px; }
+.s6-tools.is-ex p { margin-top: 5px; font-size: 0.8rem; }
+.s6-fn-box .s6-div-tbl td, .s6-fn-box .s6-div-tbl th { padding: 3px 8px; }
+.s6-fn-box h3 { margin-top: 9px; }
+
+/* Revizuire 4: quiz cu un singur buton, eticheta măsurii, laborator DIVIDE */
+.s6-quiz-ans { display: flex; flex-direction: column; gap: 8px; }
+.s6-quiz-card[data-step="0"] .s6-quiz-ans { display: none; }
+.s6-quiz-card[data-step="2"] .s6-quiz-code, .s6-quiz-card[data-step="2"] .s6-quiz-a { display: flex; }
+.s6-quiz-card[data-step="2"] .s6-quiz-code { display: block; }
+.s6-ex-measure { display: block; margin-top: 6px; font-size: 0.82rem; color: var(--text-3); }
+.s6-ex-measure b { font-family: var(--font-mono); color: var(--text); }
+.s6-div-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.s6-div-cards .s6-lab-card { padding: 10px 6px; text-align: center; }
+.s6-div-cards .s6-lab-card strong { font-size: 1.6rem; }
+.s6-div-cards .s6-lab-card.is-res { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary); }
+[data-s6-div] .s6-lab-tbl td { padding: 3px 8px; }
+.s6-tools.is-ex .s6-ex-measure { margin-top: 2px; }
+
+/* Revizuire 5: grilă quiz după numărul de carduri, tab-uri pe două niveluri */
+.s6-quiz-grid { grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); }
+.s6-quiz-tabs.is-main button { font-size: 0.92rem; padding: 8px 18px; }
+.s6-quiz-tabs.is-main { margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.s6-quiz-tabs[hidden] { display: none; }
+.s6-iter-code { margin: 0 0 10px; white-space: pre-wrap; }
+@media (max-width: 1000px) { .s6-quiz-grid { grid-template-columns: 1fr; } }
