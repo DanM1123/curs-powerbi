@@ -1000,3 +1000,48 @@
 .s06-page .s7-team-name { font-size: 0.84rem; font-weight: 700; color: var(--text); }
 
 .s06-page .s6-tema-links { margin-top: 12px; }
+
+/* ---------- Recapitulare: carduri care se întorc ---------- */
+.s6-flip-grid { display: grid; gap: 14px; margin-top: 6px; }
+.s6-flip-grid.is-four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.s6-flip-grid.is-three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.s6-flip { position: relative; height: 290px; padding: 0; border: 0; background: none; cursor: pointer; perspective: 1200px; font: inherit; color: inherit; text-align: left; }
+.s6-flip-inner { position: absolute; inset: 0; display: block; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(.2,.7,.2,1); }
+.s6-flip.is-flipped .s6-flip-inner { transform: rotateY(180deg); }
+.s6-flip-face { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 10px; padding: 16px 18px; border-radius: 18px; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.s6-flip-front { border: 2px dashed color-mix(in srgb, var(--border) 80%, var(--text-3)); background: color-mix(in srgb, var(--surface) 90%, transparent); }
+.s6-flip:hover .s6-flip-front { border-color: var(--primary); }
+.s6-flip-back { transform: rotateY(180deg); border: 2px solid var(--primary); background: color-mix(in srgb, var(--surface) 92%, var(--primary-soft)); }
+.s6-flip-n { align-self: flex-start; width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; font-size: 0.82rem; font-weight: 800; background: var(--bg-alt); color: var(--text-3); border: 1px solid var(--border); }
+.s6-flip-back .s6-flip-n { background: var(--primary); border-color: var(--primary); color: #fff; }
+.s6-flip-q { font-size: 1.02rem; font-weight: 700; line-height: 1.4; color: var(--text); }
+.s6-flip-hint { margin-top: auto; font-size: 0.74rem; color: var(--text-3); }
+.s6-flip-title { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
+.s6-flip-text { font-size: 0.88rem; line-height: 1.45; color: var(--text-2); }
+.s6-flip-text strong { color: var(--text); }
+.s6-flip-front .s6-mini { flex: 1; min-height: 0; }
+.s6-flip-back .s6-mini { height: 90px; flex: none; }
+
+.s6-mini { width: 100%; display: block; }
+.s6-mini .ax { stroke: var(--text-3); stroke-width: 1.2; fill: none; opacity: .6; }
+.s6-mini .ln { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.s6-mini .ln.c1, .s6-mini .dn.c1 { stroke: var(--primary); }
+.s6-mini .ln.c2, .s6-mini .dn.c2 { stroke: #0ea5e9; }
+.s6-mini .dn.c3 { stroke: #f59e0b; }
+.s6-mini .dn.c4 { stroke: #a78bfa; }
+.s6-mini .dn { fill: none; stroke-width: 18; }
+.s6-mini .f1 { fill: var(--primary); }
+.s6-mini .f2 { fill: #0ea5e9; }
+.s6-mini .f3 { fill: #f59e0b; }
+.s6-mini .f4 { fill: #a78bfa; }
+.s6-mini .neg { fill: #ef4444; }
+.s6-mini .cn { stroke: var(--text-3); stroke-dasharray: 2 2; }
+.s6-mini .o2 { opacity: .8; } .s6-mini .o3 { opacity: .62; } .s6-mini .o4 { opacity: .45; }
+.s6-mini .gg-bg { fill: none; stroke: var(--border); stroke-width: 16; }
+.s6-mini .gg { fill: none; stroke: var(--primary); stroke-width: 16; }
+.s6-mini .gg-t { font: 800 20px Inter, sans-serif; fill: var(--text); }
+.s6-mini .bg { fill: color-mix(in srgb, var(--primary) 22%, transparent); }
+.s6-mini .lb { font: 600 11px Inter, sans-serif; fill: var(--text-2); }
+.s6-recap-vis { display: block; max-width: 340px; margin-top: 10px; }
+@media (max-width: 1000px) { .s6-flip-grid.is-four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .s6-flip-grid.is-four, .s6-flip-grid.is-three { grid-template-columns: 1fr; } }

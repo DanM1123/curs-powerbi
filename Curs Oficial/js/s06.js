@@ -470,7 +470,16 @@
     draw('all');
   }
 
+  /* ---------- Recapitulare: carduri care se întorc ---------- */
+  function initFlip(card) {
+    card.addEventListener('click', () => {
+      const on = card.classList.toggle('is-flipped');
+      card.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+
   function init() {
+    document.querySelectorAll('[data-s6-flip]').forEach(initFlip);
     document.querySelectorAll('[data-s6-rows]').forEach(initRowsTable);
     document.querySelectorAll('[data-s6-ctx]').forEach(initCtxLab);
     document.querySelectorAll('[data-s6-cat]').forEach(initCatDemo);
