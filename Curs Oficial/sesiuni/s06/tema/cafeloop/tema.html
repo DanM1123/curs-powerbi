@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Temă · CafeLoop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+:root {
+  --c: #DC2626;
+  --bg: #0b1120; --surface: #131c2e; --surface-2: #1b2638; --line: #2a3850;
+  --text: #f1f5f9; --text-2: #cbd5e1; --text-3: #94a3b8; --code: #0a0f1c;
+  --ct: color-mix(in srgb, var(--c) 60%, white);
+  --soft: color-mix(in srgb, var(--c) 20%, var(--surface));
+  --ok-bg: rgba(16, 185, 129, 0.18); --ok: #6ee7b7;
+  --help-bg: rgba(245, 158, 11, 0.10); --help-line: rgba(245, 158, 11, 0.40);
+  --m-bg: rgba(139, 92, 246, 0.22); --m: #c4b5fd; --cc-bg: rgba(14, 165, 233, 0.20); --cc: #7dd3fc;
+  --xl-bg: rgba(34, 197, 94, 0.16); --xl: #86efac;
+  color-scheme: dark;
+}
+[data-theme="light"] {
+  --bg: #f5f6f7; --surface: #ffffff; --surface-2: #f8fafc; --line: #e5e7eb;
+  --text: #111827; --text-2: #4b5563; --text-3: #6b7280; --code: #1e293b;
+  --ct: var(--c); --soft: color-mix(in srgb, var(--c) 10%, white);
+  --ok-bg: #ecfdf5; --ok: #047857; --help-bg: #fffbeb; --help-line: #fde68a;
+  --m-bg: #ede9fe; --m: #6d28d9; --cc-bg: #e0f2fe; --cc: #0369a1; --xl-bg: #e7f5ec; --xl: #1d6f42;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Inter, system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.55; }
+main { max-width: 1040px; margin: 0 auto; padding: 22px 20px 72px; }
+a { color: var(--ct); font-weight: 600; text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 0.86em; padding: 1px 5px; border-radius: 5px; background: var(--surface-2); color: var(--text); }
+.back { display: inline-block; margin-bottom: 14px; font-size: 0.92rem; }
+
+.hero { position: relative; overflow: hidden; padding: 28px 30px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); }
+.hero::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 6px; background: var(--c); }
+.badge { display: inline-block; padding: 4px 12px; border-radius: 999px; background: var(--c); color: #fff; font-size: 0.74rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+.hero h1 { margin: 12px 0 2px; font-size: 2rem; letter-spacing: -0.03em; }
+.tag { margin: 0 0 16px; color: var(--text-3); }
+.context p { margin: 0 0 8px; color: var(--text-2); }
+
+.files { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 16px 0 0; }
+.file { padding: 12px 14px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); }
+.file .xl { display: inline-block; padding: 3px 7px; border-radius: 6px; background: var(--xl-bg); color: var(--xl); font-size: 0.68rem; font-weight: 800; }
+.file h3 { margin: 6px 0 2px; font-size: 0.98rem; }
+.file p { margin: 0; font-size: 0.82rem; color: var(--text-3); }
+
+.tabs { position: sticky; top: 0; z-index: 5; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 22px 0 18px; padding: 10px 0; background: var(--bg); }
+.tabs button { font: inherit; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 14px; border: 2px solid var(--line); background: var(--surface); color: var(--text); text-align: left; }
+.tabs button .tn { display: grid; place-items: center; flex: none; width: 34px; height: 34px; border-radius: 10px; background: var(--soft); color: var(--ct); font-weight: 800; }
+.tabs button b { display: block; font-size: 1.02rem; }
+.tabs button small { color: var(--text-3); font-size: 0.82rem; }
+.tabs button.on { border-color: var(--ct); box-shadow: 0 0 0 1px var(--c); }
+.tabs button.on .tn { background: var(--c); color: #fff; }
+.panel { display: none; }
+.panel.on { display: block; }
+
+h2 { margin: 0 0 6px; font-size: 1.4rem; letter-spacing: -0.02em; }
+.lead { margin: 0 0 16px; color: var(--text-2); }
+.box { padding: 16px 20px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); margin-bottom: 14px; }
+.box h3 { margin: 0 0 8px; font-size: 1.08rem; }
+.box.intro { border-left: 4px solid var(--c); }
+.box ol, .box ul { margin: 6px 0 0; padding-left: 1.2rem; }
+.box li { margin: 5px 0; }
+
+table.t { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+table.t code { overflow-wrap: anywhere; }
+.box { overflow-x: auto; }
+table.t th { text-align: left; font-size: 0.74rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-3); padding: 6px 10px; border-bottom: 2px solid var(--line); }
+table.t td { padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.t td.num { font-weight: 800; color: var(--ct); white-space: nowrap; }
+
+.tcard { padding: 18px 20px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); margin-bottom: 16px; }
+.tcard-head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.tcard-head h3 { margin: 0; font-size: 1.2rem; }
+.kind { padding: 3px 10px; border-radius: 999px; background: var(--soft); color: var(--ct); font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; }
+.tcard .desc { margin: 6px 0 12px; color: var(--text-2); }
+.target-line { margin: 8px 0 12px; padding: 10px 14px; border-radius: 12px; background: var(--soft); font-size: 1rem; }
+.target-line b { color: var(--ct); }
+.target { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+.target div { padding: 10px 14px; border-radius: 12px; background: var(--soft); }
+.target b { display: block; font-size: 1.5rem; line-height: 1.1; color: var(--ct); }
+.target span { font-size: 0.84rem; color: var(--text-2); }
+.cols { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.cols span { padding: 4px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface-2); font-size: 0.84rem; }
+.cols span i { font-style: normal; color: var(--text-3); margin-left: 6px; font-size: 0.78rem; }
+.sub { margin: 14px 0 6px; font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-3); font-weight: 800; }
+.probs { margin: 0; padding-left: 1.3rem; }
+.probs li { margin: 5px 0; }
+.checks { margin: 0; padding: 0; list-style: none; }
+.checks li { margin: 5px 0; padding-left: 26px; position: relative; }
+.checks li::before { content: "✓"; position: absolute; left: 0; top: 0; width: 18px; height: 18px; border-radius: 50%; background: var(--ok-bg); color: var(--ok); font-size: 0.72rem; font-weight: 800; display: grid; place-items: center; }
+
+.help-btn { font: inherit; cursor: pointer; margin-top: 14px; padding: 8px 14px; border-radius: 10px; border: 1px dashed var(--c); background: var(--surface); color: var(--ct); font-weight: 700; }
+.help-btn:hover { background: var(--soft); }
+.help { display: none; margin-top: 10px; padding: 12px 16px; border-radius: 12px; background: var(--help-bg); border: 1px solid var(--help-line); }
+.help.on { display: block; }
+.help ol { margin: 0; padding-left: 1.2rem; }
+.help li { margin: 6px 0; font-size: 0.93rem; }
+
+.star { display: grid; grid-template-columns: 1fr 1.1fr 1fr; grid-template-rows: auto auto auto; gap: 12px; align-items: center; margin: 8px 0 4px; }
+.star .node { padding: 12px 14px; border-radius: 12px; background: var(--surface); border: 2px solid var(--line); text-align: center; }
+.star .node b { display: block; font-size: 1rem; }
+.star .node span { font-size: 0.8rem; color: var(--text-3); }
+.star .fact { grid-column: 2; grid-row: 2; border-color: var(--ct); background: var(--soft); }
+.star .n1 { grid-column: 2; grid-row: 1; } .star .n2 { grid-column: 1; grid-row: 2; } .star .n3 { grid-column: 3; grid-row: 2; } .star .n4 { grid-column: 2; grid-row: 3; }
+.star .key { display: inline-block; margin-top: 4px; padding: 1px 8px; border-radius: 6px; background: var(--surface-2); font-family: ui-monospace, monospace; font-size: 0.76rem; color: var(--text); }
+
+.fmt { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 18px; margin: 6px 0 0; padding: 0; list-style: none; }
+.fmt li { padding-left: 22px; position: relative; font-size: 0.93rem; }
+.fmt li::before { content: "◆"; position: absolute; left: 2px; color: var(--ct); font-size: 0.7rem; top: 4px; }
+
+.meas td:first-child { font-weight: 700; white-space: nowrap; }
+.f-btn { font: inherit; cursor: pointer; padding: 4px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); font-size: 0.82rem; font-weight: 600; }
+.f-btn:hover { border-color: var(--ct); color: var(--ct); }
+pre.dax { display: none; margin: 8px 0 0; padding: 10px 12px; border-radius: 10px; background: var(--code); color: #e2e8f0; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 0.82rem; white-space: pre-wrap; }
+pre.dax.on { display: block; }
+
+.rpage { padding: 20px 22px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); border-top: 5px solid var(--c); margin-bottom: 18px; }
+.rpage .pn { display: inline-block; padding: 3px 10px; border-radius: 999px; background: var(--soft); color: var(--ct); font-size: 0.74rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+.rpage h3 { margin: 8px 0 6px; font-size: 1.3rem; }
+.story { margin: 0 0 6px; padding: 12px 14px; border-radius: 12px; background: var(--surface-2); border-left: 3px solid var(--c); color: var(--text-2); }
+.story b { color: var(--text); }
+.kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.kpis div { padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); }
+.kpis b { display: block; font-family: ui-monospace, monospace; font-size: 0.88rem; }
+.kpis span { display: block; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-3); }
+.vis { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.vis article { padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface-2); }
+.vis .vl { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 7px; background: var(--c); color: #fff; font-size: 0.78rem; font-weight: 800; margin-right: 8px; }
+.vis h4 { display: flex; align-items: center; margin: 0 0 8px; font-size: 1rem; }
+.vis dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; font-size: 0.88rem; }
+.vis dt { color: var(--text-3); }
+.vis dd { margin: 0; }
+.vis .need { margin-top: 8px; font-size: 0.82rem; color: var(--text-2); }
+.m-tag, .c-tag { display: inline-block; margin-left: 4px; padding: 0 6px; border-radius: 6px; font-size: 0.7rem; font-weight: 800; vertical-align: 1px; }
+.m-tag { background: var(--m-bg); color: var(--m); }
+.c-tag { background: var(--cc-bg); color: var(--cc); }
+.slicers { display: flex; flex-wrap: wrap; gap: 8px; }
+.deadline { margin: 0 0 10px; padding: 12px 16px; border-radius: 12px; background: var(--soft); border: 1px solid var(--c); font-size: 1.02rem; }
+.slicers span { padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); font-size: 0.88rem; font-family: ui-monospace, monospace; }
+
+@media (max-width: 820px) {
+  .vis, .fmt, .kpis { grid-template-columns: 1fr; }
+  .files { grid-template-columns: 1fr 1fr; }
+  .tabs { grid-template-columns: 1fr; position: static; }
+  .star { grid-template-columns: 1fr; }
+  .star .node { grid-column: auto !important; grid-row: auto !important; }
+}
+
+.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.topbar .back { margin: 0; }
+.theme-btn { font: inherit; cursor: pointer; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--text-2); font-size: 0.85rem; font-weight: 600; }
+.theme-btn:hover { color: var(--text); border-color: var(--ct); }
+</style>
+  <style>:root { --c: #DC2626; }</style>
+</head>
+<body>
+  <main>
+    <div class="topbar"><a class="back" href="../index.html">← Toate seturile de date</a><button type="button" class="theme-btn" data-theme-btn>☀ Temă deschisă</button></div>
+    <header class="hero">
+      <span class="badge">Temă · Sesiunea 6</span>
+      <h1>CafeLoop</h1>
+      <p class="tag">rețea de cafenele · HoReCa</p>
+      <div class="context"><p>CafeLoop are cafenele în 9 orașe: stradale, în mall, în aeroport și pe campusuri. Vinde cafea, ceai, patiserie, sandvișuri și cafea boabe la pachet.</p><p>Managementul vrea un raport de 2 pagini: cum merge rețeaua și ce, cui și pe ce canal se vinde.</p></div>
+    </header>
+    <div class="files"><a class="file" href="Vanzari.xlsx" download><span class="xl">XLSX</span><h3>Vanzari.xlsx</h3><p>fact · tranzacțiile</p></a><a class="file" href="Clienti.xlsx" download><span class="xl">XLSX</span><h3>Clienti.xlsx</h3><p>dimensiune</p></a><a class="file" href="Produse.xlsx" download><span class="xl">XLSX</span><h3>Produse.xlsx</h3><p>dimensiune</p></a><a class="file" href="Cafenele.xlsx" download><span class="xl">XLSX</span><h3>Cafenele.xlsx</h3><p>dimensiune</p></a><a class="file" href="Calendar.xlsx" download><span class="xl">XLSX</span><h3>Calendar.xlsx</h3><p>dimensiune de timp</p></a></div>
+
+    <nav class="tabs">
+      <button type="button" data-tab="curatare"><span class="tn">1</span><span><b>Curățare</b><small>Power Query · 5 tabele</small></span></button>
+      <button type="button" data-tab="model"><span class="tn">2</span><span><b>Model</b><small>star schema · 4 relații</small></span></button>
+      <button type="button" data-tab="raport"><span class="tn">3</span><span><b>Raport</b><small>2 pagini · KPI, vizuale, slicere</small></span></button>
+    </nav>
+    
+    <section class="panel" id="curatare">
+      <h2>Pasul 1 · Curățarea datelor</h2>
+      <p class="lead">Datele vin din sisteme diferite și au greșeli. Le curățați în <b>Power Query</b>, fără să modificați fișierele Excel.</p>
+      <div class="box intro">
+        <h3>Cum începeți</h3>
+        <ol>
+          <li>Power BI Desktop → <b>Get data → Excel workbook</b> → alegeți primul fișier → bifați foaia → <b>Transform Data</b>.</li>
+          <li><b>Important:</b> la încărcare, Power Query adaugă singur doi pași în <b>Applied Steps</b>: <i>Promoted Headers</i> și <i>Changed Type</i>. Ștergeți-i pe amândoi (✕), ca să lucrați pe datele exact cum sunt în Excel. Antetul îl alegeți voi, după ce scoateți rândurile de titlu.</li>
+          <li>Repetați pentru toate cele 5 fișiere. În Power Query, în stânga, aveți câte o interogare pentru fiecare tabel. Numele interogării trebuie să fie exact numele din tabelul de mai jos (de exemplu <code>Vanzari</code>).</li>
+          <li>Rezolvați problemele fiecărui tabel, în ordinea din listă. Fiecare pas apare în dreapta, la <b>Applied Steps</b>: dacă greșiți, ștergeți pasul cu ✕.</li>
+          <li>Verificați rezultatul cu cifrele de control. Abia apoi <b>Home → Close &amp; Apply</b>.</li>
+        </ol>
+      </div>
+      <div class="box">
+        <h3>Ce trebuie să obțineți</h3>
+        <table class="t"><thead><tr><th>Tabel</th><th>Rânduri</th><th>Coloane</th></tr></thead><tbody><tr><td><b>Vanzari</b> <span class='kind'>Fact</span></td><td class='num'>236</td><td class='num'>11</td></tr><tr><td><b>Clienti</b> <span class='kind'>Dimensiune</span></td><td class='num'>30</td><td class='num'>7</td></tr><tr><td><b>Produse</b> <span class='kind'>Dimensiune</span></td><td class='num'>20</td><td class='num'>5</td></tr><tr><td><b>Cafenele</b> <span class='kind'>Dimensiune</span></td><td class='num'>10</td><td class='num'>8</td></tr><tr><td><b>Calendar</b> <span class='kind'>Dimensiune</span></td><td class='num'>731</td><td class='num'>7</td></tr></tbody></table>
+      </div>
+      <article class="tcard">
+        <div class="tcard-head"><h3>Vanzari</h3><span class="kind">Fact (tabelul de fapte)</span><code>Vanzari.xlsx</code></div>
+        <p class="target-line">După curățare: <b>236 rânduri</b> · <b>11 coloane</b></p>
+        <p class="sub">Coloanele finale și tipul fiecăreia</p>
+        <div class="cols"><span>ID_Bon<i>Număr întreg</i></span><span>Data<i>Dată</i></span><span>ID_Client<i>Număr întreg</i></span><span>ID_Produs<i>Număr întreg</i></span><span>ID_Cafenea<i>Număr întreg</i></span><span>Cantitate<i>Număr întreg</i></span><span>Pret_Unitar<i>Număr zecimal</i></span><span>Discount_Pct<i>Număr întreg</i></span><span>Valoare_Totala<i>Număr zecimal</i></span><span>Canal<i>Text</i></span><span>Status<i>Text</i></span></div>
+        <p class="sub">Cifre de control după curățare</p>
+        <ul class="checks"><li>Suma coloanei Valoare_Totala = <b>6.692,60</b>.</li><li>Status are doar 2 valori: Platit (214 rânduri) și Anulat (22 rânduri).</li><li>Canal are exact 4 valori: Aplicatie, Corporate, La casa, Livrare.</li><li>Prima tranzacție este din 03.01.2024, ultima din 27.12.2025.</li></ul>
+        <button type="button" class="help-btn" data-toggle="help-fact" data-on="Ajutor suplimentar: ce trebuie rezolvat și cum" data-off="Ascunde ajutorul">Ajutor suplimentar: ce trebuie rezolvat și cum</button>
+        <div class="help" id="help-fact"><p class="sub">Ce trebuie rezolvat</p><ol class="probs"><li>Primele 2 rânduri sunt titlul exportului, nu date. Antetul real este pe rândul 3.</li><li>Ultimul rând este un total („Total linii export: …”), nu o tranzacție.</li><li>Există un rând complet gol, la mijlocul tabelului.</li><li>3 tranzacții apar de două ori (rânduri identice). ID_Bon trebuie să fie unic: ID-urile dublate sunt 10100, 10143, 10164.</li><li>Data este text în formatul zz.ll.aaaa și trebuie transformată în dată.</li><li>Cantitate are 33 valori scrise cu text, de exemplu „3 buc”. Trebuie să rămână doar numărul.</li><li>ID_Client are 12 valori cu spații înainte și după număr.</li><li>Status este scris în mai multe feluri (ANULAT, PLATIT, anulat, platit, « Platit»). La final trebuie să existe doar 2 valori: Platit și Anulat.</li><li>Canal are 18 valori cu spații la final.</li></ol><p class="sub">Cum faceți pașii în Power Query</p><ol><li><b>Elimină rândurile de titlu:</b> Home → Remove Rows → <b>Remove Top Rows</b> → scrii 2. Apoi Home → <b>Use First Row as Headers</b>. Verifică: primul rând din tabel trebuie să fie primul rând cu date.</li><li><b>Rândul de total de la final:</b> Home → Remove Rows → <b>Remove Bottom Rows</b> → scrii 1.</li><li><b>Rândul gol:</b> Home → Remove Rows → <b>Remove Blank Rows</b>.</li><li><b>Dubluri:</b> click pe antetul coloanei <code>ID_Bon</code> → Home → Remove Rows → <b>Remove Duplicates</b>. Power Query păstrează prima apariție a fiecărui ID.</li><li><b>Data e text în format românesc (zz.ll.aaaa).</b> Click dreapta pe antetul coloanei <code>Data</code> → Change Type → <b>Using Locale…</b> → Data Type: <b>Date</b>, Locale: <b>Romanian (Romania)</b> → OK. Dacă alegi simplu „Date”, Power BI poate inversa ziua cu luna sau poate da erori.</li><li><b>„buc” din cantitate:</b> coloana are și numere, și text, deci întâi click dreapta pe <code>Cantitate</code> → Change Type → <b>Text</b>. Apoi Transform → <b>Replace Values</b>: Value To Find = <code> buc</code> (cu spațiu în față), Replace With = gol. Apoi Change Type → <b>Whole Number</b>.</li><li><b>Spații în ID:</b> click dreapta pe <code>ID_Client</code> → Change Type → <b>Text</b> (coloana are și numere, și text), apoi Transform → Format → <b>Trim</b>, apoi Change Type → <b>Whole Number</b>.</li><li><b>Status:</b> selectezi <code>Status</code> → Transform → Format → <b>Trim</b>, apoi Format → <b>Capitalize Each Word</b>. „platit”, „PLATIT” și „ Platit” devin toate „Platit”.</li><li><b>Spații în plus:</b> selectezi coloana <code>Canal</code> → Transform → Format → <b>Trim</b>. Trim șterge spațiile de la început și de la final.</li><li><b>Tipurile de date:</b> la final verifică pictograma din stânga fiecărui antet: ID-urile și Discount_Pct = 1²³ (Whole Number), prețul și valoarea = 1.2 (Decimal Number), data = calendar (Date), restul = ABC (Text).</li></ol></div>
+      </article>
+      <article class="tcard">
+        <div class="tcard-head"><h3>Clienti</h3><span class="kind">Dimensiune</span><code>Clienti.xlsx</code></div>
+        <p class="target-line">După curățare: <b>30 rânduri</b> · <b>7 coloane</b></p>
+        <p class="sub">Coloanele finale și tipul fiecăreia</p>
+        <div class="cols"><span>ID_Client<i>Număr întreg</i></span><span>Nume_Client<i>Text</i></span><span>Tip_Client<i>Text</i></span><span>Oras<i>Text</i></span><span>Regiune<i>Text</i></span><span>Segment<i>Text</i></span><span>Data_Inregistrare<i>Dată</i></span></div>
+        <p class="sub">Cifre de control după curățare</p>
+        <ul class="checks"><li>Tip_Client: PF = <b>23</b> rânduri, PJ = <b>7</b> rânduri.</li><li>ID_Client merge de la 1 la 30, fără dubluri.</li></ul>
+        <button type="button" class="help-btn" data-toggle="help-cli" data-on="Ajutor suplimentar: ce trebuie rezolvat și cum" data-off="Ascunde ajutorul">Ajutor suplimentar: ce trebuie rezolvat și cum</button>
+        <div class="help" id="help-cli"><p class="sub">Ce trebuie rezolvat</p><ol class="probs"><li>Primele 2 rânduri sunt titluri. Antetul real este pe rândul 3.</li><li>Tip_Client este scris în două feluri: „PF” / „PJ” și „Persoana Fizica” / „Persoana Juridica” (7 rânduri). La final rămân doar PF și PJ.</li><li>Oras are 11 valori cu spațiu la final.</li><li>Clientul cu ID_Client = 22 apare de două ori (rând identic, la finalul tabelului).</li><li>Data_Inregistrare este text în formatul zz.ll.aaaa.</li></ol><p class="sub">Cum faceți pașii în Power Query</p><ol><li><b>Elimină rândurile de titlu:</b> Home → Remove Rows → <b>Remove Top Rows</b> → scrii 2. Apoi Home → <b>Use First Row as Headers</b>. Verifică: primul rând din tabel trebuie să fie primul rând cu date.</li><li><b>Tip_Client:</b> selectezi coloana → Transform → <b>Replace Values</b>: „Persoana Fizica” → „PF”. Repeți pentru „Persoana Juridica” → „PJ”.</li><li><b>Spații în plus:</b> selectezi coloana <code>Oras</code> → Transform → Format → <b>Trim</b>. Trim șterge spațiile de la început și de la final.</li><li><b>Dublura:</b> click pe antetul <code>ID_Client</code> → Home → Remove Rows → <b>Remove Duplicates</b>.</li><li><b>Data e text în format românesc (zz.ll.aaaa).</b> Click dreapta pe antetul coloanei <code>Data_Inregistrare</code> → Change Type → <b>Using Locale…</b> → Data Type: <b>Date</b>, Locale: <b>Romanian (Romania)</b> → OK. Dacă alegi simplu „Date”, Power BI poate inversa ziua cu luna sau poate da erori.</li></ol></div>
+      </article>
+      <article class="tcard">
+        <div class="tcard-head"><h3>Produse</h3><span class="kind">Dimensiune</span><code>Produse.xlsx</code></div>
+        <p class="target-line">După curățare: <b>20 rânduri</b> · <b>5 coloane</b></p>
+        <p class="sub">Coloanele finale și tipul fiecăreia</p>
+        <div class="cols"><span>ID_Produs<i>Număr întreg</i></span><span>Cod_Produs<i>Text</i></span><span>Nume_Produs<i>Text</i></span><span>Categorie<i>Text</i></span><span>Pret_Lista<i>Număr zecimal</i></span></div>
+        <p class="sub">Cifre de control după curățare</p>
+        <ul class="checks"><li>Categorie nu mai are nicio celulă goală și are 5 valori: Cafea, Ceai, Patiserie, Sandvisuri, Boabe si accesorii.</li><li>Pret_Lista este număr pe toate cele 20 rânduri (nicio eroare, nimic aliniat la stânga).</li></ul>
+        <button type="button" class="help-btn" data-toggle="help-prod" data-on="Ajutor suplimentar: ce trebuie rezolvat și cum" data-off="Ascunde ajutorul">Ajutor suplimentar: ce trebuie rezolvat și cum</button>
+        <div class="help" id="help-prod"><p class="sub">Ce trebuie rezolvat</p><ol class="probs"><li>Primul rând este un titlu, iar al doilea este un antet vechi (Cod, Denumire, Cat.…). Antetul bun este pe rândul 3.</li><li>Categorie este completată doar pe primul rând din fiecare grup; rândurile de sub el sunt goale și trebuie completate cu aceeași categorie.</li><li>Pret_Lista are 4 valori scrise ca text, de exemplu „35 lei”.</li><li>Nume_Produs are 3 valori cu spații înainte sau după.</li></ol><p class="sub">Cum faceți pașii în Power Query</p><ol><li><b>Elimină rândurile de titlu:</b> Home → Remove Rows → <b>Remove Top Rows</b> → scrii 2. Apoi Home → <b>Use First Row as Headers</b>. Verifică: primul rând din tabel trebuie să fie primul rând cu date.</li><li><b>Categoria lipsă:</b> click pe antetul <code>Categorie</code> → Transform → <b>Fill → Down</b>. Fiecare celulă goală primește valoarea de deasupra ei.</li><li><b>„lei” din preț:</b> click dreapta pe <code>Pret_Lista</code> → Change Type → <b>Text</b> (coloana are și numere, și text). Apoi Transform → <b>Replace Values</b>: <code> lei</code> (cu spațiu în față) → gol. Apoi Change Type → <b>Decimal Number</b>.</li><li><b>Spații în plus:</b> selectezi coloana <code>Nume_Produs</code> → Transform → Format → <b>Trim</b>. Trim șterge spațiile de la început și de la final.</li></ol></div>
+      </article>
+      <article class="tcard">
+        <div class="tcard-head"><h3>Cafenele</h3><span class="kind">Dimensiune</span><code>Cafenele.xlsx</code></div>
+        <p class="target-line">După curățare: <b>10 rânduri</b> · <b>8 coloane</b></p>
+        <p class="sub">Coloanele finale și tipul fiecăreia</p>
+        <div class="cols"><span>ID_Cafenea<i>Număr întreg</i></span><span>Nume_Cafenea<i>Text</i></span><span>Oras<i>Text</i></span><span>Regiune<i>Text</i></span><span>Format<i>Text</i></span><span>Suprafata_mp<i>Număr întreg</i></span><span>Latitudine<i>Număr zecimal</i></span><span>Longitudine<i>Număr zecimal</i></span></div>
+        <p class="sub">Cifre de control după curățare</p>
+        <ul class="checks"><li>Regiune are exact 7 valori, toate cu cratimă unde e cazul: Bucuresti-Ilfov, Centru, Nord-Est, Nord-Vest, Sud-Est, Sud-Vest, Vest.</li><li>Latitudine este între 43 și 48, Longitudine între 20 și 30 (numere, nu text).</li></ul>
+        <button type="button" class="help-btn" data-toggle="help-loc" data-on="Ajutor suplimentar: ce trebuie rezolvat și cum" data-off="Ascunde ajutorul">Ajutor suplimentar: ce trebuie rezolvat și cum</button>
+        <div class="help" id="help-loc"><p class="sub">Ce trebuie rezolvat</p><ol class="probs"><li>Primele 2 rânduri sunt titluri. Antetul real este pe rândul 3.</li><li>Regiune este scrisă cu spațiu în loc de cratimă pe unele rânduri: „Bucuresti Ilfov” → „Bucuresti-Ilfov”, „Nord Vest” → „Nord-Vest”.</li><li>Suprafata_mp are 5 valori cu „mp” scris după număr.</li><li>Latitudine și Longitudine sunt text cu virgulă (46,7712) și trebuie să devină numere zecimale.</li></ol><p class="sub">Cum faceți pașii în Power Query</p><ol><li><b>Elimină rândurile de titlu:</b> Home → Remove Rows → <b>Remove Top Rows</b> → scrii 2. Apoi Home → <b>Use First Row as Headers</b>. Verifică: primul rând din tabel trebuie să fie primul rând cu date.</li><li><b>Regiune:</b> selectezi coloana → Transform → <b>Replace Values</b>, câte o dată pentru fiecare variantă greșită: „Bucuresti Ilfov” → „Bucuresti-Ilfov”, „Nord Vest” → „Nord-Vest”.</li><li><b>Suprafata_mp:</b> întâi Change Type → <b>Text</b> (coloana are și numere, și text). Apoi Replace Values <code> mp</code> (cu spațiu în față) → gol. Apoi Change Type → <b>Whole Number</b>.</li><li><b>Coordonatele:</b> click dreapta pe <code>Latitudine</code> → Change Type → <b>Using Locale…</b> → Decimal Number, <b>Romanian (Romania)</b>. Repeți pentru <code>Longitudine</code>. În română virgula este separatorul zecimal, deci 46,7712 devine 46.7712.</li></ol></div>
+      </article>
+      <article class="tcard">
+        <div class="tcard-head"><h3>Calendar</h3><span class="kind">Dimensiune de timp</span><code>Calendar.xlsx</code></div>
+        <p class="target-line">După curățare: <b>731 rânduri</b> · <b>7 coloane</b></p>
+        <p class="sub">Coloanele finale și tipul fiecăreia</p>
+        <div class="cols"><span>Data<i>Dată</i></span><span>An<i>Număr întreg</i></span><span>Luna<i>Număr întreg</i></span><span>Luna_Nume<i>Text</i></span><span>Trimestru<i>Text</i></span><span>Zi_Saptamana<i>Text</i></span><span>Nr_Zi<i>Număr întreg</i></span></div>
+        <p class="sub">Cifre de control după curățare</p>
+        <ul class="checks"><li>Prima zi este 01.01.2024, ultima 31.12.2025, fără zile lipsă.</li><li>Trimestru are exact 4 valori: T1, T2, T3, T4. Luna_Nume are exact 12 valori.</li></ul>
+        <button type="button" class="help-btn" data-toggle="help-cal" data-on="Ajutor suplimentar: ce trebuie rezolvat și cum" data-off="Ascunde ajutorul">Ajutor suplimentar: ce trebuie rezolvat și cum</button>
+        <div class="help" id="help-cal"><p class="sub">Ce trebuie rezolvat</p><ol class="probs"><li>Primul rând este un titlu. Antetul real este pe rândul 2.</li><li>Data este text în formatul zz.ll.aaaa.</li><li>Trimestru este scris în două feluri: „T1” și „Trim 1” (223 rânduri). La final trebuie să existe doar T1, T2, T3, T4.</li><li>Luna_Nume are 80 valori scrise cu literă mică (de exemplu „martie”).</li></ol><p class="sub">Cum faceți pașii în Power Query</p><ol><li><b>Elimină rândurile de titlu:</b> Home → Remove Rows → <b>Remove Top Rows</b> → scrii 1. Apoi Home → <b>Use First Row as Headers</b>. Verifică: primul rând din tabel trebuie să fie primul rând cu date.</li><li><b>Data e text în format românesc (zz.ll.aaaa).</b> Click dreapta pe antetul coloanei <code>Data</code> → Change Type → <b>Using Locale…</b> → Data Type: <b>Date</b>, Locale: <b>Romanian (Romania)</b> → OK. Dacă alegi simplu „Date”, Power BI poate inversa ziua cu luna sau poate da erori.</li><li><b>Trimestru:</b> selectezi coloana → Transform → <b>Replace Values</b>: <code>Trim </code> (cu spațiu la final) → <code>T</code>. „Trim 1” devine „T1”.</li><li><b>Luna_Nume:</b> selectezi coloana → Transform → Format → <b>Capitalize Each Word</b>.</li></ol></div>
+      </article>
+    </section>
+    
+    <section class="panel" id="model">
+      <h2>Pasul 2 · Modelul de date (star schema)</h2>
+      <p class="lead">Tabelul <b>Vanzari</b> stă în centru. Fiecare dimensiune se leagă de el printr-o singură coloană-cheie.</p>
+      <div class="box">
+        <h3>Cum arată modelul</h3>
+        <div class="star">
+          <div class="node n1"><b>Clienti</b><span>dimensiune</span><br><span class="key">ID_Client</span></div>
+          <div class="node n2"><b>Produse</b><span>dimensiune</span><br><span class="key">ID_Produs</span></div>
+          <div class="node fact"><b>Vanzari</b><span>fact · tabelul din centru</span></div>
+          <div class="node n3"><b>Cafenele</b><span>dimensiune</span><br><span class="key">ID_Cafenea</span></div>
+          <div class="node n4"><b>Calendar</b><span>dimensiune de timp</span><br><span class="key">Data</span></div>
+        </div>
+      </div>
+      <div class="box">
+        <h3>Cele 4 relații, exact</h3>
+        <table class="t"><thead><tr><th>Din (partea „mulți”)</th><th></th><th>În (partea „unu”)</th><th>Cardinalitate</th><th>Direcție filtru</th></tr></thead><tbody><tr><td><code>Vanzari[ID_Client]</code></td><td>→</td><td><code>Clienti[ID_Client]</code></td><td>Many to one (*:1)</td><td>Single</td></tr><tr><td><code>Vanzari[ID_Produs]</code></td><td>→</td><td><code>Produse[ID_Produs]</code></td><td>Many to one (*:1)</td><td>Single</td></tr><tr><td><code>Vanzari[ID_Cafenea]</code></td><td>→</td><td><code>Cafenele[ID_Cafenea]</code></td><td>Many to one (*:1)</td><td>Single</td></tr><tr><td><code>Vanzari[Data]</code></td><td>→</td><td><code>Calendar[Data]</code></td><td>Many to one (*:1)</td><td>Single</td></tr></tbody></table>
+        <p class="lead" style="margin:10px 0 0">În fiecare dimensiune, cheia apare <b>o singură dată</b> (de exemplu un client apare o dată în <code>Clienti</code>). În <code>Vanzari</code> aceeași cheie apare de <b>multe ori</b> (un client are multe tranzacții). De aceea relația este <b>*:1</b>.</p>
+      </div>
+      <div class="box">
+        <h3>Pașii în Power BI</h3>
+        <ol>
+          <li>Deschideți <b>Model view</b> (a treia pictogramă din stânga).</li>
+          <li>Power BI poate crea singur unele relații. Deschideți <b>Home → Manage relationships</b> și comparați cu tabelul de mai sus. Ștergeți orice relație care nu este în listă.</li>
+          <li>Pentru fiecare relație lipsă: trageți coloana din <code>Vanzari</code> peste coloana cu același nume din dimensiune (pentru Calendar: <code>Data</code> peste <code>Data</code>).</li>
+          <li>Dublu-click pe linia relației și verificați: Cardinality = <b>Many to one (*:1)</b>, Cross filter direction = <b>Single</b>.</li>
+          <li>Selectați tabelul <b>Calendar</b> → Table tools → <b>Mark as date table</b> → coloana <code>Data</code>.</li>
+          <li>În Calendar, selectați coloana <code>Luna_Nume</code> → Column tools → <b>Sort by column</b> → <code>Luna</code>. Altfel lunile apar în ordine alfabetică (August, Aprilie, Decembrie…).</li>
+        </ol>
+        <button type="button" class="help-btn" data-toggle="help-model" data-on="Ajutor suplimentar: cum verific modelul?" data-off="Ascunde ajutorul">Ajutor suplimentar: cum verific modelul?</button>
+        <div class="help" id="help-model"><ol>
+          <li><b>Uitați-vă la capetele liniilor:</b> lângă dimensiune trebuie să scrie <b>1</b>, lângă <code>Vanzari</code> trebuie să scrie <b>*</b>. Săgeata merge de la dimensiune spre fact.</li>
+          <li><b>Dacă Power BI spune „many to many”</b>, cheia din dimensiune nu este unică: ați uitat să eliminați o dublură la curățare. Întoarceți-vă în Power Query (Home → Transform data).</li>
+          <li><b>Dacă relația nu se poate crea pe dată</b>, una dintre coloane este încă text. Ambele (<code>Vanzari[Data]</code> și <code>Calendar[Data]</code>) trebuie să fie de tip Date.</li>
+          <li><b>Testul final:</b> puneți un slicer cu <code>Cafenele[Regiune]</code> și un card cu suma <code>Valoare_Totala</code>. Când schimbați regiunea, cardul trebuie să se schimbe. Dacă nu se schimbă, relația lipsește sau e greșită.</li>
+        </ol></div>
+      </div>
+    </section>
+    
+    <section class="panel" id="raport">
+      <h2>Pasul 3 · Raportul (2 pagini)</h2>
+      <p class="lead">Fiecare pagină are o poveste: o întrebare la care trebuie să răspundă. Pentru fiecare pagină primiți cardurile KPI, vizualele (cu câmpurile exacte) și slicerele. <b>Vizualele sunt date în ordine amestecată:</b> voi decideți unde stă fiecare în pagină, ca povestea să se citească de sus în jos.</p>
+      <div class="box intro">
+        <h3>Ordinea de lucru</h3>
+        <ol>
+          <li>Creați întâi <b>măsurile</b> și <b>coloanele calculate</b> de mai jos. Selectați tabelul <code>Vanzari</code> în panoul Data, apoi Home → <b>New measure</b>.</li>
+          <li>Verificați fiecare măsură într-un card: fără filtre trebuie să dea exact valoarea din tabel.</li>
+          <li>Construiți pagina 1, apoi pagina 2: carduri KPI, vizuale, slicere.</li>
+          <li>Unde scrie <b>Filtru pe vizual</b>: selectați vizualul → panoul <b>Filters</b> → secțiunea <i>Filters on this visual</i> → trageți câmpul și setați condiția (pentru Top N: Filter type = <b>Top N</b>).</li>
+          <li>Formatați fiecare vizual (vezi lista de mai jos) și dați fiecărei pagini un titlu.</li>
+        </ol>
+      </div>
+      <div class="box">
+        <h3>Măsuri de creat</h3>
+        <table class="t meas"><thead><tr><th>Măsura</th><th>Ce calculează</th><th>Fără filtre</th><th></th></tr></thead><tbody><tr><td>[Total Vanzari]</td><td>Valoarea tuturor bonurilor.<pre class='dax' id='f-m0'>Total Vanzari =
+SUM ( Vanzari[Valoare_Totala] )</pre></td><td class='num'>6.692,60 lei</td><td><button type='button' class='f-btn' data-toggle='f-m0' data-on='Arată formula' data-off='Ascunde formula'>Arată formula</button></td></tr><tr><td>[Nr Bonuri]</td><td>Câte bonuri (linii de vânzare) există.<pre class='dax' id='f-m1'>Nr Bonuri =
+COUNTROWS ( Vanzari )</pre></td><td class='num'>236</td><td><button type='button' class='f-btn' data-toggle='f-m1' data-on='Arată formula' data-off='Ascunde formula'>Arată formula</button></td></tr><tr><td>[Valoare medie bon]</td><td>Cât valorează, în medie, un bon.<pre class='dax' id='f-m2'>Valoare medie bon =
+DIVIDE ( [Total Vanzari], [Nr Bonuri] )</pre></td><td class='num'>28,36 lei</td><td><button type='button' class='f-btn' data-toggle='f-m2' data-on='Arată formula' data-off='Ascunde formula'>Arată formula</button></td></tr><tr><td>[Clienti activi]</td><td>Câți clienți diferiți au cumpărat.<pre class='dax' id='f-m3'>Clienti activi =
+DISTINCTCOUNT ( Vanzari[ID_Client] )</pre></td><td class='num'>27</td><td><button type='button' class='f-btn' data-toggle='f-m3' data-on='Arată formula' data-off='Ascunde formula'>Arată formula</button></td></tr><tr><td>[Vanzari fara anulate]</td><td>Vânzările fără bonurile anulate.<pre class='dax' id='f-m4'>Vanzari fara anulate =
+CALCULATE ( [Total Vanzari], Vanzari[Status] &lt;&gt; "Anulat" )</pre></td><td class='num'>5.925,55 lei</td><td><button type='button' class='f-btn' data-toggle='f-m4' data-on='Arată formula' data-off='Ascunde formula'>Arată formula</button></td></tr><tr><td>[% din total]</td><td>Ce procent din toate vânzările face fiecare categorie. Format: Percentage.<pre class='dax' id='f-m5'>% din total =
+DIVIDE ( [Total Vanzari], CALCULATE ( [Total Vanzari], ALL ( Produse[Categorie] ) ) )</pre></td><td class='num'>100% (fără filtre)</td><td><button type='button' class='f-btn' data-toggle='f-m5' data-on='Arată formula' data-off='Ascunde formula'>Arată formula</button></td></tr></tbody></table>
+      </div>
+      <div class="box">
+        <h3>Coloane calculate</h3>
+        <table class="t meas"><thead><tr><th>Coloana</th><th>Ce face</th><th></th></tr></thead><tbody><tr><td>Calendar[Tip_Zi]</td><td>Eticheta Weekend / Zi lucratoare pentru fiecare zi. Se creează din Table view → selectați tabelul <b>Calendar</b> → Table tools → <b>New column</b>.<pre class='dax' id='f-c0'>Tip_Zi =
+IF ( Calendar[Nr_Zi] &gt;= 6, "Weekend", "Zi lucratoare" )</pre></td><td><button type='button' class='f-btn' data-toggle='f-c0' data-on='Arată formula' data-off='Ascunde formula'>Arată formula</button></td></tr></tbody></table>
+      </div>
+      <div class="box">
+        <h3>Formatare · pentru fiecare vizual</h3>
+        <ul class="fmt">
+          <li><b>Titlu</b> care spune ce arată vizualul, nu numele câmpurilor („Vânzări pe luni, 2024 vs 2025”).</li>
+          <li><b>Data labels</b> pornite unde ajută la citire; numere rotunjite (mii, fără zecimale inutile).</li>
+          <li><b>Culori:</b> o culoare principală pentru toată pagina și aceeași culoare pentru aceeași categorie peste tot.</li>
+          <li><b>Sortare:</b> barele de la cea mai mare la cea mai mică; lunile în ordinea calendarului.</li>
+          <li><b>Axe:</b> titluri clare sau scoase dacă se înțelege; fără gridlines inutile.</li>
+          <li><b>Carduri KPI:</b> etichetă scurtă, unitate (lei, %), același stil pe toate.</li>
+          <li><b>Slicere:</b> stil Dropdown sau Tile, aliniate, cu titlu.</li>
+          <li><b>Pagina:</b> un titlu sus, vizualele aliniate și de aceeași dimensiune unde se poate.</li>
+        </ul>
+      </div>
+      
+      <article class="rpage">
+        <span class="pn">Pagina 1 din 2</span>
+        <h3>Performanța rețelei</h3>
+        <p class="sub">Povestea paginii</p>
+        <p class="story">Directorul de operațiuni vrea să vadă dintr-o privire cât vinde rețeaua CafeLoop, cum se schimbă vânzările de la o lună la alta (iarna față de vară) și ce cafenele trag rețeaua în sus. Pagina răspunde la întrebarea: merge bine rețeaua, când și unde?</p>
+        <p class="sub">Ce puneți pe pagină</p>
+        <div class="vis"><article><h4><span class='vl'>A</span>Pie chart</h4><dl><dt>Legendă</dt><dd>Cafenele[Oras]</dd><dt>Valori</dt><dd>[Total Vanzari]<span class="m-tag">măsură</span></dd></dl></article><article><h4><span class='vl'>B</span>Clustered column chart</h4><dl><dt>Axa X</dt><dd>Cafenele[Format]</dd><dt>Axa Y</dt><dd>[Valoare medie bon]<span class="m-tag">măsură</span></dd></dl><p class='need'>Înainte creați: măsura <b>[Valoare medie bon]</b>.</p></article><article><h4><span class='vl'>C</span>Line chart</h4><dl><dt>Axa X</dt><dd>Calendar[Luna_Nume]</dd><dt>Axa Y</dt><dd>[Total Vanzari]<span class="m-tag">măsură</span></dd><dt>Legendă</dt><dd>Calendar[An]</dd></dl></article><article><h4><span class='vl'>D</span>Card</h4><dl><dt>Câmp</dt><dd>[Nr Bonuri]<span class="m-tag">măsură</span></dd></dl><p class='need'>Înainte creați: măsura <b>[Nr Bonuri]</b>.</p></article><article><h4><span class='vl'>E</span>Clustered bar chart</h4><dl><dt>Axa Y</dt><dd>Cafenele[Nume_Cafenea]</dd><dt>Axa X</dt><dd>[Total Vanzari]<span class="m-tag">măsură</span></dd><dt>Filtru pe vizual</dt><dd>Vanzari[Status] = "Platit"</dd></dl></article><article><h4><span class='vl'>F</span>Slicer</h4><dl><dt>Câmp</dt><dd>Cafenele[Regiune]</dd></dl></article><article><h4><span class='vl'>G</span>Card</h4><dl><dt>Câmp</dt><dd>[Total Vanzari]<span class="m-tag">măsură</span></dd></dl></article><article><h4><span class='vl'>H</span>Card</h4><dl><dt>Câmp</dt><dd>[Valoare medie bon]<span class="m-tag">măsură</span></dd></dl><p class='need'>Înainte creați: măsura <b>[Valoare medie bon]</b>.</p></article><article><h4><span class='vl'>I</span>Slicer</h4><dl><dt>Câmp</dt><dd>Calendar[An]</dd></dl></article></div>
+      </article>
+      <article class="rpage">
+        <span class="pn">Pagina 2 din 2</span>
+        <h3>Ce vindem și cui</h3>
+        <p class="sub">Povestea paginii</p>
+        <p class="story">Departamentul de marketing vrea să știe ce categorii de produse aduc banii, ce produse sunt vedetele meniului și ce tipuri de clienți cumpără, ca să decidă unde face promoții. Pagina răspunde la întrebarea: pe ce și pe cine ne concentrăm?</p>
+        <p class="sub">Ce puneți pe pagină</p>
+        <div class="vis"><article><h4><span class='vl'>A</span>Line chart</h4><dl><dt>Axa X</dt><dd>Calendar[Luna_Nume]</dd><dt>Axa Y</dt><dd>[Vanzari fara anulate]<span class="m-tag">măsură</span></dd><dt>Legendă</dt><dd>Produse[Categorie]</dd><dt>Filtru pe vizual</dt><dd>Calendar[An] = 2025</dd></dl><p class='need'>Înainte creați: măsura <b>[Vanzari fara anulate]</b>.</p></article><article><h4><span class='vl'>B</span>Card</h4><dl><dt>Câmp</dt><dd>[Clienti activi]<span class="m-tag">măsură</span></dd></dl><p class='need'>Înainte creați: măsura <b>[Clienti activi]</b>.</p></article><article><h4><span class='vl'>C</span>Clustered bar chart</h4><dl><dt>Axa Y</dt><dd>Produse[Nume_Produs]</dd><dt>Axa X</dt><dd>[Total Vanzari]<span class="m-tag">măsură</span></dd><dt>Filtru pe vizual</dt><dd>Top N = 10 după [Total Vanzari]</dd></dl></article><article><h4><span class='vl'>D</span>Card</h4><dl><dt>Câmp</dt><dd>[Vanzari fara anulate]<span class="m-tag">măsură</span></dd></dl><p class='need'>Înainte creați: măsura <b>[Vanzari fara anulate]</b>.</p></article><article><h4><span class='vl'>E</span>Table</h4><dl><dt>Coloane</dt><dd>Produse[Categorie], [Total Vanzari]<span class="m-tag">măsură</span>, [% din total]<span class="m-tag">măsură</span></dd></dl><p class='need'>Înainte creați: măsura <b>[% din total]</b>.</p></article><article><h4><span class='vl'>F</span>Line chart</h4><dl><dt>Axa X</dt><dd>Produse[Categorie]</dd><dt>Axa Y</dt><dd>[Total Vanzari]<span class="m-tag">măsură</span></dd></dl></article><article><h4><span class='vl'>G</span>Slicer</h4><dl><dt>Câmp</dt><dd>Vanzari[Canal]</dd></dl></article><article><h4><span class='vl'>H</span>Slicer</h4><dl><dt>Câmp</dt><dd>Calendar[Tip_Zi]<span class="c-tag">coloană calculată</span></dd></dl><p class='need'>Înainte creați: coloana calculată <b>Tip_Zi</b>.</p></article></div>
+      </article>
+      <div class="box intro">
+        <h3>Ce predați</h3>
+        <p class="deadline">Raportul se publică în <b>Power BI Service</b> cel târziu <b>marți, ora 17:00</b>.</p>
+        <ol>
+          <li>Publicați raportul: în Power BI Desktop, <b>Home → Publish</b> → alegeți workspace-ul cursului. Verificați în browser că ambele pagini se deschid.</li>
+          <li>Fișierul <b>.pbix</b> cu cele 5 tabele curățate, modelul star și cele 2 pagini.</li>
+          <li>La prezentare: pentru fiecare pagină, spuneți povestea în 2–3 propoziții și ce ați aflat din date.</li>
+        </ol>
+      </div>
+    </section>
+  </main>
+  <script>
+(function () {
+  var KEY = 'proiect-s06-theme';
+  var btn = document.querySelector('[data-theme-btn]');
+  function apply(t) {
+    if (t === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    else document.documentElement.removeAttribute('data-theme');
+    if (btn) btn.textContent = t === 'light' ? '☾ Temă închisă' : '☀ Temă deschisă';
+  }
+  var cur = 'dark';
+  try { cur = localStorage.getItem(KEY) || 'dark'; } catch (e) {}
+  apply(cur);
+  if (btn) btn.addEventListener('click', function () {
+    cur = cur === 'light' ? 'dark' : 'light';
+    try { localStorage.setItem(KEY, cur); } catch (e) {}
+    apply(cur);
+  });
+})();
+
+(function () {
+  var tabs = document.querySelectorAll('[data-tab]');
+  function show(id) {
+    tabs.forEach(function (b) { b.classList.toggle('on', b.dataset.tab === id); });
+    document.querySelectorAll('.panel').forEach(function (p) { p.classList.toggle('on', p.id === id); });
+  }
+  tabs.forEach(function (b) {
+    b.addEventListener('click', function () { show(b.dataset.tab); history.replaceState(null, '', '#' + b.dataset.tab); window.scrollTo({ top: document.querySelector('.tabs').offsetTop, behavior: 'smooth' }); });
+  });
+  var h = location.hash.replace('#', '');
+  show(['curatare', 'model', 'raport'].indexOf(h) >= 0 ? h : 'curatare');
+  document.querySelectorAll('[data-toggle]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.dataset.toggle);
+      var on = el.classList.toggle('on');
+      b.textContent = on ? b.dataset.off : b.dataset.on;
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -987,3 +987,16 @@
 .s6-quiz-tabs[hidden] { display: none; }
 .s6-iter-code { margin: 0 0 10px; white-space: pre-wrap; }
 @media (max-width: 1000px) { .s6-quiz-grid { grid-template-columns: 1fr; } }
+
+/* Butoanele proiectului în echipă (încheiere): compania mare, în culoarea echipei */
+.s06-page .s5-team-btn.s7-team { --tc: #059669; gap: 2px; padding: 16px 18px; border: 2px solid color-mix(in srgb, var(--tc) 55%, var(--border)); background: color-mix(in srgb, var(--tc) 12%, var(--surface)); }
+.s06-page .s5-team-btn.s7-team:hover { border-color: var(--tc); background: color-mix(in srgb, var(--tc) 20%, var(--surface)); }
+.s06-page .s5-team-btn.s7-team.is-rosu { --tc: #dc2626; }
+.s06-page .s5-team-btn.s7-team.is-albastru { --tc: #2563eb; }
+.s06-page .s5-team-btn.s7-team.is-verde { --tc: #059669; }
+.s06-page .s5-team-btn.s7-team.is-galben { --tc: #ca8a04; }
+.s06-page .s7-team-co { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; color: var(--tc); }
+[data-theme="dark"] .s06-page .s7-team-co { color: color-mix(in srgb, var(--tc) 60%, white); }
+.s06-page .s7-team-name { font-size: 0.84rem; font-weight: 700; color: var(--text); }
+
+.s06-page .s6-tema-links { margin-top: 12px; }

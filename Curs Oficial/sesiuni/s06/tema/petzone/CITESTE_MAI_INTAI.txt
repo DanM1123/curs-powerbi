@@ -1,0 +1,11 @@
+Temă Sesiunea 6 · PetZone (rețea de pet shop-uri)
+==============================================
+
+Cerințele complete: tema.html (Curățare · Model · Raport).
+
+Fișiere (date murdare, se curăță în Power Query):
+  Vanzari.xlsx  - fact (tranzacțiile)
+  Clienti.xlsx, Produse.xlsx, Magazine.xlsx, Calendar.xlsx - dimensiuni
+
+Model: star schema, Vanzari în centru, 4 relații *:1.
+Raport: 2 pagini.

@@ -1,0 +1,11 @@
+Temă Sesiunea 6 · FitPro (rețea de săli de fitness)
+==============================================
+
+Cerințele complete: tema.html (Curățare · Model · Raport).
+
+Fișiere (date murdare, se curăță în Power Query):
+  Incasari.xlsx  - fact (tranzacțiile)
+  Membri.xlsx, Servicii.xlsx, Sali.xlsx, Calendar.xlsx - dimensiuni
+
+Model: star schema, Incasari în centru, 4 relații *:1.
+Raport: 2 pagini.

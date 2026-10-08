@@ -1,0 +1,11 @@
+Temă Sesiunea 6 · TravelGo (agenție de turism · pachete de vacanță)
+==============================================
+
+Cerințele complete: tema.html (Curățare · Model · Raport).
+
+Fișiere (date murdare, se curăță în Power Query):
+  Rezervari.xlsx  - fact (tranzacțiile)
+  Clienti.xlsx, Pachete.xlsx, Agentii.xlsx, Calendar.xlsx - dimensiuni
+
+Model: star schema, Rezervari în centru, 4 relații *:1.
+Raport: 2 pagini.
