@@ -368,6 +368,7 @@
             <div class="s6-lab-card"><span class="s6-lab-card-name">[Total Vanzari]</span><strong data-num></strong></div>
             <div class="s6-lab-card"><span class="s6-lab-card-name">[Numar linii]</span><strong data-den></strong></div>
             <div class="s6-lab-card is-res"><span class="s6-lab-card-name">[Valoare medie linie]</span><strong data-res></strong></div>
+            <div class="s6-lab-card is-res"><span class="s6-lab-card-name">[Valoare medie linie (0)]</span><strong data-alt></strong></div>
           </div>
         </div>
         <div class="s6-lab-rows">
@@ -389,9 +390,10 @@
       root.querySelector('[data-num]').textContent = den ? fmt(num) : '(gol)';
       root.querySelector('[data-den]').textContent = den ? den : '(gol)';
       root.querySelector('[data-res]').textContent = den ? nr(num / den) : '(gol)';
+      root.querySelector('[data-alt]').textContent = den ? nr(num / den) : '0';
       root.querySelector('[data-final]').innerHTML = den
         ? `<span class="s6-lab-final-t">Calculul</span><p><b>DIVIDE ( ${fmt(num)} , ${den} )</b> = ${fmt(num)} ÷ ${den} = <b>${nr(num / den)}</b></p>`
-        : '<span class="s6-lab-final-t">Calculul</span><p>Nu există nicio linie, deci <b>nu avem la ce împărți</b>. DIVIDE lasă cardul <b>gol</b>.</p>';
+        : '<span class="s6-lab-final-t">Calculul</span><p>Nu există nicio linie, deci <b>nu avem la ce împărți</b>. DIVIDE lasă cardul <b>gol</b>; cu rezultatul alternativ <code>0</code> (al treilea argument), cardul arată <b>0</b>.</p>';
       markSlicers(root, state);
     }
     bindSlicers(root, state, render);

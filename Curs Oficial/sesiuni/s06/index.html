@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="../../css/s03.css" />
   <link rel="stylesheet" href="../../css/s04.css?v=82" />
   <link rel="stylesheet" href="../../css/s05.css?v=33" />
-  <link rel="stylesheet" href="../../css/s06.css?v=18" />
+  <link rel="stylesheet" href="../../css/s06.css?v=19" />
   <script src="../../js/gate.js"></script>
   <script src="../../js/firebase-init.js"></script>
 </head>
@@ -439,7 +439,7 @@
       <article class="slide s5-framework">
         <div class="s5-part-kicker">
           <span class="slide-eyebrow">Partea 2 · Filter context</span>
-          <span class="s5-concept-pill is-expl">Exemplu explicativ</span>
+          <span class="s5-concept-pill is-fw">Filter context</span>
         </div>
         <h2>Aceeași formulă, alte rânduri</h2>
         <div class="s6-concept"><p><strong>Filter context</strong> înseamnă filtrele active în momentul în care Power BI calculează o măsură: slicere, filtre de pagină, axele vizualului. Ele decid ce rânduri intră în calcul. Formula rămâne aceeași; se schimbă doar rândurile.</p></div>
@@ -484,7 +484,7 @@
       <article class="slide s5-framework">
         <div class="s5-part-kicker">
           <span class="slide-eyebrow">Partea 3 · CALCULATE și ALL</span>
-          <span class="s5-concept-pill is-expl">Exemplu explicativ</span>
+          <span class="s5-concept-pill is-fw">CALCULATE</span>
         </div>
         <h2>CALCULATE și slicerul pe aceeași coloană</h2>
         <div class="s6-lab" data-s6-cat data-measures="total,electronice"></div>
@@ -528,7 +528,7 @@
       <article class="slide s5-framework">
         <div class="s5-part-kicker">
           <span class="slide-eyebrow">Partea 3 · CALCULATE și ALL</span>
-          <span class="s5-concept-pill is-expl">Exemplu explicativ</span>
+          <span class="s5-concept-pill is-fw">ALL</span>
         </div>
         <h2>Același slicer, trei măsuri</h2>
         <div class="s6-lab" data-s6-cat data-measures="total,electronice,toate"></div>
@@ -576,14 +576,10 @@
               <div><dt><code>Numitor</code></dt><dd>La ce împarți. Tot o măsură: <code>[Numar linii]</code>.</dd></div>
               <div><dt><code>RezultatAlternativ</code></dt><dd><strong>Opțional.</strong> Ce să arate în loc de gol când nu se poate împărți, de exemplu <code>0</code>.</dd></div>
             </dl>
-            <h3>Pe scurt</h3>
-            <table class="s5-mini-tbl s6-num s6-div-tbl">
-              <thead><tr><th>Împărțim</th><th><code>/</code></th><th>DIVIDE ( a, b )</th><th>DIVIDE ( a, b, 0 )</th></tr></thead>
-              <tbody>
-                <tr><td>10 la 2</td><td>5</td><td>5</td><td>5</td></tr>
-                <tr><td>10 la 0</td><td class="is-bad">eroare</td><td>gol</td><td>0</td></tr>
-              </tbody>
-            </table>
+            <h3>Exemplu cu rezultat alternativ</h3>
+            <pre class="s06-dax-code"><span class="m">Valoare medie linie (0)</span> =
+<span class="f">DIVIDE</span> ( <span class="m">[Total Vanzari]</span>, <span class="m">[Numar linii]</span>, <span class="n">0</span> )   <span class="c">// rezultat alternativ: 0</span></pre>
+            <p>Pentru o regiune fără nicio linie, prima măsură lasă celula <strong>goală</strong>, a doua arată <strong>0</strong>.</p>
           </section>
         </div>
       </article>
@@ -592,10 +588,10 @@
       <article class="slide s5-framework">
         <div class="s5-part-kicker">
           <span class="slide-eyebrow">Partea 4 · DIVIDE, SUMX, VAR</span>
-          <span class="s5-concept-pill is-expl">Exemplu explicativ</span>
+          <span class="s5-concept-pill is-fw">DIVIDE</span>
         </div>
         <h2>DIVIDE pe cele 8 rânduri</h2>
-        <p class="s5-oneline">Alege valori în slicere și urmărește cele trei carduri. Alege <strong>Centru</strong>: nu are nicio linie, deci nu avem la ce împărți, iar DIVIDE lasă cardul gol.</p>
+        <p class="s5-oneline">Alege valori în slicere și urmărește cardurile. Alege <strong>Centru</strong>: nu are nicio linie, deci nu avem la ce împărți. DIVIDE fără al treilea argument lasă cardul gol; cu rezultatul alternativ <code>0</code>, cardul arată 0.</p>
         <div class="s6-lab" data-s6-div></div>
       </article>
 
@@ -614,14 +610,18 @@
       <article class="slide s5-framework">
         <div class="s5-part-kicker">
           <span class="slide-eyebrow">Partea 4 · DIVIDE, SUMX, VAR</span>
-          <span class="s5-concept-pill is-expl">Exemplu explicativ · ALL + DIVIDE</span>
+          <span class="s5-concept-pill is-fw">ALL + DIVIDE</span>
         </div>
         <h2>Procent din total: ALL și DIVIDE împreună</h2>
         <div class="s6-concept">
-          <p>Vrem să știm <strong>ce procent din vânzările totale</strong> face fiecare categorie. Un procent are mereu două numere: <strong>felia</strong> și <strong>întregul</strong>.</p>
-          <p><strong>Felia</strong> este <code>[Total Vanzari]</code>: pe rândul Electronice din tabel vede doar Electronice. <strong>Întregul</strong> este aceeași măsură, dar cu <code>ALL ( Dim_Produse[Categorie] )</code>: ALL scoate filtrul de categorie, deci pe <em>fiecare</em> rând vede toate vânzările (560.544,56). <strong>DIVIDE</strong> împarte felia la întreg.</p>
+          <p><strong>Procentul unei categorii = vânzările categoriei ÷ vânzările tuturor categoriilor.</strong> Exemplu pentru Electronice:</p>
+          <ol class="s6-steps">
+            <li><strong>Felia:</strong> <code>[Total Vanzari]</code> pe rândul Electronice = 415.101,05.</li>
+            <li><strong>Întregul:</strong> aceeași măsură, dar cu <code>ALL</code> pe Categorie, ca să vadă toate categoriile = 560.544,56.</li>
+            <li><strong>Procentul:</strong> <code>DIVIDE</code> ( felia, întregul ) = 415.101,05 ÷ 560.544,56 = <strong>74,1%</strong>.</li>
+          </ol>
         </div>
-        <p class="s5-oneline">Apasă <strong>Fără ALL</strong> ca să vezi ce se întâmplă dacă uiți ALL: întregul devine egal cu felia și totul iese 100%.</p>
+        <p class="s5-oneline">Apasă <strong>Fără ALL</strong>: întregul devine egal cu felia și fiecare categorie iese 100%.</p>
         <div class="s6-pct-wrap" data-s6-pct>
           <div>
             <pre class="s06-dax-code"><span class="m">% din total categorii</span> =
@@ -677,7 +677,7 @@
       <article class="slide s5-framework">
         <div class="s5-part-kicker">
           <span class="slide-eyebrow">Partea 4 · DIVIDE, SUMX, VAR</span>
-          <span class="s5-concept-pill is-expl">Exemplu explicativ</span>
+          <span class="s5-concept-pill is-fw">SUMX</span>
         </div>
         <h2>SUMX pas cu pas</h2>
         <p class="s5-oneline">Patru rânduri de exemplu. <strong>Rândul următor</strong> calculează Cantitate × Preț pe un rând și îl adună la total. În dreapta, greșeala frecventă: înmulțirea totalurilor.</p>
@@ -961,6 +961,6 @@
     </nav>
   </div>
   <script src="../../js/main.js"></script>
-  <script src="../../js/s06.js?v=11"></script>
+  <script src="../../js/s06.js?v=12"></script>
 </body>
 </html>

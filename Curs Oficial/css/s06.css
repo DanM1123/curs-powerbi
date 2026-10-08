@@ -1045,3 +1045,5 @@
 .s6-recap-vis { display: block; max-width: 340px; margin-top: 10px; }
 @media (max-width: 1000px) { .s6-flip-grid.is-four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .s6-flip-grid.is-four, .s6-flip-grid.is-three { grid-template-columns: 1fr; } }
+
+.s6-div-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
