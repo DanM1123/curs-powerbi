@@ -578,6 +578,8 @@
     m.cats = [...m.fields.values()].filter((f) => f.role === 'category' && !f.inCalendar && f.card >= 2 && f.card <= 30)
       .map((f) => ({ f, s: catScore(f) })).sort((a, b) => b.s - a.s).map((x) => x.f.id);
     m.names = [R.productName, R.customerName, R.locationName].filter(Boolean);
+    // numere cu ordine (ex. săptămâna de rulare), bune ca axă pentru coloane
+    m.ords = [...m.fields.values()].filter((f) => f.role === 'ordinal' && f.inFact && f.card >= 2 && f.card <= 15).map((f) => f.id);
   }
 
   /* ---------- coloane calculate propuse ---------- */
@@ -700,6 +702,40 @@
       add({ id: 'disc', name: 'Valoare discount', fn: (rows) => M.get('list').fn(rows) - sumOf(netId)(rows), additive: true, level: 2, deps: ['list'],
         dax: R.net ? `Valoare discount = [Valoare la pret lista] - SUM ( ${col(R.net)} )` : `Valoare discount = [Valoare la pret lista] - [${TN}]`,
         plain: 'Diferența dintre valoarea la preț de listă și valoarea efectiv facturată.', hint: 'O scădere între două măsuri.' });
+    }
+    // alte coloane numerice din fapte: suma lor, plus rapoarte utile (grad de ocupare, „pe bucată”, „pe rând”)
+    const used = [R.value, R.qty, R.price, R.discount, R.net].filter(Boolean);
+    const skip = /pct|procent|cota|pret|price|lat|lon|tva|^id|nr$/;
+    const extras = m.fact.columns.filter((c) => c.role === 'measure' && !used.includes(c) && !skip.test(norm(c.name)));
+    if (R.net && R.net !== R.value) extras.unshift(R.net);
+    const capacity = extras.find((c) => /locuri|capacitate|capacity|disponibil/.test(norm(c.name)));
+    extras.forEach((c) => {
+      const id = 'sum_' + norm(c.name);
+      add({ id, name: `Total ${c.name}`, extra: true, fn: sumOf(fid(c)), additive: true,
+        dax: `Total ${c.name} = SUM ( ${col(c)} )`, plain: `Adună ${c.name}.`, hint: 'O singură funcție de agregare, pe coloana respectivă.' });
+    });
+    if (R.qty) {
+      const qid = fid(R.qty);
+      add({ id: 'qtyPer', name: `${R.qty.name} pe ${R.unit}`, extra: true, level: 2, deps: ['qty', 'count'],
+        fn: (rows) => (rows.length ? sumOf(qid)(rows) / rows.length : null),
+        dax: `${R.qty.name} pe ${R.unit} = DIVIDE ( [Total ${R.qty.name}], [Numar ${F}] )`,
+        plain: `Media ${R.qty.name} pe ${R.unit}: totalul împărțit la numărul de rânduri.`, hint: 'DIVIDE între două măsuri.' });
+      if (capacity) {
+        const cid = fid(capacity);
+        const ok = R.status ? (r) => !R.status.bad.includes(r[fid(R.status.col)]) : () => true;
+        const cond = R.status ? `, ${col(R.status.col)} <> "${R.status.bad[0]}"` : '';
+        add({ id: 'occ', name: 'Grad de ocupare', extra: true, fmt: 'pct', level: 2, deps: ['qty'],
+          fn: (rows) => { const cap = sumOf(cid)(rows.filter(ok)); return cap ? sumOf(qid)(rows) / cap : null; },
+          dax: `Grad de ocupare =\nDIVIDE (\n    [Total ${R.qty.name}],\n    CALCULATE ( SUM ( ${col(capacity)} )${cond} )\n)`,
+          plain: `Cât din ${capacity.name} s-a ocupat: ${R.qty.name} împărțit la ${capacity.name}${R.status ? `, fără rândurile ${R.status.bad.join(' / ')}` : ''}.`,
+          hint: 'Formatează măsura ca procent (Measure tools → %).' });
+      }
+      extras.filter((c) => c !== capacity).forEach((c) => {
+        add({ id: 'per_' + norm(c.name), name: `${c.name} per ${R.qty.name}`, extra: true, level: 2, deps: ['qty'],
+          fn: (rows) => { const q = sumOf(qid)(rows); return q ? sumOf(fid(c))(rows) / q : null; },
+          dax: `${c.name} per ${R.qty.name} = DIVIDE ( [Total ${c.name}], [Total ${R.qty.name}] )`,
+          plain: `${c.name} împărțit la ${R.qty.name}: cât revine, în medie, pe o unitate.`, hint: 'DIVIDE între două măsuri.' });
+      });
     }
     if (m.time && m.time.year && m.time.date) {
       const yid = m.time.year;

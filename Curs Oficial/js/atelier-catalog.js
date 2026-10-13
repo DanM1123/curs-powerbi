@@ -100,7 +100,10 @@
       valid: { sup: `cele mai mari ${n} fără ${badNoun(m)}`, art: `${art(n)} fără ${badNoun(m)}`, by: `valoarea ${gen(n)} fără ${badNoun(m)}`, short: `${ucfirst(n)} fără ${badNoun(m)}`, pl: true },
       list: { sup: 'cea mai mare valoare la preț de listă', art: 'valoarea la preț de listă', by: 'valoarea la preț de listă', short: 'Valoare la preț listă' }
     };
-    return map[id] || { sup: id, art: id, by: id, short: id };
+    if (map[id]) return map[id];
+    const ms = m.measures.get(id);
+    const nm = ms ? D().human(ms.name.replace(/^Total /, '')).toLowerCase() : id;
+    return { sup: ms && ms.fmt === 'pct' ? `cel mai mare ${nm}` : `cea mai mare valoare la ${nm}`, art: nm, by: nm, short: ucfirst(nm) };
   }
   const has = (m, id) => m.measures.has(id);
   const verb = (m, id, pl, sg) => (mphrase(m, id).pl ? pl : sg);
@@ -111,7 +114,11 @@
   const well = (zone, ...items) => ({ zone, items: items.flat().filter(Boolean) });
 
   function opt(m, ids) { return ids.filter(Boolean).filter((id) => fld(m, id)).map((id) => ({ value: id, label: `${fld(m, id).table}[${fld(m, id).col}]` })); }
-  function mopt(m, ids) { return ids.filter((id) => has(m, id)).map((id) => ({ value: id, label: `[${mname(m, id)}]` })); }
+  function mopt(m, ids) {
+    // măsurile suplimentare (sume, grad de ocupare, „per bucată”) apar acolo unde au sens
+    const ex = [...m.measures.values()].filter((x) => x.extra && (ids.includes('avg') || (ids.includes('total') && x.additive))).map((x) => x.id);
+    return ids.concat(ex).filter((id) => has(m, id)).map((id) => ({ value: id, label: `[${mname(m, id)}]` }));
+  }
   const ADD = ['total', 'count', 'qty', 'cust', 'valid'];
   const ALLM = ['total', 'count', 'qty', 'cust', 'valid', 'avg', 'rate'];
   const lowCats = (m, max) => m.cats.filter((id) => (fld(m, id).card || 99) <= (max || 6));
@@ -318,7 +325,7 @@
       return out;
     },
     slots: (m) => [
-      { key: 'axis', label: 'X-axis', options: opt(m, lowCats(m, 12).concat(m.time ? [m.time.weekday, m.time.quarter, m.time.month, m.time.workday] : []).concat([m.fieldId(m.fact.name, 'Interval_Discount'), m.fieldId(m.fact.name, 'Marime_Tranzactie')])) },
+      { key: 'axis', label: 'X-axis', options: opt(m, lowCats(m, 12).concat(m.time ? [m.time.weekday, m.time.quarter, m.time.month, m.time.workday] : []).concat(m.ords || []).concat([m.fieldId(m.fact.name, 'Interval_Discount'), m.fieldId(m.fact.name, 'Marime_Tranzactie')])) },
       { key: 'value', label: 'Y-axis', options: mopt(m, ALLM) },
       { key: 'legend', label: 'Legend', options: [{ value: '', label: '(fără)' }].concat(opt(m, (m.time ? [m.time.year] : []).concat(lowCats(m, 5)))) }
     ],
@@ -833,13 +840,14 @@
   T.matrix = {
     available: (m) => m.time && m.time.year,
     variants: (m) => m.cats.slice(0, 2).map((c) => ({ rows: c, value: 'total' })),
-    slots: (m) => [{ key: 'rows', label: 'Rows', options: opt(m, m.cats.concat(m.names)) }, { key: 'value', label: 'Values', options: mopt(m, ALLM) }],
+    slots: (m) => [{ key: 'rows', label: 'Rows', options: opt(m, m.cats.concat(m.names)) }, { key: 'cols', label: 'Columns', options: opt(m, [m.time.year].concat(lowCats(m, 6))) }, { key: 'value', label: 'Values', options: mopt(m, ALLM) }],
     build(m, e) {
-      const q = `Care ${word(m, e.rows)} crește și care scade de la un an la altul?`;
+      const cols = e.cols || m.time.year;
+      const q = cols === m.time.year ? `Care ${word(m, e.rows)} crește și care scade de la un an la altul?` : `Cum se împarte ${mphrase(m, e.value).art} pe ${word(m, e.rows)} și ${word(m, cols)}?`;
       return {
         question: q,
-        spec: { chart: 'matrix', rows: e.rows, cols: m.time.year, values: [e.value], heat: true },
-        wells: [well('Rows', F(m, e.rows)), well('Columns', F(m, m.time.year)), well('Values', M(m, e.value))],
+        spec: { chart: 'matrix', rows: e.rows, cols, values: [e.value], heat: true },
+        wells: [well('Rows', F(m, e.rows)), well('Columns', F(m, cols)), well('Values', M(m, e.value))],
         measures: [e.value],
         format: [
           `Conditional formatting → Background color → Format style: Gradient, de la alb la culoarea principală. Celulele mari ies singure în evidență.`,

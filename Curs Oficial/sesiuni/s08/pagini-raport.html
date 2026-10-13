@@ -34,12 +34,6 @@
     .pr-kpis { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0 0 12px; }
     .pr-kpis > span { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-2); margin-right: 4px; }
     .pr-kpis i { font-style: normal; padding: 5px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-alt); font-size: 0.85rem; font-weight: 700; }
-    .pr-atl small { display: block; margin-top: 4px; font-size: 0.78rem; color: var(--text-2); line-height: 1.35; }
-    .pr-st { display: inline-block; white-space: nowrap; padding: 2px 8px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; }
-    .st-ok { background: #DCFCE7; color: #166534; } .st-adj { background: #FEF3C7; color: #92400E; } .st-no { background: #FEE2E2; color: #991B1B; }
-    [data-theme="dark"] .st-ok { background: #14532D; color: #BBF7D0; } [data-theme="dark"] .st-adj { background: #78350F; color: #FDE68A; } [data-theme="dark"] .st-no { background: #7F1D1D; color: #FECACA; }
-    .pr-kpis i.k-no { border-color: #FCA5A5; color: #B91C1C; } [data-theme="dark"] .pr-kpis i.k-no { color: #FCA5A5; }
-    .pr-rule.is-warn { background: var(--bg-alt); border: 1px solid var(--border); }
     .pr-tbl { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
     .pr-tbl th { text-align: left; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-2); padding: 8px 10px; border-bottom: 1px solid var(--border); }
     .pr-tbl td { padding: 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
@@ -101,7 +95,6 @@
     </nav>
     <p class="pr-rule"><b>Aceeași rețetă pe fiecare pagină:</b> 3 KPI-uri sus, apoi 3 charturi, fiecare răspunzând la o întrebare. Așa nicio pagină nu e goală și nicio pagină nu e încărcată.</p>
 
-    <p class="pr-rule is-warn"><b>Ce are atelierul și ce nu.</b> Biblioteca pe datele CineRo are măsurile Total Incasari, Numar Proiectii, Total Bilete_Vandute, Valoare medie (încasări pe proiecție), Total fara Anulata și Rata Anulata. <b>Nu are</b> Grad de ocupare, Încasări bilete, Încasări bar, Bilete pe proiecție, Bar pe spectator și nici axa Saptamana_Rulare. Rândurile marcate <span class="pr-st st-no">Doar în Power BI</span> nu pot fi construite în atelier.</p>
 
     <section class="pr-page" id="p1">
       <div class="pr-page-h"><span class="pr-n">1</span><div>
@@ -109,13 +102,13 @@
         <p class="pr-who"><b>Directorul rețelei.</b> Vede dintr-o privire cum stă CineRo.</p>
       </div></div>
       <div class="pr-filters"><span>Filtre</span><i>An</i><i>Regiune</i><i>Tip cinema</i></div>
-      <div class="pr-kpis"><span>KPI-uri sus · Card</span><i class="k-ok" title="În atelier: [Total Incasari]">Încasări totale ✓</i><i class="k-ok" title="În atelier: [Total Bilete_Vandute]">Bilete vândute ✓</i><i class="k-no" title="Nu există în atelier">Grad de ocupare ✗</i></div>
+      <div class="pr-kpis"><span>KPI-uri sus · Card</span><i>Încasări totale</i><i>Bilete vândute</i><i>Grad de ocupare</i></div>
       <table class="pr-tbl">
-        <thead><tr><th>Întrebarea</th><th>Chart</th><th>Câmpuri</th><th>În atelier</th></tr></thead>
+        <thead><tr><th>Întrebarea</th><th>Chart</th><th>Câmpuri</th></tr></thead>
         <tbody>
-          <tr><td class="pr-q">Cum evoluează încasările lună de lună?</td><td class="pr-viz">Line chart</td><td class="pr-fields">X <code>Luna_Nume</code>, Y [Încasări totale], Legend <code>An</code></td><td class="pr-atl"><span class="pr-st st-ok">În bibliotecă</span><small>În bibliotecă: Line chart, Luna_Nume + Legend An.</small></td></tr>
-          <tr><td class="pr-q">Din ce vin banii: bilete sau bar?</td><td class="pr-viz">Donut chart</td><td class="pr-fields">Values [Încasări bilete], [Încasări bar]</td><td class="pr-atl"><span class="pr-st st-no">Doar în Power BI</span><small>Nu e în atelier: lipsesc măsurile Încasări bilete și Încasări bar. Cel mai apropiat: Donut chart Format × Total Incasari.</small></td></tr>
-          <tr><td class="pr-q">Ce cinematografe trag rețeaua în sus?</td><td class="pr-viz">Clustered bar chart</td><td class="pr-fields">Y <code>Nume_Cinema</code>, X [Încasări totale], Top 5</td><td class="pr-atl"><span class="pr-st st-adj">Cu o ajustare</span><small>În bibliotecă ca Clustered bar chart Nume_Cinema × Total Incasari; Top 5 îl pui în Power BI.</small></td></tr>
+          <tr><td class="pr-q">Cum evoluează încasările lună de lună?</td><td class="pr-viz">Line chart</td><td class="pr-fields">X <code>Luna_Nume</code>, Y [Încasări totale], Legend <code>An</code></td></tr>
+          <tr><td class="pr-q">Ce pondere are fiecare tip de cinematograf în încasări?</td><td class="pr-viz">Donut chart</td><td class="pr-fields">Legend <code>Tip_Cinema</code> (3), Values [Încasări totale]</td></tr>
+          <tr><td class="pr-q">Ce cinematografe trag rețeaua în sus?</td><td class="pr-viz">Clustered bar chart</td><td class="pr-fields">Y <code>Nume_Cinema</code>, X [Încasări totale], Top 5</td></tr>
         </tbody>
       </table>
     </section>
@@ -126,13 +119,13 @@
         <p class="pr-who"><b>Directorul de programare.</b> Decide ce filme și genuri țin mai mult în program.</p>
       </div></div>
       <div class="pr-filters"><span>Filtre</span><i>An</i><i>Gen</i><i>Clasificare</i></div>
-      <div class="pr-kpis"><span>KPI-uri sus · Card</span><i class="k-no" title="Nu există în atelier">Încasări bilete ✗</i><i class="k-ok" title="În atelier: [Total Bilete_Vandute]">Bilete vândute ✓</i><i class="k-no" title="Nu există în atelier">Bilete pe proiecție ✗</i></div>
+      <div class="pr-kpis"><span>KPI-uri sus · Card</span><i>Încasări bilete</i><i>Bilete vândute</i><i>Bilete pe proiecție</i></div>
       <table class="pr-tbl">
-        <thead><tr><th>Întrebarea</th><th>Chart</th><th>Câmpuri</th><th>În atelier</th></tr></thead>
+        <thead><tr><th>Întrebarea</th><th>Chart</th><th>Câmpuri</th></tr></thead>
         <tbody>
-          <tr><td class="pr-q">Care filme aduc cele mai multe încasări?</td><td class="pr-viz">Clustered bar chart</td><td class="pr-fields">Y <code>Titlu</code>, X [Încasări totale], Top 10</td><td class="pr-atl"><span class="pr-st st-ok">În bibliotecă</span><small>În bibliotecă: Clustered bar chart Titlu × Total Incasari, cu Top N.</small></td></tr>
-          <tr><td class="pr-q">Ce gen aduce cei mai mulți spectatori?</td><td class="pr-viz">Clustered bar chart</td><td class="pr-fields">Y <code>Gen</code>, X [Bilete vândute], sortat descrescător</td><td class="pr-atl"><span class="pr-st st-ok">În bibliotecă</span><small>În bibliotecă: Clustered bar chart Gen × Total Bilete_Vandute.</small></td></tr>
-          <tr><td class="pr-q">Cum scad spectatorii după premieră?</td><td class="pr-viz">Clustered column chart</td><td class="pr-fields">X <code>Saptamana_Rulare</code>, Y [Bilete pe proiecție]</td><td class="pr-atl"><span class="pr-st st-no">Doar în Power BI</span><small>Nu e în atelier: Saptamana_Rulare nu apare ca axă și nu există Bilete pe proiecție.</small></td></tr>
+          <tr><td class="pr-q">Care filme aduc cele mai multe încasări?</td><td class="pr-viz">Clustered bar chart</td><td class="pr-fields">Y <code>Titlu</code>, X [Încasări totale], Top 10</td></tr>
+          <tr><td class="pr-q">Ce gen aduce cei mai mulți spectatori?</td><td class="pr-viz">Clustered bar chart</td><td class="pr-fields">Y <code>Gen</code>, X [Bilete vândute], sortat descrescător</td></tr>
+          <tr><td class="pr-q">Cum scad spectatorii după premieră?</td><td class="pr-viz">Clustered column chart</td><td class="pr-fields">X <code>Saptamana_Rulare</code>, Y [Bilete pe proiecție]</td></tr>
         </tbody>
       </table>
     </section>
@@ -143,13 +136,13 @@
         <p class="pr-who"><b>Managerul de rețea.</b> Decide unde trimite sprijin, oameni sau buget.</p>
       </div></div>
       <div class="pr-filters"><span>Filtre</span><i>An</i><i>Regiune</i><i>Tip cinema</i></div>
-      <div class="pr-kpis"><span>KPI-uri sus · Card</span><i class="k-ok" title="În atelier: [Valoare medie]">Încasări pe proiecție ✓</i><i class="k-no" title="Nu există în atelier">Grad de ocupare ✗</i><i class="k-no" title="Nu există în atelier">Bar pe spectator ✗</i></div>
+      <div class="pr-kpis"><span>KPI-uri sus · Card</span><i>Încasări pe proiecție</i><i>Grad de ocupare</i><i>Bar pe spectator</i></div>
       <table class="pr-tbl">
-        <thead><tr><th>Întrebarea</th><th>Chart</th><th>Câmpuri</th><th>În atelier</th></tr></thead>
+        <thead><tr><th>Întrebarea</th><th>Chart</th><th>Câmpuri</th></tr></thead>
         <tbody>
-          <tr><td class="pr-q">Care cinematografe încasează cel mai mult?</td><td class="pr-viz">Clustered bar chart</td><td class="pr-fields">Y <code>Nume_Cinema</code>, X [Încasări totale], sortat</td><td class="pr-atl"><span class="pr-st st-ok">În bibliotecă</span><small>În bibliotecă: Clustered bar chart Nume_Cinema × Total Incasari.</small></td></tr>
-          <tr><td class="pr-q">Cât de pline sunt sălile în fiecare cinematograf?</td><td class="pr-viz">Clustered bar chart</td><td class="pr-fields">Y <code>Nume_Cinema</code>, X [Grad de ocupare], sortat</td><td class="pr-atl"><span class="pr-st st-no">Doar în Power BI</span><small>Nu e în atelier: lipsește măsura Grad de ocupare.</small></td></tr>
-          <tr><td class="pr-q">Ce tip de cinematograf aduce cel mai mult pe proiecție?</td><td class="pr-viz">Clustered column chart</td><td class="pr-fields">X <code>Tip_Cinema</code>, Y [Încasări pe proiecție]</td><td class="pr-atl"><span class="pr-st st-ok">În bibliotecă</span><small>În bibliotecă: Clustered column chart Tip_Cinema × Valoare medie (= încasări pe proiecție).</small></td></tr>
+          <tr><td class="pr-q">Care cinematografe încasează cel mai mult?</td><td class="pr-viz">Clustered bar chart</td><td class="pr-fields">Y <code>Nume_Cinema</code>, X [Încasări totale], sortat</td></tr>
+          <tr><td class="pr-q">Cât de pline sunt sălile în fiecare cinematograf?</td><td class="pr-viz">Clustered bar chart</td><td class="pr-fields">Y <code>Nume_Cinema</code>, X [Grad de ocupare], sortat</td></tr>
+          <tr><td class="pr-q">Ce tip de cinematograf aduce cel mai mult pe proiecție?</td><td class="pr-viz">Clustered column chart</td><td class="pr-fields">X <code>Tip_Cinema</code>, Y [Încasări pe proiecție]</td></tr>
         </tbody>
       </table>
     </section>
@@ -160,13 +153,13 @@
         <p class="pr-who"><b>Echipa de marketing.</b> Decide ce formate și ce ore promovează.</p>
       </div></div>
       <div class="pr-filters"><span>Filtre</span><i>An</i><i>Format</i><i>Zi lucrătoare</i></div>
-      <div class="pr-kpis"><span>KPI-uri sus · Card</span><i class="k-ok" title="În atelier: [Numar Proiectii]">Nr proiecții ✓</i><i class="k-no" title="Nu există în atelier">Bilete pe proiecție ✗</i><i class="k-no" title="Nu există în atelier">Grad de ocupare ✗</i></div>
+      <div class="pr-kpis"><span>KPI-uri sus · Card</span><i>Nr proiecții</i><i>Bilete pe proiecție</i><i>Grad de ocupare</i></div>
       <table class="pr-tbl">
-        <thead><tr><th>Întrebarea</th><th>Chart</th><th>Câmpuri</th><th>În atelier</th></tr></thead>
+        <thead><tr><th>Întrebarea</th><th>Chart</th><th>Câmpuri</th></tr></thead>
         <tbody>
-          <tr><td class="pr-q">Ce pondere au formatele 2D, 3D, IMAX și VIP?</td><td class="pr-viz">Donut chart</td><td class="pr-fields">Legend <code>Format</code>, Values [Încasări totale]</td><td class="pr-atl"><span class="pr-st st-ok">În bibliotecă</span><small>În bibliotecă: Donut chart Format × Total Incasari.</small></td></tr>
-          <tr><td class="pr-q">Merită formatele scumpe? Sunt sălile la fel de pline?</td><td class="pr-viz">Clustered column chart</td><td class="pr-fields">X <code>Format</code>, Y [Grad de ocupare]</td><td class="pr-atl"><span class="pr-st st-no">Doar în Power BI</span><small>Nu e în atelier: lipsește măsura Grad de ocupare. Cel mai apropiat: Format × Valoare medie.</small></td></tr>
-          <tr><td class="pr-q">La ce oră vin cei mai mulți spectatori?</td><td class="pr-viz">Clustered column chart</td><td class="pr-fields">X <code>Ora_Start</code>, sortat după oră, Y [Bilete pe proiecție]</td><td class="pr-atl"><span class="pr-st st-adj">Cu o ajustare</span><small>În atelier: Clustered column chart Ora_Start, dar cu Total Bilete_Vandute (nu există Bilete pe proiecție).</small></td></tr>
+          <tr><td class="pr-q">Ce pondere au formatele 2D, 3D, IMAX și VIP?</td><td class="pr-viz">Donut chart</td><td class="pr-fields">Legend <code>Format</code>, Values [Încasări totale]</td></tr>
+          <tr><td class="pr-q">Merită formatele scumpe? Sunt sălile la fel de pline?</td><td class="pr-viz">Clustered column chart</td><td class="pr-fields">X <code>Format</code>, Y [Grad de ocupare]</td></tr>
+          <tr><td class="pr-q">La ce oră vin cei mai mulți spectatori?</td><td class="pr-viz">Clustered column chart</td><td class="pr-fields">X <code>Ora_Start</code>, sortat după oră, Y [Bilete pe proiecție]</td></tr>
         </tbody>
       </table>
     </section>
@@ -177,13 +170,13 @@
         <p class="pr-who"><b>Analistul.</b> Verifică cifrele exacte.</p>
       </div></div>
       <div class="pr-filters"><span>Filtre</span><i>An</i><i>Cinematograf</i><i>Film</i></div>
-      <div class="pr-kpis"><span>KPI-uri sus · Card</span><i class="k-ok" title="În atelier: [Numar Proiectii]">Nr proiecții ✓</i><i class="k-ok" title="În atelier: [Total Incasari]">Încasări totale ✓</i><i class="k-ok" title="În atelier: [Total Bilete_Vandute]">Bilete vândute ✓</i></div>
+      <div class="pr-kpis"><span>KPI-uri sus · Card</span><i>Nr proiecții</i><i>Încasări totale</i><i>Bilete vândute</i></div>
       <table class="pr-tbl">
-        <thead><tr><th>Întrebarea</th><th>Chart</th><th>Câmpuri</th><th>În atelier</th></tr></thead>
+        <thead><tr><th>Întrebarea</th><th>Chart</th><th>Câmpuri</th></tr></thead>
         <tbody>
-          <tr><td class="pr-q">Cum stă fiecare film, cu cifrele lui?</td><td class="pr-viz">Table</td><td class="pr-fields"><code>Titlu</code>, <code>Gen</code>, [Nr proiecții], [Bilete vândute], [Încasări totale]</td><td class="pr-atl"><span class="pr-st st-adj">Cu o ajustare</span><small>În bibliotecă: Table Titlu + Total Incasari, Bilete, Proiecții; Gen îl adaugi în Power BI.</small></td></tr>
-          <tr><td class="pr-q">Cât a încasat fiecare cinematograf, pe fiecare format?</td><td class="pr-viz">Matrix</td><td class="pr-fields">Rows <code>Nume_Cinema</code>, Columns <code>Format</code>, Values [Încasări totale]</td><td class="pr-atl"><span class="pr-st st-adj">Cu o ajustare</span><small>În atelier Matrix-ul are coloanele pe An, nu pe Format: Nume_Cinema × An. Format pe coloane doar în Power BI.</small></td></tr>
-          <tr><td class="pr-q">Ce filme rulează în fiecare cinematograf?</td><td class="pr-viz">Table</td><td class="pr-fields"><code>Nume_Cinema</code>, <code>Titlu</code>, [Nr proiecții], [Grad de ocupare]</td><td class="pr-atl"><span class="pr-st st-no">Doar în Power BI</span><small>Nu e în atelier: Table-ul are un singur câmp de grupare. Se face doar în Power BI.</small></td></tr>
+          <tr><td class="pr-q">Cum stă fiecare film, cu cifrele lui?</td><td class="pr-viz">Table</td><td class="pr-fields"><code>Titlu</code>, <code>Gen</code>, [Nr proiecții], [Bilete vândute], [Încasări totale]</td></tr>
+          <tr><td class="pr-q">Cât a încasat fiecare cinematograf, pe fiecare format?</td><td class="pr-viz">Matrix</td><td class="pr-fields">Rows <code>Nume_Cinema</code>, Columns <code>Format</code>, Values [Încasări totale]</td></tr>
+          <tr><td class="pr-q">Cum stă fiecare cinematograf, cu cifrele lui?</td><td class="pr-viz">Table</td><td class="pr-fields"><code>Nume_Cinema</code>, [Încasări totale], [Bilete vândute], [Nr proiecții]</td></tr>
         </tbody>
       </table>
     </section>
