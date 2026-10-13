@@ -91,3 +91,10 @@
 @media (max-width: 560px) {
   .s8-route, .s8-sheets { grid-template-columns: 1fr; }
 }
+
+/* ---------- conceptele de azi: doar titluri ---------- */
+.s8-concepts { gap: 12px; margin-top: 18px; }
+.s8-concepts article { min-height: 120px; justify-content: space-between; padding: 18px 18px 16px; border-top: 3px solid var(--primary); }
+.s8-concepts .n { text-transform: uppercase; }
+.s8-concepts h3 { font-size: 1.25rem; line-height: 1.2; }
+.s8-concepts article.is-pbi { border-top-style: dashed; background: var(--primary-soft); }
