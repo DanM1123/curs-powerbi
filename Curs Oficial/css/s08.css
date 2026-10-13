@@ -98,3 +98,7 @@
 .s8-concepts .n { text-transform: uppercase; }
 .s8-concepts h3 { font-size: 1.25rem; line-height: 1.2; }
 .s8-concepts article.is-pbi { border-top-style: dashed; background: var(--primary-soft); }
+.s8-concepts-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.s8-concepts-4 article { min-height: 160px; }
+.s8-concepts-4 h3 { font-size: 1.4rem; }
+@media (max-width: 760px) { .s8-concepts-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
