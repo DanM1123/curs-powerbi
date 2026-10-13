@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paginile raportului CineRo · Sesiunea 8</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23059669'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='56' font-weight='900' text-anchor='middle' fill='white'%3E8%3C/text%3E%3C/svg%3E" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <script src="../../js/gate.js"></script>
+  <style>
+    .pr { max-width: 1080px; margin: 0 auto; padding: 32px 16px 72px; }
+    .pr-hero h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); letter-spacing: -0.03em; line-height: 1.1; margin: 6px 0 10px; }
+    .pr-kicker { font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--primary); }
+    .pr-hero p { color: var(--text-2); max-width: 72ch; margin: 0; }
+    .pr-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; }
+    .pr-links a { padding: 8px 14px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; text-decoration: none; border: 1px solid var(--border); color: var(--text); background: var(--surface); }
+    .pr-links a.is-main { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .pr-toc { display: flex; flex-wrap: wrap; gap: 6px; margin: 24px 0 8px; }
+    .pr-toc a { display: inline-flex; gap: 6px; align-items: center; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-2); font-size: 0.85rem; font-weight: 600; text-decoration: none; }
+    .pr-toc a b { color: var(--primary); }
+    .pr-page { margin-top: 18px; border-radius: 16px; border: 1px solid var(--border); background: var(--surface); padding: 20px 22px; scroll-margin-top: 80px; }
+    .pr-page-h { display: flex; gap: 14px; align-items: flex-start; }
+    .pr-n { flex: none; width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; background: var(--primary); color: #fff; font-weight: 800; }
+    .pr-page h2 { margin: 0; font-size: 1.35rem; letter-spacing: -0.02em; }
+    .pr-who { margin: 2px 0 0; color: var(--text-2); font-size: 0.92rem; }
+    .pr-who b { color: var(--text); }
+    .pr-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 14px 0 12px; }
+    .pr-filters > span { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-2); margin-right: 4px; }
+    .pr-filters i { font-style: normal; padding: 3px 10px; border-radius: 999px; background: var(--primary-soft); color: var(--primary-dark); font-size: 0.82rem; font-weight: 600; }
+    [data-theme="dark"] .pr-filters i { color: var(--primary-light); }
+    .pr-tbl { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .pr-tbl th { text-align: left; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-2); padding: 8px 10px; border-bottom: 1px solid var(--border); }
+    .pr-tbl td { padding: 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .pr-tbl tr:last-child td { border-bottom: 0; }
+    .pr-q { font-weight: 600; }
+    .pr-kind { display: inline-block; white-space: nowrap; font-size: 0.78rem; font-weight: 700; color: var(--text-2); }
+    .pr-viz { font-weight: 700; color: var(--primary-dark); white-space: nowrap; }
+    [data-theme="dark"] .pr-viz { color: var(--primary-light); }
+    .pr-fields { color: var(--text-2); font-size: 0.84rem; }
+    .pr-fields code, .pr-ms code { font-family: var(--font-mono); font-size: 0.78rem; }
+    .pr-ms { margin-top: 18px; border-radius: 16px; border: 1px dashed var(--border-strong); padding: 16px 20px; background: var(--bg-alt); }
+    .pr-ms summary { cursor: pointer; font-weight: 800; }
+    .pr-ms table { margin-top: 10px; }
+    .pr-note { margin: 10px 0 0; font-size: 0.85rem; color: var(--text-2); }
+    @media (max-width: 760px) {
+      .pr-tbl thead { display: none; }
+      .pr-tbl tr { display: block; padding: 10px 0; border-bottom: 1px solid var(--border); }
+      .pr-tbl tr:last-child { border-bottom: 0; }
+      .pr-tbl td { display: block; padding: 2px 0; border: 0; }
+      .pr-page { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-mark">P</span>
+        <span>Power BI · Sesiunea 8</span>
+      </a>
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" aria-label="Schimbă tema">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="pr">
+    <section class="pr-hero">
+      <span class="pr-kicker">Sesiunea 8 · Lucru în atelier</span>
+      <h1>Raportul CineRo: pagini, întrebări, filtre</h1>
+      <p>Cinci pagini pe care le poți construi din datele CineRo. Pentru fiecare: cine o citește, după ce filtrează și ce întrebări are, cu graficul din bibliotecă potrivit fiecărei întrebări.</p>
+      <div class="pr-links">
+        <a class="is-main" href="../../atelier/index.html" target="_blank" rel="noopener">Deschide Atelierul de raport</a>
+        <a href="date/Cinema_curat.xlsx" download>Descarcă Cinema_curat.xlsx</a>
+        <a href="index.html">Înapoi la sesiune</a>
+      </div>
+    </section>
+
+    <nav class="pr-toc" aria-label="Paginile raportului">
+      <a href="#p1"><b>1</b>Prezentare generală</a>
+      <a href="#p2"><b>2</b>Filme</a>
+      <a href="#p3"><b>3</b>Cinematografe</a>
+      <a href="#p4"><b>4</b>Program și formate</a>
+      <a href="#p5"><b>5</b>Detaliu</a>
+      <a href="#masuri"><b>+</b>Măsurile</a>
+    </nav>
+
+    <section class="pr-page" id="p1">
+      <div class="pr-page-h"><span class="pr-n">1</span><div>
+        <h2>Prezentare generală</h2>
+        <p class="pr-who"><b>Directorul rețelei.</b> Vede dintr-o privire cum stă CineRo și alege pe ce pagină intră.</p>
+      </div></div>
+      <div class="pr-filters"><span>Filtre</span><i>An</i><i>Regiune</i><i>Tip cinema</i></div>
+      <table class="pr-tbl">
+        <thead><tr><th>Întrebarea</th><th>Tip</th><th>Graficul</th><th>Câmpuri</th></tr></thead>
+        <tbody>
+          <tr><td class="pr-q">Cât am încasat în total?</td><td><span class="pr-kind">Cât?</span></td><td class="pr-viz">Card</td><td class="pr-fields">[Încasări totale]</td></tr>
+          <tr><td class="pr-q">Câți spectatori am avut și cât de pline au fost sălile?</td><td><span class="pr-kind">Cât?</span></td><td class="pr-viz">Multi-row card</td><td class="pr-fields">[Bilete vândute], [Grad de ocupare]</td></tr>
+          <tr><td class="pr-q">Suntem peste anul trecut?</td><td><span class="pr-kind">Cât?</span></td><td class="pr-viz">KPI</td><td class="pr-fields">[Încasări totale], țintă [Încasări an anterior], axă <code>Dim_Date[An]</code></td></tr>
+          <tr><td class="pr-q">Cum evoluează încasările lună de lună?</td><td><span class="pr-kind">Cum evoluează?</span></td><td class="pr-viz">Line chart</td><td class="pr-fields">X <code>Dim_Date[Luna_Nume]</code>, Y [Încasări totale], Legend <code>Dim_Date[An]</code></td></tr>
+          <tr><td class="pr-q">Din ce vin banii: bilete sau bar?</td><td><span class="pr-kind">Din ce e format?</span></td><td class="pr-viz">Donut chart</td><td class="pr-fields">Values [Încasări bilete], [Încasări bar]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="pr-page" id="p2">
+      <div class="pr-page-h"><span class="pr-n">2</span><div>
+        <h2>Filme</h2>
+        <p class="pr-who"><b>Directorul de programare.</b> Decide ce filme și ce genuri păstrează mai mult în program.</p>
+      </div></div>
+      <div class="pr-filters"><span>Filtre</span><i>An</i><i>Gen</i><i>Clasificare</i><i>Distribuitor</i></div>
+      <table class="pr-tbl">
+        <thead><tr><th>Întrebarea</th><th>Tip</th><th>Graficul</th><th>Câmpuri</th></tr></thead>
+        <tbody>
+          <tr><td class="pr-q">Care filme aduc cele mai multe încasări?</td><td><span class="pr-kind">Cine e primul?</span></td><td class="pr-viz">Clustered bar chart</td><td class="pr-fields">Y <code>Dim_Filme[Titlu]</code>, X [Încasări totale], Top N = 10</td></tr>
+          <tr><td class="pr-q">Ce gen aduce cei mai mulți spectatori?</td><td><span class="pr-kind">Cine e primul?</span></td><td class="pr-viz">Clustered bar chart</td><td class="pr-fields">Y <code>Dim_Filme[Gen]</code>, X [Bilete vândute], sortat descrescător</td></tr>
+          <tr><td class="pr-q">Cum scad spectatorii după premieră?</td><td><span class="pr-kind">Cum evoluează?</span></td><td class="pr-viz">Clustered column chart</td><td class="pr-fields">X <code>Proiectii[Saptamana_Rulare]</code>, sortat după săptămână, Y [Bilete pe proiecție]</td></tr>
+          <tr><td class="pr-q">Filmele cu rating mai mare vând mai multe bilete?</td><td><span class="pr-kind">Merg împreună?</span></td><td class="pr-viz">Scatter chart</td><td class="pr-fields">X <code>Dim_Filme[Rating]</code> (Average), Y [Bilete vândute], Values <code>Dim_Filme[Titlu]</code></td></tr>
+          <tr><td class="pr-q">Ce pondere are fiecare distribuitor în încasări?</td><td><span class="pr-kind">Din ce e format?</span></td><td class="pr-viz">Donut chart</td><td class="pr-fields">Legend <code>Dim_Filme[Distribuitor]</code> (4), Values [Încasări bilete]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="pr-page" id="p3">
+      <div class="pr-page-h"><span class="pr-n">3</span><div>
+        <h2>Cinematografe</h2>
+        <p class="pr-who"><b>Managerul de rețea.</b> Decide unde trimite sprijin, oameni sau buget.</p>
+      </div></div>
+      <div class="pr-filters"><span>Filtre</span><i>An</i><i>Regiune</i><i>Tip cinema</i></div>
+      <table class="pr-tbl">
+        <thead><tr><th>Întrebarea</th><th>Tip</th><th>Graficul</th><th>Câmpuri</th></tr></thead>
+        <tbody>
+          <tr><td class="pr-q">Care cinematografe încasează cel mai mult?</td><td><span class="pr-kind">Cine e primul?</span></td><td class="pr-viz">Clustered bar chart</td><td class="pr-fields">Y <code>Dim_Cinematografe[Nume_Cinema]</code>, X [Încasări totale], sortat</td></tr>
+          <tr><td class="pr-q">Cât de pline sunt sălile în fiecare cinematograf?</td><td><span class="pr-kind">Cine e primul?</span></td><td class="pr-viz">Clustered bar chart</td><td class="pr-fields">Y <code>Nume_Cinema</code>, X [Grad de ocupare]</td></tr>
+          <tr><td class="pr-q">Ce tip de cinematograf aduce cel mai mult pe proiecție?</td><td><span class="pr-kind">Cine e primul?</span></td><td class="pr-viz">Clustered column chart</td><td class="pr-fields">X <code>Dim_Cinematografe[Tip_Cinema]</code> (3), Y [Încasări pe proiecție]</td></tr>
+          <tr><td class="pr-q">Cât cheltuie la bar un spectator, în fiecare cinematograf?</td><td><span class="pr-kind">Cine e primul?</span></td><td class="pr-viz">Clustered bar chart</td><td class="pr-fields">Y <code>Nume_Cinema</code>, X [Bar pe spectator]</td></tr>
+          <tr><td class="pr-q">Unde sunt cinematografele puternice?</td><td><span class="pr-kind">Unde?</span></td><td class="pr-viz">Map</td><td class="pr-fields">Latitude, Longitude din <code>Dim_Cinematografe</code>, Size [Încasări totale]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="pr-page" id="p4">
+      <div class="pr-page-h"><span class="pr-n">4</span><div>
+        <h2>Program și formate</h2>
+        <p class="pr-who"><b>Echipa de marketing.</b> Decide ce formate și ce ore promovează.</p>
+      </div></div>
+      <div class="pr-filters"><span>Filtre</span><i>An</i><i>Format</i><i>Sezon</i><i>Zi lucrătoare</i></div>
+      <table class="pr-tbl">
+        <thead><tr><th>Întrebarea</th><th>Tip</th><th>Graficul</th><th>Câmpuri</th></tr></thead>
+        <tbody>
+          <tr><td class="pr-q">Ce pondere au formatele 2D, 3D, IMAX și VIP?</td><td><span class="pr-kind">Din ce e format?</span></td><td class="pr-viz">Donut chart</td><td class="pr-fields">Legend <code>Proiectii[Format]</code> (4), Values [Încasări totale]</td></tr>
+          <tr><td class="pr-q">Merită formatele scumpe? Sunt sălile la fel de pline?</td><td><span class="pr-kind">Cine e primul?</span></td><td class="pr-viz">Clustered column chart</td><td class="pr-fields">X <code>Proiectii[Format]</code>, Y [Grad de ocupare]</td></tr>
+          <tr><td class="pr-q">La ce oră vin cei mai mulți spectatori?</td><td><span class="pr-kind">Cine e primul?</span></td><td class="pr-viz">Clustered column chart</td><td class="pr-fields">X <code>Proiectii[Ora_Start]</code>, sortat după oră, Y [Bilete pe proiecție]</td></tr>
+          <tr><td class="pr-q">Vin mai mulți oameni în weekend?</td><td><span class="pr-kind">Cine e primul?</span></td><td class="pr-viz">Clustered column chart</td><td class="pr-fields">X <code>Dim_Date[Zi_Lucratoare]</code>, Y [Bilete pe proiecție]</td></tr>
+          <tr><td class="pr-q">Cum se schimbă încasările de la un sezon la altul, pe formate?</td><td><span class="pr-kind">Din ce e format?</span></td><td class="pr-viz">Stacked column chart</td><td class="pr-fields">X <code>Dim_Date[Sezon]</code>, Y [Încasări totale], Legend <code>Format</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="pr-page" id="p5">
+      <div class="pr-page-h"><span class="pr-n">5</span><div>
+        <h2>Detaliu</h2>
+        <p class="pr-who"><b>Analistul.</b> Verifică cifrele exacte și le folosește mai departe.</p>
+      </div></div>
+      <div class="pr-filters"><span>Filtre</span><i>An</i><i>Cinematograf</i><i>Film</i><i>Status proiecție</i></div>
+      <table class="pr-tbl">
+        <thead><tr><th>Întrebarea</th><th>Tip</th><th>Graficul</th><th>Câmpuri</th></tr></thead>
+        <tbody>
+          <tr><td class="pr-q">Cum stă fiecare film, cu cifrele lui?</td><td><span class="pr-kind">Care exact?</span></td><td class="pr-viz">Table</td><td class="pr-fields"><code>Titlu</code>, <code>Gen</code>, [Nr proiecții], [Bilete vândute], [Încasări totale], [Grad de ocupare]</td></tr>
+          <tr><td class="pr-q">Cât a încasat fiecare cinematograf, pe fiecare format?</td><td><span class="pr-kind">Care exact?</span></td><td class="pr-viz">Matrix</td><td class="pr-fields">Rows <code>Nume_Cinema</code>, Columns <code>Format</code>, Values [Încasări totale]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <details class="pr-ms" id="masuri">
+      <summary>Măsurile de care ai nevoie (cu cifrele de control)</summary>
+      <table class="pr-tbl">
+        <thead><tr><th>Măsura</th><th>Formula</th><th>Fără filtre</th></tr></thead>
+        <tbody>
+          <tr><td class="pr-q">Încasări totale</td><td><code>SUM ( Proiectii[Incasari_Totale] )</code></td><td>594.495,57</td></tr>
+          <tr><td class="pr-q">Încasări bilete</td><td><code>SUM ( Proiectii[Incasari_Bilete] )</code></td><td>420.510,40</td></tr>
+          <tr><td class="pr-q">Încasări bar</td><td><code>SUM ( Proiectii[Incasari_Bar] )</code></td><td>173.985,17</td></tr>
+          <tr><td class="pr-q">Bilete vândute</td><td><code>SUM ( Proiectii[Bilete_Vandute] )</code></td><td>11.973</td></tr>
+          <tr><td class="pr-q">Nr proiecții</td><td><code>COUNTROWS ( Proiectii )</code></td><td>182</td></tr>
+          <tr><td class="pr-q">Grad de ocupare</td><td><code>DIVIDE ( [Bilete vândute], CALCULATE ( SUM ( Proiectii[Locuri_Disponibile] ), Proiectii[Status_Proiectie] = "Realizata" ) )</code></td><td>40%</td></tr>
+          <tr><td class="pr-q">Încasări pe proiecție</td><td><code>DIVIDE ( [Încasări totale], [Nr proiecții] )</code></td><td>3.266,46</td></tr>
+          <tr><td class="pr-q">Bilete pe proiecție</td><td><code>DIVIDE ( [Bilete vândute], [Nr proiecții] )</code></td><td>65,8</td></tr>
+          <tr><td class="pr-q">Bar pe spectator</td><td><code>DIVIDE ( [Încasări bar], [Bilete vândute] )</code></td><td>14,53</td></tr>
+          <tr><td class="pr-q">Încasări an anterior</td><td><code>CALCULATE ( [Încasări totale], SAMEPERIODLASTYEAR ( Dim_Date[Data] ) )</code></td><td>(gol fără an)</td></tr>
+        </tbody>
+      </table>
+      <p class="pr-note">Gradul de ocupare numără locurile doar la proiecțiile realizate: cele 5 anulate au locuri, dar niciun bilet. Pentru „Încasări an anterior”, marchează Dim_Date ca tabel de date (Table tools → Mark as date table).</p>
+    </details>
+  </main>
+  <script src="../../js/main.js"></script>
+</body>
+</html>

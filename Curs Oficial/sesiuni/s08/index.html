@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Power BI · Sesiunea 8 · De la poveste la raport</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23059669'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='56' font-weight='900' text-anchor='middle' fill='white'%3E8%3C/text%3E%3C/svg%3E" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/session.css" />
+  <link rel="stylesheet" href="../../css/extras.css" />
+  <link rel="stylesheet" href="../../css/s02.css" />
+  <link rel="stylesheet" href="../../css/s03.css" />
+  <link rel="stylesheet" href="../../css/s04.css?v=82" />
+  <link rel="stylesheet" href="../../css/s05.css?v=33" />
+  <link rel="stylesheet" href="../../css/s06.css?v=6" />
+  <link rel="stylesheet" href="../../css/s07.css?v=4" />
+  <link rel="stylesheet" href="../../css/s08.css?v=1" />
+  <script src="../../js/gate.js"></script>
+  <script src="../../js/firebase-init.js"></script>
+</head>
+<body class="hub-page s05-page s06-page s07-page s08-page" data-poll-root="curs-oficial/s08/polls">
+  <div class="hub-orbits" aria-hidden="true">
+    <div class="hub-orb a"></div>
+    <div class="hub-orb b"></div>
+    <div class="hub-orb c"></div>
+  </div>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="../../index.html" class="brand">
+        <span class="brand-mark">P</span>
+        <span>Power BI · Sesiunea 8</span>
+      </a>
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" aria-label="Schimbă tema">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="student-shell">
+    <div class="slide-progress"><div class="fill" data-slide-progress></div></div>
+    <main class="slide-deck">
+
+      <!-- 01 · Copertă -->
+      <article class="slide active s4-cover">
+        <div class="s4-cover-inner">
+          <span class="slide-eyebrow">Sesiunea 8</span>
+          <h1>De la poveste la raport</h1>
+          <p>Azi construiești un raport întreg în <strong>Atelierul de raport</strong>, pe o afacere nouă. Lecția nu îți dă graficele gata alese: îți dă <strong>regulile</strong> după care le alegi singur, la fiecare pas.</p>
+          <p class="s6-cover-q">Firul roșu: un raport bun nu începe cu un grafic, ci cu <strong>o întrebare a cuiva</strong>. Graficul e doar forma răspunsului.</p>
+        </div>
+      </article>
+
+      <!-- 02 · Recapitulare S7 -->
+      <article class="slide">
+        <span class="slide-eyebrow">Recapitulare · sesiunea 7</span>
+        <h2>Ce am învățat despre interactivitate?</h2>
+        <p class="s3-lead">Gândește răspunsul, apoi apasă <strong>Arată răspunsul</strong>.</p>
+        <div data-s3-recap>
+          <div class="s3-recap-top">
+            <span class="s3-recap-count" data-s3-recap-count>01 / 03</span>
+            <div class="s3-recap-nav">
+              <button type="button" data-s3-recap-prev>Înapoi</button>
+              <button type="button" data-s3-recap-next>Înainte</button>
+            </div>
+          </div>
+
+          <section class="s3-q is-on" data-s3-q>
+            <h3>Slicer sau filtru?</h3>
+            <p class="ask">Vrei ca cititorul să aleagă singur anul, dar anii dinainte de 2022 să nu apară niciodată. Ce folosești pentru fiecare?</p>
+            <div class="s3-answer">
+              <p>Un <strong>slicer</strong> pe An, la vedere, pentru alegerea cititorului. Un <strong>filtru pe toate paginile</strong> (Filters pane) pentru regula fixă, pe care cititorul nu trebuie să o schimbe.</p>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>Edit interactions</h3>
+            <p class="ask">Cardul cu totalul general se schimbă de fiecare dată când dai click pe un grafic. Cum îl oprești?</p>
+            <div class="s3-answer">
+              <p>Selectezi graficul sursă → <strong>Format → Edit interactions</strong> → pe card alegi <strong>None</strong>.</p>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>De ce contează?</h3>
+            <p class="ask">Ai slicere, tooltips, bookmarks. De unde știi pe care să le pui pe o pagină?</p>
+            <div class="s3-answer">
+              <p>Din <strong>întrebările cititorului</strong>. Uneltele răspund la „vreau să aleg”, „vreau detaliul”, „vreau să revin”. Fără întrebări clare, adaugi unelte la întâmplare. Azi pornim exact de la întrebări.</p>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+        </div>
+      </article>
+
+      <!-- 03 · Conceptele -->
+      <article class="slide s5-framework">
+        <span class="slide-eyebrow">Conceptele de azi</span>
+        <h2>Șapte concepte, atât</h2>
+        <p class="s5-oneline">Tot ce faci azi în atelier se sprijină pe unul dintre ele.</p>
+        <div class="s8-route s8-concepts">
+          <article><span class="n">01</span><h3>Afacerea</h3><p>Cum face firma bani: ce vinde, cui, unde, când.</p></article>
+          <article><span class="n">02</span><h3>Relația *:1</h3><p>Cheia unică din dimensiune leagă cheia repetată din fapte.</p></article>
+          <article><span class="n">03</span><h3>Cititorul</h3><p>Cine deschide pagina și ce decizie ia.</p></article>
+          <article><span class="n">04</span><h3>Întrebarea de business</h3><p>Concretă, o singură idee, duce la o acțiune.</p></article>
+          <article><span class="n">05</span><h3>Tipul răspunsului</h3><p>Cifră, clasament, evoluție, pondere, legătură, loc, detaliu.</p></article>
+          <article><span class="n">06</span><h3>Graficul potrivit</h3><p>Tipul răspunsului alege familia graficului.</p></article>
+          <article><span class="n">07</span><h3>Așezarea paginii</h3><p>Cifrele sus, explicația la mijloc, detaliul jos.</p></article>
+          <article class="is-pbi"><span class="n">=</span><h3>Raportul</h3><p>Întrebarea vine prima. Graficul e forma răspunsului.</p></article>
+        </div>
+      </article>
+
+      <!-- 04 · Harta -->
+      <article class="slide s5-framework">
+        <span class="slide-eyebrow">Ghidul atelierului</span>
+        <h2>Șapte pași, câte o regulă pentru fiecare</h2>
+        <p class="s5-oneline">Lucrezi în atelier în ordinea asta. Când te blochezi, întoarce-te la regula pasului.</p>
+        <div class="s8-route">
+          <article><span class="n">01 · Date</span><h3>Totul, curat</h3><p>Ai toate tabelele de care ai nevoie? Lipsă acum înseamnă grafic imposibil mai târziu.</p></article>
+          <article><span class="n">02 · Înțelege</span><h3>Afacerea, nu coloanele</h3><p>Poți explica cuiva cum face firma bani, înainte să deschizi un grafic?</p></article>
+          <article><span class="n">03 · Modelare</span><h3>Unic leagă repetat</h3><p>Cheia unică din dimensiune, cheia repetată din fapte.</p></article>
+          <article><span class="n">04 · Poveste</span><h3>Întrebarea întâi</h3><p>Fiecare pagină răspunde la întrebările unui cititor anume.</p></article>
+          <article><span class="n">05 · Bibliotecă</span><h3>Forma urmează întrebarea</h3><p>Tipul întrebării alege familia graficului, nu gustul.</p></article>
+          <article><span class="n">06 · Construiește</span><h3>Se citește în 30 de secunde</h3><p>Cifrele sus, explicația la mijloc, detaliul jos.</p></article>
+          <article><span class="n">07 · Plan</span><h3>Ordinea din Power BI</h3><p>Model, coloane, măsuri, pagini. Bifezi pe măsură ce lucrezi.</p></article>
+          <article class="is-pbi"><span class="n">→</span><h3>Power BI Desktop</h3><p>Execuți planul. Deciziile le-ai luat deja.</p></article>
+        </div>
+      </article>
+
+      <!-- 04 · Datele -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Pregătire</span>
+          <span class="s5-concept-pill is-fw">Afacerea de azi</span>
+        </div>
+        <h2>CineRo: o rețea de cinematografe care de azi e a ta</h2>
+        <p class="s5-oneline">Un fișier Excel cu 5 foi, deja curat. Filmele sunt fictive, iar actorii și producătorii sunteți voi.</p>
+        <div class="s8-sheets">
+          <section class="is-fact"><h3>Proiectii</h3><span class="rows">182 rânduri · fact</span><p>O proiecție: ce film, în ce cinematograf și sală, la ce oră, în a câta săptămână de la premieră, în ce format, câte locuri, câte bilete, încasări din bilete și de la bar, status.</p></section>
+          <section><h3>Dim_Filme</h3><span class="rows">24 rânduri</span><p>Titlu, gen, clasificare, lansare, regizor, producător, distribuitor și cota lui din bilete, buget, rating.</p></section>
+          <section><h3>Dim_Actori</h3><span class="rows">13 rânduri</span><p>Numele vostru, orașul natal, genul preferat, debutul, categoria.</p></section>
+          <section><h3>Dim_Cinematografe</h3><span class="rows">10 rânduri</span><p>Oraș, regiune, coordonate, tip (multiplex, boutique, drive-in), săli, locuri.</p></section>
+          <section><h3>Dim_Date</h3><span class="rows">1.461 rânduri</span><p>Calendarul 2022–2025: an, trimestru, lună, zi, zi lucrătoare, sezon.</p></section>
+        </div>
+        <div class="s8-links">
+          <a class="s8-download" href="date/Cinema_curat.xlsx" download>Descarcă Cinema_curat.xlsx</a>
+          <a class="s8-download is-ghost" href="../../atelier/index.html" target="_blank" rel="noopener">Deschide Atelierul de raport</a>
+          <a class="s8-download is-ghost" href="pagini-raport.html" target="_blank" rel="noopener">Paginile raportului CineRo</a>
+        </div>
+      </article>
+
+      <!-- 05 · Înțelege -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Pasul 2 · Înțelege</span>
+          <span class="s5-concept-pill is-fw">Concept 01 · Afacerea</span>
+        </div>
+        <h2>Înțelegi afacerea înainte de coloane</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Cinci întrebări pentru orice afacere</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-tip"><strong>Cum face bani?</strong> Bilete și bar.</li>
+              <li class="is-tip"><strong>Ce vinde?</strong> Filme, în genuri și formate.</li>
+              <li class="is-tip"><strong>Cui?</strong> Familii, tineri, cupluri.</li>
+              <li class="is-tip"><strong>Unde?</strong> Multiplex, boutique, drive-in.</li>
+              <li class="is-tip"><strong>Când?</strong> Weekenduri, premiere, vacanțe.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Încă fără concluzii</h3>
+            <p>Afli <strong>ce poți întreba</strong>. Răspunsurile le găsești în Power BI.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- 06 · Modelare -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Pasul 3 · Modelare</span>
+          <span class="s5-concept-pill is-fw">Concept 02 · Relația *:1</span>
+        </div>
+        <h2>Unic leagă repetat</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Relația bună</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes"><strong>O coloană e unică:</strong> fiecare film apare o dată în <code>Dim_Filme</code>.</li>
+              <li class="is-yes"><strong>Cealaltă se repetă:</strong> un film are multe proiecții.</li>
+              <li class="is-yes"><strong>Vorbesc despre același lucru:</strong> <code>ID_Film</code> cu filmele.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Testul rapid</h3>
+            <p>Spune-o cu voce tare: <em>„Un film are multe proiecții.”</em> Dacă sună bine, relația e corectă.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- 07 · Poveste · cititorul -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Pasul 4 · Poveste</span>
+          <span class="s5-concept-pill is-fw">Concept 03 · Cititorul</span>
+        </div>
+        <h2>Fiecare pagină are un cititor</h2>
+        <p class="s5-oneline">Întâi decizi <strong>cine</strong> citește. Directorul, managerul de cinema și marketingul vor pagini diferite.</p>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>O pagină, un subiect</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-tip"><strong>Numele paginii e subiectul:</strong> „Filme”, „Cinematografe”.</li>
+              <li class="is-tip"><strong>3–6 întrebări</strong> pe pagină.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Ordinea paginilor</h3>
+            <ol class="s7-steps">
+              <li><strong>Prezentare generală:</strong> cum stăm, în 30 de secunde.</li>
+              <li><strong>Paginile de analiză:</strong> de ce stăm așa (filme, cinematografe, timp).</li>
+              <li><strong>Detaliu:</strong> cifrele exacte, pentru cine vrea să verifice.</li>
+            </ol>
+          </section>
+        </div>
+      </article>
+
+      <!-- 08 · Poveste · întrebarea bună -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Pasul 4 · Poveste</span>
+          <span class="s5-concept-pill is-fw">Concept 04 · Întrebarea de business</span>
+        </div>
+        <h2>Întrebarea bună duce la o acțiune</h2>
+        <p class="s5-oneline">Concretă, o singură idee, cu răspuns în datele tale.</p>
+        <table class="s5-bar-tbl s6-cheat">
+          <thead><tr><th>Slabă</th><th>De ce</th><th>Mai bună</th></tr></thead>
+          <tbody>
+            <tr><td>„Vânzări pe filme”</td><td>E numele unui grafic.</td><td>„Care filme aduc cele mai multe încasări?”</td></tr>
+            <tr><td>„Cum merg filmele și cinematografele?”</td><td>Două idei.</td><td>Două întrebări, pe pagini diferite.</td></tr>
+            <tr><td>„Analiza formatelor”</td><td>Vagă.</td><td>„Merită formatele scumpe (IMAX, VIP)?”</td></tr>
+          </tbody>
+        </table>
+        <p class="s06-takeaway"><strong>Testul acțiunii:</strong> ce face cititorul diferit după ce află răspunsul?</p>
+      </article>
+
+      <!-- 09 · Poveste · tipul răspunsului -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Pasul 4 · Poveste</span>
+          <span class="s5-concept-pill is-fw">Concept 05 · Tipul răspunsului</span>
+        </div>
+        <h2>Cuvintele din întrebare îți spun tipul răspunsului</h2>
+        <table class="s5-bar-tbl s6-cheat">
+          <thead><tr><th>Dacă întrebarea conține…</th><th>Tipul răspunsului</th><th>Exemplu CineRo</th></tr></thead>
+          <tbody>
+            <tr><td>cât, câte, ce procent, total</td><td><strong>Cât?</strong> o cifră</td><td>Câte bilete am vândut?</td></tr>
+            <tr><td>care e cel mai, top, compară, primul</td><td><strong>Cine e primul?</strong> un clasament</td><td>Care gen aduce cele mai multe încasări?</td></tr>
+            <tr><td>cum evoluează, lună de lună, crește, scade</td><td><strong>Cum evoluează?</strong> timp</td><td>Cum se schimbă încasările de la o lună la alta?</td></tr>
+            <tr><td>pondere, din ce e format, mix, împărțire</td><td><strong>Din ce e format?</strong> părți dintr-un întreg</td><td>Ce pondere au formatele 2D, 3D, IMAX, VIP?</td></tr>
+            <tr><td>de ce, ce a dus la, ce explică</td><td><strong>Ce a dus la rezultat?</strong> contribuții</td><td>Ce a schimbat încasările față de anul trecut?</td></tr>
+            <tr><td>cu cât mai…, legătura dintre</td><td><strong>Merg împreună?</strong> două măsuri</td><td>Filmele cu buget mai mare vând mai multe bilete?</td></tr>
+            <tr><td>unde, în ce oraș, pe hartă</td><td><strong>Unde?</strong> loc</td><td>Unde sunt cinematografele cele mai puternice?</td></tr>
+            <tr><td>care exact, lista, pentru fiecare</td><td><strong>Care exact?</strong> detaliu</td><td>Cum stă fiecare film, cu cifrele lui?</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <!-- 10 · Bibliotecă · trei întrebări -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Pasul 5 · Bibliotecă</span>
+          <span class="s5-concept-pill is-fw">Concept 06 · Graficul potrivit</span>
+        </div>
+        <h2>Patru întrebări înainte de orice grafic</h2>
+        <div class="s6-route">
+          <article>
+            <span class="n">01</span>
+            <h3>Ce tip de răspuns?</h3>
+            <p>Alege familia graficului.</p>
+            <span class="s6-route-fx">vine din Poveste</span>
+          </article>
+          <article>
+            <span class="n">02</span>
+            <h3>Câte valori ai?</h3>
+            <p>Multe valori cer bare sortate sau Top N.</p>
+            <span class="s6-route-fx">≤ 5 · 6–15 · peste 15</span>
+          </article>
+          <article>
+            <span class="n">03</span>
+            <h3>E timp pe axă?</h3>
+            <p>Timpul merge de la stânga la dreapta: linie sau coloane.</p>
+            <span class="s6-route-fx">an · lună · zi</span>
+          </article>
+          <article>
+            <span class="n">04</span>
+            <h3>Se citește în 5 secunde?</h3>
+            <p>Dacă nu, simplifică sau schimbă graficul.</p>
+            <span class="s6-route-fx">testul de 5 secunde</span>
+          </article>
+        </div>
+      </article>
+
+      <!-- 11 · Bibliotecă · reguli pe familii -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Pasul 5 · Bibliotecă</span>
+          <span class="s5-concept-pill is-fw">Concept 06 · Graficul potrivit</span>
+        </div>
+        <h2>Regulile fiecărei familii de grafice</h2>
+        <table class="s5-bar-tbl s6-cheat">
+          <thead><tr><th>Răspuns</th><th>Alegi…</th><th>Regula care decide</th></tr></thead>
+          <tbody>
+            <tr><td>O cifră</td><td>Card · KPI · Gauge</td><td>Card pentru o cifră; KPI sau gauge doar când ai un reper (anul trecut, o țintă).</td></tr>
+            <tr><td>Clasament</td><td>Bar · Column</td><td>Sortează mereu. Bare orizontale când numele sunt lungi sau ai peste 7 valori. Peste 15: Top N.</td></tr>
+            <tr><td>Evoluție</td><td>Line · Column · Area</td><td>Linie pentru multe puncte (luni, săptămâni); coloane pentru puține (ani, trimestre).</td></tr>
+            <tr><td>Pondere</td><td>Donut · Pie · 100% stacked · Treemap</td><td>Donut sau pie doar cu cel mult 5 părți care fac un întreg. Mai multe: bare sau treemap.</td></tr>
+            <tr><td>Contribuție</td><td>Waterfall · Decomposition tree</td><td>Waterfall când explici o diferență pas cu pas (de la anul trecut la anul acesta).</td></tr>
+            <tr><td>Legătură</td><td>Scatter · Bubble</td><td>Două măsuri, un punct pentru fiecare element (film, cinematograf).</td></tr>
+            <tr><td>Loc</td><td>Map</td><td>Doar dacă locul contează pentru decizie. Altfel, un clasament e mai clar.</td></tr>
+            <tr><td>Detaliu</td><td>Table · Matrix</td><td>Jos pe pagină, după graficele care arată „unde să te uiți”.</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <!-- 12 · Bibliotecă · greșeli -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Pasul 5 · Bibliotecă</span>
+          <span class="s5-concept-pill is-fw">Concept 06 · Graficul potrivit</span>
+        </div>
+        <h2>Greșeli frecvente la alegerea graficului</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Forma nepotrivită</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-no"><strong>Plăcintă cu peste 5 felii:</strong> feliile nu se mai pot compara.</li>
+              <li class="is-no"><strong>Linie pe categorii</strong> (genuri, orașe): linia e pentru timp.</li>
+              <li class="is-no"><strong>Bare care nu pornesc de la zero:</strong> diferențele par mai mari.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Alegerea nepotrivită</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-no"><strong>Graficul „frumos”</strong> în locul celui clar.</li>
+              <li class="is-no"><strong>Un grafic fără întrebare:</strong> dacă nu știi la ce răspunde, scoate-l.</li>
+            </ul>
+          </section>
+        </div>
+      </article>
+
+      <!-- 13 · Antrenament -->
+      <article class="slide s4-stepq-slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Pasul 5 · Bibliotecă</span>
+          <span class="s5-concept-pill">Antrenament</span>
+        </div>
+        <h2>Tu ce grafic alegi?</h2>
+        <p class="s3-lead s4-stepq-lead">Aplică cele trei întrebări, spune alegerea, apoi apasă pe card ca să vezi raționamentul.</p>
+        <div class="s2-stages-reveal" data-bi-stages>
+          <div class="s2-reveal-grid is-three s4-stepq">
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">01</span>
+              <span class="s2-reveal-ask">„Câte bilete am vândut anul acesta, față de anul trecut?”</span>
+              <div class="s2-reveal-content"><h3>O cifră cu reper</h3><p>„Câte” → o cifră. „Față de anul trecut” → reper. KPI, cu anul anterior ca țintă.</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">02</span>
+              <span class="s2-reveal-ask">„Care dintre cele 24 de filme aduc cele mai multe încasări?”</span>
+              <div class="s2-reveal-content"><h3>Clasament cu multe valori</h3><p>24 de titluri lungi → bare orizontale, sortate, cu Top 10.</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">03</span>
+              <span class="s2-reveal-ask">„Cum se schimbă încasările de la o lună la alta?”</span>
+              <div class="s2-reveal-content"><h3>Evoluție, multe puncte</h3><p>Timp pe axă, ~48 de luni → linie. Nu coloane: ar fi prea multe.</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">04</span>
+              <span class="s2-reveal-ask">„Ce pondere au formatele 2D, 3D, IMAX și VIP?”</span>
+              <div class="s2-reveal-content"><h3>Pondere, 4 părți</h3><p>4 părți care fac un întreg → donut e în regulă. Cu 10 părți ai fi ales bare.</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">05</span>
+              <span class="s2-reveal-ask">„Filmele cu rating mai mare vând mai multe bilete?”</span>
+              <div class="s2-reveal-content"><h3>Legătură între două măsuri</h3><p>„Cu cât mai…” → scatter: rating pe X, bilete pe Y, un punct pe film.</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">06</span>
+              <span class="s2-reveal-ask">„Cum stă fiecare cinematograf, cu cifrele exacte?”</span>
+              <div class="s2-reveal-content"><h3>Detaliu</h3><p>„Fiecare”, „exacte” → tabel, jos pe pagină, cu data bars pe prima coloană.</p></div>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 14 · Construiește · așezarea -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Pasul 6 · Construiește</span>
+          <span class="s5-concept-pill is-fw">Concept 07 · Așezarea paginii</span>
+        </div>
+        <h2>Pagina se citește ca un text: din stânga-sus</h2>
+        <div class="s7-canvas">
+          <div class="is-slicer"><b>Slicere</b>stânga sau sus: An, Regiune, Gen</div>
+          <div class="is-card"><b><span class="n">1</span>Cifrele-cheie</b>sus, pe un rând, aceeași lățime</div>
+          <div><b><span class="n">2</span>Graficul principal</b>răspunsul la întrebarea cea mai importantă</div>
+          <div><b><span class="n">3</span>Graficele care explică</b>„unde?”, „cine?”, „când?”</div>
+          <div><b><span class="n">4</span>Detaliul</b>tabelul, jos, pentru cine verifică</div>
+        </div>
+        <div class="s5-bar-grid" style="margin-top:12px">
+          <section class="s5-bar-card">
+            <h3>Reguli</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-yes"><strong>4–8 vizuale</strong> pe pagină. Peste 8, cititorul nu mai știe unde să se uite.</li>
+              <li class="is-yes"><strong>Aliniază</strong> marginile; lasă spațiu între grupuri.</li>
+              <li class="is-yes"><strong>Ordinea pe pagină = ordinea întrebărilor</strong> din Poveste.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Testul de 30 de secunde</h3>
+            <p>Arată pagina unui coleg 30 de secunde, apoi ascunde-o. Ce a reținut? Dacă nu poate spune răspunsul la întrebarea principală, pagina are prea mult sau răspunsul nu e sus.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- 15 · Construiește · formatarea -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Pasul 6 · Construiește</span>
+          <span class="s5-concept-pill is-fw">Concept 07 · Așezarea paginii</span>
+        </div>
+        <h2>Formatarea care ajută, nu care decorează</h2>
+        <table class="s5-bar-tbl s6-cheat">
+          <thead><tr><th>Regula</th><th>Așa nu</th><th>Așa da</th></tr></thead>
+          <tbody>
+            <tr><td>Titlul spune răspunsul</td><td>„Valoare_Totala pe Gen”</td><td>„Ce gen aduce cele mai multe încasări?”</td></tr>
+            <tr><td>O culoare principală + gri</td><td>Fiecare bară altă culoare</td><td>Toate barele la fel; evidențiezi una singură, dacă vrei</td></tr>
+            <tr><td>Aceeași categorie, aceeași culoare</td><td>IMAX e verde pe o pagină, roșu pe alta</td><td>IMAX are aceeași culoare peste tot</td></tr>
+            <tr><td>Cifre ușor de citit</td><td>594495,5700</td><td>594,5K sau 594.496</td></tr>
+            <tr><td>Mai puțin zgomot</td><td>Grid, axe, etichete și legendă, toate</td><td>Etichete pe bare, fără axa care le repetă</td></tr>
+            <tr><td>Fără efecte</td><td>3D, umbre, fundaluri colorate</td><td>Plat, cu spațiu alb</td></tr>
+          </tbody>
+        </table>
+        <p class="s06-takeaway"><strong>În atelier:</strong> butonul <strong>Verifică pagina</strong> aplică o parte din aceste reguli și îți spune ce mai e de reparat.</p>
+      </article>
+
+      <!-- 16 · Cum lucrezi azi -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Lucru în atelier</span>
+          <span class="s5-concept-pill is-fw">Planul orei</span>
+        </div>
+        <h2>Raportul pentru directorul CineRo</h2>
+        <div class="s8-atl"><span class="s8-atl-tag">În atelier</span><span>Cititorul tău: <strong>directorul rețelei</strong>. Vrea să decidă în ce filme și cinematografe investește anul viitor. Paginile, întrebările și filtrele: <a href="pagini-raport.html" target="_blank" rel="noopener">Paginile raportului CineRo</a>.</span></div>
+        <table class="s5-bar-tbl s7-ex-tbl">
+          <thead><tr><th>Timp</th><th>Pas</th><th>Ce predai la final</th></tr></thead>
+          <tbody>
+            <tr><td>10 min</td><td>Date + Înțelege</td><td>Poți explica în două fraze cum face CineRo bani.</td></tr>
+            <tr><td>10 min</td><td>Modelare</td><td>4 relații verzi, nicio relație roșie.</td></tr>
+            <tr><td>20 min</td><td>Poveste</td><td>3 pagini, fiecare cu 3–6 întrebări și tipul răspunsului.</td></tr>
+            <tr><td>25 min</td><td>Bibliotecă + Construiește</td><td>Pagina „Prezentare generală” așezată, cu „Verifică pagina” curat.</td></tr>
+            <tr><td>5 min</td><td>Plan</td><td>Planul exportat (PDF), gata de dus în Power BI.</td></tr>
+          </tbody>
+        </table>
+        <p class="s06-takeaway"><strong>Cifre de control:</strong> încasările totale sunt <strong>594.495,57</strong> (420.510,40 din bilete și 173.985,17 de la bar), din <strong>182</strong> proiecții. Gradul de ocupare: <strong>11.973</strong> bilete din 29.919 locuri, adică 40%. Dacă vezi altceva, verifică modelul.</p>
+      </article>
+
+      <!-- 17 · Verifică-te -->
+      <article class="slide s4-stepq-slide s5-bar-slide">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare</span>
+          <span class="s5-concept-pill">Verifică-te</span>
+        </div>
+        <h2>Ce regulă încalcă?</h2>
+        <p class="s3-lead s4-stepq-lead">Citește situația, spune regula, apoi apasă pe card.</p>
+        <div class="s2-stages-reveal" data-bi-stages>
+          <div class="s2-reveal-grid is-three s4-stepq">
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">01</span>
+              <span class="s2-reveal-ask">Pagina „Filme” are 11 grafice.</span>
+              <div class="s2-reveal-content"><h3>4–8 vizuale</h3><p>Prea multe. Păstrează ce răspunde la întrebările paginii; restul mută-l pe altă pagină.</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">02</span>
+              <span class="s2-reveal-ask">Întrebarea: „Vânzări pe cinematografe”.</span>
+              <div class="s2-reveal-content"><h3>Întrebarea întâi</h3><p>E un nume de grafic. Mai bine: „Care cinematografe au nevoie de ajutor?”</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">03</span>
+              <span class="s2-reveal-ask">Pie chart cu cele 24 de filme.</span>
+              <div class="s2-reveal-content"><h3>Pondere ≤ 5 părți</h3><p>24 de felii nu se citesc. Bare orizontale sortate, cu Top 10.</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">04</span>
+              <span class="s2-reveal-ask">Line chart cu genurile de film pe axa X.</span>
+              <div class="s2-reveal-content"><h3>Linia e pentru timp</h3><p>Genurile nu au ordine. Bare sortate.</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">05</span>
+              <span class="s2-reveal-ask">Tabelul cu toate proiecțiile e sus, cardurile jos.</span>
+              <div class="s2-reveal-content"><h3>Stânga-sus e cel mai important</h3><p>Cifrele sus, detaliul jos.</p></div>
+            </button>
+            <button type="button" class="s2-reveal-card" data-reveal-stage aria-expanded="false">
+              <span class="s2-reveal-num">06</span>
+              <span class="s2-reveal-ask">Relație între <code>ID_Actor</code> și <code>Dim_Filme[ID]</code>.</span>
+              <div class="s2-reveal-content"><h3>Vorbesc despre același lucru</h3><p>Numerele se potrivesc din întâmplare. ID_Actor se leagă de Dim_Actori.</p></div>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 18 · Fișă -->
+      <article class="slide s5-framework">
+        <span class="slide-eyebrow">Fișă de buzunar</span>
+        <h2>Regulile atelierului, pe o pagină</h2>
+        <table class="s5-bar-tbl s6-cheat">
+          <thead><tr><th>Pas</th><th>Regula</th><th>Întrebarea de control</th></tr></thead>
+          <tbody>
+            <tr><td>Înțelege</td><td>Afacerea înainte de coloane</td><td>Pot explica cum face firma bani?</td></tr>
+            <tr><td>Modelare</td><td>Unic leagă repetat, despre același lucru</td><td>Sună bine propoziția „un X are mulți Y”?</td></tr>
+            <tr><td>Poveste</td><td>O pagină, un subiect, 3–6 întrebări</td><td>Ce face cititorul cu răspunsul?</td></tr>
+            <tr><td>Bibliotecă</td><td>Tipul întrebării alege familia</td><td>Ce tip de răspuns? Câte valori? E timp?</td></tr>
+            <tr><td>Construiește</td><td>Cifrele sus, detaliul jos</td><td>Se citește în 30 de secunde?</td></tr>
+            <tr><td>Formatare</td><td>Titlul spune răspunsul, o culoare principală</td><td>Ce scot fără să pierd informație?</td></tr>
+            <tr><td>Plan</td><td>Model → coloane → măsuri → pagini</td><td>Cifra fără filtre e cea așteptată?</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <!-- 19 · Încheiere -->
+      <article class="slide s5-closing">
+        <div class="closing-hero">
+          <span class="closing-eyebrow">Sesiunea 8 · încheiere</span>
+          <h2 class="closing-title">De la poveste la raport</h2>
+        </div>
+        <div class="closing-band">
+          <div class="band-row s6-close-row">
+            <div class="band-card">
+              <span class="n">01</span>
+              <strong>Întrebarea întâi</strong>
+              <span class="d">Cititor, subiect pe pagină, întrebări concrete care duc la o acțiune.</span>
+            </div>
+            <div class="band-card">
+              <span class="n">02</span>
+              <strong>Tipul răspunsului</strong>
+              <span class="d">Cuvintele din întrebare îți spun dacă vrei o cifră, un clasament, o evoluție sau o pondere.</span>
+            </div>
+            <div class="band-card">
+              <span class="n">03</span>
+              <strong>Graficul după reguli</strong>
+              <span class="d">Familia din tipul răspunsului, apoi numărul de valori și timpul decid graficul.</span>
+            </div>
+            <div class="band-card">
+              <span class="n">04</span>
+              <strong>Pagina care se citește</strong>
+              <span class="d">Cifrele sus, explicația la mijloc, detaliul jos; titluri care spun răspunsul.</span>
+            </div>
+          </div>
+        </div>
+        <div class="s4-close-task">
+          <span class="s4-close-kicker">Temă</span>
+          <p>Termină în atelier cele <strong>3 pagini</strong> ale raportului CineRo, exportă planul (PDF) și construiește în Power BI Desktop pagina <strong>Prezentare generală</strong>. Pentru fiecare grafic notează, într-un rând, <strong>regula</strong> după care l-ai ales.</p>
+        </div>
+      </article>
+
+    </main>
+
+    <nav class="slide-nav">
+      <button class="slide-nav-btn" data-slide-prev>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Înapoi
+      </button>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+        <div class="slide-counter" data-slide-counter>1 / 2</div>
+        <div class="slide-dots" data-slide-dots></div>
+      </div>
+      <button class="slide-nav-btn" data-slide-next>
+        Următor
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </nav>
+  </div>
+  <script src="../../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+/* Sesiunea 8 · Atelier de raport — extinde stilurile S5/S6/S7 */
+
+/* ---------- traseul cu 7 etape ---------- */
+.s8-route {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+.s8-route article {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 14px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.s8-route .n { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.06em; color: var(--primary); }
+.s8-route h3 { margin: 0; font-size: 1rem; letter-spacing: -0.02em; }
+.s8-route p { margin: 0; font-size: 0.85rem; line-height: 1.4; color: var(--text-2); }
+.s8-route article.is-pbi { border-style: dashed; }
+
+/* ---------- „În atelier” ---------- */
+.s8-atl {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px dashed color-mix(in srgb, var(--primary) 45%, var(--border));
+  background: var(--primary-soft);
+  font-size: 0.9rem;
+  color: var(--text-2);
+}
+.s8-atl-tag {
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.s8-atl a { font-weight: 700; color: var(--primary-dark); }
+[data-theme="dark"] .s8-atl a { color: var(--primary-light); }
+
+/* ---------- foile din setul de date ---------- */
+.s8-sheets {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 6px;
+}
+.s8-sheets section {
+  padding: 12px 13px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.s8-sheets section.is-fact { border-color: color-mix(in srgb, var(--primary) 55%, var(--border)); box-shadow: inset 0 3px 0 var(--primary); }
+.s8-sheets h3 { margin: 0 0 2px; font-size: 0.95rem; }
+.s8-sheets .rows { font-size: 0.76rem; font-weight: 700; color: var(--primary); }
+.s8-sheets p { margin: 6px 0 0; font-size: 0.82rem; line-height: 1.4; color: var(--text-2); }
+
+.s8-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 10px;
+  background: var(--primary);
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 0.92rem;
+  text-decoration: none;
+}
+.s8-download:hover { background: var(--primary-dark); }
+.s8-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.s8-links a.is-ghost { background: var(--surface); color: var(--text) !important; border: 1px solid var(--border); }
+
+@media (max-width: 1100px) {
+  .s8-sheets { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 860px) {
+  .s8-route { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .s8-route, .s8-sheets { grid-template-columns: 1fr; }
+}

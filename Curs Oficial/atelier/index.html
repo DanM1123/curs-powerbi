@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atelier de raport · Power BI</title>
+  <meta name="description" content="Schițează raportul Power BI înainte să-l construiești: înțelege datele, leagă tabelele, scrie povestea paginilor, alege vizualele și pleacă cu planul de lucru." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23059669'/%3E%3Crect x='22' y='52' width='12' height='26' rx='3' fill='white'/%3E%3Crect x='44' y='36' width='12' height='42' rx='3' fill='white'/%3E%3Crect x='66' y='22' width='12' height='56' rx='3' fill='white'/%3E%3C/svg%3E" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('curs-oficial-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/atelier.css" />
+  <link rel="stylesheet" href="../css/atelier-steps.css" />
+</head>
+<body class="atl-body">
+  <div class="atl-orbs" aria-hidden="true"><i class="a"></i><i class="b"></i></div>
+
+  <header class="nav atl-nav">
+    <div class="atl-nav-inner">
+      <a href="../index.html" class="brand" title="Înapoi la curs">
+        <span class="brand-mark">C</span>
+        <span>Power BI <em class="atl-brand-sub">· Atelier de raport</em></span>
+      </a>
+      <nav class="atl-steps" aria-label="Pașii atelierului">
+        <a href="#date" data-step="date"><span>1</span>Date</a>
+        <a href="#intelege" data-step="intelege"><span>2</span>Înțelege</a>
+        <a href="#model" data-step="model"><span>3</span>Modelare</a>
+        <a href="#poveste" data-step="poveste"><span>4</span>Poveste</a>
+        <a href="#biblioteca" data-step="biblioteca"><span>5</span>Bibliotecă</a>
+        <a href="#construieste" data-step="construieste"><span>6</span>Construiește</a>
+        <a href="#plan" data-step="plan"><span>7</span>Plan</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" aria-label="Schimbă tema">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="atl-app" class="atl-app" aria-live="polite"></main>
+
+  <div id="atl-drawer" class="atl-drawer" hidden></div>
+  <div id="atl-toast" class="atl-toast" role="status" hidden></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="../js/atelier-data.js"></script>
+  <script src="../js/atelier-catalog.js"></script>
+  <script src="../js/atelier-charts.js"></script>
+  <script src="../js/atelier-story.js"></script>
+  <script src="../js/atelier-brief-cinema.js"></script>
+  <script src="../js/atelier-understand.js"></script>
+  <script src="../js/atelier-model.js"></script>
+  <script src="../js/atelier-app.js"></script>
+</body>
+</html>
