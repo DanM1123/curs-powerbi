@@ -15,7 +15,7 @@
 
   A.Briefs.push({
     id: 'cinema',
-    match: (m, D) => m.tables.some((t) => /film/.test(D.norm(t.name))) && m.tables.some((t) => /cinema/.test(D.norm(t.name))),
+    match: (m, D) => m.tables.some((t) => /film/.test(D.norm(t.name))) && m.tables.some((t) => /cinema/.test(D.norm(t.name))) && !m.tables.some((t) => /spectator/.test(D.norm(t.name))),
     render(m, h) {
       const { D, esc, icon } = h;
       const nf = (n) => Number(n).toLocaleString('ro-RO');

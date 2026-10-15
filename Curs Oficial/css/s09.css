@@ -1,0 +1,252 @@
+/* Sesiunea 9 · Power BI Service și time intelligence — extinde stilurile S5–S8 */
+
+/* ---------- flux Desktop → Service ---------- */
+.s9-flow {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  margin: 4px 0 12px;
+}
+.s9-step {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 0.84rem;
+  line-height: 1.4;
+  color: var(--text-2);
+}
+.s9-step strong { font-size: 1rem; color: var(--text); letter-spacing: -0.01em; }
+.s9-step.is-desk { border-top: 3px solid #0ea5e9; }
+.s9-step.is-svc { border-top: 3px solid var(--primary); background: var(--primary-soft); }
+.s9-step-n { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.06em; color: var(--primary); }
+.s9-arrow {
+  align-self: center;
+  flex: 0 0 auto;
+  font-weight: 800;
+  font-size: 0.82rem;
+  color: var(--primary-dark);
+  white-space: nowrap;
+}
+[data-theme="dark"] .s9-arrow { color: var(--primary-light); }
+
+/* ---------- carduri generice ---------- */
+.s9-cards {
+  display: grid;
+  gap: 10px;
+  margin-top: 6px;
+}
+.s9-cards-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.s9-cards-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.s9-cards article {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.s9-cards .n { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.06em; color: var(--primary); }
+.s9-cards h3 { margin: 0; font-size: 0.98rem; letter-spacing: -0.01em; }
+.s9-cards p { margin: 0; font-size: 0.82rem; line-height: 1.42; color: var(--text-2); }
+.s9-cards-3 article { border-top: 3px solid var(--primary); }
+
+.s9-tree { margin-top: 12px !important; font-size: 0.8rem !important; }
+
+/* ---------- tabele ---------- */
+.s05-page .s9-tbl-compact th,
+.s05-page .s9-tbl-compact td { padding: 7px 10px; font-size: 0.84rem; line-height: 1.38; }
+.s9-num td:not(:first-child), .s9-num th:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
+.s9-num td:not(:first-child) { font-family: var(--font-mono); font-size: 0.8rem !important; }
+.s7-ex-tbl.s9-ex-tbl td:last-child {
+  font-family: inherit;
+  font-weight: 600;
+  white-space: normal;
+  font-size: 0.84rem;
+}
+.s9-ex-tbl td:first-child { width: 34px; text-align: center; font-weight: 800; color: var(--primary); }
+.s05-page .s9-ex-tbl th, .s05-page .s9-ex-tbl td { padding: 8px 10px; line-height: 1.4; }
+.s05-page .s9-ex-tbl td { font-size: 0.86rem; }
+.s9-notes { margin-top: 10px; }
+
+.s5-bar-card.is-good { border-color: color-mix(in srgb, var(--primary) 55%, var(--border)); box-shadow: inset 0 3px 0 var(--primary); }
+.s5-bar-card.is-warn { border-color: color-mix(in srgb, var(--warning) 60%, var(--border)); box-shadow: inset 0 3px 0 var(--warning); }
+.s9-check { margin-top: 10px; }
+.s9-rules { margin-bottom: 4px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 860px) { .s9-rules { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.s9-fam th:nth-child(1) { width: 26%; }
+.s9-fam th:nth-child(2) { width: 24%; }
+.s9-fam td:nth-child(2) code { display: inline-block; white-space: nowrap; overflow-wrap: normal; margin: 1px 0; }
+.s9-fam td code { overflow-wrap: normal; }
+
+/* ---------- calendar vs. fapte ---------- */
+.s9-gap { display: grid; gap: 10px; margin-top: 12px; }
+.s9-gap-row {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 4px 14px;
+  align-items: center;
+}
+.s9-gap-lbl { font-size: 0.82rem; font-weight: 700; color: var(--text); }
+.s9-gap-strip { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 4px; }
+.s9-gap-strip span {
+  padding: 6px 0;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 0.74rem;
+  font-weight: 700;
+  border: 1px solid var(--border);
+}
+.s9-gap-strip .is-on { background: var(--primary-soft); color: var(--primary-dark); border-color: color-mix(in srgb, var(--primary) 40%, var(--border)); }
+.s9-gap-strip .is-cal { background: var(--primary); color: #fff; border-color: var(--primary); }
+.s9-gap-strip .is-off { background: transparent; color: var(--text-3); border-style: dashed; }
+.s9-gap-note { grid-column: 2; font-size: 0.8rem; color: var(--text-2); }
+
+/* ---------- laborator ---------- */
+.s9-lab { display: flex; flex-direction: column; gap: 12px; }
+.s9-lab-fns { display: flex; flex-wrap: wrap; gap: 6px; }
+.s9-lab-fns button {
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-2);
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.s9-lab-fns button:hover { border-color: var(--primary); color: var(--text); }
+.s9-lab-fns button.is-on { background: var(--primary); border-color: var(--primary); color: #fff; }
+.s9-lab-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 14px; align-items: start; }
+.s9-lab-chart {
+  padding: 12px 12px 8px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.s9-bars { display: grid; grid-template-columns: repeat(36, minmax(0, 1fr)); gap: 3px; }
+.s9-bar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+}
+.s9-bar-col {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  height: 150px;
+  border-radius: 5px;
+  background: var(--bg-alt);
+  overflow: hidden;
+}
+.s9-bar-fill { display: block; width: 100%; background: var(--text-3); opacity: 0.55; border-radius: 3px 3px 0 0; }
+.s9-bar.is-in .s9-bar-col { background: var(--primary-soft); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--primary) 55%, transparent); }
+.s9-bar.is-in .s9-bar-fill { background: var(--primary); opacity: 1; }
+.s9-bar.is-in.is-empty .s9-bar-col { background: color-mix(in srgb, var(--primary) 12%, var(--bg-alt)); }
+.s9-bar.is-anchor .s9-bar-m { color: var(--primary-dark); font-weight: 900; }
+.s9-bar.is-anchor .s9-bar-col { outline: 2px solid var(--text); outline-offset: 1px; }
+.s9-bar-m { font-size: 0.6rem; font-weight: 700; color: var(--text-3); line-height: 1; }
+.s9-bar-y { position: absolute; top: calc(100% + 2px); left: 0; font-size: 0.7rem; font-weight: 800; color: var(--text); white-space: nowrap; }
+.s9-lab-chart { padding-bottom: 26px; }
+.s9-lab-out { display: flex; flex-direction: column; gap: 10px; }
+.s9-lab-code { margin: 0 !important; white-space: pre-wrap !important; min-height: 92px; }
+.s9-lab-res {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--primary-soft);
+  border: 1px solid color-mix(in srgb, var(--primary) 35%, var(--border));
+}
+.s9-lab-res-lbl { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-3); }
+.s9-lab-res strong { font-family: var(--font-mono); font-size: 1.7rem; color: var(--text); }
+.s9-lab-res em { font-style: normal; font-size: 0.82rem; line-height: 1.4; color: var(--text-2); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1100px) {
+  .s9-cards-5 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .s9-lab-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 860px) {
+  .s9-flow { flex-direction: column; }
+  .s9-arrow { align-self: flex-start; }
+  .s9-cards-3 { grid-template-columns: 1fr; }
+  .s9-gap-row { grid-template-columns: 1fr; }
+  .s9-gap-note { grid-column: 1; }
+}
+@media (max-width: 560px) {
+  .s9-cards-5 { grid-template-columns: 1fr; }
+  .s9-bar-m { display: none; }
+}
+
+/* ---------- pagini de definiții ---------- */
+.s9-text { max-width: 900px; }
+.s9-text h3 { margin: 14px 0 4px; font-size: 1.05rem; color: var(--primary-dark); }
+.s9-text h3:first-child { margin-top: 4px; }
+[data-theme="dark"] .s9-text h3 { color: var(--primary-light); }
+.s9-text p { margin: 0; font-size: 1rem; line-height: 1.55; color: var(--text-2); }
+.s9-text p strong { color: var(--text); }
+.s9-text .s5-bar-limits { margin-top: 4px; }
+
+/* ---------- vizual pe slide-urile funcțiilor ---------- */
+.s9-fn-split { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 12px; margin-top: 8px; }
+.s9-viz { display: flex; flex-direction: column; gap: 10px; }
+.s9-bars-24 { grid-template-columns: repeat(24, minmax(0, 1fr)); padding-bottom: 20px; }
+.s9-bars-24 .s9-bar-col { height: 120px; }
+.s9-bar-col, .s9-bar-fill { transition: background 0.35s ease, box-shadow 0.35s ease, opacity 0.35s ease; }
+.s9-bar.is-in .s9-bar-fill { animation: s9-pop 0.45s ease; }
+@keyframes s9-pop { 0% { transform: scaleY(0.6); transform-origin: bottom; } 100% { transform: scaleY(1); transform-origin: bottom; } }
+.s9-viz-legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.74rem; color: var(--text-2); }
+.s9-viz-legend i { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; border: 1px solid var(--border-strong); }
+.s9-viz-legend .is-in { background: var(--primary); border-color: var(--primary); }
+.s9-viz-legend .is-out { background: var(--bg-alt); }
+.s9-viz-legend .is-anchor { background: var(--surface); outline: 2px solid var(--text); outline-offset: -1px; }
+.s9-play { align-self: flex-start; }
+.s9-fn-split .s6-fn-box h3 { margin-top: 8px; }
+.s9-fn-split .s7-steps { margin-top: 4px; }
+@media (max-width: 1100px) { .s9-fn-split { grid-template-columns: 1fr; } }
+
+/* ---------- date lecție, flux în 3 pași, definiție în laborator ---------- */
+.s9-data { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 14px; padding: 16px 20px; border-radius: 16px; border: 1px solid color-mix(in srgb, var(--primary) 40%, var(--border)); background: var(--primary-soft); }
+.s9-data-t { flex: 1 1 420px; }
+.s9-data-t b { display: block; font-size: 1.15rem; margin: 4px 0 2px; color: var(--text); }
+.s9-data-t p { margin: 0; font-size: 0.9rem; line-height: 1.5; color: var(--text-2); }
+.s9-data-tag { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--primary-dark); }
+[data-theme="dark"] .s9-data-tag { color: var(--primary-light); }
+.s9-flow-3 { margin: 6px 0 12px; }
+.s9-flow-3 .s9-step { font-size: 0.9rem; }
+.s9-lab-def { padding: 12px 14px; border-radius: 14px; border: 1px solid var(--border); background: var(--surface); }
+.s9-lab-def b { display: block; margin: 2px 0 4px; font-family: var(--font-mono); font-size: 1.02rem; color: var(--primary-dark); }
+[data-theme="dark"] .s9-lab-def b { color: var(--primary-light); }
+.s9-lab-def p { margin: 0; font-size: 0.9rem; line-height: 1.5; color: var(--text-2); }
+.s9-lab-code { min-height: 0 !important; }
+.s9-note-small { margin: 10px 0 0; font-size: 0.86rem; color: var(--text-2); }
+.s9-lab-def .s9-lab-res-lbl { display: block; margin-top: 2px; }
+.s9-lab-def .s9-lab-use { margin-top: 6px; font-weight: 600; color: var(--text); }
+
+/* ---------- sortare calendar ---------- */
+.s9-sort { display: grid; gap: 8px; margin: 10px 0 12px; }
+.s9-sort-row { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 12px; align-items: center; }
+.s9-sort-lbl { font-size: 0.8rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-3); }
+.s9-sort-lbl.is-good { color: var(--primary-dark); }
+[data-theme="dark"] .s9-sort-lbl.is-good { color: var(--primary-light); }
+.s9-sort-lbl.is-bad { color: var(--danger); }
+.s9-chips { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 4px; }
+.s9-chips i { padding: 6px 2px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); text-align: center; font-style: normal; font-size: 0.72rem; font-weight: 700; color: var(--text-2); overflow: hidden; text-overflow: ellipsis; }
+.s9-chips.is-good i { background: var(--primary-soft); border-color: color-mix(in srgb, var(--primary) 40%, var(--border)); color: var(--primary-dark); }
+[data-theme="dark"] .s9-chips.is-good i { color: var(--primary-light); }
+@media (max-width: 860px) { .s9-sort-row { grid-template-columns: 1fr; } .s9-chips { grid-template-columns: repeat(6, minmax(0, 1fr)); } }

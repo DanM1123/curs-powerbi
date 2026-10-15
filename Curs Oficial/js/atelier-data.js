@@ -217,7 +217,7 @@
 
   /* ---------- relații ---------- */
   const DROP_TABLE_TOK = ['dim', 'dimensiune', 'tbl', 'tabel', 'd', 'fact', 'f', 'fct', 'lookup', 'curat', 'clean', 'final'];
-  const stemTable = (name) => tokens(name).filter((x) => !DROP_TABLE_TOK.includes(x)).join('');
+  const stemTable = (name) => tokens(name).filter((x) => !DROP_TABLE_TOK.includes(x)).map((x) => (x.length > 4 && x.endsWith('uri') ? x.slice(0, -3) : x)).join('');
   const stemFk = (col) => tokens(col).filter((x) => !['id', 'cod', 'key', 'fk', 'pk', 'nr'].includes(x)).join('');
   function prefixMatch(a, b) {
     if (!a || !b) return false;

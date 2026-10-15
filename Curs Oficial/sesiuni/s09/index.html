@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Power BI · Sesiunea 9 · Power BI Service și time intelligence</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23059669'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='56' font-weight='900' text-anchor='middle' fill='white'%3E9%3C/text%3E%3C/svg%3E" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/session.css" />
+  <link rel="stylesheet" href="../../css/extras.css" />
+  <link rel="stylesheet" href="../../css/s02.css" />
+  <link rel="stylesheet" href="../../css/s03.css" />
+  <link rel="stylesheet" href="../../css/s04.css?v=82" />
+  <link rel="stylesheet" href="../../css/s05.css?v=33" />
+  <link rel="stylesheet" href="../../css/s06.css?v=6" />
+  <link rel="stylesheet" href="../../css/s07.css?v=4" />
+  <link rel="stylesheet" href="../../css/s08.css?v=3" />
+  <link rel="stylesheet" href="../../css/s09.css?v=8" />
+  <script src="../../js/gate.js"></script>
+  <script src="../../js/firebase-init.js"></script>
+</head>
+<body class="hub-page s05-page s06-page s07-page s08-page s09-page" data-poll-root="curs-oficial/s09/polls">
+  <div class="hub-orbits" aria-hidden="true">
+    <div class="hub-orb a"></div>
+    <div class="hub-orb b"></div>
+    <div class="hub-orb c"></div>
+  </div>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="../../index.html" class="brand">
+        <span class="brand-mark">P</span>
+        <span>Power BI · Sesiunea 9</span>
+      </a>
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" aria-label="Schimbă tema">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="student-shell">
+    <div class="slide-progress"><div class="fill" data-slide-progress></div></div>
+    <main class="slide-deck">
+
+      <!-- 01 · Copertă -->
+      <article class="slide active s4-cover">
+        <div class="s4-cover-inner">
+          <span class="slide-eyebrow">Sesiunea 9</span>
+          <h1>Power BI Service și time intelligence</h1>
+        </div>
+      </article>
+
+      <!-- 02 · Recapitulare S8 -->
+      <article class="slide">
+        <span class="slide-eyebrow">Recapitulare · sesiunea 8</span>
+        <h2>Ce am învățat despre rapoarte?</h2>
+        <p class="s3-lead">Gândește răspunsul, apoi apasă <strong>Arată răspunsul</strong>.</p>
+        <div data-s3-recap>
+          <div class="s3-recap-top">
+            <span class="s3-recap-count" data-s3-recap-count>01 / 03</span>
+            <div class="s3-recap-nav">
+              <button type="button" data-s3-recap-prev>Înapoi</button>
+              <button type="button" data-s3-recap-next>Înainte</button>
+            </div>
+          </div>
+
+          <section class="s3-q is-on" data-s3-q>
+            <h3>De unde pornește o pagină?</h3>
+            <p class="ask">Ai de făcut o pagină nouă într-un raport. Ce stabilești înaintea graficelor?</p>
+            <div class="s3-answer">
+              <p><strong>Cine</strong> citește pagina și <strong>ce întrebări</strong> are. Numele paginii e subiectul, iar întrebările (3–6) aleg graficele.</p>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>Cuvintele din întrebare</h3>
+            <p class="ask">„Cum a evoluat numărul de bilete în ultimii doi ani?” Ce tip de răspuns cere și ce grafic alegi?</p>
+            <div class="s3-answer">
+              <p>O <strong>evoluție în timp</strong>: grafic cu linii (sau coloane, dacă sunt puține perioade), cu timpul pe axa orizontală.</p>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>Întrebarea fără reper</h3>
+            <p class="ask">„Câte bilete am vândut în total?” e o întrebare bună, dar fără reper. Cum o îmbunătățești?</p>
+            <div class="s3-answer">
+              <p>Îi dai un reper: <strong>„Câte bilete am vândut față de anul trecut?”</strong> Reperul acesta cere o comparație pe timp, adică exact ce învățăm azi să calculăm.</p>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+        </div>
+      </article>
+
+      <!-- 03 · Harta lecției -->
+      <article class="slide s5-framework">
+        <span class="slide-eyebrow">Conceptele de azi</span>
+        <h2>Două concepte: Service și time intelligence</h2>
+        <div class="s8-route s8-concepts s8-concepts-4" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+          <article><span class="n">Partea 1</span><h3>Power BI Service</h3><p>Obiecte, workspace-uri, refresh, gateway</p></article>
+          <article><span class="n">Partea 2</span><h3>Time intelligence</h3><p>Definiție, tabela de date, familia de funcții</p></article>
+        </div>
+        <div class="s9-data">
+          <div class="s9-data-t"><span class="s9-data-tag">Datele lecției</span><b>Cinema.xlsx</b>
+            <p>Tabelul de fapte <code>Proiectii</code> și dimensiunile <code>Dim_Filme</code>, <code>Dim_Actori</code>, <code>Dim_Cinematografe</code>, <code>Dim_Date</code>. Toate exemplele de azi sunt calculate pe el, cu măsura <code>Total Incasari = SUM ( Proiectii[Incasari_Totale] )</code>, adică <strong>594.495,57</strong> fără filtre.</p></div>
+          <a class="s8-download" href="date/Cinema.xlsx" download>Descarcă Cinema.xlsx</a>
+        </div>
+      </article>
+
+      <!-- ============ PARTEA 1 · SERVICE ============ -->
+
+      <!-- Elemente Service -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Power BI Service</span>
+          <span class="s5-concept-pill is-fw">Elementele Power BI Service</span>
+        </div>
+        <h2>Ce găsești în Power BI Service</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Meniul din stânga</h3>
+            <dl class="s6-args">
+              <div><dt>Home</dt><dd>Pagina de start: conținutul recent, favorite, ce ai deschis.</dd></div>
+              <div><dt>Create</dt><dd>Creezi un raport nou pornind de la un semantic model existent sau de la date încărcate.</dd></div>
+              <div><dt>Browse</dt><dd>Recent, Favorites și <em>Shared with me</em>: tot ce ai deschis sau ți s-a partajat.</dd></div>
+              <div><dt>OneLake catalog</dt><dd>Catalogul de date al organizației: cauți și găsești modele existente (fostul <em>Data hub</em>).</dd></div>
+              <div><dt>Apps</dt><dd>App-urile publicate pentru tine.</dd></div>
+              <div><dt>Metrics</dt><dd>Scorecard-uri și obiective urmărite de echipă.</dd></div>
+              <div><dt>Monitor</dt><dd>Starea refresh-urilor și a activităților din organizație.</dd></div>
+              <div><dt>Workspaces</dt><dd>Spațiile de lucru în care ții conținutul: My workspace și cele partajate.</dd></div>
+            </dl>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Conținutul unui workspace</h3>
+            <dl class="s6-args">
+              <div><dt>Semantic model</dt><dd>Tabelele, relațiile și măsurile publicate (fostul dataset). Aici se face refresh-ul.</dd></div>
+              <div><dt>Report</dt><dd>Paginile cu vizuale, legate de un semantic model. Un model poate avea mai multe rapoarte.</dd></div>
+              <div><dt>Dashboard</dt><dd>O singură pagină cu plăci fixate din mai multe rapoarte.</dd></div>
+              <div><dt>App</dt><dd>Pachetul de rapoarte și dashboard-uri publicat pentru cititori.</dd></div>
+            </dl>
+            <p class="s9-note-small">Un <code>.pbix</code> publicat din Desktop devine două obiecte: un semantic model și un report.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- 06 · Workspace-uri și roluri -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Power BI Service</span>
+          <span class="s5-concept-pill is-fw">Workspace-uri și roluri</span>
+        </div>
+        <h2>Cine ce poate face într-un workspace</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Unde publici</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-tip"><strong>My workspace:</strong> spațiul tău personal, doar pentru încercări. Nu e pentru distribuit.</li>
+              <li class="is-tip"><strong>Workspace partajat:</strong> creat pentru o echipă sau un proiect (<em>Workspaces → New workspace</em>). Aici lucrezi cu alți oameni.</li>
+            </ul>
+            <h3>Licențe</h3>
+            <p>Pentru a publica ai nevoie de o licență <strong>Pro</strong> (sau Premium Per User). Cititorii unui app au nevoie și ei de Pro, în afară de cazul în care workspace-ul stă pe o capacitate mare (Fabric/Premium). Întreabă administratorul organizației ce ai.</p>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Cele patru roluri</h3>
+            <table class="s5-bar-tbl s9-tbl-compact">
+              <thead><tr><th>Rol</th><th>Ce poate</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Admin</strong></td><td>Totul: membri, setări, ștergerea workspace-ului</td></tr>
+                <tr><td><strong>Member</strong></td><td>Editează, publică și actualizează app-ul, partajează</td></tr>
+                <tr><td><strong>Contributor</strong></td><td>Publică și editează conținut, dar nu publică app-ul</td></tr>
+                <tr><td><strong>Viewer</strong></td><td>Doar citește</td></tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+        <p class="s06-takeaway"><strong>Practic:</strong> colegii care construiesc primesc <em>Member</em> sau <em>Contributor</em>; cei care doar citesc nu intră în workspace, ci primesc <strong>app-ul</strong> (vezi mai jos).</p>
+      </article>
+
+      <!-- Tipuri de încărcare -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Refresh</span>
+          <span class="s5-concept-pill is-fw">Tipuri de încărcare a datelor</span>
+        </div>
+        <h2>Cum ajung datele în Power BI</h2>
+        <p class="s5-oneline">Modul de conectare se alege când te conectezi la sursă și decide dacă ai nevoie de refresh.</p>
+        <table class="s5-bar-tbl s6-cheat s9-tbl-compact">
+          <thead><tr><th>Mod</th><th>Ce face</th><th>Refresh</th><th>Când îl alegi</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Import</strong></td><td>Copiază datele în model, în memorie.</td><td>Da: datele sunt cele de la ultimul refresh.</td><td>Cazul obișnuit: rapid, cu toate funcțiile DAX și Power Query.</td></tr>
+            <tr><td><strong>DirectQuery</strong></td><td>Nu copiază nimic: trimite interogări la sursă la fiecare vizual.</td><td>Nu pentru date; se poate seta reîmprospătarea paginii.</td><td>Date foarte mari sau „în timp real”, de la un server de baze de date.</td></tr>
+            <tr><td><strong>Live connection</strong></td><td>Se leagă la un model deja publicat (Power BI sau Analysis Services); nu are model propriu.</td><td>Se face la modelul sursă.</td><td>Mai multe rapoarte peste același model, gestionat central.</td></tr>
+            <tr><td><strong>Composite</strong></td><td>Combină în același model tabele Import și DirectQuery.</td><td>Pentru tabelele Import.</td><td>Dimensiuni mici rapide, plus un fact foarte mare la sursă.</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <!-- 08 · Cum se face refresh -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Refresh</span>
+          <span class="s5-concept-pill is-fw">Cum se face refresh</span>
+        </div>
+        <h2>Patru feluri de refresh</h2>
+        <table class="s5-bar-tbl s6-cheat s9-tbl-compact">
+          <thead><tr><th>Tip</th><th>Cum îl pornești</th><th>Când îl folosești</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Refresh now</strong></td><td>Workspace → lângă semantic model → <span class="s7-ui">Refresh now</span></td><td>Vrei date noi chiar acum, o singură dată.</td></tr>
+            <tr><td><strong>Scheduled refresh</strong></td><td>Semantic model → <span class="s7-ui">Settings</span> → <em>Scheduled refresh</em>: zile, ore, fus orar</td><td>Rapoarte zilnice sau orare, fără intervenție. Maxim <strong>8 ori/zi</strong> (Pro) sau <strong>48 ori/zi</strong> (Premium/PPU).</td></tr>
+            <tr><td><strong>Refresh în Desktop</strong></td><td><span class="s7-ui">Home → Refresh</span>, apoi <span class="s7-ui">Publish</span> din nou</td><td>Testezi local sau ai schimbat și modelul, nu doar datele.</td></tr>
+            <tr><td><strong>Incremental refresh</strong></td><td>Se configurează în Desktop pe tabela mare, apoi se publică</td><td>Tabele cu milioane de rânduri: se reîncarcă doar perioadele recente.</td></tr>
+          </tbody>
+        </table>
+        <ul class="s5-bar-limits s9-notes">
+          <li class="is-tip"><strong>Fusul orar:</strong> ora se alege în setări. Verifică să fie Bucharest, altfel refresh-ul „de la 6:00” rulează la altă oră.</li>
+          <li class="is-tip"><strong>Notificări:</strong> bifează <em>Send refresh failure notifications</em>, ca să afli de eroare înaintea cititorilor.</li>
+          <li class="is-tip"><strong>După 4 eșecuri la rând</strong>, Power BI oprește singur refresh-ul programat.</li>
+        </ul>
+      </article>
+
+      <!-- 09 · Gateway și credențiale -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Refresh</span>
+          <span class="s5-concept-pill is-fw">Gateway și credențiale</span>
+        </div>
+        <h2>Service-ul trebuie să ajungă la sursă</h2>
+        <p class="s5-oneline">Refresh-ul rulează în cloud, nu pe laptopul tău. Întrebarea este: <strong>poate Service-ul să vadă sursa?</strong></p>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card is-good">
+            <h3>Surse din cloud: fără gateway</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-tip">Excel pe <strong>OneDrive</strong> sau <strong>SharePoint Online</strong></li>
+              <li class="is-tip">Azure SQL, Dataverse, Google Sheets, API-uri web</li>
+              <li class="is-tip">Doar setezi <strong>credențialele</strong> în setările modelului.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card is-warn">
+            <h3>Surse locale: ai nevoie de gateway</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-tip">Excel sau CSV pe <strong>discul local</strong> sau pe un folder de rețea</li>
+              <li class="is-tip">SQL Server din rețeaua firmei</li>
+              <li class="is-tip"><strong>On-premises data gateway:</strong> un program instalat pe un PC sau server mereu pornit, care face legătura între Service și sursă.</li>
+            </ul>
+          </section>
+        </div>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Credențiale</h3>
+            <p>Service-ul se conectează cu o identitate: cont organizațional, utilizator și parolă, cheie. Se setează la <span class="s7-ui">Settings → Data source credentials</span>, o singură dată, apoi trebuie ținute la zi.</p>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Pentru cursul nostru</h3>
+            <p>Excelul de la Cinema e pe laptopul tău. Un refresh programat nu poate ajunge la el fără gateway. Vom vedea <strong>eroarea</strong> în exercițiu și vom stabili ce schimbăm: mutarea fișierului în OneDrive/SharePoint.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- Gateway -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Refresh</span>
+          <span class="s5-concept-pill is-fw">Gateway</span>
+        </div>
+        <h2>Gateway: puntea dintre Service și sursa locală</h2>
+        <div class="s6-concept"><p><strong>On-premises data gateway</strong> este un program mic, instalat pe un calculator din rețeaua ta, care <strong>preia cererea de refresh din Service</strong>, citește sursa locală (Excel, CSV, SQL Server) și trimite datele în cloud. Fără el, Service-ul nu poate ajunge la fișierele de pe discul tău.</p></div>
+        <div class="s9-flow">
+          <div class="s9-step is-svc"><span class="s9-step-n">1</span><strong>Service</strong><span>Pornește refresh-ul, la ora programată</span></div>
+          <span class="s9-arrow" aria-hidden="true">cere →</span>
+          <div class="s9-step is-desk"><span class="s9-step-n">2</span><strong>Gateway</strong><span>Pe un PC mereu pornit, în rețeaua ta</span></div>
+          <span class="s9-arrow" aria-hidden="true">citește →</span>
+          <div class="s9-step"><span class="s9-step-n">3</span><strong>Sursa locală</strong><span>Excel, CSV, SQL Server</span></div>
+        </div>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Cum îl creezi</h3>
+            <ol class="s7-steps">
+              <li>În Service: <span class="s7-ui">Download (săgeata de sus) → Data Gateway</span>; alegi <strong>standard mode</strong> și instalezi pe un PC care rămâne pornit.</li>
+              <li>La final te autentifici cu contul Power BI, dai un <strong>nume</strong> gateway-ului și salvezi <strong>cheia de recuperare</strong>.</li>
+              <li>În Service: <span class="s7-ui">Settings → Manage connections and gateways</span>: gateway-ul apare <em>Online</em>.</li>
+              <li>La semantic model → <span class="s7-ui">Settings → Gateway and cloud connections</span>: alegi gateway-ul și, la sursă, <strong>credențialele</strong>.</li>
+              <li>Activezi <span class="s7-ui">Scheduled refresh</span>.</li>
+            </ol>
+          </section>
+          <section class="s5-bar-card">
+            <h3>De reținut</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-tip"><strong>PC-ul trebuie să fie pornit</strong> și conectat la internet la ora refresh-ului; altfel apare „gateway offline”.</li>
+              <li class="is-tip"><strong>Calea fișierului</strong> trebuie să existe pe acel PC, identică cu cea din Power Query.</li>
+              <li class="is-tip"><strong>Standard</strong> = pentru echipe, mai multe modele și utilizatori. <strong>Personal</strong> = doar pentru tine, mai simplu, dar funcționează doar cât ești conectat.</li>
+              <li class="is-tip">Pentru surse din cloud (OneDrive, SharePoint) <strong>nu ai nevoie</strong> de gateway.</li>
+            </ul>
+          </section>
+        </div>
+      </article>
+
+      <!-- 11 · Practică refresh -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Practică · refresh</span>
+          <span class="s5-concept-pill is-prac">Ce faci?</span>
+        </div>
+        <h2>Trei situații, o decizie fiecare</h2>
+        <p class="s5-oneline">Gândește răspunsul cu voce tare, apoi apasă <strong>Arată răspunsul</strong>.</p>
+        <div data-s3-recap>
+          <div class="s3-recap-top">
+            <span class="s3-recap-count" data-s3-recap-count>01 / 03</span>
+            <div class="s3-recap-nav">
+              <button type="button" data-s3-recap-prev>Înapoi</button>
+              <button type="button" data-s3-recap-next>Înainte</button>
+            </div>
+          </div>
+
+          <section class="s3-q is-on" data-s3-q>
+            <h3>Excelul de pe laptop</h3>
+            <p class="ask">Maria are un Excel cu încasările zilei, pe laptopul ei. Vrea ca raportul din Service să arate datele de ieri în fiecare dimineață, la 7:00. Ce face?</p>
+            <div class="s3-answer">
+              <p>Mută Excelul în <strong>OneDrive sau SharePoint</strong>, schimbă sursa din Power Query pe acel fișier, publică din nou și setează <strong>Scheduled refresh</strong> zilnic la 7:00. Varianta alternativă: un <strong>gateway</strong> pe un PC care e mereu pornit.</p>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>Cifra „de acum”</h3>
+            <p class="ask">Directorul vrea ca numărul de bilete vândute să se vadă „în timp real”, direct din baza de date a caselor de bilete. Ce modalitate alegi?</p>
+            <div class="s3-answer">
+              <p><strong>DirectQuery</strong> pe baza de date (cu pagina setată pe automatic page refresh), sau, dacă e prea lent, un Import cu refresh cât mai des (până la 48 de ori/zi pe Premium). Spui deschis costul: rapoartele devin mai lente.</p>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>A mers luni, a picat marți</h3>
+            <p class="ask">Refresh-ul a rulat bine toată luna. Marți dimineață primești un email de eroare: „credentials are invalid”, iar Ion tocmai și-a schimbat parola. Ce faci, în ordine?</p>
+            <div class="s3-answer">
+              <p>1) Deschizi <strong>Refresh history</strong> și citești mesajul. 2) <strong>Settings → Data source credentials → Edit credentials</strong>, cu parola nouă. 3) <strong>Refresh now</strong>. 4) Verifici în history că statusul e „Completed”.</p>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+        </div>
+      </article>
+
+      <!-- ============ PARTEA 2 · EXERCIȚIU APP ============ -->
+
+      <!-- ============ PARTEA 3 · TABELA DE DATE ============ -->
+
+      <!-- 20 · Ce este time intelligence -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Time intelligence</span>
+          <span class="s5-concept-pill is-fw">Definiție</span>
+        </div>
+        <h2>Time intelligence: măsuri calculate pe perioade de timp</h2>
+        <div class="s6-def-text s9-text">
+          <h3>Ce este</h3>
+          <p><strong>Time intelligence</strong> este grupul de funcții DAX care calculează o măsură pe <strong>altă perioadă decât cea afișată</strong> în vizual: o perioadă mutată în timp, extinsă de la începutul anului sau comparată cu o perioadă anterioară.</p>
+          <h3>Cum funcționează</h3>
+          <p>O funcție de timp primește o <strong>coloană de date calendaristice</strong> și întoarce un <strong>tabel de zile</strong>. Funcția <code>CALCULATE</code> folosește acel tabel ca filtru, iar măsura se calculează doar pe zilele respective.</p>
+          <h3>De ce are nevoie</h3>
+          <p>De un <strong>calendar</strong> în model: o tabelă cu fiecare zi a perioadei analizate, legată de tabela de fapte și marcată ca tabelă de date.</p>
+        </div>
+      </article>
+
+
+      <!-- 21 · Calendarul -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Tabela de date</span>
+          <span class="s5-concept-pill is-fw">Calendarul</span>
+        </div>
+        <h2>Calendarul: o tabelă cu o zi pe rând</h2>
+        <div class="s6-def-text s9-text">
+          <h3>Ce este tabela de date</h3>
+          <p>Un tabel în care <strong>fiecare zi</strong> a perioadei analizate apare <strong>o singură dată</strong>, pe un rând, într-o coloană de tip <strong>Date</strong>. Celelalte coloane (an, trimestru, lună) descriu ziua respectivă.</p>
+          <h3>De ce o coloană de tip Date</h3>
+          <p>Funcțiile de timp mută și extind perioade pe calendar. Un text („Octombrie”) sau un număr (2023) nu poate fi mutat cu o lună sau cu un an; o dată calendaristică poate.</p>
+          <h3>De ce zile consecutive</h3>
+          <p>Mutarea cu o lună sau cu un an se face zi cu zi. Dacă din tabel lipsesc zile, perioada mutată iese greșită. Tabela de fapte are doar zilele în care s-a întâmplat ceva, deci nu poate fi calendar.</p>
+          <h3>Cerințele tabelei de date</h3>
+          <ul class="s5-bar-limits">
+            <li class="is-tip">coloană de tip <strong>Date</strong>;</li>
+            <li class="is-tip">valori <strong>unice</strong>, fără goluri;</li>
+            <li class="is-tip">zile <strong>consecutive</strong>, fără sărituri;</li>
+            <li class="is-tip"><strong>ani întregi</strong>: de la 1 ianuarie la 31 decembrie, acoperind toate datele din fapte.</li>
+          </ul>
+        </div>
+      </article>
+
+
+      <!-- Sortarea coloanelor calendarului -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Tabela de date</span>
+          <span class="s5-concept-pill is-fw">Sortarea calendarului</span>
+        </div>
+        <h2>Sortarea coloanelor din calendar</h2>
+        <div class="s6-concept"><p>Power BI sortează o coloană de text <strong>alfabetic</strong>. Pentru luni și zile, ordinea corectă este cea din calendar. Soluția este <strong>Sort by column</strong>: ordonezi coloana de text după o coloană numerică pereche.</p></div>
+        <div class="s9-sort">
+          <div class="s9-sort-row"><span class="s9-sort-lbl is-bad">Fără sortare</span><div class="s9-chips"><i>Aprilie</i><i>August</i><i>Decembrie</i><i>Februarie</i><i>Ianuarie</i><i>Iulie</i><i>Iunie</i><i>Martie</i><i>Mai</i><i>Noiembrie</i><i>Octombrie</i><i>Septembrie</i></div></div>
+          <div class="s9-sort-row"><span class="s9-sort-lbl is-good">Sort by column: Luna</span><div class="s9-chips is-good"><i>Ianuarie</i><i>Februarie</i><i>Martie</i><i>Aprilie</i><i>Mai</i><i>Iunie</i><i>Iulie</i><i>August</i><i>Septembrie</i><i>Octombrie</i><i>Noiembrie</i><i>Decembrie</i></div></div>
+        </div>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Cum o faci</h3>
+            <ol class="s7-steps">
+              <li>Selectează tabelul <code>Dim_Date</code> în Table view sau în panoul Data.</li>
+              <li>Selectează coloana de text, de exemplu <code>Luna_Nume</code>.</li>
+              <li><span class="s7-ui">Column tools → Sort by column</span> și alege coloana numerică pereche, <code>Luna</code>.</li>
+              <li>Verifică în orice vizual: lunile apar de la ianuarie la decembrie.</li>
+            </ol>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Perechi de coloane în calendar</h3>
+            <table class="s5-bar-tbl s9-tbl-compact">
+              <thead><tr><th>Se sortează</th><th>După</th></tr></thead>
+              <tbody>
+                <tr><td><code>Luna_Nume</code></td><td><code>Luna</code> (1–12)</td></tr>
+                <tr><td><code>Zi_Saptamana</code></td><td>o coloană cu numărul zilei, de exemplu <code>WEEKDAY ( [Data], 2 )</code> (luni = 1)</td></tr>
+                <tr><td><code>Trimestru</code>, <code>An</code></td><td>nu e nevoie: T1–T4 și anii se ordonează corect singuri</td></tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+        <p class="s06-takeaway"><strong>Regula:</strong> orice coloană de text cu o ordine naturală (luni, zile, sezoane) are lângă ea o coloană numerică după care se sortează. Coloana numerică poți s-o ascunzi din panoul Data.</p>
+      </article>
+
+      <!-- ============ PARTEA 4 · TIME INTELLIGENCE ============ -->
+
+      <!-- Cum funcționează -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Time intelligence</span>
+          <span class="s5-concept-pill is-fw">Cum funcționează</span>
+        </div>
+        <h2>Cum lucrează o funcție de timp</h2>
+        <p class="s5-oneline">O funcție de timp <strong>nu calculează încasările</strong>. Ea alege perioada; calculul îl face măsura, prin <code>CALCULATE</code>.</p>
+        <div class="s9-flow s9-flow-3">
+          <div class="s9-step"><span class="s9-step-n">1</span><strong>Luna din rând</strong><span>Perioada pe care o filtrează vizualul: de exemplu octombrie 2023 într-un rând de matrix.</span></div>
+          <span class="s9-arrow" aria-hidden="true">→</span>
+          <div class="s9-step is-desk"><span class="s9-step-n">2</span><strong>Funcția de timp</strong><span>Mută sau extinde perioada și întoarce un tabel de zile: de exemplu aceleași zile, cu un an în urmă.</span></div>
+          <span class="s9-arrow" aria-hidden="true">→</span>
+          <div class="s9-step is-svc"><span class="s9-step-n">3</span><strong>CALCULATE</strong><span>Folosește acele zile ca filtru și calculează măsura doar pe ele.</span></div>
+        </div>
+        <div class="s6-syntax"><span class="f">CALCULATE</span> ( <span class="s6-slot is-expr">[Total Incasari]</span> , <span class="s6-slot is-filter">funcție_de_timp ( Dim_Date[Data] )</span> )</div>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Funcții care întorc zile</h3>
+            <p>Se scriu în interiorul <code>CALCULATE</code>, ca filtru: <code>DATESYTD</code>, <code>SAMEPERIODLASTYEAR</code>, <code>DATEADD</code>, <code>PREVIOUSMONTH</code>, <code>DATESINPERIOD</code>.</p>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Funcții „Total…”</h3>
+            <p><code>TOTALYTD</code>, <code>TOTALQTD</code> și <code>TOTALMTD</code> includ singure <code>CALCULATE</code>. Dau același rezultat ca <code>CALCULATE</code> cu <code>DATESYTD</code>, într-o formulă mai scurtă.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- 27 · Laborator -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Time intelligence</span>
+          <span class="s5-concept-pill is-fw">Laborator</span>
+        </div>
+        <h2>Ce luni intră în calcul?</h2>
+        <p class="s5-oneline">Pasul 1: alege luna din grafic (ea este „luna din rândul de matrix”). Pasul 2: alege funcția. Lunile <strong>verzi</strong> intră în calcul.</p>
+        <div class="s9-lab" data-s9-lab></div>
+      </article>
+
+      <!-- Funcție · TOTALYTD -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Time intelligence</span>
+          <span class="s5-concept-pill is-fw">TOTALYTD</span>
+        </div>
+        <h2>TOTALYTD: adună de la 1 ianuarie până la luna curentă</h2>
+        <div class="s6-concept"><p><strong>TOTALYTD</strong> (<em>year to date</em>) adună o măsură de la <strong>începutul anului</strong> până la sfârșitul perioadei din rând. La fiecare 1 ianuarie pornește din nou de la zero.</p></div>
+        <div class="s9-fn-split">
+          <section class="s6-fn-box">
+            <h3>Cum se scrie</h3>
+            <div class="s6-syntax"><span class="f">TOTALYTD</span> ( <span class="s6-slot is-expr">Măsura</span> , <span class="s6-slot is-filter">Dim_Date[Data]</span> )</div>
+            <pre class="s06-dax-code"><span class="m">Incasari YTD</span> =
+<span class="f">TOTALYTD</span> ( <span class="m">[Total Incasari]</span>, <span class="t">Dim_Date[Data]</span> )</pre>
+            <h3>Ce face, în pași</h3>
+            <ol class="s7-steps"><li>Ia luna din rând (de exemplu iunie 2023).</li><li>Pornește de la <strong>1 ianuarie</strong> al aceluiași an.</li><li>Adună toate lunile dintre ele.</li></ol>
+          </section>
+          <section class="s6-fn-box">
+            <h3>Cum arată, pe încasările Cinema</h3>
+            <div class="s9-viz" data-s9-viz="ytd" data-anchor="17"></div>
+          </section>
+        </div>
+      </article>
+
+      <!-- Funcție · SAMEPERIODLASTYEAR -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Time intelligence</span>
+          <span class="s5-concept-pill is-fw">SAMEPERIODLASTYEAR</span>
+        </div>
+        <h2>SAMEPERIODLASTYEAR: aceeași perioadă, cu un an înapoi</h2>
+        <div class="s6-concept"><p><strong>SAMEPERIODLASTYEAR</strong> mută perioada din rând <strong>exact cu un an în urmă</strong>. Cu ea compari luna de acum cu aceeași lună de anul trecut.</p></div>
+        <div class="s9-fn-split">
+          <section class="s6-fn-box">
+            <h3>Cum se scrie</h3>
+            <div class="s6-syntax"><span class="f">CALCULATE</span> ( <span class="s6-slot is-expr">Măsura</span> , <span class="f">SAMEPERIODLASTYEAR</span> ( <span class="s6-slot is-filter">Dim_Date[Data]</span> ) )</div>
+            <pre class="s06-dax-code"><span class="m">Incasari An Anterior</span> =
+<span class="f">CALCULATE</span> ( <span class="m">[Total Incasari]</span>,
+    <span class="f">SAMEPERIODLASTYEAR</span> ( <span class="t">Dim_Date[Data]</span> ) )</pre>
+            <h3>Ce face, în pași</h3>
+            <ol class="s7-steps"><li>Ia luna din rând (octombrie 2023).</li><li>O mută cu <strong>un an înapoi</strong> (octombrie 2022).</li><li>Calculează măsura pe luna mutată.</li></ol><h3>Variația față de anul trecut</h3><pre class="s06-dax-code"><span class="m">Variatie YoY %</span> =
+<span class="f">DIVIDE</span> ( <span class="m">[Total Incasari]</span> - <span class="m">[Incasari An Anterior]</span>,
+    <span class="m">[Incasari An Anterior]</span> )</pre>
+          </section>
+          <section class="s6-fn-box">
+            <h3>Cum arată, pe încasările Cinema</h3>
+            <div class="s9-viz" data-s9-viz="ly" data-anchor="21"></div>
+          </section>
+        </div>
+      </article>
+
+      <!-- Funcție · DATEADD -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Time intelligence</span>
+          <span class="s5-concept-pill is-fw">DATEADD</span>
+        </div>
+        <h2>DATEADD: mută perioada cu câte luni, trimestre sau ani vrei</h2>
+        <div class="s6-concept"><p><strong>DATEADD</strong> <strong>deplasează perioada</strong> din rând cu un număr de zile, luni, trimestre sau ani: minus înapoi, plus înainte. <strong>PREVIOUSMONTH</strong> este varianta gata făcută pentru „luna dinainte”.</p></div>
+        <div class="s9-fn-split">
+          <section class="s6-fn-box">
+            <h3>Cum se scrie</h3>
+            <div class="s6-syntax"><span class="f">DATEADD</span> ( <span class="s6-slot is-filter">Dim_Date[Data]</span> , <span class="s6-slot is-expr">-1</span> , <span class="s6-slot is-alt">MONTH</span> )</div>
+            <pre class="s06-dax-code"><span class="m">Incasari Luna Anterioara</span> =
+<span class="f">CALCULATE</span> ( <span class="m">[Total Incasari]</span>,
+    <span class="f">DATEADD</span> ( <span class="t">Dim_Date[Data]</span>, <span class="n">-1</span>, MONTH ) )
+
+<span class="c">// aceeași măsură, mai scurt</span>
+<span class="f">PREVIOUSMONTH</span> ( <span class="t">Dim_Date[Data]</span> )</pre>
+            <h3>Ce face, în pași</h3>
+            <ol class="s7-steps"><li>Ia luna din rând (octombrie 2023).</li><li>O mută cu <strong>o lună înapoi</strong> (septembrie 2023).</li><li>Dacă acea lună nu are încasări, rezultatul e gol.</li></ol>
+          </section>
+          <section class="s6-fn-box">
+            <h3>Cum arată, pe încasările Cinema</h3>
+            <div class="s9-viz" data-s9-viz="pm" data-anchor="21"></div>
+          </section>
+        </div>
+      </article>
+
+      <!-- Funcție · DATESINPERIOD -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Time intelligence</span>
+          <span class="s5-concept-pill is-fw">DATESINPERIOD</span>
+        </div>
+        <h2>DATESINPERIOD: o fereastră mobilă de N luni</h2>
+        <div class="s6-concept"><p><strong>DATESINPERIOD</strong> alege <strong>toate zilele dintr-o fereastră</strong> care pornește de la o dată și merge înapoi (sau înainte) un număr de luni. Fereastra se mută odată cu rândul: „ultimele 3 luni”.</p></div>
+        <div class="s9-fn-split">
+          <section class="s6-fn-box">
+            <h3>Cum se scrie</h3>
+            <div class="s6-syntax"><span class="f">DATESINPERIOD</span> ( <span class="s6-slot is-filter">Dim_Date[Data]</span> , <span class="s6-slot is-expr">DataDeReper</span> , <span class="s6-slot is-alt">-3</span> , <span class="s6-slot is-alt">MONTH</span> )</div>
+            <pre class="s06-dax-code"><span class="m">Incasari 3 Luni</span> =
+<span class="f">CALCULATE</span> ( <span class="m">[Total Incasari]</span>,
+    <span class="f">DATESINPERIOD</span> ( <span class="t">Dim_Date[Data]</span>,
+        <span class="f">MAX</span> ( <span class="t">Dim_Date[Data]</span> ), <span class="n">-3</span>, MONTH ) )</pre>
+            <h3>Ce face, în pași</h3>
+            <ol class="s7-steps"><li><code>MAX</code> găsește ultima zi din rând (31 octombrie).</li><li>Fereastra merge <strong>3 luni înapoi</strong> de acolo.</li><li>Adună încasările din aceste 3 luni.</li></ol>
+          </section>
+          <section class="s6-fn-box">
+            <h3>Cum arată, pe încasările Cinema</h3>
+            <div class="s9-viz" data-s9-viz="r3" data-anchor="21"></div>
+          </section>
+        </div>
+      </article>
+
+      <!-- 32 · Familia -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Time intelligence</span>
+          <span class="s5-concept-pill is-fw">Familia de funcții</span>
+        </div>
+        <h2>Aceeași idee, alte perioade</h2>
+        <p class="s5-oneline">Toate funcțiile de timp urmează aceeași idee: întorc un tabel de zile pentru <code>CALCULATE</code>. Diferă doar perioada pe care o aleg.</p>
+        <table class="s5-bar-tbl s6-cheat s9-tbl-compact s9-fam">
+          <thead><tr><th>Ai nevoie de…</th><th>Funcție</th><th>Tipar</th></tr></thead>
+          <tbody>
+            <tr><td>Cumulat de la începutul <strong>anului</strong></td><td><code>TOTALYTD</code></td><td><code>TOTALYTD ( [Masura], Dim_Date[Data] )</code></td></tr>
+            <tr><td>Cumulat de la începutul <strong>trimestrului</strong> sau al <strong>lunii</strong></td><td><code>TOTALQTD</code> · <code>TOTALMTD</code></td><td><code>TOTALQTD ( [Masura], Dim_Date[Data] )</code></td></tr>
+            <tr><td>Aceeași perioadă, <strong>anul trecut</strong></td><td><code>SAMEPERIODLASTYEAR</code></td><td><code>CALCULATE ( [Masura], SAMEPERIODLASTYEAR ( Dim_Date[Data] ) )</code></td></tr>
+            <tr><td>Perioada <strong>dinainte</strong></td><td><code>PREVIOUSMONTH</code> · <code>PREVIOUSQUARTER</code> · <code>PREVIOUSYEAR</code></td><td><code>CALCULATE ( [Masura], PREVIOUSMONTH ( Dim_Date[Data] ) )</code></td></tr>
+            <tr><td>Perioada <strong>următoare</strong></td><td><code>NEXTMONTH</code> · <code>NEXTQUARTER</code> · <code>NEXTYEAR</code></td><td><code>CALCULATE ( [Masura], NEXTMONTH ( Dim_Date[Data] ) )</code></td></tr>
+            <tr><td>Mută cu <strong>N unități</strong></td><td><code>DATEADD</code></td><td><code>CALCULATE ( [Masura], DATEADD ( Dim_Date[Data], -1, QUARTER ) )</code></td></tr>
+            <tr><td>Fereastră <strong>mobilă</strong></td><td><code>DATESINPERIOD</code></td><td><code>CALCULATE ( [Masura], DATESINPERIOD ( Dim_Date[Data], MAX ( Dim_Date[Data] ), -3, MONTH ) )</code></td></tr>
+            <tr><td>Între <strong>două date</strong></td><td><code>DATESBETWEEN</code></td><td><code>CALCULATE ( [Masura], DATESBETWEEN ( Dim_Date[Data], DATE ( 2024, 1, 1 ), DATE ( 2024, 6, 30 ) ) )</code></td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <!-- 33 · Practică -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Practică · partea 4 · pe Cinema.xlsx</span>
+          <span class="s5-concept-pill is-prac">Ce număr apare?</span>
+        </div>
+        <h2>Ce număr apare? Măsuri de timp</h2>
+        <p class="s5-oneline">Citește contextul (matrix pe luni sau card cu slicer), creează măsura în Power BI și compară cu rezultatul. Apoi arăți formula.</p>
+        <div class="s6-quiz" data-s9-quiz></div>
+      </article>
+
+      <!-- Proiect final -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Proiect final</span>
+          <span class="s5-concept-pill is-fw">Cinema</span>
+        </div>
+        <h2>Proiectul final: de la date murdare la un raport publicat</h2>
+        <p class="s5-oneline">Un set nou de date, tot din lumea cinematografiei: <strong>6 tabele murdare</strong> (un fact și cinci dimensiuni, între care calendarul). De data aceasta primiți mai puține indicații: decideți voi cum ajungeți la rezultat.</p>
+        <div class="s8-route s8-concepts s8-concepts-4" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+          <article><span class="n">Pasul 1</span><h3>Curățare</h3><p>Doar numărul de rânduri și coloane la care ajunge fiecare tabel</p></article>
+          <article><span class="n">Pasul 2</span><h3>Model</h3><p>Un star schema, cu calendarul marcat ca tabelă de date</p></article>
+          <article><span class="n">Pasul 3</span><h3>Raport</h3><p>Minimum 3 pagini, în felul vostru; Atelierul de raport vă poate ajuta, dar nu e obligatoriu</p></article>
+        </div>
+        <div class="s8-links">
+          <a class="s8-download" href="proiect/index.html" target="_blank" rel="noopener">Deschide pagina proiectului</a>
+        </div>
+      </article>
+
+    </main>
+
+    <nav class="slide-nav">
+      <button class="slide-nav-btn" data-slide-prev>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Înapoi
+      </button>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+        <div class="slide-counter" data-slide-counter>1 / 2</div>
+        <div class="slide-dots" data-slide-dots></div>
+      </div>
+      <button class="slide-nav-btn" data-slide-next>
+        Următor
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </nav>
+  </div>
+  <script src="../../js/main.js"></script>
+  <script src="../../js/s09.js?v=7"></script>
+</body>
+</html>
