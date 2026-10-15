@@ -250,3 +250,5 @@
 .s9-chips.is-good i { background: var(--primary-soft); border-color: color-mix(in srgb, var(--primary) 40%, var(--border)); color: var(--primary-dark); }
 [data-theme="dark"] .s9-chips.is-good i { color: var(--primary-light); }
 @media (max-width: 860px) { .s9-sort-row { grid-template-columns: 1fr; } .s9-chips { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+.s9-pair { margin: 8px 0 10px; }
+.s9-pair td:first-child { font-weight: 600; }

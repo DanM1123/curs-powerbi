@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="../../css/s06.css?v=6" />
   <link rel="stylesheet" href="../../css/s07.css?v=4" />
   <link rel="stylesheet" href="../../css/s08.css?v=3" />
-  <link rel="stylesheet" href="../../css/s09.css?v=8" />
+  <link rel="stylesheet" href="../../css/s09.css?v=9" />
   <script src="../../js/gate.js"></script>
   <script src="../../js/firebase-init.js"></script>
 </head>
@@ -399,34 +399,39 @@
           <span class="s5-concept-pill is-fw">Sortarea calendarului</span>
         </div>
         <h2>Sortarea coloanelor din calendar</h2>
-        <div class="s6-concept"><p>Power BI sortează o coloană de text <strong>alfabetic</strong>. Pentru luni și zile, ordinea corectă este cea din calendar. Soluția este <strong>Sort by column</strong>: ordonezi coloana de text după o coloană numerică pereche.</p></div>
+        <div class="s6-concept"><p>Într-un vizual, lunile scrise cu text apar în <strong>ordine alfabetică</strong>, nu în ordinea calendarului. Soluția este <strong>Sort by column</strong>: spui lui Power BI să ordoneze <code>Luna_Nume</code> după numărul lunii, <code>Luna</code>.</p></div>
         <div class="s9-sort">
           <div class="s9-sort-row"><span class="s9-sort-lbl is-bad">Fără sortare</span><div class="s9-chips"><i>Aprilie</i><i>August</i><i>Decembrie</i><i>Februarie</i><i>Ianuarie</i><i>Iulie</i><i>Iunie</i><i>Martie</i><i>Mai</i><i>Noiembrie</i><i>Octombrie</i><i>Septembrie</i></div></div>
           <div class="s9-sort-row"><span class="s9-sort-lbl is-good">Sort by column: Luna</span><div class="s9-chips is-good"><i>Ianuarie</i><i>Februarie</i><i>Martie</i><i>Aprilie</i><i>Mai</i><i>Iunie</i><i>Iulie</i><i>August</i><i>Septembrie</i><i>Octombrie</i><i>Noiembrie</i><i>Decembrie</i></div></div>
         </div>
         <div class="s5-bar-grid">
           <section class="s5-bar-card">
-            <h3>Cum o faci</h3>
-            <ol class="s7-steps">
-              <li>Selectează tabelul <code>Dim_Date</code> în Table view sau în panoul Data.</li>
-              <li>Selectează coloana de text, de exemplu <code>Luna_Nume</code>.</li>
-              <li><span class="s7-ui">Column tools → Sort by column</span> și alege coloana numerică pereche, <code>Luna</code>.</li>
-              <li>Verifică în orice vizual: lunile apar de la ianuarie la decembrie.</li>
-            </ol>
+            <h3>De ce nu ajunge să sortezi după Data sau ID</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-tip"><strong>Sortarea din Table view</strong> schimbă doar cum sunt afișate rândurile în acel tabel, nu și ce face un grafic.</li>
+              <li class="is-tip"><strong>Un vizual</strong> ia valorile din <code>Luna_Nume</code> și le ordonează singur, ca text: de la A la Z.</li>
+              <li class="is-tip"><strong>Power BI nu știe</strong> că „Martie” vine după „Februarie”. Trebuie să i-o spui tu, printr-o coloană cu numărul lunii.</li>
+              <li class="is-tip"><code>Data</code> se ordonează corect singură, pentru că e o dată, nu un text.</li>
+            </ul>
           </section>
           <section class="s5-bar-card">
-            <h3>Perechi de coloane în calendar</h3>
-            <table class="s5-bar-tbl s9-tbl-compact">
-              <thead><tr><th>Se sortează</th><th>După</th></tr></thead>
+            <h3>Perechea de coloane</h3>
+            <p>Fiecare lună are două coloane: <code>Luna_Nume</code> este ce <strong>vezi</strong> pe axă, <code>Luna</code> este numărul după care se <strong>ordonează</strong>.</p>
+            <table class="s5-bar-tbl s9-tbl-compact s9-pair">
+              <thead><tr><th><code>Luna_Nume</code> (text)</th><th><code>Luna</code> (număr)</th></tr></thead>
               <tbody>
-                <tr><td><code>Luna_Nume</code></td><td><code>Luna</code> (1–12)</td></tr>
-                <tr><td><code>Zi_Saptamana</code></td><td>o coloană cu numărul zilei, de exemplu <code>WEEKDAY ( [Data], 2 )</code> (luni = 1)</td></tr>
-                <tr><td><code>Trimestru</code>, <code>An</code></td><td>nu e nevoie: T1–T4 și anii se ordonează corect singuri</td></tr>
+                <tr><td>Ianuarie</td><td>1</td></tr>
+                <tr><td>Februarie</td><td>2</td></tr>
+                <tr><td>Martie</td><td>3</td></tr>
+                <tr><td>…</td><td>…</td></tr>
               </tbody>
             </table>
+            <ol class="s7-steps">
+              <li>Selectezi coloana <code>Luna_Nume</code> din <code>Dim_Date</code>.</li>
+              <li><span class="s7-ui">Column tools → Sort by column → Luna</span>.</li>
+            </ol>
           </section>
         </div>
-        <p class="s06-takeaway"><strong>Regula:</strong> orice coloană de text cu o ordine naturală (luni, zile, sezoane) are lângă ea o coloană numerică după care se sortează. Coloana numerică poți s-o ascunzi din panoul Data.</p>
       </article>
 
       <!-- ============ PARTEA 4 · TIME INTELLIGENCE ============ -->
