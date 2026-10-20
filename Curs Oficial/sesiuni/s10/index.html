@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Power BI · Sesiunea 10 · Surse de date și rapoarte flexibile</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230E7490'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='46' font-weight='900' text-anchor='middle' fill='white'%3E10%3C/text%3E%3C/svg%3E" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/session.css" />
+  <link rel="stylesheet" href="../../css/extras.css" />
+  <link rel="stylesheet" href="../../css/s02.css" />
+  <link rel="stylesheet" href="../../css/s03.css" />
+  <link rel="stylesheet" href="../../css/s04.css?v=82" />
+  <link rel="stylesheet" href="../../css/s05.css?v=33" />
+  <link rel="stylesheet" href="../../css/s06.css?v=6" />
+  <link rel="stylesheet" href="../../css/s07.css?v=4" />
+  <link rel="stylesheet" href="../../css/s08.css?v=3" />
+  <link rel="stylesheet" href="../../css/s09.css?v=9" />
+  <link rel="stylesheet" href="../../css/s10.css?v=10" />
+  <script src="../../js/gate.js"></script>
+  <script src="../../js/firebase-init.js"></script>
+</head>
+<body class="hub-page s05-page s06-page s07-page s08-page s09-page s10-page" data-poll-root="curs-oficial/s10/polls">
+  <div class="hub-orbits" aria-hidden="true">
+    <div class="hub-orb a"></div>
+    <div class="hub-orb b"></div>
+    <div class="hub-orb c"></div>
+  </div>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="../../index.html" class="brand">
+        <span class="brand-mark">P</span>
+        <span>Power BI · Sesiunea 10</span>
+      </a>
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" aria-label="Schimbă tema">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="student-shell">
+    <div class="slide-progress"><div class="fill" data-slide-progress></div></div>
+    <main class="slide-deck">
+
+      <!-- 01 · Copertă -->
+      <article class="slide active s4-cover">
+        <div class="s4-cover-inner">
+          <span class="slide-eyebrow">Sesiunea 10</span>
+          <h1>Surse de date și rapoarte flexibile</h1>
+        </div>
+      </article>
+
+      <!-- 02 · Recapitulare S9 -->
+      <article class="slide">
+        <span class="slide-eyebrow">Recapitulare · sesiunea 9</span>
+        <h2>Ce am învățat despre Service și time intelligence?</h2>
+        <p class="s3-lead">Gândește răspunsul, apoi apasă <strong>Arată răspunsul</strong>.</p>
+        <div data-s3-recap>
+          <div class="s3-recap-top">
+            <span class="s3-recap-count" data-s3-recap-count>01 / 03</span>
+            <div class="s3-recap-nav">
+              <button type="button" data-s3-recap-prev>Înapoi</button>
+              <button type="button" data-s3-recap-next>Înainte</button>
+            </div>
+          </div>
+
+          <section class="s3-q is-on" data-s3-q>
+            <h3>Import sau DirectQuery?</h3>
+            <p class="ask">Care e diferența dintre cele două moduri de încărcare a datelor?</p>
+            <div class="s3-answer">
+              <p><strong>Import</strong> copiază datele în model, iar ele rămân cele de la ultimul refresh. <strong>DirectQuery</strong> nu copiază nimic: trimite o interogare la sursă la fiecare vizual. Azi folosim Import.</p>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>De ce un refresh programat?</h3>
+            <p class="ask">Ai publicat un raport. De ce nu apar singure datele noi de luna asta?</p>
+            <div class="s3-answer">
+              <p>Raportul publicat conține <strong>o copie</strong> a datelor de la momentul publicării. Refresh-ul (manual sau programat) reia interogările către sursă și aduce datele noi.</p>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+
+          <section class="s3-q" data-s3-q>
+            <h3>De ce o tabelă de date?</h3>
+            <p class="ask">Ce are nevoie Power BI de la calendar ca să meargă <code>SAMEPERIODLASTYEAR</code>?</p>
+            <div class="s3-answer">
+              <p>O <strong>tabelă de date</strong> cu fiecare zi o singură dată, fără goluri, marcată ca date table. Azi o primim gata făcută, tot ca <code>Dim_Date</code>, dar pe cinci ani.</p>
+            </div>
+            <button type="button" class="s3-btn is-primary" data-s3-reveal>Arată răspunsul</button>
+          </section>
+        </div>
+      </article>
+
+      <!-- 03 · Concepte -->
+      <article class="slide s5-framework">
+        <span class="slide-eyebrow">Conceptele de azi</span>
+        <h2>Trei lucruri noi, într-un raport despre zboruri</h2>
+        <div class="s8-route s8-concepts s8-concepts-4" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+          <article><span class="n">Partea 1</span><h3>Baza de date</h3><p>Conectare la Azure SQL, în modul Import</p></article>
+          <article><span class="n">Partea 2</span><h3>Combinarea fișierelor</h3><p>Fișiere dintr-un folder, puse într-un singur tabel. Două exemple</p></article>
+          <article><span class="n">Partea 3</span><h3>Model și matrix dinamic</h3><p>Împărțirea pe tabele, relații și field parameters: un pivot pe care îl schimbi din slicere</p></article>
+        </div>
+      </article>
+
+      <!-- 04 · Datele lecției -->
+      <article class="slide s5-framework">
+        <span class="slide-eyebrow">Datele lecției</span>
+        <h2>Două surse: o bază de date și un folder</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Baza Flyableinc</h3>
+            <p>Aviație, 2021–2025: 9 tabele, 2 de fapte și 7 dimensiuni. O încărcați din Azure în partea 1.</p>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Folderul de rezervări</h3>
+            <p>Rezervările din 2025, pe trimestre: trei fișiere Excel cu aceleași coloane. Al patrulea (T4) îl adăugăm în partea 2.</p>
+          </section>
+        </div>
+        <p class="s06-takeaway"><strong>Datele sunt deja curate.</strong> Azi ne ocupăm de sursă și raport, nu de curățare. Companiile sunt fictive, sumele sunt în EUR.</p>
+      </article>
+
+      <!-- ============ PARTEA 1 · BAZA DE DATE ============ -->
+
+      <!-- 05 · Conectarea -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 1 · Baza de date</span>
+          <span class="s5-concept-pill is-fw">Azure SQL</span>
+        </div>
+        <h2>Conectați-vă la baza Aviatie</h2>
+        <p class="s5-oneline">Aceleași 9 tabele ca în fișierele Excel, dar într-o bază de date din cloud, pe care o văd toți cu aceleași cifre.</p>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Ce faceți</h3>
+            <ol class="s7-steps">
+              <li><em>Home → Get data → Azure → Azure SQL database</em>, apoi <em>Connect</em>.</li>
+              <li><strong>Server:</strong> <code>flyabieinc.database.windows.net</code></li>
+              <li><strong>Database:</strong> <code>Flyableinc</code></li>
+              <li><strong>Data Connectivity mode:</strong> <strong>Import</strong>.</li>
+              <li>Fila <strong>Database</strong>, utilizatorul <code>curs_powerbi</code> și parola primită la curs.</li>
+              <li>În Navigator bifați cele 9 tabele și apăsați <em>Load</em>.</li>
+            </ol>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Verificați</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-tip">În <em>Model view</em> sunt 9 tabele și relațiile dintre ele.</li>
+              <li class="is-tip"><code>Fact_Zboruri</code> are 10.000 de rânduri și <code>Fact_Rezervari</code> 12.000.</li>
+              <li class="is-tip"><code>Dim_Date</code> e marcat ca tabelă de date, cu <code>Luna_Nume</code> sortat după <code>Luna</code>.</li>
+            </ul>
+            <p class="s9-note-small">Dacă nu vă puteți conecta, spuneți la curs, înainte să continuați.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- ============ PARTEA 2 · COMBINAREA FIȘIERELOR ============ -->
+
+      <!-- 06 · Ideea -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Combinarea fișierelor</span>
+          <span class="s5-concept-pill is-fw">Ideea</span>
+        </div>
+        <h2>Un folder, un fișier nou la fiecare trimestru</h2>
+        <p class="s5-oneline">Sistemul de rezervări scoate la sfârșit de trimestru un fișier, cu aceleași coloane. Nu deschidem fiecare fișier: conectăm Power BI la folder, o singură dată.</p>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Fără folder</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-tip">Copiezi rândurile din fiecare fișier într-un singur Excel.</li>
+              <li class="is-tip">Repeți totul la fiecare export și uiți un fișier.</li>
+            </ul>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Cu folder</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-tip">Te conectezi la folder, o singură dată.</li>
+              <li class="is-tip">Când apare un fișier nou, îl pui în folder și apeși <em>Refresh</em>.</li>
+            </ul>
+          </section>
+        </div>
+        <p class="s06-takeaway"><strong>Condiția:</strong> fișierele au <strong>aceleași coloane, în aceeași ordine</strong>, cu antetul pe primul rând.</p>
+        <div class="s8-links">
+          <a class="s8-download" href="date/combinare/exemplu_rezervari_2025.zip" download>Descarcă exemplul (3 fișiere)</a>
+        </div>
+      </article>
+
+      <!-- 07 · Get Data Folder -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Combinarea fișierelor</span>
+          <span class="s5-concept-pill is-fw">Get Data → Folder</span>
+        </div>
+        <h2>Primul pas: lista fișierelor din folder</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Cum ajungi aici</h3>
+            <ol class="s7-steps">
+              <li>Dezarhivați exemplul într-un folder al vostru.</li>
+              <li><em>Home → Get data → More → Folder</em>.</li>
+              <li>Alegeți folderul (<em>Browse</em>) și apăsați <em>OK</em>.</li>
+              <li>În previzualizare apăsați <strong>Transform Data</strong>, nu Combine încă.</li>
+            </ol>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Ce conține tabelul</h3>
+            <dl class="s6-args">
+              <div><dt>Content</dt><dd>Fișierul însuși, ca <em>Binary</em>. Aici e conținutul real.</dd></div>
+              <div><dt>Name</dt><dd>Numele fișierului, de exemplu <code>Rezervari_2025_T3.xlsx</code>.</dd></div>
+              <div><dt>Extension</dt><dd><code>.xlsx</code>, în exemplul nostru.</dd></div>
+              <div><dt>Date modified</dt><dd>Când a fost schimbat ultima dată.</dd></div>
+              <div><dt>Folder Path</dt><dd>Calea completă a folderului.</dd></div>
+            </dl>
+          </section>
+        </div>
+      </article>
+
+      <!-- 08 · Combine animat -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Combinarea fișierelor</span>
+          <span class="s5-concept-pill is-fw">Ce face Combine Files</span>
+        </div>
+        <h2>O rețetă, aplicată pe fiecare fișier</h2>
+        <div class="s10-combine" data-s10-combine>
+          <div class="box">
+            <h3>Folderul de rezervări (numărul = rândurile din fișier)</h3>
+            <ul class="s10-files" data-files></ul>
+            <div class="s10-bar">
+              <button type="button" class="s10-btn" data-play>Rulează</button>
+              <button type="button" class="s10-btn is-ghost" data-add>Pune fișierul T4 în folder</button>
+            </div>
+            <p class="s10-stage" data-stage></p>
+          </div>
+          <div class="box">
+            <h3>Tabelul combinat</h3>
+            <div class="s10-total"><span data-total>0</span> <small>rânduri</small></div>
+            <table class="s10-tbl"><tbody data-list></tbody></table>
+            <p class="s10-muted">Se afișează ultimele fișiere adăugate.</p>
+          </div>
+        </div>
+        <p class="s06-takeaway"><strong>În spate,</strong> Power Query ia primul fișier ca model (<em>Sample File</em>), face pașii pe el într-o funcție și o aplică pe fiecare fișier din listă. Un pas schimbat în model se schimbă pentru toate.</p>
+      </article>
+
+      <!-- 09 · Pașii -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Combinarea fișierelor</span>
+          <span class="s5-concept-pill is-fw">Pas cu pas</span>
+        </div>
+        <h2>Trei fișiere, un singur tabel</h2>
+        <div class="s5-bar-grid">
+          <section class="s5-bar-card">
+            <h3>Pașii</h3>
+            <ol class="s7-steps">
+              <li>Pe coloana <strong>Content</strong> apăsați butonul cu două săgeți: <em>Combine Files</em>.</li>
+              <li>Alegeți fișierul-model (primul) și foaia <strong>Rezervari</strong>, apoi <em>OK</em>.</li>
+              <li>Power Query creează grupul <em>Transform File</em> și tabelul final. Redenumiți-l <code>Rezervari_2025</code>.</li>
+              <li>Verificați tipurile: <code>Data</code> = Date, <code>Nr_Bilete</code> = Whole Number, <code>Valoare_Totala</code> = Decimal.</li>
+            </ol>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Ce verificați</h3>
+            <ul class="s5-bar-limits">
+              <li class="is-tip">După T1–T3: <strong>2.273</strong> de rânduri.</li>
+              <li class="is-tip"><code>Source.Name</code> arată din ce fișier vine fiecare rând. O puteți șterge după verificare.</li>
+              <li class="is-tip">Fișierul T4 se adaugă cu <em>Refresh</em>, fără să schimbați pașii.</li>
+            </ul>
+          </section>
+        </div>
+      </article>
+
+      <!-- 11 · Capcane -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Combinarea fișierelor</span>
+          <span class="s5-concept-pill is-fw">Capcane</span>
+        </div>
+        <h2>Ce strică o combinare</h2>
+        <table class="s5-bar-tbl s6-cheat s9-tbl-compact">
+          <thead><tr><th>Capcana</th><th>Ce vezi</th><th>Ce faci</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Fișier temporar</strong> <code>~$Rezervari…xlsx</code>, creat când Excel e deschis</td><td>Eroare la citirea unui fișier</td><td>Filtrați din listă numele care încep cu <code>~$</code></td></tr>
+            <tr><td><strong>Alt antet</strong> într-un fișier</td><td>Coloană nouă plină de <code>null</code> și coloana veche goală</td><td>Corectați exportul sau redenumiți coloana</td></tr>
+            <tr><td><strong>Alt nume de foaie</strong> într-un Excel</td><td>Eroare: nu s-a găsit foaia</td><td>Luați foaia după poziție, nu după nume</td></tr>
+            <tr><td><strong>Alt delimitator</strong> într-un CSV (<code>;</code> în loc de <code>,</code>)</td><td>O singură coloană lungă</td><td>Setați delimitatorul în pasul sursă</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <!-- 11 · Practică combinare -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Practică</span>
+          <span class="s5-concept-pill is-fw">Combinați voi</span>
+        </div>
+        <h2>Faceți voi combinarea</h2>
+        <div class="s8-route s8-concepts s8-concepts-4" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+          <article><span class="n">Pasul 1</span><h3>Folder</h3><p>Get data → Folder, apoi Transform Data</p></article>
+          <article><span class="n">Pasul 2</span><h3>Combinare</h3><p>Combine Files, foaia <code>Rezervari</code>. Trebuie să obțineți <strong>2.273</strong> de rânduri</p></article>
+          <article><span class="n">Pasul 3</span><h3>Refresh</h3><p>Puneți <code>Rezervari_2025_T4.xlsx</code> în folder. Trebuie să obțineți <strong>2.950</strong></p></article>
+        </div>
+        <div class="s8-links">
+          <a class="s8-download" href="date/combinare/fisier_nou/Rezervari_2025_T4.xlsx" download>Fișierul T4 (pentru pasul 3)</a>
+        </div>
+        <p class="s06-takeaway"><strong>Bonus:</strong> adăugați o coloană <code>Luna</code> din <code>Data</code> (Add Column → Date → Month → Month).</p>
+      </article>
+
+      <!-- ============ PARTEA 3 · MATRIX DINAMIC ============ -->
+
+      <!-- 12 · Împărțirea pe tabele -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Model</span>
+          <span class="s5-concept-pill is-fw">Împărțirea pe tabele</span>
+        </div>
+        <h2>Împărțirea pe tabele</h2>
+        <p class="s5-oneline">Fișierul combinat devine șapte tabele: o tabelă de fapte și șase tabele cu nume. Apăsați pe fiecare, să vedeți ce conține.</p>
+        <div class="s10-steps s10-steps-h" data-s10-tabs>
+          <div class="s10-steps-nav">
+            <button type="button" data-tab="rezervari"><i>F</i>Rezervari</button>
+            <button type="button" data-tab="companie"><i>D</i>Companie</button>
+            <button type="button" data-tab="ruta"><i>D</i>Ruta</button>
+            <button type="button" data-tab="canal"><i>D</i>Canal</button>
+            <button type="button" data-tab="clasa"><i>D</i>Clasa</button>
+            <button type="button" data-tab="pasager"><i>D</i>Pasager</button>
+            <button type="button" data-tab="data"><i>D</i>Dim_Data</button>
+          </div>
+          <div>
+            <section class="s10-pane" data-pane="rezervari"><span class="where">Tabelă de fapte · 2.950 de rânduri</span><h3>Rezervari: o linie pe rezervare</h3>
+              <p class="s10-steps-line">Doar chei și numere. Nu are niciun nume de companie, clasă sau rută.</p>
+              <table class="s10-tbl is-text"><thead><tr><th>Coloană</th><th>Ce conține</th><th>Exemplu</th></tr></thead><tbody>
+                <tr><td><code>ID_Companie</code> <code>ID_Ruta</code> <code>ID_Canal</code> <code>ID_Clasa</code> <code>ID_Pasager</code></td><td>Cheile: leagă rezervarea de fiecare dimensiune</td><td>1, 2, 2, 1, 3</td></tr>
+                <tr><td><code>Data</code></td><td>Ziua rezervării</td><td>01.01.2025</td></tr>
+                <tr><td><code>Zile_Avans</code></td><td>Cu câte zile înainte s-a rezervat</td><td>38</td></tr>
+                <tr><td><code>Nr_Bilete</code> <code>Pret_Bilet</code> <code>Taxe_Bilet</code> <code>Bagaj_Extra</code> <code>Valoare_Totala</code></td><td>Numerele din care calculăm măsurile</td><td>2, 76,68, 26,78, 64, 270,92</td></tr>
+                <tr><td><code>Status_Rezervare</code></td><td>Confirmata sau Anulata</td><td>Confirmata</td></tr>
+              </tbody></table></section>
+            <section class="s10-pane" data-pane="companie"><span class="where">Dimensiune · 10 rânduri</span><h3>Companie: o linie pe companie aeriană</h3>
+              <table class="s10-tbl is-text"><thead><tr><th>Coloană</th><th>Ce conține</th><th>Exemplu</th></tr></thead><tbody>
+                <tr><td><code>ID</code></td><td>Cheia tabelei, numerotată de la 1</td><td>1, 2, 3</td></tr>
+                <tr><td><code>Companie</code></td><td>Numele companiei</td><td>Danubia Air, AeroCarpati</td></tr>
+                <tr><td><code>Tip_Companie</code></td><td>Tipul ei</td><td>Traditional, Low-cost, Charter</td></tr>
+              </tbody></table></section>
+            <section class="s10-pane" data-pane="ruta"><span class="where">Dimensiune · 45 de rânduri</span><h3>Ruta: o linie pe rută</h3>
+              <table class="s10-tbl is-text"><thead><tr><th>Coloană</th><th>Ce conține</th><th>Exemplu</th></tr></thead><tbody>
+                <tr><td><code>ID</code></td><td>Cheia tabelei</td><td>1, 2, 3</td></tr>
+                <tr><td><code>Cod_Ruta</code></td><td>Aeroportul de plecare și cel de sosire</td><td>OTP-BGY</td></tr>
+                <tr><td><code>Oras_Sosire</code></td><td>Orașul de destinație</td><td>Milano</td></tr>
+                <tr><td><code>Tara_Sosire</code></td><td>Țara de destinație</td><td>Italia</td></tr>
+                <tr><td><code>Tip_Ruta</code></td><td>Intern, European sau Intercontinental</td><td>European</td></tr>
+              </tbody></table></section>
+            <section class="s10-pane" data-pane="canal"><span class="where">Dimensiune · 5 rânduri</span><h3>Canal: o linie pe canal de vânzare</h3>
+              <table class="s10-tbl is-text"><thead><tr><th>Coloană</th><th>Ce conține</th><th>Exemplu</th></tr></thead><tbody>
+                <tr><td><code>ID</code></td><td>Cheia tabelei</td><td>1, 2, 3</td></tr>
+                <tr><td><code>Canal</code></td><td>Unde s-a făcut rezervarea</td><td>Aplicatie, Website, Agentie de turism, Call center, Aeroport</td></tr>
+                <tr><td><code>Tip_Canal</code></td><td>Online sau Offline</td><td>Online</td></tr>
+              </tbody></table></section>
+            <section class="s10-pane" data-pane="clasa"><span class="where">Dimensiune · 4 rânduri</span><h3>Clasa: o linie pe clasă de zbor</h3>
+              <table class="s10-tbl is-text"><thead><tr><th>Coloană</th><th>Ce conține</th><th>Exemplu</th></tr></thead><tbody>
+                <tr><td><code>ID</code></td><td>Cheia tabelei</td><td>1, 2, 3, 4</td></tr>
+                <tr><td><code>Clasa</code></td><td>Clasa biletului</td><td>Economy, Premium Economy, Business, First</td></tr>
+              </tbody></table></section>
+            <section class="s10-pane" data-pane="pasager"><span class="where">Dimensiune · 24 de rânduri</span><h3>Pasager: o linie pe profil de pasager</h3>
+              <p class="s10-steps-line">Un rând pe combinația grupă de vârstă și nivel de loialitate, nu pe persoană.</p>
+              <table class="s10-tbl is-text"><thead><tr><th>Coloană</th><th>Ce conține</th><th>Exemplu</th></tr></thead><tbody>
+                <tr><td><code>ID</code></td><td>Cheia tabelei</td><td>1, 2, 3</td></tr>
+                <tr><td><code>Grupa_Varsta</code></td><td>Grupa de vârstă</td><td>18-24, 25-34, 35-44, 45-54, 55-64, 65+</td></tr>
+                <tr><td><code>Nivel_Loialitate</code></td><td>Nivelul în programul de loialitate</td><td>Fara statut, Silver, Gold, Platinum</td></tr>
+              </tbody></table></section>
+            <section class="s10-pane" data-pane="data"><span class="where">Tabelă de date · 365 de rânduri</span><h3>Dim_Data: o linie pe zi</h3>
+              <p class="s10-steps-line">Nu vine din fișier. O creăm cu o formulă, pe slide-ul 14.</p>
+              <table class="s10-tbl is-text"><thead><tr><th>Coloană</th><th>Ce conține</th><th>Exemplu</th></tr></thead><tbody>
+                <tr><td><code>Date</code></td><td>Ziua, de la 1 ianuarie la 31 decembrie</td><td>01.01.2025</td></tr>
+                <tr><td><code>An</code> <code>Trimestru</code> <code>Luna</code></td><td>Anul, trimestrul și numărul lunii</td><td>2025, T1, 1</td></tr>
+                <tr><td><code>Luna_Nume</code> <code>Zi_Saptamana</code></td><td>Numele lunii și al zilei</td><td>Ianuarie, Miercuri</td></tr>
+              </tbody></table></section>
+          </div>
+        </div>
+        <p class="s06-takeaway"><strong>Regula:</strong> textul merge în tabelele cu nume, numerele rămân în Rezervari. Cheile (ID) leagă tabelele între ele.</p>
+      </article>
+
+      <!-- 13 · Cum creați fiecare tabel -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Model</span>
+          <span class="s5-concept-pill is-fw">Power Query, pas cu pas</span>
+        </div>
+        <h2>Cum creați fiecare tabel</h2>
+        <div class="s10-steps s10-steps-h" data-s10-tabs>
+          <div class="s10-steps-nav">
+            <button type="button" data-tab="companie"><i>1</i>Companie</button>
+            <button type="button" data-tab="ruta"><i>2</i>Ruta</button>
+            <button type="button" data-tab="canal"><i>3</i>Canal</button>
+            <button type="button" data-tab="clasa"><i>4</i>Clasa</button>
+            <button type="button" data-tab="pasager"><i>5</i>Pasager</button>
+            <button type="button" data-tab="rezervari"><i>6</i>Rezervari</button>
+            <button type="button" data-tab="data"><i>7</i>Dim_Data</button>
+          </div>
+          <div>
+            <section class="s10-pane" data-pane="companie"><span class="where">Power Query · 10 rânduri</span><h3>Companie</h3>
+              <div class="s10-pane-grid">
+                <ol class="s7-steps">
+                  <li>Clic dreapta pe <strong>Rezervari_2025</strong> → <strong>Duplicate</strong>.</li>
+                  <li>Redenumiți copia: <strong>Companie</strong>.</li>
+                  <li>Selectați cu Ctrl coloanele <code>Companie</code> și <code>Tip_Companie</code> → clic dreapta → <strong>Remove Other Columns</strong>.</li>
+                  <li>Cu ambele coloane selectate: clic dreapta → <strong>Remove Duplicates</strong>.</li>
+                  <li><strong>Add Column → Index Column → From 1</strong>.</li>
+                  <li>Redenumiți coloana nouă în <code>ID</code> și trageți-o prima.</li>
+                </ol>
+                <div><p class="s10-cap">Așa trebuie să arate</p>
+                  <table class="s10-tbl is-text"><thead><tr><th>ID</th><th>Companie</th><th>Tip_Companie</th></tr></thead><tbody>
+                    <tr><td>1</td><td>Danubia Air</td><td>Low-cost</td></tr><tr><td>2</td><td>AeroCarpati</td><td>Traditional</td></tr><tr><td>3</td><td>Euronord Airways</td><td>Traditional</td></tr></tbody></table>
+                  <p class="s10-muted">10 rânduri în total.</p></div>
+              </div></section>
+            <section class="s10-pane" data-pane="ruta"><span class="where">Power Query · 45 de rânduri</span><h3>Ruta</h3>
+              <div class="s10-pane-grid">
+                <ol class="s7-steps">
+                  <li>Clic dreapta pe <strong>Rezervari_2025</strong> → <strong>Duplicate</strong>.</li>
+                  <li>Redenumiți copia: <strong>Ruta</strong>.</li>
+                  <li>Selectați cu Ctrl <code>Cod_Ruta</code>, <code>Oras_Sosire</code>, <code>Tara_Sosire</code>, <code>Tip_Ruta</code> → clic dreapta → <strong>Remove Other Columns</strong>.</li>
+                  <li>Cu cele patru coloane selectate: clic dreapta → <strong>Remove Duplicates</strong>.</li>
+                  <li><strong>Add Column → Index Column → From 1</strong>.</li>
+                  <li>Redenumiți coloana nouă în <code>ID</code> și trageți-o prima.</li>
+                </ol>
+                <div><p class="s10-cap">Așa trebuie să arate</p>
+                  <table class="s10-tbl is-text"><thead><tr><th>ID</th><th>Cod_Ruta</th><th>Oras_Sosire</th><th>Tara_Sosire</th><th>Tip_Ruta</th></tr></thead><tbody>
+                    <tr><td>1</td><td>OTP-BGY</td><td>Milano</td><td>Italia</td><td>European</td></tr><tr><td>2</td><td>OTP-FCO</td><td>Roma</td><td>Italia</td><td>European</td></tr><tr><td>3</td><td>OTP-DXB</td><td>Dubai</td><td>Emiratele Arabe Unite</td><td>Intercontinental</td></tr></tbody></table>
+                  <p class="s10-muted">45 de rânduri în total.</p></div>
+              </div></section>
+            <section class="s10-pane" data-pane="canal"><span class="where">Power Query · 5 rânduri</span><h3>Canal</h3>
+              <div class="s10-pane-grid">
+                <ol class="s7-steps">
+                  <li>Clic dreapta pe <strong>Rezervari_2025</strong> → <strong>Duplicate</strong>.</li>
+                  <li>Redenumiți copia: <strong>Canal</strong>.</li>
+                  <li>Selectați cu Ctrl <code>Canal</code> și <code>Tip_Canal</code> → clic dreapta → <strong>Remove Other Columns</strong>.</li>
+                  <li>Cu ambele coloane selectate: clic dreapta → <strong>Remove Duplicates</strong>.</li>
+                  <li><strong>Add Column → Index Column → From 1</strong>.</li>
+                  <li>Redenumiți coloana nouă în <code>ID</code> și trageți-o prima.</li>
+                </ol>
+                <div><p class="s10-cap">Așa trebuie să arate</p>
+                  <table class="s10-tbl is-text"><thead><tr><th>ID</th><th>Canal</th><th>Tip_Canal</th></tr></thead><tbody>
+                    <tr><td>1</td><td>Aplicatie</td><td>Online</td></tr><tr><td>2</td><td>Website</td><td>Online</td></tr><tr><td>3</td><td>Agentie de turism</td><td>Offline</td></tr></tbody></table>
+                  <p class="s10-muted">5 rânduri în total.</p></div>
+              </div></section>
+            <section class="s10-pane" data-pane="clasa"><span class="where">Power Query · 4 rânduri</span><h3>Clasa</h3>
+              <div class="s10-pane-grid">
+                <ol class="s7-steps">
+                  <li>Clic dreapta pe <strong>Rezervari_2025</strong> → <strong>Duplicate</strong>.</li>
+                  <li>Redenumiți copia: <strong>Clasa</strong>.</li>
+                  <li>Clic dreapta pe antetul coloanei <code>Clasa</code> → <strong>Remove Other Columns</strong>.</li>
+                  <li>Clic dreapta pe antetul <code>Clasa</code> → <strong>Remove Duplicates</strong>.</li>
+                  <li><strong>Add Column → Index Column → From 1</strong>.</li>
+                  <li>Redenumiți coloana nouă în <code>ID</code> și trageți-o prima.</li>
+                </ol>
+                <div><p class="s10-cap">Așa trebuie să arate</p>
+                  <table class="s10-tbl is-text"><thead><tr><th>ID</th><th>Clasa</th></tr></thead><tbody>
+                    <tr><td>1</td><td>Economy</td></tr><tr><td>2</td><td>Premium Economy</td></tr><tr><td>3</td><td>Business</td></tr></tbody></table>
+                  <p class="s10-muted">4 rânduri în total.</p></div>
+              </div></section>
+            <section class="s10-pane" data-pane="pasager"><span class="where">Power Query · 24 de rânduri</span><h3>Pasager</h3>
+              <div class="s10-pane-grid">
+                <ol class="s7-steps">
+                  <li>Clic dreapta pe <strong>Rezervari_2025</strong> → <strong>Duplicate</strong>.</li>
+                  <li>Redenumiți copia: <strong>Pasager</strong>.</li>
+                  <li>Selectați cu Ctrl <code>Grupa_Varsta</code> și <code>Nivel_Loialitate</code> → clic dreapta → <strong>Remove Other Columns</strong>.</li>
+                  <li>Cu ambele coloane selectate: clic dreapta → <strong>Remove Duplicates</strong>.</li>
+                  <li><strong>Add Column → Index Column → From 1</strong>.</li>
+                  <li>Redenumiți coloana nouă în <code>ID</code> și trageți-o prima.</li>
+                </ol>
+                <div><p class="s10-cap">Așa trebuie să arate</p>
+                  <table class="s10-tbl is-text"><thead><tr><th>ID</th><th>Grupa_Varsta</th><th>Nivel_Loialitate</th></tr></thead><tbody>
+                    <tr><td>1</td><td>25-34</td><td>Fara statut</td></tr><tr><td>2</td><td>18-24</td><td>Fara statut</td></tr><tr><td>3</td><td>35-44</td><td>Platinum</td></tr></tbody></table>
+                  <p class="s10-muted">24 de rânduri în total.</p></div>
+              </div></section>
+            <section class="s10-pane" data-pane="rezervari"><span class="where">Power Query · 2.950 de rânduri</span><h3>Rezervari (tabela de fapte)</h3>
+              <div class="s10-pane-grid is-wide">
+                <ol class="s7-steps">
+                  <li><strong>Rezervari_2025</strong> → clic dreapta → <strong>Duplicate</strong>. Redenumiți: <strong>Rezervari</strong>.</li>
+                  <li><strong>Home → Merge Queries</strong>. Sus: Rezervari, jos: Companie. Selectați coloana <code>Companie</code> în ambele. Join Kind: <strong>Left Outer</strong> → OK.</li>
+                  <li>În coloana nouă din dreapta apăsați butonul cu două săgeți. Bifați doar <code>ID</code>, debifați <strong>Use original column name as prefix</strong> → OK.</li>
+                  <li>Redenumiți coloana în <code>ID_Companie</code>.</li>
+                  <li>Repetați 2–4 pentru Ruta (<code>Cod_Ruta</code> → <code>ID_Ruta</code>), Canal (<code>ID_Canal</code>), Clasa (<code>ID_Clasa</code>) și Pasager (<code>Grupa_Varsta</code> + <code>Nivel_Loialitate</code>, aceeași ordine în ambele tabele → <code>ID_Pasager</code>).</li>
+                  <li><strong>Remove Columns</strong> pe coloanele text: Companie, Tip_Companie, Cod_Ruta, Oras_Sosire, Tara_Sosire, Tip_Ruta, Clasa, Canal, Tip_Canal, Grupa_Varsta, Nivel_Loialitate.</li>
+                  <li><strong>Home → Close &amp; Apply</strong>.</li>
+                </ol>
+                <div><p class="s10-cap">Așa trebuie să arate (primele coloane)</p>
+                  <table class="s10-tbl is-text"><thead><tr><th>Data</th><th>ID_Companie</th><th>ID_Ruta</th><th>ID_Canal</th><th>ID_Clasa</th><th>ID_Pasager</th></tr></thead><tbody>
+                    <tr><td>01.01.2025</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr><tr><td>01.01.2025</td><td>1</td><td>2</td><td>2</td><td>1</td><td>2</td></tr><tr><td>01.01.2025</td><td>1</td><td>2</td><td>2</td><td>1</td><td>3</td></tr></tbody></table>
+                  <p class="s10-muted">Mai rămân: Zile_Avans, Nr_Bilete, Pret_Bilet, Taxe_Bilet, Bagaj_Extra, Valoare_Totala, Status_Rezervare. În total 13 coloane și 2.950 de rânduri.</p></div>
+              </div></section>
+            <section class="s10-pane" data-pane="data"><span class="where">Power BI Desktop · 365 de rânduri</span><h3>Dim_Data</h3>
+              <div class="s10-pane-grid">
+                <ol class="s7-steps">
+                  <li>Nu se face în Power Query. Dacă e deschis, apăsați <strong>Close &amp; Apply</strong>.</li>
+                  <li>În fereastra principală: <strong>Modeling → New table</strong>.</li>
+                  <li>Lipiți formula de pe slide-ul următor și apăsați Enter.</li>
+                </ol>
+                <div><p class="s10-cap">Așa trebuie să arate</p>
+                  <table class="s10-tbl is-text"><thead><tr><th>Date</th><th>An</th><th>Trimestru</th><th>Luna</th><th>Luna_Nume</th><th>Zi_Saptamana</th></tr></thead><tbody>
+                    <tr><td>01.01.2025</td><td>2025</td><td>T1</td><td>1</td><td>Ianuarie</td><td>Miercuri</td></tr><tr><td>02.01.2025</td><td>2025</td><td>T1</td><td>1</td><td>Ianuarie</td><td>Joi</td></tr></tbody></table>
+                  <p class="s10-muted">365 de rânduri în total.</p></div>
+              </div></section>
+          </div>
+        </div>
+      </article>
+
+      <!-- 14 · Tabela de date -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Model</span>
+          <span class="s5-concept-pill is-fw">Tabela de date</span>
+        </div>
+        <h2>Tabela de date: o formulă, în New table</h2>
+        <div class="s5-bar-grid">
+          <section class="s6-fn-box">
+            <h3>Modeling → New table, apoi lipiți</h3>
+<pre class="s06-dax-code"><span class="m">Dim_Data</span> =
+<span class="f">VAR</span> _Inceput = <span class="f">DATE</span> ( <span class="f">YEAR</span> ( <span class="f">MIN</span> ( <span class="t">Rezervari[Data]</span> ) ), 1, 1 )
+<span class="f">VAR</span> _Sfarsit = <span class="f">DATE</span> ( <span class="f">YEAR</span> ( <span class="f">MAX</span> ( <span class="t">Rezervari[Data]</span> ) ), 12, 31 )
+<span class="f">RETURN</span>
+<span class="f">ADDCOLUMNS</span> (
+    <span class="f">CALENDAR</span> ( _Inceput, _Sfarsit ),
+    <span class="s">"An"</span>, <span class="f">YEAR</span> ( [Date] ),
+    <span class="s">"Trimestru"</span>, <span class="s">"T"</span> &amp; <span class="f">QUARTER</span> ( [Date] ),
+    <span class="s">"Luna"</span>, <span class="f">MONTH</span> ( [Date] ),
+    <span class="s">"Luna_Nume"</span>, <span class="f">FORMAT</span> ( [Date], <span class="s">"MMMM"</span> ),
+    <span class="s">"Zi_Saptamana"</span>, <span class="f">FORMAT</span> ( [Date], <span class="s">"dddd"</span> )
+)</pre>
+          </section>
+          <section class="s5-bar-card">
+            <h3>Ce face formula</h3>
+            <ol class="s7-steps">
+              <li>Ia prima și ultima zi din <code>Rezervari[Data]</code> și le extinde la anul întreg: 1 ianuarie – 31 decembrie.</li>
+              <li><code>CALENDAR</code> face câte un rând pentru fiecare zi: 365 de rânduri.</li>
+              <li><code>ADDCOLUMNS</code> adaugă anul, trimestrul, luna (număr și nume) și ziua săptămânii.</li>
+            </ol>
+            <p class="s9-note-small"><strong>De ce o tabelă separată:</strong> Rezervari are doar zilele cu rezervări, cu goluri. Funcțiile de timp și slicerele pe lună au nevoie de fiecare zi, o singură dată. Marcarea ca tabelă de date și relația se fac pe slide-ul următor.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- 15 · Modelarea -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Model</span>
+          <span class="s5-concept-pill is-fw">Modelarea</span>
+        </div>
+        <h2>Legăm tabelele în Model view</h2>
+        <p class="s5-oneline">Toate tabelele sunt în Power BI. Acum le legăm între ele, ca un slicer pe Companie sau pe Clasă să schimbe numerele din Rezervari.</p>
+        <div class="s10-steps s10-steps-h" data-s10-tabs>
+          <div class="s10-steps-nav">
+            <button type="button" data-tab="1"><i>1</i>Model view</button>
+            <button type="button" data-tab="2"><i>2</i>Relațiile</button>
+            <button type="button" data-tab="3"><i>3</i>Tabela de date</button>
+            <button type="button" data-tab="4"><i>4</i>Ascundeți cheile</button>
+            <button type="button" data-tab="5"><i>5</i>Verificarea</button>
+          </div>
+          <div>
+            <section class="s10-pane" data-pane="1"><span class="where">Power BI Desktop</span><h3>Deschideți Model view</h3>
+              <ol class="s7-steps">
+                <li>În bara din stânga apăsați al treilea icon: <strong>Model view</strong>.</li>
+                <li>Vedeți cele 7 tabele: Rezervari, Companie, Ruta, Canal, Clasa, Pasager și Dim_Data.</li>
+                <li>Trageți Rezervari în mijloc și celelalte tabele în jurul ei. Așa se vede ușor ce se leagă de ce.</li>
+              </ol></section>
+            <section class="s10-pane" data-pane="2"><span class="where">Model view</span><h3>Cele 6 relații</h3>
+              <table class="s10-tbl is-text"><thead><tr><th>Din Rezervari</th><th>Către</th></tr></thead><tbody>
+                <tr><td><code>ID_Companie</code></td><td><code>Companie[ID]</code></td></tr>
+                <tr><td><code>ID_Ruta</code></td><td><code>Ruta[ID]</code></td></tr>
+                <tr><td><code>ID_Canal</code></td><td><code>Canal[ID]</code></td></tr>
+                <tr><td><code>ID_Clasa</code></td><td><code>Clasa[ID]</code></td></tr>
+                <tr><td><code>ID_Pasager</code></td><td><code>Pasager[ID]</code></td></tr>
+                <tr><td><code>Data</code></td><td><code>Dim_Data[Date]</code></td></tr>
+              </tbody></table>
+              <ol class="s7-steps">
+                <li>Trageți coloana din Rezervari peste coloana din dreapta, în tabelul cu nume.</li>
+                <li>În fereastra care apare: Cardinality <strong>Many to one (*:1)</strong>, Cross filter direction <strong>Single</strong> → OK.</li>
+              </ol>
+              <p class="s10-why"><strong>Scurtătură:</strong> Home → Manage relationships → Autodetect. Verificați apoi că ați obținut exact cele 6 relații de mai sus.</p></section>
+            <section class="s10-pane" data-pane="3"><span class="where">Model view</span><h3>Tabela de date</h3>
+              <ol class="s7-steps">
+                <li>Selectați tabela <strong>Dim_Data</strong> → <strong>Table tools → Mark as date table</strong> → coloana <code>Date</code> → OK.</li>
+                <li>Selectați coloana <code>Luna_Nume</code> → <strong>Column tools → Sort by column</strong> → <code>Luna</code>.</li>
+              </ol>
+              <p class="s10-why"><strong>De ce contează:</strong> fără sortare, lunile apar alfabetic (Aprilie, August, Decembrie). Cu ea apar în ordinea calendarului.</p></section>
+            <section class="s10-pane" data-pane="4"><span class="where">Model view</span><h3>Ascundeți cheile</h3>
+              <ol class="s7-steps">
+                <li>Selectați cu Ctrl coloanele <code>ID_Companie</code>, <code>ID_Ruta</code>, <code>ID_Canal</code>, <code>ID_Clasa</code>, <code>ID_Pasager</code> din Rezervari.</li>
+                <li>Selectați coloana <code>ID</code> din fiecare dintre cele 5 tabele cu nume.</li>
+                <li>Clic dreapta → <strong>Hide in report view</strong>.</li>
+              </ol>
+              <p class="s10-why"><strong>De ce contează:</strong> cheile nu au sens pentru cititor. Rămân în model, dar în lista de câmpuri se văd doar câmpurile utile: Companie, Clasa, Luna_Nume.</p></section>
+            <section class="s10-pane" data-pane="5"><span class="where">Report view</span><h3>Verificarea</h3>
+              <ol class="s7-steps">
+                <li>Adăugați un vizual Table cu <code>Companie[Companie]</code> și <code>Rezervari[Nr_Bilete]</code>.</li>
+                <li>Adăugați un slicer pe <code>Clasa[Clasa]</code> și alegeți Business. Numerele din tabel trebuie să se schimbe.</li>
+                <li>Adăugați un slicer pe <code>Dim_Data[Luna_Nume]</code>. Lunile trebuie să apară în ordinea calendarului.</li>
+              </ol>
+              <p class="s10-why"><strong>Dacă numerele nu se schimbă:</strong> relația lipsește sau e făcută pe coloana greșită. Verificați în Model view cele 6 linii dintre tabele.</p></section>
+          </div>
+        </div>
+      </article>
+
+      <!-- 15 · Ce construim -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Matrix dinamic</span>
+          <span class="s5-concept-pill is-fw">Ce construim în Power BI</span>
+        </div>
+        <h2>Un matrix, trei slicere, 162 de combinații</h2>
+        <p class="s5-oneline">În Excel tragi câmpurile unui pivot la <strong>Rânduri</strong>, <strong>Coloane</strong> și <strong>Valori</strong>. Un <strong>field parameter</strong> face același lucru în raport: e un slicer care <strong>schimbă câmpul</strong> afișat, nu filtrează valori.</p>
+        <div class="s10-star s10-star-3">
+          <div class="s10-node"><b>Rânduri</b><small>Parametru Randuri · 9 câmpuri</small>
+            <div class="s10-cols"><code>Companie</code><code>Tip companie</code><code>Ruta</code><code>Țara destinație</code><code>Clasa</code><code>Canal</code><code>Tip canal</code><code>Grupa de vârstă</code><code>Nivel loialitate</code></div></div>
+          <div class="s10-node"><b>Coloane</b><small>Parametru Coloane · 3 câmpuri</small>
+            <div class="s10-cols"><code>Trimestru</code><code>Luna</code><code>Tip rută</code></div></div>
+          <div class="s10-node"><b>Valori</b><small>Parametru Valori · 6 măsuri</small>
+            <div class="s10-cols"><code>Bilete</code><code>Venit Rezervari</code><code>Pret Mediu Bilet</code><code>Zile Avans Mediu</code><code>Venit Bagaj</code><code>Rata Anulare %</code></div></div>
+          <div class="s10-node is-fact s10-span3"><b>Un singur matrix: 9 × 3 × 6 = 162 de combinații</b><small>Cititorul alege din trei slicere, fără să editeze raportul. Fără field parameters ai avea 162 de matrice, sau unul singur, cu câmpuri fixe.</small></div>
+        </div>
+        <p class="s06-takeaway"><strong>Ordinea:</strong> un parametru conține doar câmpuri și măsuri care există deja. De aceea facem întâi modelul, tabela de date și măsurile, apoi cei trei parametri, apoi matrix-ul.</p>
+      </article>
+
+      <!-- 16 · Pas cu pas -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Matrix dinamic</span>
+          <span class="s5-concept-pill is-fw">Pas cu pas în Power BI</span>
+        </div>
+        <h2>Apăsați pe fiecare pas</h2>
+        <div class="s10-steps" data-s10-tabs>
+          <div class="s10-steps-nav">
+            <button type="button" data-tab="1"><i>1</i>Măsurile de bază</button>
+            <button type="button" data-tab="2"><i>2</i>Alte măsuri</button>
+            <button type="button" data-tab="3"><i>3</i>Parametru Rânduri</button>
+            <button type="button" data-tab="4"><i>4</i>Parametru Coloane</button>
+            <button type="button" data-tab="5"><i>5</i>Parametru Valori</button>
+            <button type="button" data-tab="6"><i>6</i>Matrix-ul</button>
+          </div>
+          <div>
+            <section class="s10-pane" data-pane="1"><span class="where">Home → New measure · tabela Rezervari</span><h3>Măsurile de bază</h3>
+<pre class="s10-code"><span class="m">Bilete</span> = <span class="f">CALCULATE</span> ( <span class="f">SUM</span> ( Rezervari[Nr_Bilete] ),
+    Rezervari[Status_Rezervare] = <span class="s">"Confirmata"</span> )
+
+<span class="m">Venit Rezervari</span> = <span class="f">CALCULATE</span> ( <span class="f">SUM</span> ( Rezervari[Valoare_Totala] ),
+    Rezervari[Status_Rezervare] = <span class="s">"Confirmata"</span> )
+
+<span class="m">Pret Mediu Bilet</span> = <span class="f">DIVIDE</span> ( [Venit Rezervari], [Bilete] )</pre>
+              <p class="s10-why"><strong>De ce contează:</strong> parametrul de valori conține doar măsuri care există deja, deci le facem primele. Numărăm doar rezervările confirmate, pentru că cele anulate nu aduc venit. <code>Pret Mediu Bilet</code> e un raport, nu se poate aduna: de aceea e măsură, nu coloană.</p></section>
+            <section class="s10-pane" data-pane="2"><span class="where">Home → New measure · tabela Rezervari</span><h3>Alte măsuri</h3>
+<pre class="s10-code"><span class="m">Zile Avans Mediu</span> = <span class="f">AVERAGE</span> ( Rezervari[Zile_Avans] )
+
+<span class="m">Venit Bagaj</span> = <span class="f">CALCULATE</span> ( <span class="f">SUM</span> ( Rezervari[Bagaj_Extra] ),
+    Rezervari[Status_Rezervare] = <span class="s">"Confirmata"</span> )
+
+<span class="m">Rata Anulare %</span> = <span class="f">DIVIDE</span> (
+    <span class="f">CALCULATE</span> ( <span class="f">COUNTROWS</span> ( Rezervari ), Rezervari[Status_Rezervare] = <span class="s">"Anulata"</span> ),
+    <span class="f">COUNTROWS</span> ( Rezervari ) )</pre>
+              <p class="s10-why"><strong>De ce contează:</strong> cu cât ai mai multe măsuri, cu atât parametrul de valori e mai folositor. Cititorul alege dacă vrea volum (bilete), bani (venit, bagaj), comportament (cu câte zile înainte rezervă) sau risc (anulări). Setați formatul: procent la <code>Rata Anulare %</code>, o zecimală la medii.</p></section>
+            <section class="s10-pane" data-pane="3"><span class="where">Modeling → New parameter → Fields</span><h3>Parametru Rânduri</h3>
+              <p class="s10-steps-line">Nume <code>Parametru Randuri</code> · bifați cele 9 câmpuri, în ordinea dorită · lăsați <strong>Add slicer to this page</strong> · <strong>Create</strong>. Power BI scrie singur:</p>
+<pre class="s10-code"><span class="m">Parametru Randuri</span> = {
+    ( <span class="s">"Companie"</span>,        <span class="f">NAMEOF</span> ( <span class="t">'Companie'[Companie]</span> ),          0 ),
+    ( <span class="s">"Tip companie"</span>,    <span class="f">NAMEOF</span> ( <span class="t">'Companie'[Tip_Companie]</span> ),      1 ),
+    ( <span class="s">"Ruta"</span>,            <span class="f">NAMEOF</span> ( <span class="t">'Ruta'[Cod_Ruta]</span> ),              2 ),
+    ( <span class="s">"Țara destinație"</span>, <span class="f">NAMEOF</span> ( <span class="t">'Ruta'[Tara_Sosire]</span> ),           3 ),
+    ( <span class="s">"Clasa"</span>,           <span class="f">NAMEOF</span> ( <span class="t">'Clasa'[Clasa]</span> ),                4 ),
+    ( <span class="s">"Canal"</span>,           <span class="f">NAMEOF</span> ( <span class="t">'Canal'[Canal]</span> ),                5 ),
+    ( <span class="s">"Tip canal"</span>,       <span class="f">NAMEOF</span> ( <span class="t">'Canal'[Tip_Canal]</span> ),            6 ),
+    ( <span class="s">"Grupa de vârstă"</span>, <span class="f">NAMEOF</span> ( <span class="t">'Pasager'[Grupa_Varsta]</span> ),      7 ),
+    ( <span class="s">"Nivel loialitate"</span>,<span class="f">NAMEOF</span> ( <span class="t">'Pasager'[Nivel_Loialitate]</span> ), 8 ) }</pre>
+              <p class="s10-why"><strong>De ce contează:</strong> fiecare rând are o etichetă (ce vede cititorul), o referință la câmpul real (<code>NAMEOF</code>) și o ordine. De aici alege cititorul după ce împarte datele. Fără parametru ai nevoie de 9 matrice.</p></section>
+            <section class="s10-pane" data-pane="4"><span class="where">Modeling → New parameter → Fields</span><h3>Parametru Coloane</h3>
+              <p class="s10-steps-line">Mai întâi sortați <code>Luna_Nume</code> după <code>Luna</code>, altfel lunile ies alfabetic. Nume <code>Parametru Coloane</code>, apoi bifați cele 3 câmpuri:</p>
+<pre class="s10-code"><span class="m">Parametru Coloane</span> = {
+    ( <span class="s">"Trimestru"</span>, <span class="f">NAMEOF</span> ( <span class="t">'Dim_Data'[Trimestru]</span> ), 0 ),
+    ( <span class="s">"Luna"</span>,      <span class="f">NAMEOF</span> ( <span class="t">'Dim_Data'[Luna_Nume]</span> ), 1 ),
+    ( <span class="s">"Tip rută"</span>,  <span class="f">NAMEOF</span> ( <span class="t">'Ruta'[Tip_Ruta]</span> ),      2 ) }</pre>
+              <p class="s10-why"><strong>De ce contează:</strong> coloanele sunt de obicei timpul. Cititorul trece de la o vedere pe trimestre la una pe luni, iar al treilea câmp compară categorii. Păstrați puține câmpuri: coloanele se lățesc repede.</p></section>
+            <section class="s10-pane" data-pane="5"><span class="where">Modeling → New parameter → Fields</span><h3>Parametru Valori</h3>
+              <p class="s10-steps-line">Aici bifați <strong>măsuri</strong>, nu coloane. Nume <code>Parametru Valori</code>:</p>
+<pre class="s10-code"><span class="m">Parametru Valori</span> = {
+    ( <span class="s">"Bilete"</span>,           <span class="f">NAMEOF</span> ( <span class="t">'Rezervari'[Bilete]</span> ),           0 ),
+    ( <span class="s">"Venit Rezervari"</span>,  <span class="f">NAMEOF</span> ( <span class="t">'Rezervari'[Venit Rezervari]</span> ),  1 ),
+    ( <span class="s">"Pret Mediu Bilet"</span>, <span class="f">NAMEOF</span> ( <span class="t">'Rezervari'[Pret Mediu Bilet]</span> ), 2 ),
+    ( <span class="s">"Zile Avans Mediu"</span>,<span class="f">NAMEOF</span> ( <span class="t">'Rezervari'[Zile Avans Mediu]</span> ),3 ),
+    ( <span class="s">"Venit Bagaj"</span>,      <span class="f">NAMEOF</span> ( <span class="t">'Rezervari'[Venit Bagaj]</span> ),      4 ),
+    ( <span class="s">"Rata Anulare %"</span>,   <span class="f">NAMEOF</span> ( <span class="t">'Rezervari'[Rata Anulare %]</span> ),   5 ) }</pre>
+              <p class="s10-why"><strong>De ce contează:</strong> fiecare măsură își păstrează formatul (EUR, procent, zile). Dacă lăsați selecție multiplă în slicer, cititorul vede mai multe măsuri în același matrix.</p></section>
+            <section class="s10-pane" data-pane="6"><span class="where">Visualizations → Matrix</span><h3>Matrix-ul</h3>
+              <ol class="s7-steps">
+                <li><strong>Rows</strong> ← <code>Parametru Randuri</code></li>
+                <li><strong>Columns</strong> ← <code>Parametru Coloane</code></li>
+                <li><strong>Values</strong> ← <code>Parametru Valori</code></li>
+                <li>Slicerele pentru rânduri și coloane pe <strong>Single select</strong>; cel pentru valori pe selecție multiplă.</li>
+              </ol>
+              <p class="s10-why"><strong>De ce contează:</strong> matrix-ul nu mai are câmpuri fixe: slicerele aleg câmpurile, iar el se reface. Un singur vizual dă 162 de combinații.</p>
+              <p class="s10-why"><strong>Test:</strong> Rows = Țara destinație, Columns = Luna, Values = Rata Anulare %. În ce țară și în ce lună se anulează cel mai mult?</p></section>
+          </div>
+        </div>
+      </article>
+
+      <!-- 17 · Simulator -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Matrix dinamic</span>
+          <span class="s5-concept-pill is-fw">Încercați-l</span>
+        </div>
+        <h2>Cum arată cu cele trei slicere</h2>
+        <div class="s10-pivot" data-s10-pivot>
+          <div class="box">
+            <label class="s10-field"><span class="s10-field-tag">Rows</span>Parametru Randuri<select data-sel="rows"></select></label>
+            <label class="s10-field"><span class="s10-field-tag">Columns</span>Parametru Coloane<select data-sel="cols"></select></label>
+            <label class="s10-field"><span class="s10-field-tag">Values</span>Parametru Valori<select data-sel="vals"></select></label>
+            <p class="s10-muted" data-note></p>
+          </div>
+          <div class="box">
+            <pre class="s10-code" data-code style="margin:0 0 10px"></pre>
+            <div class="s10-scroll" data-out></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 18 · Practică matrix -->
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Practică</span>
+          <span class="s5-concept-pill is-fw">Pagina „Explorator”</span>
+        </div>
+        <h2>Faceți voi matrix-ul în Power BI</h2>
+        <div class="s8-route s8-concepts s8-concepts-4" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+          <article><span class="n">Pasul 1</span><h3>Model</h3><p>Cele 5 dimensiuni, <code>Rezervari</code> și <code>Dim_Data</code>, cu relațiile mulți-la-unu</p></article>
+          <article><span class="n">Pasul 2</span><h3>Măsuri</h3><p>Cele 6: <code>Bilete</code>, <code>Venit Rezervari</code>, <code>Pret Mediu Bilet</code>, <code>Zile Avans Mediu</code>, <code>Venit Bagaj</code>, <code>Rata Anulare %</code></p></article>
+          <article><span class="n">Pasul 3</span><h3>Parametri</h3><p>Rânduri (9 câmpuri), Coloane (3), Valori (6), cu un slicer pentru fiecare</p></article>
+          <article><span class="n">Pasul 4</span><h3>Matrix</h3><p>Rows, Columns și Values din cei trei parametri; formatul fiecărei măsuri</p></article>
+        </div>
+        <p class="s06-takeaway"><strong>Întrebări de încercat:</strong> în ce țară se anulează cel mai mult? Ce nivel de loialitate rezervă cu cele mai multe zile înainte? Ce clasă aduce cel mai mult din bagaj?</p>
+      </article>
+
+      <!-- 19 · Încheiere -->
+      <article class="slide s5-framework">
+        <span class="slide-eyebrow">Încheiere</span>
+        <h2>Ce am făcut azi</h2>
+        <div class="s8-route s8-concepts s8-concepts-4" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+          <article><span class="n">Partea 1</span><h3>Baza de date</h3><p>Conectare la Azure SQL (Flyableinc), în modul Import</p></article>
+          <article><span class="n">Partea 2</span><h3>Combinarea fișierelor</h3><p>Un folder cu trei fișiere, devenit un singur tabel. Fișierul nou din T4 a intrat cu Refresh</p></article>
+          <article><span class="n">Partea 3</span><h3>Model și matrix dinamic</h3><p>Cinci dimensiuni, tabela de fapte și tabela de date, legate în Model view. Un matrix cu trei field parameters: 162 de combinații</p></article>
+        </div>
+        <p class="s06-takeaway"><strong>De reținut:</strong> sursa poate fi o bază de date sau un folder de fișiere, dar modelul rămâne același: fapte în centru, dimensiuni în jur și o tabelă de date. Pe un model bun, raportul devine flexibil.</p>
+      </article>
+
+    </main>
+
+    <nav class="slide-nav">
+      <button class="slide-nav-btn" data-slide-prev>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Înapoi
+      </button>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+        <div class="slide-counter" data-slide-counter>1 / 2</div>
+        <div class="slide-dots" data-slide-dots></div>
+      </div>
+      <button class="slide-nav-btn" data-slide-next>
+        Următor
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </nav>
+  </div>
+  <script src="../../js/main.js"></script>
+  <script src="../../js/s10-fisier.js?v=2"></script>
+  <script src="../../js/s10.js?v=5"></script>
+</body>
+</html>

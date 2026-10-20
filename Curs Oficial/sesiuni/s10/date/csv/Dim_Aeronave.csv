@@ -1,0 +1,31 @@
+ID,Inmatriculare,Model,Producator,Locuri,Tip_Aeronava,Autonomie_km,An_Fabricatie
+1,YR-APD,ATR 72-600,ATR,70,Turbopropulsor,1500,2014
+2,YR-EWB,Airbus A220-300,Airbus,140,Narrow-body,6300,2018
+3,YR-DSH,Airbus A320neo,Airbus,180,Narrow-body,6300,2018
+4,YR-EZB,Boeing 787-9,Boeing,290,Wide-body,14000,2016
+5,YR-EHS,Airbus A320neo,Airbus,180,Narrow-body,6300,2023
+6,YR-RNG,Airbus A321neo,Airbus,220,Narrow-body,7400,2017
+7,YR-DAM,Airbus A319,Airbus,144,Narrow-body,6900,2013
+8,HA-GGK,Airbus A320neo,Airbus,180,Narrow-body,6300,2022
+9,HA-LUH,Airbus A321neo,Airbus,220,Narrow-body,7400,2019
+10,HA-ZGN,Airbus A321neo,Airbus,220,Narrow-body,7400,2016
+11,D-BFLE,Airbus A319,Airbus,144,Narrow-body,6900,2011
+12,D-EMAC,Embraer E195-E2,Embraer,132,Narrow-body,4800,2023
+13,D-VGGN,Airbus A320neo,Airbus,180,Narrow-body,6300,2021
+14,F-GKV,Airbus A220-300,Airbus,140,Narrow-body,6300,2019
+15,F-PBI,Airbus A320neo,Airbus,180,Narrow-body,6300,2021
+16,F-JKT,Airbus A330-900,Airbus,290,Wide-body,13300,2014
+17,EC-PVV,Boeing 737-800,Boeing,189,Narrow-body,5400,2013
+18,EC-GZD,Boeing 737 MAX 8,Boeing,189,Narrow-body,6500,2020
+19,EC-FSU,Boeing 737 MAX 8,Boeing,189,Narrow-body,6500,2020
+20,LZ-CFG,Airbus A320neo,Airbus,180,Narrow-body,6300,2016
+21,LZ-ULX,Boeing 737-800,Boeing,189,Narrow-body,5400,2009
+22,TC-WMJ,Airbus A321neo,Airbus,220,Narrow-body,7400,2020
+23,TC-VGD,Boeing 737 MAX 8,Boeing,189,Narrow-body,6500,2023
+24,TC-GKO,Airbus A330-900,Airbus,290,Wide-body,13300,2014
+25,9A-BSX,Boeing 737-800,Boeing,189,Narrow-body,5400,2009
+26,9A-IDV,Airbus A321neo,Airbus,220,Narrow-body,7400,2017
+27,9A-GGK,Airbus A320neo,Airbus,180,Narrow-body,6300,2018
+28,SP-XEP,Boeing 737-800,Boeing,189,Narrow-body,5400,2008
+29,SP-PUR,Boeing 737 MAX 8,Boeing,189,Narrow-body,6500,2020
+30,SP-LUP,Boeing 737-800,Boeing,189,Narrow-body,5400,2008

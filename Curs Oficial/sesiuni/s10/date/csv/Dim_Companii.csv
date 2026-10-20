@@ -1,0 +1,11 @@
+ID,Companie,Cod_IATA,Tip_Companie,Tara,Alianta,An_Infiintare
+1,AeroCarpati,RC,Traditional,Romania,SkyLink,1954
+2,Danubia Air,DN,Low-cost,Romania,Fara alianta,2009
+3,BlueWing,BW,Low-cost,Ungaria,Fara alianta,2004
+4,Euronord Airways,EN,Traditional,Germania,StarBridge,1955
+5,Atlantis Airlines,AT,Traditional,Franta,SkyLink,1948
+6,Iberica Sol,IS,Low-cost,Spania,Fara alianta,2001
+7,Balkan Express,BX,Low-cost,Bulgaria,Fara alianta,2012
+8,Levant Air,LV,Traditional,Turcia,StarBridge,1960
+9,Adria Charter,AC,Charter,Croatia,Fara alianta,2015
+10,Polaris Jet,PJ,Charter,Polonia,Fara alianta,2010

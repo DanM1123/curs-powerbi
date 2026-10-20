@@ -1,0 +1,46 @@
+ID,Cod_Ruta,Ruta,Aeroport_Plecare,Oras_Plecare,Tara_Plecare,Aeroport_Sosire,Oras_Sosire,Tara_Sosire,Regiune_Sosire,Distanta_km,Durata_Min,Tip_Ruta,Latitudine_Sosire,Longitudine_Sosire
+1,OTP-CLJ,Bucuresti - Cluj-Napoca,OTP,Bucuresti,Romania,CLJ,Cluj-Napoca,Romania,Romania,309,200,Intern,46.7852,23.6862
+2,OTP-TSR,Bucuresti - Timisoara,OTP,Bucuresti,Romania,TSR,Timisoara,Romania,Romania,397,205,Intern,45.8099,21.3379
+3,OTP-IAS,Bucuresti - Iasi,OTP,Bucuresti,Romania,IAS,Iasi,Romania,Romania,313,200,Intern,47.1785,27.6206
+4,OTP-SBZ,Bucuresti - Sibiu,OTP,Bucuresti,Romania,SBZ,Sibiu,Romania,Romania,207,190,Intern,45.7856,24.0913
+5,OTP-CND,Bucuresti - Constanta,OTP,Bucuresti,Romania,CND,Constanta,Romania,Romania,192,190,Intern,44.3622,28.4883
+6,CLJ-IAS,Cluj-Napoca - Iasi,CLJ,Cluj-Napoca,Romania,IAS,Iasi,Romania,Romania,302,200,Intern,47.1785,27.6206
+7,TSR-IAS,Timisoara - Iasi,TSR,Timisoara,Romania,IAS,Iasi,Romania,Romania,504,215,Intern,47.1785,27.6206
+8,OTP-LHR,Bucuresti - Londra,OTP,Bucuresti,Romania,LHR,Londra,Marea Britanie,Europa de Vest,2103,335,European,51.47,-0.4543
+9,OTP-DUB,Bucuresti - Dublin,OTP,Bucuresti,Romania,DUB,Dublin,Irlanda,Europa de Vest,2529,370,European,53.4264,-6.2499
+10,OTP-CDG,Bucuresti - Paris,OTP,Bucuresti,Romania,CDG,Paris,Franta,Europa de Vest,1850,315,European,49.0097,2.5479
+11,OTP-AMS,Bucuresti - Amsterdam,OTP,Bucuresti,Romania,AMS,Amsterdam,Olanda,Europa de Vest,1783,310,European,52.3105,4.7683
+12,OTP-BRU,Bucuresti - Bruxelles,OTP,Bucuresti,Romania,BRU,Bruxelles,Belgia,Europa de Vest,1754,310,European,50.9014,4.4844
+13,OTP-FRA,Bucuresti - Frankfurt,OTP,Bucuresti,Romania,FRA,Frankfurt,Germania,Europa Centrala,1450,285,European,50.0379,8.5622
+14,OTP-MUC,Bucuresti - Munchen,OTP,Bucuresti,Romania,MUC,Munchen,Germania,Europa Centrala,1171,265,European,48.3538,11.7861
+15,OTP-VIE,Bucuresti - Viena,OTP,Bucuresti,Romania,VIE,Viena,Austria,Europa Centrala,829,240,European,48.1103,16.5697
+16,OTP-BUD,Bucuresti - Budapesta,OTP,Bucuresti,Romania,BUD,Budapesta,Ungaria,Europa Centrala,616,220,European,47.4369,19.2556
+17,OTP-WAW,Bucuresti - Varsovia,OTP,Bucuresti,Romania,WAW,Varsovia,Polonia,Europa Centrala,925,245,European,52.1657,20.9671
+18,OTP-FCO,Bucuresti - Roma,OTP,Bucuresti,Romania,FCO,Roma,Italia,Europa de Sud,1162,265,European,41.8003,12.2389
+19,OTP-BGY,Bucuresti - Milano,OTP,Bucuresti,Romania,BGY,Milano,Italia,Europa de Sud,1289,275,European,45.6739,9.7042
+20,OTP-BCN,Bucuresti - Barcelona,OTP,Bucuresti,Romania,BCN,Barcelona,Spania,Europa de Sud,1980,325,European,41.2974,2.0833
+21,OTP-MAD,Bucuresti - Madrid,OTP,Bucuresti,Romania,MAD,Madrid,Spania,Europa de Sud,2457,365,European,40.4983,-3.5676
+22,OTP-ATH,Bucuresti - Atena,OTP,Bucuresti,Romania,ATH,Atena,Grecia,Europa de Sud,759,235,European,37.9364,23.9445
+23,OTP-IST,Bucuresti - Istanbul,OTP,Bucuresti,Romania,IST,Istanbul,Turcia,Orientul Mijlociu,426,210,European,41.2753,28.7519
+24,OTP-AYT,Bucuresti - Antalya,OTP,Bucuresti,Romania,AYT,Antalya,Turcia,Orientul Mijlociu,941,245,European,36.8987,30.8005
+25,OTP-LCA,Bucuresti - Larnaca,OTP,Bucuresti,Romania,LCA,Larnaca,Cipru,Europa de Sud,1255,270,European,34.8751,33.6249
+26,OTP-TLV,Bucuresti - Tel Aviv,OTP,Bucuresti,Romania,TLV,Tel Aviv,Israel,Orientul Mijlociu,1592,295,Intercontinental,32.0055,34.8854
+27,OTP-HRG,Bucuresti - Hurghada,OTP,Bucuresti,Romania,HRG,Hurghada,Egipt,Africa,2053,335,Intercontinental,27.1783,33.7994
+28,OTP-DXB,Bucuresti - Dubai,OTP,Bucuresti,Romania,DXB,Dubai,Emiratele Arabe Unite,Orientul Mijlociu,3395,435,Intercontinental,25.2532,55.3657
+29,OTP-JFK,Bucuresti - New York,OTP,Bucuresti,Romania,JFK,New York,SUA,America de Nord,7631,760,Intercontinental,40.6413,-73.7781
+30,CLJ-LHR,Cluj-Napoca - Londra,CLJ,Cluj-Napoca,Romania,LHR,Londra,Marea Britanie,Europa de Vest,1823,315,European,51.47,-0.4543
+31,CLJ-CDG,Cluj-Napoca - Paris,CLJ,Cluj-Napoca,Romania,CDG,Paris,Franta,Europa de Vest,1590,295,European,49.0097,2.5479
+32,CLJ-MUC,Cluj-Napoca - Munchen,CLJ,Cluj-Napoca,Romania,MUC,Munchen,Germania,Europa Centrala,909,245,European,48.3538,11.7861
+33,CLJ-BGY,Cluj-Napoca - Milano,CLJ,Cluj-Napoca,Romania,BGY,Milano,Italia,Europa de Sud,1081,260,European,45.6739,9.7042
+34,CLJ-BCN,Cluj-Napoca - Barcelona,CLJ,Cluj-Napoca,Romania,BCN,Barcelona,Spania,Europa de Sud,1824,315,European,41.2974,2.0833
+35,CLJ-IST,Cluj-Napoca - Istanbul,CLJ,Cluj-Napoca,Romania,IST,Istanbul,Turcia,Orientul Mijlociu,734,230,European,41.2753,28.7519
+36,CLJ-AYT,Cluj-Napoca - Antalya,CLJ,Cluj-Napoca,Romania,AYT,Antalya,Turcia,Orientul Mijlociu,1246,270,European,36.8987,30.8005
+37,TSR-MUC,Timisoara - Munchen,TSR,Timisoara,Romania,MUC,Munchen,Germania,Europa Centrala,776,235,European,48.3538,11.7861
+38,TSR-BGY,Timisoara - Milano,TSR,Timisoara,Romania,BGY,Milano,Italia,Europa de Sud,902,245,European,45.6739,9.7042
+39,TSR-BUD,Timisoara - Budapesta,TSR,Timisoara,Romania,BUD,Budapesta,Ungaria,Europa Centrala,241,195,European,47.4369,19.2556
+40,IAS-LHR,Iasi - Londra,IAS,Iasi,Romania,LHR,Londra,Marea Britanie,Europa de Vest,2076,335,European,51.47,-0.4543
+41,IAS-FCO,Iasi - Roma,IAS,Iasi,Romania,FCO,Roma,Italia,Europa de Sud,1356,280,European,41.8003,12.2389
+42,IAS-IST,Iasi - Istanbul,IAS,Iasi,Romania,IST,Istanbul,Turcia,Orientul Mijlociu,663,225,European,41.2753,28.7519
+43,SBZ-MUC,Sibiu - Munchen,SBZ,Sibiu,Romania,MUC,Munchen,Germania,Europa Centrala,973,250,European,48.3538,11.7861
+44,SBZ-VIE,Sibiu - Viena,SBZ,Sibiu,Romania,VIE,Viena,Austria,Europa Centrala,626,225,European,48.1103,16.5697
+45,CND-AYT,Constanta - Antalya,CND,Constanta,Romania,AYT,Antalya,Turcia,Orientul Mijlociu,852,240,European,36.8987,30.8005
