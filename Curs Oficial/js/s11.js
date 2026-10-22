@@ -336,16 +336,18 @@
     const pas25 = sumCo(null, Y25, PAS), pas24 = sumCo(null, Y24, PAS);
     const years = [2021, 2022, 2023, 2024, 2025].map((y) => sumCo(null, yearMonths(y), V));
     const vs = (p) => '<em class="' + cls(p >= 0) + '">' + arrow(p) + ' ' + fP(p) + ' vs 2024</em>';
-    const gauge = () => {
-      const max = 90e6, cx = 130, cy = 112, r = 80;
+    const gauge1 = (val, tgt, max, cap) => {
+      const cx = 130, cy = 112, r = 80, col = val >= tgt ? '#16A34A' : '#DC2626';
       const arc = (f, rr) => { const a = Math.PI * (1 - f); return [cx + rr * Math.cos(a), cy - rr * Math.sin(a)]; };
-      const p = arc(Math.min(1, V25 / max), r), tf = T25 / max, t1 = arc(tf, r - 14), t2 = arc(tf, r + 14), tl = arc(tf, r + 22);
-      return svg(300, 140, '<path d="M' + (cx - r) + ' ' + cy + ' A' + r + ' ' + r + ' 0 0 1 ' + (cx + r) + ' ' + cy + '" style="fill:none;stroke:var(--s11-mute-soft);stroke-width:18"/>' +
-        '<path d="M' + (cx - r) + ' ' + cy + ' A' + r + ' ' + r + ' 0 0 1 ' + p[0].toFixed(1) + ' ' + p[1].toFixed(1) + '" style="fill:none;stroke:var(--primary);stroke-width:18"/>' +
+      const p = arc(Math.min(1, val / max), r), tf = tgt / max, t1 = arc(tf, r - 14), t2 = arc(tf, r + 14), tl = arc(tf, r + 22);
+      return '<div class="s11-gauge">' + svg(300, 140, '<path d="M' + (cx - r) + ' ' + cy + ' A' + r + ' ' + r + ' 0 0 1 ' + (cx + r) + ' ' + cy + '" style="fill:none;stroke:var(--s11-mute-soft);stroke-width:18"/>' +
+        '<path d="M' + (cx - r) + ' ' + cy + ' A' + r + ' ' + r + ' 0 0 1 ' + p[0].toFixed(1) + ' ' + p[1].toFixed(1) + '" style="fill:none;stroke:' + col + ';stroke-width:18"/>' +
         '<line x1="' + t1[0].toFixed(1) + '" y1="' + t1[1].toFixed(1) + '" x2="' + t2[0].toFixed(1) + '" y2="' + t2[1].toFixed(1) + '" style="stroke:var(--text);stroke-width:3"/>' +
-        text(tl[0], tl[1] - 4, 'ținta ' + fM(T25), 'start', 'lbl', 'font-size:11px') +
-        text(cx, cy - 6, fM(V25), 'middle', 'lbl', 'font-size:20px') + text(cx - r, cy + 16, '0', 'middle') + text(cx + r, cy + 16, fM(max), 'middle'), 'style="max-width:320px"');
+        text(tl[0], tl[1] - 4, 'ținta ' + fM(tgt), 'start', 'lbl', 'font-size:11px') +
+        text(cx, cy - 6, fM(val), 'middle', 'lbl', 'font-size:20px') + text(cx - r, cy + 16, '0', 'middle') + text(cx + r, cy + 16, fM(max), 'middle')) +
+        '<small><b style="color:' + col + '">' + (val >= tgt ? 'Peste țintă' : 'Sub țintă') + '</b> · ' + cap + '</small></div>';
     };
+    const gauge = () => '<div class="s11-gauges">' + gauge1(V25, T25, 90e6, 'anul 2025') + gauge1(sumCo(null, ['2025-07'], V), tinta(null, [6]), 12e6, 'iulie 2025') + '</div>';
     const kpiVisual = () => {
       const max = Math.max.apply(null, years), W = 260, H = 90;
       const pts = years.map((v, i) => [i * W / 4, H - v / max * H * 0.9]);
@@ -365,7 +367,7 @@
         no: ['Fără axă de timp nu are sens', 'Culorile implicite sunt roșu/verde: schimbați-le'] },
       { id: 'gauge', label: 'Gauge', sub: 'un cadran', verdict: 'Rar: un singur obiectiv',
         draw: gauge,
-        yes: ['Un singur obiectiv clar: linia neagră e ținta', 'Arată cât mai e până la țintă'],
+        yes: ['Un singur obiectiv clar: linia neagră e ținta', 'Culoarea arcului spune singură: roșu sub țintă, verde după ce a depășit-o', 'Arată cât mai e până la țintă'],
         no: ['Ocupă mult loc pentru o cifră', 'Mai multe gauge-uri unul lângă altul nu se pot compara', 'Nu arată anul trecut'] },
       { id: 'mrc', label: 'Multi-row card', sub: 'listă de cifre', verdict: 'Înlocuit de cardul nou',
         draw: () => '<div class="s11-mrc"><div><span>Venit zboruri</span><b>' + fM(V25) + '</b></div><div><span>Venit vs 2024</span><b class="s11-good">' + fP(yoy) + '</b></div><div><span>Pasageri</span><b>' + fK(pas25) + '</b></div><div><span>Pasageri vs 2024</span><b class="s11-good">' + fP(pas25 / pas24 - 1) + '</b></div></div>',

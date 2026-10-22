@@ -28,7 +28,7 @@ Modelul din S10, încărcat din Azure (`Flyableinc`, 9 tabele, Import), plus `Ti
 
 Toate cifrele se regenerează cu `python assets/s11/generate_s11.py` (le afișează la final).
 
-## Măsuri (pe Fact_Zboruri; măsurile de bază sunt din S10)
+## Măsuri (pe Fact_Zboruri; măsurile de bază din S10 sunt pe primul tab al slide-ului 12: Venit Zboruri, Pasageri, Zboruri, Load Factor %, La Timp %)
 
 ```dax
 Pasageri = SUM ( Fact_Zboruri[Pasageri_Imbarcati] )
@@ -58,6 +58,12 @@ Venit vs Tinta % = DIVIDE ( [Venit Zboruri] - [Tinta Venit], [Tinta Venit] )
 ### Prezentare (reference labels, culori, titluri)
 
 ```dax
+-- Partea 1, cardurile (slide 12, tabul 6): verde peste 0, roșu sub 0; aceeași rețetă pentru orice comparație
+Culoare YoY = IF ( [Venit YoY %] >= 0, "#16A34A", "#DC2626" )
+Culoare QoQ = IF ( [Venit QoQ %] >= 0, "#16A34A", "#DC2626" )
+Culoare Load Factor = IF ( [Load Factor Δ pp] >= 0, "#16A34A", "#DC2626" )
+
+-- Partea 3 (formatare condiționată) folosește varianta albastru/portocaliu:
 Venit Text =
 VAR d = [Venit YoY %]
 RETURN
@@ -82,6 +88,7 @@ Titlu Overview =
 Culoare Max =
 IF ( [Venit Zboruri] = MAXX ( ALLSELECTED ( Dim_Companii[Companie] ), [Venit Zboruri] ), "#0E7490", "#CBD5E1" )
 Culoare Tinta = IF ( [Venit Zboruri] < [Tinta Venit], "#C2410C", "#CBD5E1" )
+Culoare Gauge = IF ( [Venit Zboruri] >= [Tinta Venit], "#16A34A", "#DC2626" )   -- gauge: verde peste țintă, roșu sub ea
 
 Companie Aleasa = DISTINCT ( Dim_Companii[Companie] )      -- New table, fără relații
 Culoare Aleasa =
@@ -105,6 +112,7 @@ Cele două filtre pe `Dim_Date[Data]` se intersectează: anul trecut, dar doar p
 
 - **Card nou, reference label:** Format → Reference labels → Add → Value: `[Venit Text]`; Value → Color → *fx* → Field value → `[Culoare YoY]`. Al doilea label: `[Tinta Venit]` cu detaliu `[Venit vs Tinta %]`. Sparkline: Callout values → Sparkline, axa `Dim_Date[Luna_Nume]`.
 - **KPI visual:** Value `[Venit Zboruri]`, Trend axis `Dim_Date[An]`, Target `[Tinta Venit]`. Format → Colors: Good = albastru, Bad = portocaliu (implicit e verde/roșu).
+- **Gauge (slide 14):** Value `[Venit Zboruri]`, Target `[Tinta Venit]`, Max 90 M, Fill color → fx → Field value `[Culoare Gauge]`. Pe 2025: 75,9 M sub ținta 77,3 M (roșu); pe iulie 2025: 10,72 M peste 10,06 M (verde).
 - **Matrix Detaliu:** Rows `Dim_Rute[Cod_Ruta]`, Columns `Dim_Date[Trimestru]`, Values `[Venit Zboruri]`, `[Venit YoY %]`; filtru pe pagină An = 2025.
   - Cell elements → Venit Zboruri → Background color → fx → Gradient (gri deschis → accent). *Apply to: Values only.*
   - Venit YoY % → Icons → fx → Rules: ≥ 0 Number ▲, < 0 Number ▼.
@@ -119,7 +127,7 @@ Cele două filtre pe `Dim_Date[Data]` se intersectează: anul trecut, dar doar p
 2. **Venit T4 · vs trimestrul trecut:** același card, slicer Trimestru = T4, label `[Venit QoQ %]` → 17,8 M, ▼ −33,4% (al doilea label opțional `[Venit YoY %]`: +20,5%).
 3. **Load factor · în puncte:** `[Load Factor %]` + label `[Load Factor Δ pp]` (format `+0.0 "pp";-0.0 "pp"`) → 83,0%, ▲ +1,8 pp.
 
-Culoarea label-ului: fx → Rules, ≥ 0 albastru, < 0 portocaliu. Nu e nevoie de alte măsuri decât cele de pe slide-ul 12.
+Culoarea label-ului: fx → Field value → `[Culoare YoY]` / `[Culoare QoQ]` / `[Culoare Load Factor]`. Cu Rules, fiecare regulă cere ambele margini: ≥ 0 și ≤ 100 verde, ≥ −1 și < 0 roșu (valorile sunt zecimale: 10% = 0,10). Nu e nevoie de alte măsuri decât cele de pe slide-ul 12.
 
 ## Partea 2 · modelul de răspuns
 

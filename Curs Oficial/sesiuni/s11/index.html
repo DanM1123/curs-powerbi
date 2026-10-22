@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="../../css/s08.css?v=3" />
   <link rel="stylesheet" href="../../css/s09.css?v=9" />
   <link rel="stylesheet" href="../../css/s10.css?v=10" />
-  <link rel="stylesheet" href="../../css/s11.css?v=7" />
+  <link rel="stylesheet" href="../../css/s11.css?v=8" />
   <script src="../../js/gate.js"></script>
   <script src="../../js/firebase-init.js"></script>
 </head>
@@ -172,8 +172,18 @@
           <span class="s5-concept-pill is-fw">Puncte procentuale</span>
         </div>
         <h2>Când KPI-ul e deja procent: puncte procentuale (pp)</h2>
-        <div class="s6-concept"><p>Când KPI-ul e un procent (<strong>Load factor</strong>, <strong>La timp %</strong>), diferența se spune în <strong>puncte procentuale (pp)</strong>: scazi un procent din celălalt. Mutați cursoarele.</p></div>
+        <div class="s6-concept"><p>Când un KPI arată deja un procent (<strong>Load factor</strong>, <strong>La timp %</strong>), creșterea sau scăderea o calculăm în <strong>puncte procentuale (pp)</strong>: scădem procentul de anul trecut din cel de anul acesta. Nu spunem că procentul „a crescut cu 2%”: e impropriu și duce la confuzii. Mutați cursoarele.</p></div>
         <div class="s11-pp" data-s11-pp></div>
+        <div class="s11-traps">
+          <section>
+            <p class="s11-right"><b>Corect</b> „Load factor a crescut cu <strong>2 puncte procentuale</strong>, de la 81% la 83%.”</p>
+            <small>83 − 81 = 2 pp. Se înțelege din prima: din 100 de locuri, acum sunt ocupate 83 în loc de 81.</small>
+          </section>
+          <section>
+            <p class="s11-wrong"><b>Greșit</b> „Load factor a crescut cu 2%.”</p>
+            <small>2% din 81% înseamnă 1,6 puncte, adică 82,6%, nu 83%. Iar creșterea relativă (2 / 81 = +2,5%) e corectă la calcul, dar nimeni nu înțelege din prima ce înseamnă.</small>
+          </section>
+        </div>
       </article>
 
       <!-- 08 · Cele 4 repere -->
@@ -229,11 +239,50 @@
         <h2>Măsuri de comparație</h2>
         <div class="s10-steps s10-steps-h" data-s11-tabs>
           <div class="s10-steps-nav">
+            <button type="button" data-tab="base"><i>0</i>Măsurile de bază</button>
             <button type="button" data-tab="py"><i>1</i>Anul trecut</button>
             <button type="button" data-tab="yoy"><i>2</i>Diferența și YoY %</button>
             <button type="button" data-tab="qoq"><i>3</i>Trimestrul trecut</button>
             <button type="button" data-tab="ytd"><i>4</i>YTD vs anul trecut</button>
             <button type="button" data-tab="pp"><i>5</i>Diferența în pp</button>
+            <button type="button" data-tab="col"><i>6</i>Culoarea comparației</button>
+          </div>
+
+          <div class="s10-pane" data-pane="base">
+            <div class="s10-pane-grid">
+              <div>
+                <span class="where">New measure · Fact_Zboruri</span>
+                <h3>De la ce pornim: ce comparăm</h3>
+<pre class="s10-code"><span class="m">Venit Zboruri</span> =
+<span class="f">SUM</span> ( <span class="t">Fact_Zboruri[Venit_Bilete]</span> ) + <span class="f">SUM</span> ( <span class="t">Fact_Zboruri[Venit_Auxiliar]</span> )
+
+<span class="m">Pasageri</span> = <span class="f">SUM</span> ( <span class="t">Fact_Zboruri[Pasageri_Imbarcati]</span> )
+
+<span class="m">Zboruri</span> = <span class="f">COUNTROWS</span> ( <span class="t">Fact_Zboruri</span> )
+
+<span class="m">Load Factor %</span> =
+<span class="f">DIVIDE</span> (
+    <span class="f">SUM</span> ( <span class="t">Fact_Zboruri[Pasageri_Imbarcati]</span> ),
+    <span class="f">CALCULATE</span> ( <span class="f">SUM</span> ( <span class="t">Fact_Zboruri[Locuri_Disponibile]</span> ),
+        <span class="t">Fact_Zboruri[Status_Zbor]</span> &lt;&gt; <span class="s">"Anulat"</span> ) )
+
+<span class="m">La Timp %</span> =
+<span class="f">DIVIDE</span> (
+    <span class="f">CALCULATE</span> ( <span class="m">[Zboruri]</span>, <span class="t">Fact_Zboruri[Status_Zbor]</span> = <span class="s">"La timp"</span> ),
+    <span class="m">[Zboruri]</span> )</pre>
+              </div>
+              <div>
+                <p class="s10-cap">Rolul fiecăreia</p>
+                <ol class="s7-steps">
+                  <li><strong>Venit Zboruri</strong>: tot ce aduce un zbor, biletele plus serviciile vândute în plus (bagaje, mâncare). E KPI-ul principal.</li>
+                  <li><strong>Pasageri</strong>: câți oameni au zburat. Ne spune dacă venitul crește din mai mulți clienți.</li>
+                  <li><strong>Zboruri</strong>: câte rânduri are tabelul, adică câte zboruri. O folosim ca numitor la La Timp %.</li>
+                  <li><strong>Load Factor %</strong>: pasageri împărțit la locuri. Zborurile anulate nu intră la locuri, pentru că acolo nu a avut cine să se urce.</li>
+                  <li><strong>La Timp %</strong>: zborurile cu statusul „La timp” împărțit la toate zborurile.</li>
+                </ol>
+                <p class="s10-why"><strong>De ce sunt aici:</strong> sunt din sesiunea 10. Toate măsurile de comparație de mai departe pornesc de la ele: întâi spunem <em>ce</em> măsurăm, apoi <em>cu ce</em> comparăm.</p>
+              </div>
+            </div>
           </div>
 
           <div class="s10-pane" data-pane="py">
@@ -243,16 +292,22 @@
                 <h3>Venit PY: venitul de anul trecut</h3>
 <pre class="s10-code"><span class="m">Venit PY</span> =
 <span class="f">CALCULATE</span> ( <span class="m">[Venit Zboruri]</span>,
+    <span class="f">SAMEPERIODLASTYEAR</span> ( <span class="t">Dim_Date[Data]</span> ) )
+
+<span class="c">-- la fel, pentru pasageri:</span>
+<span class="m">Pasageri PY</span> =
+<span class="f">CALCULATE</span> ( <span class="m">[Pasageri]</span>,
     <span class="f">SAMEPERIODLASTYEAR</span> ( <span class="t">Dim_Date[Data]</span> ) )</pre>
+                <p class="s10-why"><strong>Rolul ei:</strong> este reperul. Singură nu apare pe niciun card, dar fără ea nu putem calcula nici diferența, nici YoY %.</p>
               </div>
               <div>
                 <p class="s10-cap">În cuvinte</p>
                 <ol class="s7-steps">
-                  <li>Ia perioada din rând sau din slicer (de exemplu anul 2025).</li>
-                  <li><code>SAMEPERIODLASTYEAR</code> o mută cu un an înapoi: 2025 devine 2024.</li>
-                  <li><code>CALCULATE</code> calculează <code>[Venit Zboruri]</code> pe perioada mutată.</li>
+                  <li>Ia perioada aleasă în raport (din slicer sau din rândul unui tabel), de exemplu anul 2025 sau iulie 2025.</li>
+                  <li><code>SAMEPERIODLASTYEAR</code> mută perioada exact cu un an înapoi: 2025 devine 2024, iulie 2025 devine iulie 2024.</li>
+                  <li><code>CALCULATE</code> calculează <code>[Venit Zboruri]</code> ca și cum ar fi fost selectată perioada mutată.</li>
                 </ol>
-                <p class="s10-why"><strong>De ce așa:</strong> nu scriem „anul 2024” de mână. Măsura merge pentru orice perioadă aleasă: o lună, un trimestru, un an. <strong>PY</strong> = <em>previous year</em>.</p>
+                <p class="s10-why"><strong>De ce așa:</strong> nu scriem „anul 2024” de mână. Dacă cititorul schimbă slicerul pe 2024, măsura arată singură 2023. O singură măsură merge pentru orice an, trimestru sau lună. Funcționează pentru că <code>Dim_Date</code> e marcat ca tabelă de date. <strong>PY</strong> = <em>previous year</em>.</p>
               </div>
             </div>
           </div>
@@ -265,15 +320,20 @@
 <pre class="s10-code"><span class="m">Venit Δ YoY</span> = <span class="m">[Venit Zboruri]</span> - <span class="m">[Venit PY]</span>
 
 <span class="m">Venit YoY %</span> =
-<span class="f">DIVIDE</span> ( <span class="m">[Venit Δ YoY]</span>, <span class="m">[Venit PY]</span> )</pre>
+<span class="f">DIVIDE</span> ( <span class="m">[Venit Δ YoY]</span>, <span class="m">[Venit PY]</span> )
+
+<span class="c">-- la fel, pentru pasageri:</span>
+<span class="m">Pasageri YoY %</span> =
+<span class="f">DIVIDE</span> ( <span class="m">[Pasageri]</span> - <span class="m">[Pasageri PY]</span>, <span class="m">[Pasageri PY]</span> )</pre>
+                <p class="s10-why"><strong>Rolul lor:</strong> <code>Venit YoY %</code> e cifra care stă sub valoare pe card („+10,0% vs anul trecut”). <code>Venit Δ YoY</code> e utilă în tooltip sau tabel, când contează câți euro.</p>
               </div>
               <div>
                 <p class="s10-cap">În cuvinte</p>
                 <ol class="s7-steps">
-                  <li><strong>Δ</strong> (delta) = acum minus anul trecut: câți euro în plus sau în minus.</li>
-                  <li><strong>YoY %</strong> = diferența împărțită la anul trecut: cât de mare e diferența față de punctul de plecare.</li>
+                  <li><strong>Δ</strong> (delta) = acum minus anul trecut: câți euro în plus sau în minus. 75,9 M − 69,0 M = +6,9 M.</li>
+                  <li><strong>YoY %</strong> = diferența împărțită la anul trecut: cât de mare e schimbarea față de punctul de plecare. 6,9 / 69,0 = +10%.</li>
                 </ol>
-                <p class="s10-why"><strong>De ce două măsuri:</strong> 6,9 M spune „cât”, +10% spune „cât de mult față de unde eram”. <strong>De ce DIVIDE:</strong> în 2021 nu există an trecut; <code>/</code> ar da eroare, <code>DIVIDE</code> lasă celula goală. Format: procent.</p>
+                <p class="s10-why"><strong>De ce două măsuri:</strong> 6,9 M spune „cât”, +10% spune „cât de mult față de unde eram”. 6,9 M înseamnă mult pentru o companie mică și puțin pentru una mare; procentul le face comparabile.<br><strong>De ce DIVIDE:</strong> în 2021 nu există an trecut; cu <code>/</code> am împărți la gol și am primi eroare, <code>DIVIDE</code> lasă celula goală. Formatați <code>Venit YoY %</code> ca procent.</p>
               </div>
             </div>
           </div>
@@ -289,15 +349,16 @@
 
 <span class="m">Venit QoQ %</span> =
 <span class="f">DIVIDE</span> ( <span class="m">[Venit Zboruri]</span> - <span class="m">[Venit PQ]</span>, <span class="m">[Venit PQ]</span> )</pre>
+                <p class="s10-why"><strong>Rolul lor:</strong> <code>Venit PQ</code> e reperul (trimestrul trecut), <code>Venit QoQ %</code> e cifra de pe card. Răspund la „cum merge acum, față de ultimele trei luni?”.</p>
               </div>
               <div>
                 <p class="s10-cap">În cuvinte</p>
                 <ol class="s7-steps">
-                  <li><code>DATEADD</code> mută perioada din rând cu <strong>−1 trimestru</strong>: T4 devine T3.</li>
-                  <li><code>Venit PQ</code> e venitul din trimestrul mutat (<strong>PQ</strong> = <em>previous quarter</em>).</li>
+                  <li><code>DATEADD</code> mută perioada aleasă cu <strong>−1 trimestru</strong>: T4 2025 devine T3 2025, T1 2025 devine T4 2024.</li>
+                  <li><code>CALCULATE</code> calculează venitul pe trimestrul mutat: asta e <code>Venit PQ</code> (<strong>PQ</strong> = <em>previous quarter</em>).</li>
                   <li><code>QoQ %</code> e aceeași rețetă ca YoY %: (acum − reper) / reper.</li>
                 </ol>
-                <p class="s10-why"><strong>De ce DATEADD:</strong> e funcția „mută cu oricât”. <code>-1, MONTH</code> = luna trecută, <code>-1, QUARTER</code> = trimestrul trecut, <code>-1, YEAR</code> = anul trecut. Doar unitatea se schimbă.</p>
+                <p class="s10-why"><strong>De ce DATEADD și nu SAMEPERIODLASTYEAR:</strong> SAMEPERIODLASTYEAR știe doar „un an înapoi”. DATEADD mută cu oricât vrei: <code>-1, MONTH</code> = luna trecută (MoM), <code>-1, QUARTER</code> = trimestrul trecut, <code>-1, YEAR</code> = tot anul trecut. Doar unitatea se schimbă.</p>
               </div>
             </div>
           </div>
@@ -313,14 +374,15 @@
 <span class="m">Venit PYTD</span> =
 <span class="f">CALCULATE</span> ( <span class="m">[Venit YTD]</span>,
     <span class="f">SAMEPERIODLASTYEAR</span> ( <span class="t">Dim_Date[Data]</span> ) )</pre>
+                <p class="s10-why"><strong>Rolul lor:</strong> răspund la „cum stăm până acum, anul acesta?”. Le folosim când anul nu s-a terminat, de exemplu în raportul din iunie.</p>
               </div>
               <div>
                 <p class="s10-cap">În cuvinte</p>
                 <ol class="s7-steps">
-                  <li><strong>YTD</strong> (<em>year to date</em>) adună de la 1 ianuarie până la luna din rând.</li>
-                  <li><strong>PYTD</strong> ia aceeași bucată de an, dar de anul trecut: tot ianuarie–iunie.</li>
+                  <li><strong>YTD</strong> (<em>year to date</em>) adună de la 1 ianuarie până la sfârșitul perioadei alese. Pe iunie 2025: ianuarie–iunie 2025.</li>
+                  <li><strong>PYTD</strong> (<em>previous year to date</em>) ia același YTD și îl mută cu un an înapoi: ianuarie–iunie 2024.</li>
                 </ol>
-                <p class="s10-why"><strong>De ce:</strong> la jumătatea anului, directorul întreabă „cum stăm până acum?”. Nu poți compara ianuarie–iunie 2025 cu tot 2024. PYTD folosește YTD-ul gata făcut și doar îl mută cu un an.</p>
+                <p class="s10-why"><strong>De ce:</strong> în iunie nu poți compara șase luni din 2025 cu tot anul 2024; ar ieși mereu „scădere”. Comparăm bucăți egale de an. PYTD refolosește <code>[Venit YTD]</code>: nu rescriem calculul, doar îl mutăm cu un an.</p>
               </div>
             </div>
           </div>
@@ -335,16 +397,50 @@
     <span class="f">SAMEPERIODLASTYEAR</span> ( <span class="t">Dim_Date[Data]</span> ) )
 
 <span class="m">Load Factor Δ pp</span> =
-( <span class="m">[Load Factor %]</span> - <span class="m">[Load Factor PY]</span> ) * <span class="n">100</span></pre>
+( <span class="m">[Load Factor %]</span> - <span class="m">[Load Factor PY]</span> ) * <span class="n">100</span>
+
+<span class="c">-- la fel, pentru punctualitate:</span>
+<span class="m">La Timp PY</span> =
+<span class="f">CALCULATE</span> ( <span class="m">[La Timp %]</span>,
+    <span class="f">SAMEPERIODLASTYEAR</span> ( <span class="t">Dim_Date[Data]</span> ) )
+<span class="m">La Timp Δ pp</span> = ( <span class="m">[La Timp %]</span> - <span class="m">[La Timp PY]</span> ) * <span class="n">100</span></pre>
+                <p class="s10-why"><strong>Rolul lor:</strong> <code>Load Factor PY</code> e reperul, <code>Load Factor Δ pp</code> e cifra de sub valoare pe card („+1,8 pp vs anul trecut”).</p>
               </div>
               <div>
                 <p class="s10-cap">În cuvinte</p>
                 <ol class="s7-steps">
-                  <li><code>Load Factor PY</code>: aceeași rețetă ca la venit, pe măsura procent.</li>
+                  <li><code>Load Factor PY</code>: aceeași rețetă ca la venit, aplicată măsurii procent.</li>
                   <li>Scădem simplu cele două procente: 0,8297 − 0,8112 = 0,0185.</li>
                   <li>Înmulțim cu 100 ca să afișăm 1,8, cu formatul <code>+0.0 "pp";-0.0 "pp"</code>.</li>
                 </ol>
-                <p class="s10-why"><strong>De ce nu DIVIDE:</strong> la procente nu vrem „procent din procent” (+2,3%), ci câte puncte s-a mutat KPI-ul. La fel pentru <code>La Timp %</code>.</p>
+                <p class="s10-why"><strong>De ce nu DIVIDE, ca la YoY %:</strong> KPI-ul e deja procent. Dacă am împărți, am obține „procent din procent” (+2,3%), care nu spune ce s-a întâmplat. Vrem câte puncte s-a mutat: din 100 de locuri, câte sunt ocupate acum în plus.</p>
+              </div>
+            </div>
+          </div>
+          <div class="s10-pane" data-pane="col">
+            <div class="s10-pane-grid">
+              <div>
+                <span class="where">New measure · Fact_Zboruri</span>
+                <h3>Verde peste 0, roșu sub 0</h3>
+<pre class="s10-code"><span class="m">Culoare YoY</span> =
+<span class="f">IF</span> ( <span class="m">[Venit YoY %]</span> &gt;= <span class="n">0</span>, <span class="s">"#16A34A"</span>, <span class="s">"#DC2626"</span> )
+
+<span class="c">-- aceeași rețetă, pentru orice comparație:</span>
+<span class="m">Culoare QoQ</span> =
+<span class="f">IF</span> ( <span class="m">[Venit QoQ %]</span> &gt;= <span class="n">0</span>, <span class="s">"#16A34A"</span>, <span class="s">"#DC2626"</span> )
+
+<span class="m">Culoare Load Factor</span> =
+<span class="f">IF</span> ( <span class="m">[Load Factor Δ pp]</span> &gt;= <span class="n">0</span>, <span class="s">"#16A34A"</span>, <span class="s">"#DC2626"</span> )</pre>
+                <p class="s10-why"><strong>Rolul ei:</strong> dă culoarea comparației de sub valoare pe card. Se folosește cu <em>Color</em> → <em>fx</em> → <em>Format style: Field value</em>.</p>
+              </div>
+              <div>
+                <p class="s10-cap">În cuvinte</p>
+                <ol class="s7-steps">
+                  <li><code>IF</code> verifică dacă comparația e 0 sau mai mare (am crescut sau am rămas la fel).</li>
+                  <li>Dacă da, întoarce codul culorii verzi, <code>"#16A34A"</code>; dacă nu, codul culorii roșii, <code>"#DC2626"</code>.</li>
+                  <li>Power BI citește textul ca pe o culoare și o aplică.</li>
+                </ol>
+                <p class="s10-why"><strong>Pentru orice valoare:</strong> schimbați doar măsura din <code>IF</code> (YoY %, QoQ %, Δ pp, diferența în euro). Pragul rămâne 0: peste 0 e creștere, sub 0 e scădere.<br><strong>De ce măsură, nu Rules:</strong> fereastra <em>Rules</em> cere un interval cu două margini la fiecare regulă. Măsura e scrisă o dată și o folosiți pe toate cardurile; dacă schimbați culoarea, o schimbați într-un singur loc.</p>
               </div>
             </div>
           </div>
@@ -380,7 +476,7 @@
                   <li>Slicer pe <code>Dim_Date[An]</code>, selectat 2025.</li>
                   <li><em>Callout values</em> → <em>Display units</em>: Millions, 1 zecimală.</li>
                   <li><em>Reference labels</em> → <em>Add label</em> → <em>Value</em>: <code>[Venit YoY %]</code>; <em>Title</em>: „vs anul trecut”.</li>
-                  <li>La valoarea label-ului: <em>Color</em> → <em>fx</em> → <em>Rules</em>: dacă ≥ 0 albastru, dacă &lt; 0 portocaliu.</li>
+                  <li>La valoarea label-ului: <em>Color</em> → <em>fx</em> → <em>Format style: Field value</em> → <code>[Culoare YoY]</code>: verde peste 0, roșu sub 0.</li>
                 </ol>
               </div>
             </div>
@@ -399,7 +495,7 @@
                   <li>Copiați cardul 1 (Ctrl+C, Ctrl+V).</li>
                   <li>Adăugați un slicer pe <code>Dim_Date[Trimestru]</code> și alegeți T4 (anul rămâne 2025).</li>
                   <li>În reference label, înlocuiți <em>Value</em> cu <code>[Venit QoQ %]</code>; <em>Title</em>: „vs trimestrul trecut”.</li>
-                  <li>Regula de culoare rămâne aceeași.</li>
+                  <li>Culoarea: <em>Color</em> → <em>fx</em> → <em>Field value</em> → <code>[Culoare QoQ]</code> (aceeași măsură, cu <code>[Venit QoQ %]</code> în loc de <code>[Venit YoY %]</code>).</li>
                 </ol>
                 <p class="s10-why"><strong>De discutat:</strong> scăderea vine din sezon (după vară). Adăugați un al doilea label cu <code>[Venit YoY %]</code>: față de T4 2024 venitul crește cu +20,5%.</p>
               </div>
@@ -419,7 +515,7 @@
                   <li>Formatați măsura <code>[Load Factor %]</code>: <em>Measure tools</em> → <strong>Percentage</strong>, 1 zecimală.</li>
                   <li>Formatați <code>[Load Factor Δ pp]</code>: <em>Format</em> → <em>Custom</em> → <code>+0.0 "pp";-0.0 "pp"</code>.</li>
                   <li>Card nou cu <em>Data</em>: <code>[Load Factor %]</code>, slicer An = 2025.</li>
-                  <li>Reference label: <em>Value</em> <code>[Load Factor Δ pp]</code>; <em>Title</em>: „vs anul trecut”; aceeași regulă de culoare.</li>
+                  <li>Reference label: <em>Value</em> <code>[Load Factor Δ pp]</code>; <em>Title</em>: „vs anul trecut”; culoarea din <code>[Culoare Load Factor]</code> (aceeași măsură, cu <code>[Load Factor Δ pp]</code>).</li>
                 </ol>
               </div>
             </div>
@@ -453,7 +549,7 @@
                   <li><em>Callout values</em> → <em>Display units</em>: Millions, 1 zecimală.</li>
                   <li><em>Reference labels</em> → <em>Add label</em> → <em>Value</em>: <code>[Venit YoY %]</code>.</li>
                   <li>La label: <em>Title</em> → textul „vs anul trecut”.</li>
-                  <li>Culoarea valorii label-ului: <em>Color</em> → <em>fx</em> → <em>Rules</em>: ≥ 0 albastru, &lt; 0 portocaliu.</li>
+                  <li>Culoarea valorii label-ului: <em>Color</em> → <em>fx</em> → <em>Field value</em> → <code>[Culoare YoY]</code> (de pe slide-ul cu măsurile).</li>
                 </ol>
               </div>
               <div>
@@ -490,17 +586,19 @@
                 <h3>Cât mai e până la țintă</h3>
                 <ol class="s7-steps">
                   <li>Încărcați ținta: <em>Get data → Excel</em>, <code>Tinte.xlsx</code>; relațiile <code>Tinte[ID_Date]</code> → <code>Dim_Date[ID]</code> și <code>Tinte[ID_Companie]</code> → <code>Dim_Companii[ID]</code>.</li>
-                  <li>Măsura <code>Tinta Venit = SUM ( Tinte[Tinta_Venit] )</code>.</li>
+                  <li>Măsurile <code>Tinta Venit = SUM ( Tinte[Tinta_Venit] )</code> și <code>Culoare Gauge = IF ( [Venit Zboruri] &gt;= [Tinta Venit], "#16A34A", "#DC2626" )</code>: verde peste țintă, roșu sub ea.</li>
                   <li><em>Value</em>: <code>[Venit Zboruri]</code>; <em>Target value</em>: <code>[Tinta Venit]</code>. Slicer An = 2025.</li>
                   <li>Format → <em>Gauge axis</em> → <em>Max</em>: un număr rotund peste țintă (de exemplu 90 M).</li>
                   <li>Format → <em>Target label</em> On: eticheta apare lângă linia țintei.</li>
+                  <li>Culoarea arcului: <em>Colors</em> → <em>Fill color</em> → <em>fx</em> → <em>Field value</em> → <code>[Culoare Gauge]</code>.</li>
                 </ol>
                 <div class="s8-links"><a class="s8-download" href="date/Tinte.xlsx" download>Descarcă Tinte.xlsx</a></div>
               </div>
               <div>
                 <p class="s10-cap">Ce obțineți</p>
                 <div class="s11-mini"><span>Valoarea</span><b>75,9 M</b></div>
-                <div class="s11-mini"><span>Linia țintei</span><b>77,3 M</b><small>arcul se oprește puțin înainte de ea</small></div>
+                <div class="s11-mini"><span>Linia țintei</span><b>77,3 M</b><small>arcul se oprește înainte de ea, deci e roșu</small></div>
+                <div class="s11-mini"><span>Iulie 2025</span><b>10,7 M</b><small>peste ținta de 10,1 M, deci verde</small></div>
               </div>
             </div>
           </div>
@@ -770,6 +868,6 @@
   </div>
   <script src="../../js/main.js"></script>
   <script src="../../js/s11-date.js?v=2"></script>
-  <script src="../../js/s11.js?v=7"></script>
+  <script src="../../js/s11.js?v=9"></script>
 </body>
 </html>
