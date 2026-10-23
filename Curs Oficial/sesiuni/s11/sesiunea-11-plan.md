@@ -1,6 +1,6 @@
 # Sesiunea 11 · Context în rapoarte: cifra, pagina, celula — plan facilitator
 
-Starea curentă: 27 de slide-uri. Tema: același model aviație din S10 (baza Azure `Flyableinc`, 2021–2025, EUR), cu un tabel nou, `Tinte`. Cititorul raportului din toate exemplele: directorul comercial. Firul lecției: o cifră are nevoie de un reper, o pagină de o întrebare, o celulă colorată de o regulă.
+Starea curentă: 28 de slide-uri. Tema: același model aviație din S10 (baza Azure `Flyableinc`, 2021–2025, EUR), cu un tabel nou, `Tinte`. Cititorul raportului din toate exemplele: directorul comercial. Firul lecției: o cifră are nevoie de un reper, o pagină de o întrebare, o celulă colorată de o regulă.
 
 | Slide-uri | Conținut |
 |-----------|----------|
@@ -10,6 +10,7 @@ Starea curentă: 27 de slide-uri. Tema: același model aviație din S10 (baza Az
 | 16–21 | Partea 2 · Contextul unei pagini (după *Storytelling with Data*): cuprins; cine/ce/cum și Big Idea (slab vs bun); arborele de întrebări: schița fiecărei pagini și, dedesubt, ce punem pe ea și de ce; fluxul Overview → Diagnostic → Detaliu; storyboard cu tragere (sau săgeți), verificare și titluri-concluzie; graficul de curățat: clasa discută întâi, apoi „Arată pașii” (ultimul pas: un titlu simplu) |
 | 22–26 | Partea 3 · Contextul unei celule: cuprins; brad de Crăciun vs o singură regulă; harta tipuri × moduri; matrix rută × trimestru; fx pe bar chart |
 | 27 | Încheiere |
+| 28 | Proiect: baza Flyableinc refăcută și murdărită (9 tabele), link spre `proiect/index.html` |
 
 ## De știut
 - Conexiunea la Azure e cea din S10 (utilizatorul `curs_powerbi`, parola la curs). Cine nu se poate conecta folosește Excel-urile din `sesiuni/s10/date/`.
@@ -18,6 +19,10 @@ Starea curentă: 27 de slide-uri. Tema: același model aviație din S10 (baza Az
 - Culorile lecției sunt albastru (mai bine) și portocaliu (mai rău), nu verde/roșu: e unul dintre mesajele părții 3.
 - La slide-ul 21 lăsați clasa 2 minute să spună ce ar schimba, înainte de „Arată pașii”.
 - Din *Storytelling with Data* (Cole Nussbaumer Knaflic) folosim doar ideile (context, Big Idea, storyboard, logica orizontală, atenția, curățarea); exemplele sunt pe datele Flyable.
+
+## Proiect
+- Înainte de proiect rulați `assets/s11/azure/aviatie_murdar_azure.sql` în SSMS: șterge tabelele curate din S10 și pune în locul lor cele 9 tabele murdare (alte date, alte volume). Exemplele S10–S11 rămân pe Excel-urile din `sesiuni/s10/date/`; ca să readuceți baza curată, rulați din nou `assets/s10/azure/aviatie_azure.sql`.
+- Pagina cursanților dă doar rândurile și coloanele la curățare, lista tabelelor la model și nicio indicație la raport. Cheia: `assets/s11/proiect_solutii.md`. Generator: `assets/s11/generate_proiect_s11.py`.
 
 ## Fișiere
 - Pagina: `sesiuni/s11/index.html` · stil: `css/s11.css` · widget-uri: `js/s11.js` · date pentru widget-uri: `js/s11-date.js` (generat).
