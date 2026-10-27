@@ -1,0 +1,13 @@
+Proiect final · Sesiunea 12 · UiPath (Digitalizare · Business Process Automation)
+=================================================================================
+
+Cerințele complete: index.html (Curățare · Model · Raport publicat în Power BI Service).
+
+Fișiere (folderul date/, se curăță în Power Query):
+  Fact_Executii.xlsx           fapt       execuțiile lunare pe client și proces, Manual vs. Automat: număr, durată, erori, rework, cost
+  Fact_Initiative.xlsx         fapt       proiectele de automatizare: produs folosit, start, go-live, status, investiție, ore economisite estimate
+  Dim_Clienti.xlsx             dimensiune clienții UiPath: țară, industrie, de când sunt clienți
+  Dim_Procese.xlsx             dimensiune procesele automatizate: departament, durata manuală vs. automată, complexitate
+  Dim_Produse.xlsx             dimensiune produsele platformei UiPath (RPA, IDP, Process Mining, Agentic)
+  Dim_Departamente.xlsx        dimensiune departamentele în care rulează procesele
+  Dim_Date.xlsx                dimensiune calendarul 2023–2025 (Fact_Executii e lunar)

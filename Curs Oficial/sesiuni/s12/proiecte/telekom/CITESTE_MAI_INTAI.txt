@@ -1,0 +1,13 @@
+Proiect final · Sesiunea 12 · Telekom Romania Business (Telecom · B2B)
+======================================================================
+
+Cerințele complete: index.html (Curățare · Model · Raport publicat în Power BI Service).
+
+Fișiere (folderul date/, se curăță în Power Query):
+  Fact_Vanzari.xlsx            fapt       fiecare linie de contract B2B: abonamente, licențe și echipamente vândute, cu agent și discount
+  Fact_Servicii.xlsx           fapt       lucrările tehnice: instalare, deployment, integrare rețele, securitate, mentenanță (ore, SLA, rating)
+  Dim_Clienti.xlsx             dimensiune clienții business: segment, industrie, județ, regiune
+  Dim_Produse.xlsx             dimensiune abonamentele Business, soluțiile ICT/IoT și echipamentele, cu prețul de listă
+  Dim_Servicii.xlsx            dimensiune serviciile tehnice și tariful orar, cu SLA-ul în ore
+  Dim_Echipa.xlsx              dimensiune agenții de vânzări B2B și tehnicienii
+  Dim_Date.xlsx                dimensiune calendarul 2023–2025 (datele se opresc la 30.09.2025)

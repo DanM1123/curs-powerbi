@@ -1,0 +1,117 @@
+<!doctype html><html lang="ro"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Proiect final · Unilever România</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"><style>
+:root{--paper:#f5f2eb;--card:#fffdf8;--ink:#1c1b18;--ink-2:#4a4740;--ink-3:#8a857a;--rule:#e3ddd0;--a:#333;
+--soft:color-mix(in srgb,var(--a) 10%,var(--card));--a-ink:color-mix(in srgb,var(--a) 82%,#000)}
+:root[data-theme="dark"]{--paper:#14130f;--card:#1d1c17;--ink:#f1ede4;--ink-2:#c5bfb2;--ink-3:#8c8678;--rule:#34312a;
+--soft:color-mix(in srgb,var(--a) 18%,var(--card));--a-ink:color-mix(in srgb,var(--a) 70%,#fff)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#14130f;--card:#1d1c17;--ink:#f1ede4;--ink-2:#c5bfb2;--ink-3:#8c8678;--rule:#34312a;
+--soft:color-mix(in srgb,var(--a) 18%,var(--card));--a-ink:color-mix(in srgb,var(--a) 70%,#fff)}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--a-ink)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.bar{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--rule);font-size:14px}
+.bar a{text-decoration:none;color:var(--ink-2);font-weight:600}.bar a:hover{color:var(--ink)}
+.tog{background:none;border:1px solid var(--rule);color:var(--ink-2);border-radius:999px;padding:6px 14px;font:600 13px Manrope;cursor:pointer}
+.kick{font:500 12px 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--a-ink)}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:700;letter-spacing:-.01em;margin:0}
+.hero{display:grid;grid-template-columns:1.35fr 1fr;gap:48px;padding:56px 0 48px;border-bottom:1px solid var(--rule)}
+.hero h1{font-size:clamp(40px,6vw,72px);line-height:1;margin:14px 0 20px}
+.hero h1 span{display:block;width:72px;height:6px;background:var(--a);margin-top:22px;border-radius:3px}
+.tag{font-size:19px;color:var(--ink-2);max-width:34em}
+.fisa{background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:8px 22px;align-self:start;box-shadow:6px 6px 0 var(--soft)}
+.fisa div{padding:14px 0;border-bottom:1px dashed var(--rule)}.fisa div:last-child{border:0}
+.fisa b{display:block;font:700 24px Fraunces,serif;color:var(--ink)}.fisa small{color:var(--ink-3);font-size:13px}
+.fisa .lab{font:500 11px 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);padding:12px 0 4px;border:0}
+section{padding:56px 0;border-bottom:1px solid var(--rule)}
+.two{display:grid;grid-template-columns:220px 1fr;gap:40px}
+.two h2{font-size:30px;line-height:1.15}
+.prose p{margin:0 0 16px;max-width:42em;color:var(--ink-2)}.prose p:first-child{color:var(--ink);font-size:18px}
+.files{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.file{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:14px 16px;text-decoration:none;color:var(--ink);transition:.15s}
+.file:hover{border-color:var(--a);transform:translateY(-2px)}
+.file i{font-style:normal;flex:none;width:38px;height:44px;border-radius:3px;background:var(--soft);color:var(--a-ink);display:grid;place-items:center;font:700 10px 'JetBrains Mono',monospace}
+.file b{display:block;font-size:14px}.file small{color:var(--ink-3);font-size:12px}
+.file.fact i{background:var(--a);color:#fff}
+.note{font-size:14px;color:var(--ink-3);margin-top:14px}
+.steps{position:relative;margin-top:8px}
+.step{display:grid;grid-template-columns:110px 1fr;gap:28px;padding:0 0 56px;position:relative}
+.step:before{content:"";position:absolute;left:46px;top:84px;bottom:0;border-left:2px dashed var(--rule)}
+.step:last-child:before{display:none}.step:last-child{padding-bottom:0}
+.num{font:700 72px/1 Fraunces,serif;color:var(--a);opacity:.9}
+.step h3{font-size:28px;margin:6px 0 4px}.step .sub{color:var(--ink-3);font-size:14px;margin-bottom:18px}
+.step p{color:var(--ink-2);max-width:44em}
+.rules{list-style:none;padding:0;margin:18px 0;display:grid;gap:10px;max-width:46em}
+.rules li{background:var(--card);border-left:4px solid var(--a);padding:10px 16px;border-radius:0 4px 4px 0;color:var(--ink-2)}
+table{border-collapse:collapse;width:100%;max-width:640px;font-size:14px;margin-top:12px;background:var(--card);border:1px solid var(--rule)}
+th,td{padding:9px 14px;text-align:left;border-bottom:1px solid var(--rule)}th{font:500 11px 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+td.r,th.r{text-align:right;font-family:'JetBrains Mono',monospace}
+.grp{font:500 11px 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin:22px 0 10px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.tcard{background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:16px 18px}
+.tcard b{font-family:'JetBrains Mono',monospace;font-size:13.5px}.tcard p{margin:6px 0 0;font-size:14px;color:var(--ink-2)}
+.tcard.fact{border-top:4px solid var(--a)}
+.callout{background:var(--soft);border-radius:4px;padding:18px 22px;max-width:46em;margin-top:18px}
+.callout b{display:block;margin-bottom:4px}
+.btn{display:inline-block;margin-top:10px;background:var(--a);color:#fff;text-decoration:none;font-weight:700;padding:9px 18px;border-radius:999px;font-size:14px}
+.present{counter-reset:p;list-style:none;padding:0;margin:14px 0 0;max-width:44em}
+.present li{counter-increment:p;padding:10px 0 10px 44px;position:relative;border-bottom:1px solid var(--rule);color:var(--ink-2)}
+.present li:before{content:counter(p,decimal-leading-zero);position:absolute;left:0;font:700 18px Fraunces,serif;color:var(--a)}
+footer{padding:40px 0 60px;font-size:13px;color:var(--ink-3)}footer ol{padding-left:18px;margin:10px 0 0;word-break:break-all}
+footer li{margin:3px 0}footer a{color:var(--ink-3)}
+.hub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:18px;padding:40px 0 70px}
+.hcard{--a:#333;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:26px 26px 22px;text-decoration:none;color:var(--ink);position:relative;overflow:hidden;transition:.15s}
+.hcard:before{content:"";position:absolute;left:0;top:0;right:0;height:5px;background:var(--a)}
+.hcard:hover{transform:translateY(-3px);box-shadow:6px 6px 0 color-mix(in srgb,var(--a) 14%,transparent)}
+.hcard h2{font-size:28px;margin:10px 0 8px}.hcard p{color:var(--ink-2);font-size:15px;margin:0 0 18px;flex:1}
+.hcard .meta{font:500 12px 'JetBrains Mono',monospace;color:var(--ink-3)}.hcard .go{font-weight:700;color:var(--a-ink);margin-top:10px}
+.hubhero{padding:56px 0 8px}.hubhero h1{font-size:clamp(38px,5vw,60px);margin:12px 0 14px}.hubhero p{max-width:40em;color:var(--ink-2);font-size:18px}
+@media (max-width:820px){.hero,.two{grid-template-columns:1fr;gap:24px}.step{grid-template-columns:1fr;gap:4px}.step:before{display:none}.num{font-size:52px}
+.wrap{padding:0 16px}table{font-size:13px}th,td{padding:8px 10px}}
+</style><style>:root{--a:#1F36C7}</style><script>
+(function(){var k='proiect-s12-theme',r=document.documentElement;try{var s=localStorage.getItem(k);if(s)r.dataset.theme=s}catch(e){}
+function cur(){return r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}
+function lab(){var b=document.getElementById('tog');if(b)b.textContent=cur()==='dark'?'☀ Temă deschisă':'☾ Temă închisă'}
+document.addEventListener('DOMContentLoaded',function(){lab();document.getElementById('tog').onclick=function(){r.dataset.theme=cur()==='dark'?'light':'dark';try{localStorage.setItem(k,r.dataset.theme)}catch(e){}lab()}})})();
+</script></head><body>
+<div class="wrap">
+<div class="bar"><a href="../index.html">← Toate proiectele</a><button class="tog" id="tog">Temă</button></div>
+<header class="hero">
+  <div><div class="kick">Proiect final · Sesiunea 12 · FMCG · bunuri de larg consum</div>
+  <h1>Unilever România<span></span></h1><p class="tag">Dero, Dove, Rexona, Knorr, Delikat, Magnum: ce livrează Unilever lanțurilor de retail și distribuitorilor, față de target.</p></div>
+  <aside class="fisa"><div class="lab">Compania în cifre</div><div><b>1,358 mld.</b><small>lei cifră de afaceri 2025</small></div><div><b>444 mil.</b><small>lei profit 2025 (efect one-off)</small></div><div><b>~30%</b><small>cota Dero la detergent pudră</small></div><div><b>28 linii</b><small>la fabrica din Ploiești</small></div></aside>
+</header>
+
+<section class="two"><h2>Povestea companiei</h2><div class="prose"><p>Unilever South Central Europe produce și vinde în România și Moldova peste 20 de branduri. Are o fabrică de alimente la Ploiești, unde se fac Knorr și Delikat (28 de linii, peste 40.000 de tone pe an), și o fabrică de înghețată la Suceava (Napoca, Betty Ice). Dero deține aproape 30% din piața de detergent pudră.</p><p>Datele sunt livrările (sell-in) către Kaufland, Lidl, Carrefour, Mega Image, Profi, Penny, eMAG și distribuitorii regionali, plus targetul lunar al fiecărui agent. Atenție: în decembrie 2025 înghețata a ieșit din Unilever și a trecut la The Magnum Ice Cream Company.</p></div></section>
+
+<section class="two"><h2>Fișierele de date</h2><div>
+<div class="files"><a class="file fact" href="date/Fact_Vanzari.xlsx" download><i>XLSX</i><span><b>Fact_Vanzari.xlsx</b><small>tabel de fapte · 13.548 rânduri</small></span></a><a class="file fact" href="date/Fact_Target.xlsx" download><i>XLSX</i><span><b>Fact_Target.xlsx</b><small>tabel de fapte · 1.154 rânduri</small></span></a><a class="file" href="date/Dim_Produse.xlsx" download><i>XLSX</i><span><b>Dim_Produse.xlsx</b><small>dimensiune · 30 rânduri</small></span></a><a class="file" href="date/Dim_Categorii.xlsx" download><i>XLSX</i><span><b>Dim_Categorii.xlsx</b><small>dimensiune · 4 rânduri</small></span></a><a class="file" href="date/Dim_Clienti.xlsx" download><i>XLSX</i><span><b>Dim_Clienti.xlsx</b><small>dimensiune · 20 rânduri</small></span></a><a class="file" href="date/Dim_Agenti.xlsx" download><i>XLSX</i><span><b>Dim_Agenti.xlsx</b><small>dimensiune · 15 rânduri</small></span></a><a class="file" href="date/Dim_Promotii.xlsx" download><i>XLSX</i><span><b>Dim_Promotii.xlsx</b><small>dimensiune · 10 rânduri</small></span></a><a class="file" href="date/Dim_Date.xlsx" download><i>XLSX</i><span><b>Dim_Date.xlsx</b><small>dimensiune · 1.096 rânduri</small></span></a></div></div></section>
+
+<section><div class="kick">Traseul proiectului</div>
+<div class="steps" style="margin-top:28px">
+ <div class="step"><div class="num">01</div><div>
+  <h3>Curățarea datelor</h3><div class="sub">Power Query</div>
+  <p>Importați fișierele din <code>date/</code> în Power BI și curățați totul în Power Query. Fișierele Excel nu le modificați.</p>
+  <ul class="rules">
+   <li>Numele interogării = numele fișierului (de exemplu <b>Fact_Vanzari</b>).</li>
+   <li>Fiecare coloană are tipul potrivit conținutului ei: numerele sunt numere, datele sunt date, textul e scris unitar.</li>
+   <li>Verificați-vă după numărul de rânduri și coloane din tabelul de mai jos. Dacă nu se potrivește, mai e ceva de curățat.</li>
+  </ul>
+  <table><thead><tr><th>Tabel</th><th class="r">Rânduri</th><th class="r">Coloane</th></tr></thead><tbody><tr><td>Fact_Vanzari</td><td class="r">13.533</td><td class="r">11</td></tr><tr><td>Fact_Target</td><td class="r">1.149</td><td class="r">5</td></tr><tr><td>Dim_Produse</td><td class="r">28</td><td class="r">9</td></tr><tr><td>Dim_Categorii</td><td class="r">4</td><td class="r">3</td></tr><tr><td>Dim_Clienti</td><td class="r">19</td><td class="r">6</td></tr><tr><td>Dim_Agenti</td><td class="r">15</td><td class="r">4</td></tr><tr><td>Dim_Promotii</td><td class="r">10</td><td class="r">4</td></tr><tr><td>Dim_Date</td><td class="r">1.096</td><td class="r">11</td></tr></tbody></table>
+ </div></div>
+ <div class="step"><div class="num">02</div><div>
+  <h3>Modelul de date</h3><div class="sub">relațiile le decideți voi</div>
+  <p>Acestea sunt cele 8 tabele. Legați-le ca să obțineți un model de date: ce relații faceți și cum le setați decideți voi.</p>
+  <div class="grp">Tabele de fapte</div><div class="cards"><div class="tcard fact"><b>Fact_Vanzari</b><p>livrările (sell-in) pe client și produs: baxuri, bucăți, preț, promoție, valoare netă</p></div><div class="tcard fact"><b>Fact_Target</b><p>targetul lunar pe agent și categorie</p></div></div>
+  <div class="grp">Dimensiuni</div><div class="cards"><div class="tcard"><b>Dim_Produse</b><p>produsele (SKU): brand, gramaj, bucăți pe bax, fabrică, preț de raft</p></div><div class="tcard"><b>Dim_Categorii</b><p>cele 4 categorii de business Unilever</p></div><div class="tcard"><b>Dim_Clienti</b><p>lanțurile de retail, cash &amp; carry, online și distribuitorii</p></div><div class="tcard"><b>Dim_Agenti</b><p>KAM-ii și managerii de zonă</p></div><div class="tcard"><b>Dim_Promotii</b><p>mecanismele promoționale și discountul tipic</p></div><div class="tcard"><b>Dim_Date</b><p>calendarul 2023–2025</p></div></div>
+ </div></div>
+ <div class="step"><div class="num">03</div><div>
+  <h3>Raportul</h3><div class="sub">fără indicații</div>
+  <p>Aici nu primiți nicio indicație: ce pagini faceți, ce întrebări alegeți și ce chart-uri folosiți hotărâți voi. Gândiți-vă cine ar citi raportul în companie și ce decizii ar lua pe baza lui.</p>
+  <ul class="rules"><li><b>Cerință:</b> la final publicați raportul în Power BI Service (Publish din Power BI Desktop) și ne trimiteți linkul raportului publicat.</li></ul>
+  <div class="callout"><b>Facultativ: pașii din sesiunea 11</b>Dacă vreți să vă faceți o idee despre cum ar trebui construit raportul, puteți urma pașii din sesiunea 11: cititorul și Big Idea, arborele de întrebări, imaginea de ansamblu → diagnostic → detaliu, storyboard-ul, titlurile-concluzie, KPI-urile cu reper și formatarea condiționată.<br><a class="btn" href="../../../s11/index.html">Deschide sesiunea 11</a></div>
+  <p style="margin-top:26px"><b style="color:var(--ink)">Ce prezentați.</b> Pe lângă chart-uri, ne prezentați logica fiecărei pagini, ca să înțelegem structura raportului:</p>
+  <ol class="present"><li>De ce ați ales să faceți pagina respectivă.</li><li>La ce întrebări răspunde fiecare chart de pe pagină.</li><li>Cum se leagă paginile între ele: ce drum parcurge cititorul de la prima la ultima.</li></ol>
+ </div></div>
+</div></section>
+
+</div></body></html>

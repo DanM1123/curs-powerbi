@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Power BI · Sesiunea 12 · Recapitulare și tips &amp; tricks</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23B45309'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='46' font-weight='900' text-anchor='middle' fill='white'%3E12%3C/text%3E%3C/svg%3E" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/session.css" />
+  <link rel="stylesheet" href="../../css/extras.css" />
+  <link rel="stylesheet" href="../../css/s02.css" />
+  <link rel="stylesheet" href="../../css/s03.css" />
+  <link rel="stylesheet" href="../../css/s04.css?v=82" />
+  <link rel="stylesheet" href="../../css/s05.css?v=33" />
+  <link rel="stylesheet" href="../../css/s06.css?v=6" />
+  <link rel="stylesheet" href="../../css/s07.css?v=4" />
+  <link rel="stylesheet" href="../../css/s08.css?v=3" />
+  <link rel="stylesheet" href="../../css/s09.css?v=9" />
+  <link rel="stylesheet" href="../../css/s10.css?v=10" />
+  <link rel="stylesheet" href="../../css/s11.css?v=8" />
+  <link rel="stylesheet" href="../../css/s12.css?v=5" />
+  <script src="../../js/gate.js"></script>
+  <script src="../../js/firebase-init.js"></script>
+</head>
+<body class="hub-page s05-page s06-page s07-page s08-page s09-page s10-page s11-page s12-page" data-poll-root="curs-oficial/s12/polls">
+  <div class="hub-orbits" aria-hidden="true">
+    <div class="hub-orb a"></div>
+    <div class="hub-orb b"></div>
+    <div class="hub-orb c"></div>
+  </div>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="../../index.html" class="brand">
+        <span class="brand-mark">P</span>
+        <span>Power BI · Sesiunea 12</span>
+      </a>
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" aria-label="Schimbă tema">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="student-shell">
+    <div class="slide-progress"><div class="fill" data-slide-progress></div></div>
+    <main class="slide-deck">
+
+      <!-- 01 · Copertă -->
+      <article class="slide active s4-cover">
+        <div class="s4-cover-inner">
+          <span class="slide-eyebrow">Sesiunea 12</span>
+          <h1>Recapitulare și tips &amp; tricks</h1>
+        </div>
+      </article>
+
+      <!-- 02 · Harta -->
+      <article class="slide s5-framework">
+        <span class="slide-eyebrow">Harta sesiunii</span>
+        <h2>Tot drumul de până acum, apoi un truc nou: imaginile</h2>
+        <p class="s5-oneline">Recapitulăm pe teme, în ordinea în care le-am învățat. Fiecare temă are exerciții de alt fel:</p>
+        <div class="s12-formats"><span>Pune în ordine</span><span>Trage în coloană</span><span>Potrivește</span><span>Alege răspunsul</span><span>Adevărat sau fals</span><span>Alege desenul</span><span>Completează formula</span><span>Ce număr apare?</span><span>Întoarce cardul</span></div>
+        <div class="s12-map">
+          <article><span class="n">01</span><h3>BI și Power BI</h3><p>Etape, Desktop, Service</p></article>
+          <article><span class="n">02</span><h3>Power Query</h3><p>Erori, operații, ordinea pașilor</p></article>
+          <article><span class="n">03</span><h3>Modelare</h3><p>Fact, dimensiune, chei</p></article>
+          <article><span class="n">04</span><h3>Timp</h3><p>Tabela de date, YTD, YoY</p></article>
+          <article><span class="n">05</span><h3>Vizualizări</h3><p>Ce grafic pentru ce întrebare</p></article>
+          <article><span class="n">06</span><h3>DAX</h3><p>Funcții, filter context</p></article>
+          <article><span class="n">07</span><h3>Interactivitate</h3><p>Slicere, filtre, unelte</p></article>
+          <article><span class="n">08</span><h3>Povestea paginii</h3><p>Întrebări, titluri, KPI</p></article>
+          <article><span class="n">09</span><h3>Service și surse</h3><p>Import, refresh, gateway</p></article>
+          <article class="is-img"><span class="n">Partea 2</span><h3>Imagini în Power BI</h3><p>Afișe de film dintr-o coloană de URL-uri</p></article>
+        </div>
+      </article>
+
+      <!-- ============ PARTEA 1 · RECAPITULARE ============ -->
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare · BI și Power BI · 1 din 20</span>
+          <span class="s5-concept-pill is-fw">Pune în ordine</span>
+        </div>
+        <h2>Etapele unui proiect BI</h2>
+        <p class="s5-oneline">Trageți etapele în ordinea corectă (sau dați click pe două ca să le schimbați), apoi Verifică.</p>
+        <div data-s12="order" data-set="etape"></div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare · BI și Power BI · 2 din 20</span>
+          <span class="s5-concept-pill is-fw">Trage în coloană</span>
+        </div>
+        <h2>Desktop sau Service?</h2>
+        <p class="s5-oneline">Fiecare card merge în unealta în care se face lucrul acela.</p>
+        <div data-s12="buckets" data-set="desktopService"></div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare · BI și Power BI · 3 din 20</span>
+          <span class="s5-concept-pill is-fw">Alege răspunsul</span>
+        </div>
+        <h2>Bazele</h2>
+        <p class="s5-oneline">O întrebare pe ecran. Alegeți o variantă și citiți explicația.</p>
+        <div data-s12="quiz" data-set="bazele"></div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare · Power Query · 4 din 20</span>
+          <span class="s5-concept-pill is-fw">Adevărat sau fals</span>
+        </div>
+        <h2>Ce știm despre Power Query?</h2>
+        <p class="s5-oneline">Pentru fiecare afirmație: adevărat sau fals?</p>
+        <div data-s12="tf" data-set="pqTf"></div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare · Power Query · 5 din 20</span>
+          <span class="s5-concept-pill is-fw">Potrivește</span>
+        </div>
+        <h2>Ce operație rezolvă problema?</h2>
+        <p class="s5-oneline">Trageți fiecare operație lângă problema pe care o rezolvă.</p>
+        <div data-s12="match" data-set="pqFix"></div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare · Power Query · 6 din 20</span>
+          <span class="s5-concept-pill is-fw">Pune în ordine</span>
+        </div>
+        <h2>Pașii pe un fișier murdar</h2>
+        <p class="s5-oneline">Fișierul are titlul în primele rânduri, spații în texte și numere cu virgulă. În ce ordine lucrați?</p>
+        <div data-s12="order" data-set="pasi"></div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare · Modelare · 7 din 20</span>
+          <span class="s5-concept-pill is-fw">Trage în coloană</span>
+        </div>
+        <h2>Fact sau dimensiune?</h2>
+        <p class="s5-oneline">Citiți ce conține tabelul și puneți-l în coloana potrivită.</p>
+        <div data-s12="buckets" data-set="factDim"></div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare · Modelare · 8 din 20</span>
+          <span class="s5-concept-pill is-fw">Alege răspunsul</span>
+        </div>
+        <h2>Chei, relații și ERD</h2>
+        <p class="s5-oneline">O întrebare pe ecran. Alegeți o variantă și citiți explicația.</p>
+        <div data-s12="quiz" data-set="model"></div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare · Timp · 9 din 20</span>
+          <span class="s5-concept-pill is-fw">Adevărat sau fals</span>
+        </div>
+        <h2>Tabela de date și comparațiile în timp</h2>
+        <p class="s5-oneline">Pentru fiecare afirmație: adevărat sau fals?</p>
+        <div data-s12="tf" data-set="timp"></div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare · Vizualizări · 10 din 20</span>
+          <span class="s5-concept-pill is-fw">Alege desenul</span>
+        </div>
+        <h2>Ce vizual alegi?</h2>
+        <p class="s5-oneline">Citiți întrebarea și alegeți vizualul care îi răspunde cel mai bine.</p>
+        <div data-s12="quiz" data-set="vizPick"></div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare · Vizualizări · 11 din 20</span>
+          <span class="s5-concept-pill is-fw">Întoarce cardul</span>
+        </div>
+        <h2>Ce e greșit aici?</h2>
+        <p class="s5-oneline">Spuneți ce nu merge, apoi întoarceți cardul.</p>
+        <div class="s6-flip-grid is-four" data-s12="flip" data-set="greseli"></div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare · DAX · 12 din 20</span>
+          <span class="s5-concept-pill is-fw">Completează formula</span>
+        </div>
+        <h2>Ce funcție lipsește?</h2>
+        <p class="s5-oneline">Alegeți funcția care completează măsura.</p>
+        <div data-s12="quiz" data-set="daxFill"></div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare · DAX · 13 din 20</span>
+          <span class="s5-concept-pill is-fw">Ce număr apare?</span>
+        </div>
+        <h2>Filter context pe 8 rânduri</h2>
+        <p class="s5-oneline">Verde: rândurile lăsate de slicer. Calculați în minte ce arată cardul, apoi alegeți.</p>
+        <div data-s12="quiz" data-set="ctx"></div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare · Interactivitate · 14 din 20</span>
+          <span class="s5-concept-pill is-fw">Trage în coloană</span>
+        </div>
+        <h2>Slicer sau Filters pane?</h2>
+        <p class="s5-oneline">Alegerea cititorului sau regulă fixă?</p>
+        <div data-s12="buckets" data-set="slicerFiltru"></div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare · Interactivitate · 15 din 20</span>
+          <span class="s5-concept-pill is-fw">Potrivește</span>
+        </div>
+        <h2>Ce unealtă folosești?</h2>
+        <p class="s5-oneline">Trageți fiecare unealtă lângă cererea pe care o rezolvă.</p>
+        <div data-s12="match" data-set="unelte"></div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare · Povestea paginii · 16 din 20</span>
+          <span class="s5-concept-pill is-fw">Întoarce cardul</span>
+        </div>
+        <h2>Înainte de grafice</h2>
+        <p class="s5-oneline">Gândiți răspunsul, apoi întoarceți cardul.</p>
+        <div class="s6-flip-grid is-four" data-s12="flip" data-set="pagina"></div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare · Povestea paginii · 17 din 20</span>
+          <span class="s5-concept-pill is-fw">Alege răspunsul</span>
+        </div>
+        <h2>Pagina și cifrele ei</h2>
+        <p class="s5-oneline">O întrebare pe ecran. Alegeți o variantă și citiți explicația.</p>
+        <div data-s12="quiz" data-set="poveste"></div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare · Service și surse · 18 din 20</span>
+          <span class="s5-concept-pill is-fw">Trage în coloană</span>
+        </div>
+        <h2>Import sau DirectQuery?</h2>
+        <p class="s5-oneline">Pentru fiecare afirmație: despre care mod de încărcare e vorba?</p>
+        <div data-s12="buckets" data-set="importDq"></div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare · Service și surse · 19 din 20</span>
+          <span class="s5-concept-pill is-fw">Pune în ordine</span>
+        </div>
+        <h2>Refresh-ul a picat: credentials are invalid</h2>
+        <p class="s5-oneline">Ion și-a schimbat parola. În ce ordine reparați?</p>
+        <div data-s12="order" data-set="refresh"></div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Recapitulare · Service și surse · 20 din 20</span>
+          <span class="s5-concept-pill is-fw">Alege răspunsul</span>
+        </div>
+        <h2>Raportul publicat și datele lui</h2>
+        <p class="s5-oneline">O întrebare pe ecran. Alegeți o variantă și citiți explicația.</p>
+        <div data-s12="quiz" data-set="service"></div>
+      </article>
+
+      <!-- ============ PARTEA 2 · IMAGINI ============ -->
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Imagini în Power BI</span>
+          <span class="s5-concept-pill is-fw">Povestea</span>
+        </div>
+        <h2>Festivalul de la Cinema Lumière</h2>
+        <div class="s12-story">
+          <div>
+            <p><strong>Cinema Lumière</strong> (un cinematograf inventat pentru exercițiu) organizează în noiembrie festivalul <strong>Retro &amp; Blockbuster</strong>: 26 de filme celebre, 10 zile, două săli.</p>
+            <p>Directoarea de programare vrea o pagină pe care o deschide în ședința de dimineață: <strong>alege un film și vede afișul</strong>, câți bani a costat și a adus în lume, nota lui și cum se vinde la festival.</p>
+            <p>Datele despre filme sunt <strong>reale</strong>: an, regizor, durată, buget și încasări mondiale (din Wikipedia, rotunjite, milioane USD), iar fiecare film are un link către afișul lui. Programul festivalului și biletele vândute sunt inventate.</p>
+            <div class="s12-cols">
+              <code>ID_Film</code><code>Titlu</code><code>Titlu_RO</code><code>An</code><code>Regizor</code><code>Gen</code><code>Durata_Min</code><code>Buget_Mil_USD</code><code>Incasari_Mil_USD</code><code>Nota_IMDb</code><code>Oscaruri</code><code class="is-key">Poster_URL</code><code>Descriere</code>
+            </div>
+          </div>
+          <div class="s12-files">
+            <a class="s12-file" href="date/Dim_Filme.xlsx" download><span class="ic">XLSX</span><span><b>Dim_Filme.xlsx</b><small>26 de filme, câte un rând pe film. Coloana Poster_URL are link-ul direct către afiș.</small></span></a>
+            <a class="s12-file" href="date/Fact_Proiectii.xlsx" download><span class="ic">XLSX</span><span><b>Fact_Proiectii.xlsx</b><small>50 de proiecții: data, sala, locuri, bilete vândute, preț. Se leagă prin ID_Film.</small></span></a>
+            <a class="s12-file" href="date/Dim_Filme.csv" download><span class="ic">CSV</span><span><b>Dim_Filme.csv</b><small>Aceleași filme, în CSV cu punct și virgulă, UTF-8.</small></span></a>
+            <p class="s12-note">Afișele sunt găzduite pe upload.wikimedia.org. Power BI nu le copiază în fișier: le încarcă de pe internet de fiecare dată când deschideți raportul.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Imagini în Power BI</span>
+          <span class="s5-concept-pill is-fw">Image URL</span>
+        </div>
+        <h2>O imagine în Power BI este un link și o etichetă</h2>
+        <div class="s6-concept"><p>Power BI nu ține imaginile în tabel. Ține <strong>textul unui link</strong> (<code>https://…/poster.jpg</code>). Când îi spui că acea coloană e <strong>Image URL</strong>, tabelele, matricele și cardurile desenează imaginea în loc de text.</p></div>
+        <div class="s12-steps">
+          <article><span class="n">1</span><div><strong>Încarcă Dim_Filme</strong><p>Get Data → Excel workbook → Dim_Filme. În Power Query verifici că Poster_URL e de tip <strong>Text</strong>. Close &amp; Apply.</p></div></article>
+          <article><span class="n">2</span><div><strong>Spune-i că e o imagine</strong><p>Table view → selectezi coloana Poster_URL → <strong>Column tools → Data category → Image URL</strong>.</p><span class="s12-path">Column tools → Data category → Image URL</span></div></article>
+          <article><span class="n">3</span><div><strong>Pune-o într-un tabel</strong><p>Table cu Titlu, An și Poster_URL. În loc de link apare afișul. Dimensiunea o schimbi din <strong>Format visual → Image size</strong> (înălțime și lățime).</p></div></article>
+          <article><span class="n">4</span><div><strong>Leagă faptele</strong><p>Încarcă Fact_Proiectii și fă relația <code>Dim_Filme[ID_Film]</code> 1 → * <code>Fact_Proiectii[ID_Film]</code>. Un film, multe proiecții.</p></div></article>
+        </div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Imagini în Power BI</span>
+          <span class="s5-concept-pill is-fw">Pagina finală</span>
+        </div>
+        <h2>Alegi un film, apare afișul</h2>
+        <p class="s5-oneline">Așa arată pagina pe care o construim. Dați click pe un afiș din stânga sau pe o bară din grafic.</p>
+        <div data-s12-cinema></div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Imagini în Power BI</span>
+          <span class="s5-concept-pill is-fw">Măsurile</span>
+        </div>
+        <h2>Afișul filmului ales este o măsură</h2>
+        <div class="s6-concept"><p><strong>De ce nu merge coloana direct în card.</strong> Un card arată o singură valoare. Poster_URL e o coloană cu 26 de link-uri, așa că Power BI o rezumă singur (First, Last sau Count) ca să ajungă la una. Cu un singur film ales în slicer pare că merge. Când nu e ales nimic sau sunt alese mai multe filme, cardul arată tot un afiș: primul link în ordine alfabetică, ca și cum acel film ar fi fost ales. Cardul nu are cum să știe că aici trebuie să fie exact un film.</p></div>
+        <div class="s12-steps is-three">
+          <article><span class="n">1</span><div><strong>Scrie o măsură cu SELECTEDVALUE</strong><p>Slicerele și click-urile filtrează Dim_Filme. Dacă după filtrare a rămas <strong>exact un film</strong>, <code>SELECTEDVALUE</code> dă link-ul lui. Dacă au rămas zero sau mai multe, dă al doilea argument.</p>
+<pre class="s12-dax">Afis selectat =
+SELECTEDVALUE (
+    Dim_Filme[Poster_URL],
+    "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"
+)</pre></div></article>
+          <article><span class="n">2</span><div><strong>Spune-i că e o imagine</strong><p>Setarea Image URL de pe coloană nu trece pe măsură. Selectezi măsura și o setezi din nou.</p><span class="s12-path">Measure tools → Data category → Image URL</span></div></article>
+          <article><span class="n">3</span><div><strong>Pune măsura în card</strong><p>În card, la setări, mergi la <strong>Callout value</strong> și activezi afișarea ca imagine. Altfel cardul arată link-ul ca text.</p><span class="s12-path">Format visual → Callout value → Image</span><p>Un film ales: afișul lui. Niciun film sau mai multe: imaginea de rezervă. La fel faci pentru text: <code>Titlu ales = SELECTEDVALUE ( Dim_Filme[Titlu_RO], "Alege un film" )</code>.</p></div></article>
+        </div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Imagini în Power BI</span>
+          <span class="s5-concept-pill is-fw">Construcția</span>
+        </div>
+        <h2>Pagina, vizual cu vizual</h2>
+        <div class="s12-steps is-three">
+          <article><span class="n">1</span><div><strong>Afișele ca selector</strong><p>Table cu o singură coloană, Poster_URL. Image size mic (circa 90 px). Click pe un afiș filtrează restul paginii, ca un slicer cu poze.</p></div></article>
+          <article><span class="n">2</span><div><strong>Afișul mare</strong><p>Table cu măsura <code>[Afis selectat]</code>. Image size mare (circa 300 px), fără antet de coloană și fără grilă. Alternativ, cardul nou are o secțiune Images.</p></div></article>
+          <article><span class="n">3</span><div><strong>Detaliile filmului</strong><p>Card cu <code>[Titlu ales]</code>, apoi carduri pentru buget, încasări, Nota_IMDb și Oscaruri (cu Don't summarize sau Max).</p></div></article>
+          <article><span class="n">4</span><div><strong>Festivalul</strong><p>Carduri cu biletele vândute, <code>[Ocupare %]</code> (bilete / locuri) și încasările (bilete × preț). Vin din Fact_Proiectii, prin relație.</p></div></article>
+          <article><span class="n">5</span><div><strong>Graficul evidențiat</strong><p>Bar chart: Titlu_RO pe axă, Incasari_Mil_USD ca valoare, sortat descrescător. La click pe un afiș, bara filmului rămâne colorată, restul se estompează.</p></div></article>
+          <article><span class="n">6</span><div><strong>Verifică interacțiunile</strong><p>Selectezi tabelul cu afișe → <strong>Format → Edit interactions</strong>: pe grafic <strong>Highlight</strong> (vezi toate filmele), pe carduri <strong>Filter</strong>.</p></div></article>
+        </div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 2 · Imagini în Power BI</span>
+          <span class="s5-concept-pill is-fw">Când nu apare imaginea</span>
+        </div>
+        <h2>Șase lucruri de știut despre imagini</h2>
+        <div class="s12-tips">
+          <article><span class="n">01</span><h3>Link direct către fișier</h3><p>Link-ul trebuie să ducă la imagine (<code>.jpg</code>, <code>.png</code>, <code>.svg</code>), nu la o pagină web cu imaginea pe ea. Test: îl deschideți în browser și vedeți doar poza.</p></article>
+          <article><span class="n">02</span><h3>Public și cu https</h3><p>Power BI cere imaginea fără parolă. Un link din SharePoint sau OneDrive care cere login poate să apară gol pentru unii colegi. Testați link-ul într-o fereastră incognito.</p></article>
+          <article><span class="n">03</span><h3>Nu din C:\</h3><p>O cale de pe calculator (<code>C:\Poze\afis.jpg</code>) nu merge în Image URL. Pentru un logo fix: <strong>Insert → Image</strong>; imaginea se salvează în .pbix.</p></article>
+          <article><span class="n">04</span><h3>Poze mici</h3><p>Fiecare imagine se descarcă la deschiderea raportului. 300–500 px lățime ajung pentru un afiș; o poză de 5 MB pe rând face pagina lentă.</p></article>
+          <article><span class="n">05</span><h3>Fundalul paginii</h3><p><strong>Format page → Canvas background → Image</strong>, Transparency 0%, Image fit: Fit. Puteți desena fundalul în PowerPoint și să-l salvați ca PNG.</p></article>
+          <article><span class="n">06</span><h3>Bonus: SVG dintr-o măsură</h3><p>Un text care începe cu <code>data:image/svg+xml;utf8,</code> și are Data category = Image URL devine desen. Așa faceți bare de progres în tabel. Culoarea: <code>%23</code> în loc de <code>#</code>.</p>
+<pre class="s12-dax">Bara ocupare =
+"data:image/svg+xml;utf8,&lt;svg xmlns='http://www.w3.org/2000/svg' width='100' height='12'&gt;"
+  &amp; "&lt;rect width='" &amp; ROUND ( [Ocupare %] * 100, 0 )
+  &amp; "' height='12' fill='%23118DFF'/&gt;&lt;/svg&gt;"</pre></article>
+        </div>
+      </article>
+
+      <!-- ============ PARTEA 3 · TIPS & TRICKS ============ -->
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Tips &amp; tricks</span>
+          <span class="s5-concept-pill is-fw">Economisiți timp</span>
+        </div>
+        <h2>Trucuri mici pentru proiectul vostru</h2>
+        <div class="s12-tips">
+          <article><span class="n">01</span><h3>Format painter</h3><p>Ați formatat un grafic cum vă place? Îl selectați, <strong>Home → Format painter</strong>, apoi dați click pe alt grafic. Copiază culorile, fonturile și chenarul.</p></article>
+          <article><span class="n">02</span><h3>Selection pane</h3><p><strong>View → Selection</strong>: ascundeți vizuale, le grupați, le redenumiți și schimbați ordinea în care trece tasta Tab. Esențial cu bookmarks.</p></article>
+          <article><span class="n">03</span><h3>Align și Distribute</h3><p>Selectați mai multe vizuale cu Ctrl+click → <strong>Format → Align</strong>. Le aliniați la stânga sau sus și le distribuiți la distanțe egale.</p></article>
+          <article><span class="n">04</span><h3>Un tabel doar pentru măsuri</h3><p><strong>Home → Enter data</strong>, un tabel gol numit „_Masuri”. Mutați măsurile acolo (Measure tools → Home table). Le găsiți toate într-un singur loc.</p></article>
+          <article><span class="n">05</span><h3>Ctrl+click pe butoane</h3><p>În Desktop, un buton sau un bookmark se testează cu <strong>Ctrl+click</strong>. Un click simplu doar selectează butonul pentru formatare.</p></article>
+          <article><span class="n">06</span><h3>Performance analyzer</h3><p><strong>Optimize → Performance analyzer → Start recording</strong>, apoi Refresh visuals. Vedeți ce vizual se încarcă greu și de ce: DAX query sau desenare.</p></article>
+        </div>
+      </article>
+
+      <!-- Încheiere -->
+      <article class="slide s5-framework">
+        <span class="slide-eyebrow">Încheiere</span>
+        <h2>Ce urmează: proiectele</h2>
+        <div class="s8-route s8-concepts s8-concepts-4" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+          <article><span class="n">Partea 1</span><h3>Recapitularea</h3><p>Nouă teme, douăzeci de exerciții, de la etapele BI la refresh-ul din Service. Ce ați greșit azi e ce reluați acasă</p></article>
+          <article><span class="n">Partea 2</span><h3>Imaginile</h3><p>O coloană de link-uri, Data category = Image URL, o măsură cu SELECTEDVALUE. Pagina cu afișe e gata de refolosit</p></article>
+          <article><span class="n">Partea 3</span><h3>Trucurile</h3><p>Format painter, Selection pane, Align, tabelul de măsuri. Folosiți-le din prima zi de proiect</p></article>
+        </div>
+        <div class="s8-links">
+          <a class="s8-download" href="proiecte/index.html" target="_blank" rel="noopener">Deschide proiectele finale</a>
+        </div>
+      </article>
+
+    </main>
+
+    <nav class="slide-nav">
+      <button class="slide-nav-btn" data-slide-prev>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Înapoi
+      </button>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+        <div class="slide-counter" data-slide-counter>1 / 2</div>
+        <div class="slide-dots" data-slide-dots></div>
+      </div>
+      <button class="slide-nav-btn" data-slide-next>
+        Următor
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </nav>
+  </div>
+  <script src="../../js/main.js"></script>
+  <script src="../../js/s12-date.js?v=1"></script>
+  <script src="../../js/s12-recap.js?v=2"></script>
+  <script src="../../js/s12.js?v=2"></script>
+</body>
+</html>

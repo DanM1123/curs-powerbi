@@ -1,0 +1,61 @@
+{
+  "companie": "Endava România SRL (grupul Endava plc, NYSE: DAVA)",
+  "context": "Firma a fost înființată în 1997, are sediul social în Cluj-Napoca (CUI 9533457, CAEN 6210 – dezvoltare software la comandă) și birouri în 10 orașe din România. Livrează proiecte pentru clienți din UK, America de Nord și Europa.",
+  "perioada_date": ["2023-01-01", "2025-12-31"],
+  "calibrare": {
+    "cifra_afaceri_ron": {"2023": 1350000000, "2024": 1260000000, "2025": 1180000000},
+    "profit_net_ron": {"2024": 133600000, "2025": 117000000},
+    "angajati_medii": {"2023": 4372, "2024": 3333, "2025": 4023},
+    "grup_FY2025": {"venituri_gbp": 772300000, "headcount_30_06_2025": 11479, "headcount_30_06_2024": 12085},
+    "mix_industrii_FY2025": {"Payments": 0.19, "Banking & Capital Markets": 0.20, "Insurance": 0.09, "TMT": 0.19, "Mobility": 0.08, "Healthcare": 0.12, "Other": 0.13},
+    "mix_industrii_FY2024": {"Payments": 0.24, "Banking & Capital Markets": 0.15, "Insurance": 0.08, "TMT": 0.23, "Mobility": 0.10, "Healthcare": 0.06, "Other": 0.14},
+    "mix_geografii_FY2025": {"North America": 0.38, "United Kingdom": 0.33, "Europe": 0.23, "Rest of World": 0.06},
+    "nota": "Cifrele RO sunt de la Ministerul Finanțelor (via profit.ro, ZF, bugetul.ro). Mixul pe industrii și geografii e cel al grupului (raportul FY2025, SEC) și se aplică proiectelor din România. Vânzarea de servicii e cost + marjă, deci tariful mediu facturabil ≈ CA / (angajați facturabili × ore facturabile)."
+  },
+  "centre_romania": ["Cluj-Napoca", "București", "Iași", "Timișoara", "Brașov", "Sibiu", "Craiova", "Pitești", "Târgu Mureș", "Suceava"],
+  "pondere_centre": {"Cluj-Napoca": 0.27, "București": 0.24, "Iași": 0.15, "Timișoara": 0.09, "Brașov": 0.07, "Sibiu": 0.05, "Craiova": 0.05, "Pitești": 0.03, "Târgu Mureș": 0.03, "Suceava": 0.02},
+  "nota_centre": "Lista de orașe e din presă (economedia/actualdecluj); ponderile sunt estimate (Clujul e sediul și cel mai mare centru).",
+  "roluri": [
+    {"rol": "Software Developer",    "pondere": 0.42},
+    {"rol": "QA / Test Engineer",    "pondere": 0.14},
+    {"rol": "Business Analyst",      "pondere": 0.07},
+    {"rol": "DevOps / Cloud Engineer","pondere": 0.07},
+    {"rol": "Data Engineer",         "pondere": 0.06},
+    {"rol": "UX/UI Designer",        "pondere": 0.04},
+    {"rol": "Scrum Master",          "pondere": 0.04},
+    {"rol": "Project Manager",       "pondere": 0.05},
+    {"rol": "Delivery Manager",      "pondere": 0.02},
+    {"rol": "Solution Architect",    "pondere": 0.03},
+    {"rol": "AI/ML Engineer",        "pondere": 0.03},
+    {"rol": "Support / Bench",       "pondere": 0.03}
+  ],
+  "senioritati": [
+    {"nivel": "Junior",    "pondere": 0.22, "cost_brut_lunar_ron": [7000, 10000]},
+    {"nivel": "Mid",       "pondere": 0.38, "cost_brut_lunar_ron": [12000, 17000]},
+    {"nivel": "Senior",    "pondere": 0.28, "cost_brut_lunar_ron": [18000, 26000]},
+    {"nivel": "Lead",      "pondere": 0.09, "cost_brut_lunar_ron": [25000, 33000]},
+    {"nivel": "Principal", "pondere": 0.03, "cost_brut_lunar_ron": [32000, 42000]}
+  ],
+  "nota_salarii": "Intervalele de cost salarial brut lunar sunt aproximări de piață IT RO 2024 (rapoarte publice de salarii IT). Costul orar = cost lunar / 168 h.",
+  "clienti_publici": [
+    {"nume": "Worldpay", "industrie": "Payments", "tara": "United Kingdom", "nota": "Endava e partener principal în regiune ca integrator pentru transformarea IT a Worldpay; peste 200 de angajați din RO și MD lucrează pentru Worldpay."},
+    {"nume": "Paysafe", "industrie": "Payments", "tara": "United Kingdom", "nota": "Parteneriat strategic cu steering committee comun."}
+  ],
+  "nota_clienti": "Doar Worldpay și Paysafe sunt confirmați public ca clienți în perioada setului. Parteneriatul cu Mastercard e anunțat abia în mai 2026, deci în afara perioadei. Restul clienților primesc nume anonime după industrie și țară (ex. 'Client Insurance UK #2'). Ponderea pe industrii respectă mixul raportat.",
+  "metodologii": ["Scrum", "Kanban", "SAFe", "Waterfall"],
+  "tipuri_proiect": ["Dezvoltare produs", "Modernizare legacy", "Migrare cloud", "Data & Analytics", "QA as a Service", "Integrare AI/GenAI", "Mentenanță aplicații"],
+  "status_proiect": ["Activ", "Finalizat", "În pauză", "Anulat"],
+  "categorii_risc": ["Resurse insuficiente", "Dependență de un expert-cheie", "Schimbare de scope", "Depășire buget", "Întârziere client", "Risc tehnic / integrare", "Securitate și conformitate", "Fluctuație de personal"],
+  "curs_bnr_mediu": {"GBP": {"2023": 5.69, "2024": 5.88, "2025": 5.95}},
+  "surse": [
+    "https://www.profit.ro/povesti-cu-profit/it-c/britanicii-de-la-endava-au-angajat-in-romania-dar-afacerile-si-profitul-net-au-scazut-22454078",
+    "https://www.zf.ro/business-hi-tech/britanicii-de-la-endava-au-raportat-al-doilea-an-consecutiv-de-23172988",
+    "https://www.bugetul.ro/endava-romania-crestere-angajati-scadere-profit-2025/",
+    "https://economedia.ro/britanicii-de-la-endava-au-renuntat-la-1000-de-angajati-din-romania-anul-trecut.html",
+    "https://termene.ro/firma/9533457",
+    "https://www.sec.gov/Archives/edgar/data/1656081/000165608125000038/endavapressreleaseq4fy25.htm",
+    "https://investors.endava.com/news-events/press-releases/detail/107/endava-announces-fourth-quarter-fiscal-year-2025-fiscal-year-2025-results",
+    "https://www.economica.net/endava-cu-operatiuni-si-in-romania-a-inregistrat-venituri-de-86-milioane-de-lire-sterline-in-ultimele-trei-luni-ale-anului-trecut_180792.html/amp",
+    "https://www.revistabiz.ro/parteneriat-intre-endava-si-paysafe-pentru-a-a-redefini-viitorul-platilor-si-al-comunitatilor-digitale/"
+  ]
+}

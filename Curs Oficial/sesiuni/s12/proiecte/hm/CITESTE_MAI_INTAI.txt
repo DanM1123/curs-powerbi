@@ -1,0 +1,13 @@
+Proiect final · Sesiunea 12 · H&M România (Fashion · retail omnichannel)
+========================================================================
+
+Cerințele complete: index.html (Curățare · Model · Raport publicat în Power BI Service).
+
+Fișiere (folderul date/, se curăță în Power Query):
+  Fact_Vanzari.xlsx            fapt       liniile de bon din magazine și online: produs, mărime, cantitate, preț, reducere, campanie
+  Fact_Retururi.xlsx           fapt       retururile: motiv, canal, cantitate, valoare, zile până la retur
+  Dim_Produse.xlsx             dimensiune articolele: tip, grup de produs, departament, culoare, colecție, preț
+  Dim_Magazine.xlsx            dimensiune magazinele H&M (cu adresă) și magazinul online
+  Dim_Clienti.xlsx             dimensiune membrii H&M și clientul generic fără card (ID 0)
+  Dim_Campanii.xlsx            dimensiune campaniile de reduceri și lunile în care rulează
+  Dim_Date.xlsx                dimensiune calendarul 2023–2025

@@ -1,0 +1,14 @@
+Proiect final · Sesiunea 12 · Construcții Erbașu (Construcții & instalații)
+===========================================================================
+
+Cerințele complete: index.html (Curățare · Model · Raport publicat în Power BI Service).
+
+Fișiere (folderul date/, se curăță în Power Query):
+  Fact_Situatii_Lucrari.xlsx   fapt       situațiile lunare de lucrări pe proiect și categorie: planificat vs. executat, avans, întârziere
+  Fact_Achizitii.xlsx          fapt       achizițiile de materiale și serviciile subcontractate pe proiect
+  Dim_Proiecte.xlsx            dimensiune proiectele din portofoliu: tip, oraș, beneficiar, valoare contract, termene
+  Dim_Beneficiari.xlsx         dimensiune autoritățile și investitorii pentru care se construiește
+  Dim_Categorii_Lucrari.xlsx   dimensiune categoriile de lucrări: structură, instalații electrice, sanitare, HVAC, finisaje…
+  Dim_Articole.xlsx            dimensiune materialele (cu producătorul) și serviciile subcontractate
+  Dim_Furnizori.xlsx           dimensiune producătorii, distribuitorii locali și subcontractorii
+  Dim_Date.xlsx                dimensiune calendarul 2023–2025

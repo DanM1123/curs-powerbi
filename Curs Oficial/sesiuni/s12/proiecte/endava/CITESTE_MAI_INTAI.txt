@@ -1,0 +1,14 @@
+Proiect final · Sesiunea 12 · Endava România (IT · Resource allocation & portofoliu de proiecte)
+================================================================================================
+
+Cerințele complete: index.html (Curățare · Model · Raport publicat în Power BI Service).
+
+Fișiere (folderul date/, se curăță în Power Query):
+  Fact_Pontaj.xlsx             fapt       orele pontate lunar pe angajat și proiect: facturabile, suplimentare, cost, venit
+  Fact_Alocari.xlsx            fapt       alocarea planificată pe angajat și proiect în fiecare lună (% din capacitate)
+  Dim_Angajati.xlsx            dimensiune angajații din centrele din România: rol, senioritate, cost orar, capacitate, angajare/plecare
+  Dim_Proiecte.xlsx            dimensiune proiectele (plus bench și pre-sales): client, tip, metodologie, buget, termene
+  Dim_Clienti.xlsx             dimensiune clienții: industrie, geografie, țară
+  Dim_Centre.xlsx              dimensiune cele 10 orașe cu birouri Endava din România
+  Dim_Riscuri.xlsx             dimensiune registrul de riscuri pe proiect: probabilitate, impact, scor, status
+  Dim_Date.xlsx                dimensiune calendarul 2023–2025 (faptele sunt lunare: prima zi a lunii)

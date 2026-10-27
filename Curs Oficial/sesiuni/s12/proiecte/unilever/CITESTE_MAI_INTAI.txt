@@ -1,0 +1,14 @@
+Proiect final · Sesiunea 12 · Unilever România (FMCG · bunuri de larg consum)
+=============================================================================
+
+Cerințele complete: index.html (Curățare · Model · Raport publicat în Power BI Service).
+
+Fișiere (folderul date/, se curăță în Power Query):
+  Fact_Vanzari.xlsx            fapt       livrările (sell-in) pe client și produs: baxuri, bucăți, preț, promoție, valoare netă
+  Fact_Target.xlsx             fapt       targetul lunar pe agent și categorie
+  Dim_Produse.xlsx             dimensiune produsele (SKU): brand, gramaj, bucăți pe bax, fabrică, preț de raft
+  Dim_Categorii.xlsx           dimensiune cele 4 categorii de business Unilever
+  Dim_Clienti.xlsx             dimensiune lanțurile de retail, cash & carry, online și distribuitorii
+  Dim_Agenti.xlsx              dimensiune KAM-ii și managerii de zonă
+  Dim_Promotii.xlsx            dimensiune mecanismele promoționale și discountul tipic
+  Dim_Date.xlsx                dimensiune calendarul 2023–2025
