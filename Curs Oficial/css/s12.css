@@ -258,3 +258,32 @@
 .s12-ctx-note { margin: 8px 0 0; font-size: 0.78rem; color: var(--text-3); }
 .s12-quiz, .s12-qbody, .s12-qbody > div, .s12-qsplit > * { min-width: 0; }
 [data-s12-posters] { overflow-x: auto; }
+
+/* ---------- drillthrough ---------- */
+.s12-drill { position: relative; }
+.s12-drill-list, .s12-drill-page { padding: 10px; }
+.s12-drill-bars { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3px 18px; }
+.s12-dbar { display: grid; grid-template-columns: 150px 1fr 40px; align-items: center; gap: 8px; padding: 2px 4px; border: 0; border-radius: 6px; background: none; font: inherit; font-size: 0.74rem; text-align: left; color: var(--text-2); cursor: context-menu; }
+.s12-dbar:hover { background: var(--bg-alt); }
+.s12-dbar span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.s12-dbar i { height: 9px; border-radius: 0 3px 3px 0; background: var(--primary); }
+.s12-dbar b { font-weight: 700; color: var(--text); }
+.s12-drill-menu { position: absolute; z-index: 3; min-width: 190px; padding: 4px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); box-shadow: 0 8px 24px rgb(0 0 0 / 0.22); font-size: 0.8rem; }
+.s12-drill-menu span { display: block; padding: 5px 10px; color: var(--text-3); }
+.s12-drill-menu button { display: block; width: 100%; padding: 6px 10px; border: 0; border-radius: 6px; background: var(--s12-gold-soft); color: var(--text); font: inherit; text-align: left; cursor: pointer; }
+.s12-drill-menu button em { font-style: normal; color: var(--text-3); margin: 0 2px; }
+.s12-drill-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.s12-drill-back { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 1.05rem; font-weight: 800; cursor: pointer; }
+.s12-drill-back:hover { border-color: var(--primary); }
+.s12-drill-chip { padding: 5px 10px; border-radius: 8px; background: var(--s12-gold-soft); font-size: 0.8rem; color: var(--text-2); }
+.s12-drill-chip b { color: var(--text); }
+.s12-drill-grid { display: grid; grid-template-columns: 200px 1fr; gap: 10px; }
+.s12-drill-poster img { width: 100%; border-radius: 6px; display: block; }
+.s12-drill-right { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.s12-drill-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.s12-drill .s12-tbl { margin-top: 0; }
+@media (max-width: 860px) {
+  .s12-drill-bars, .s12-drill-kpis { grid-template-columns: 1fr; }
+  .s12-drill-grid { grid-template-columns: 120px 1fr; }
+  .s12-dbar { grid-template-columns: 110px 1fr 36px; }
+}

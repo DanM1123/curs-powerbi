@@ -1,6 +1,7 @@
 /* Sesiunea 12 · Imagini în Power BI
    - data-s12-cinema          pagina despre filme: afișe, carduri, grafic evidențiat
    - data-s12-posters         rândul de afișe din tabelul Dim_Filme
+   - data-s12-drill           drillthrough: graficul festivalului → Fișa filmului
    Recapitularea e în s12-recap.js. */
 (function () {
   /* ---------- filmele ---------- */
@@ -73,5 +74,66 @@
       render();
     });
     render();
+  });
+
+  // drillthrough: pagina festivalului → Fișa filmului
+  document.querySelectorAll('[data-s12-drill]').forEach((root) => {
+    const sorted = F.filter((f) => fest[f.ID_Film]).sort((a, b) => fest[b.ID_Film].bil - fest[a.ID_Film].bil);
+    const max = fest[sorted[0].ID_Film].bil;
+    const zi = (d) => d.slice(8, 10) + '.' + d.slice(5, 7);
+    root.innerHTML =
+      '<div class="s12-pbi s12-drill">' +
+        '<div class="s12-pbi-bar"><span></span><b data-title>Festivalul Retro &amp; Blockbuster · Program</b><small>Cinema Lumière</small></div>' +
+        '<div class="s12-drill-list" data-list><div class="s12-pane"><small>Bar chart · Titlu_RO pe axă, suma Bilete_Vandute · click dreapta pe o bară</small><div class="s12-drill-bars">' +
+          sorted.map((f) => '<button type="button" class="s12-dbar" data-id="' + f.ID_Film + '"><span>' + f.Titlu_RO + '</span><i style="width:' + (fest[f.ID_Film].bil / max * 100).toFixed(1) + '%"></i><b>' + nf(fest[f.ID_Film].bil) + '</b></button>').join('') +
+        '</div></div></div>' +
+        '<div class="s12-drill-page" data-page hidden></div>' +
+        '<div class="s12-drill-menu" data-menu hidden><span>Include</span><span>Exclude</span><button type="button" data-go>Drill through <em>›</em> <b>Fișa filmului</b></button></div>' +
+      '</div>';
+    const list = root.querySelector('[data-list]'), page = root.querySelector('[data-page]'), menu = root.querySelector('[data-menu]');
+    const box = root.querySelector('.s12-drill');
+    let sel = null;
+
+    function openMenu(e, id) {
+      e.preventDefault();
+      sel = id;
+      const r = box.getBoundingClientRect();
+      menu.hidden = false;
+      menu.style.left = Math.min(e.clientX - r.left, r.width - menu.offsetWidth - 8) + 'px';
+      menu.style.top = (e.clientY - r.top) + 'px';
+    }
+    function showPage() {
+      const f = byId[sel], x = fest[sel];
+      const rows = D.proiectii.filter((p) => p[0] === sel).sort((a, b) => a[1].localeCompare(b[1]));
+      root.querySelector('[data-title]').textContent = 'Fișa filmului';
+      page.innerHTML =
+        '<div class="s12-drill-top"><button type="button" class="s12-drill-back" data-back title="Back">←</button><span class="s12-drill-chip">Drill through · Titlu_RO este <b>' + f.Titlu_RO + '</b></span></div>' +
+        '<div class="s12-drill-grid">' +
+          '<div class="s12-pane s12-drill-poster"><small>[Afis selectat]</small><img src="' + f.Poster_URL + '" alt="Afișul filmului ' + f.Titlu + '"></div>' +
+          '<div class="s12-drill-right">' +
+            '<div class="s12-kpis s12-drill-kpis">' + [
+              ['Bilete vândute', nf(x.bil), x.n + (x.n === 1 ? ' proiecție' : ' proiecții')],
+              ['Ocupare', nf(x.bil / x.loc * 100) + '%', nf(x.loc - x.bil) + ' locuri goale'],
+              ['Încasări festival', nf(x.ron) + ' RON', 'bilete × preț']
+            ].map((k) => '<div class="s12-pane s12-kpi"><small>' + k[0] + '</small><b>' + k[1] + '</b><em>' + k[2] + '</em></div>').join('') + '</div>' +
+            '<div class="s12-pane"><small>Table din Fact_Proiectii</small><table class="s12-tbl"><thead><tr><th>Data</th><th>Sala</th><th>Locuri</th><th>Bilete</th><th>Ocupare</th></tr></thead><tbody>' +
+              rows.map((p) => '<tr><td>' + zi(p[1]) + '</td><td>' + p[2] + '</td><td>' + p[3] + '</td><td>' + p[4] + '</td><td>' + nf(p[4] / p[3] * 100) + '%</td></tr>').join('') +
+            '</tbody></table></div>' +
+          '</div>' +
+        '</div>';
+      list.hidden = true; page.hidden = false; menu.hidden = true;
+    }
+    function back() {
+      root.querySelector('[data-title]').textContent = 'Festivalul Retro & Blockbuster · Program';
+      page.hidden = true; list.hidden = false;
+    }
+    root.addEventListener('contextmenu', (e) => { const b = e.target.closest('.s12-dbar'); if (b) openMenu(e, b.dataset.id); });
+    root.addEventListener('click', (e) => {
+      if (e.target.closest('[data-go]')) { showPage(); return; }
+      if (e.target.closest('[data-back]')) { back(); return; }
+      const b = e.target.closest('.s12-dbar');
+      if (b) { openMenu(e, b.dataset.id); return; }
+      menu.hidden = true;
+    });
   });
 })();

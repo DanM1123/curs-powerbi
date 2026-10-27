@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="../../css/s09.css?v=9" />
   <link rel="stylesheet" href="../../css/s10.css?v=10" />
   <link rel="stylesheet" href="../../css/s11.css?v=8" />
-  <link rel="stylesheet" href="../../css/s12.css?v=5" />
+  <link rel="stylesheet" href="../../css/s12.css?v=6" />
   <script src="../../js/gate.js"></script>
   <script src="../../js/firebase-init.js"></script>
 </head>
@@ -60,7 +60,7 @@
       <!-- 02 · Harta -->
       <article class="slide s5-framework">
         <span class="slide-eyebrow">Harta sesiunii</span>
-        <h2>Tot drumul de până acum, apoi un truc nou: imaginile</h2>
+        <h2>Tot drumul de până acum, apoi două trucuri noi: imaginile și drillthrough</h2>
         <p class="s5-oneline">Recapitulăm pe teme, în ordinea în care le-am învățat. Fiecare temă are exerciții de alt fel:</p>
         <div class="s12-formats"><span>Pune în ordine</span><span>Trage în coloană</span><span>Potrivește</span><span>Alege răspunsul</span><span>Adevărat sau fals</span><span>Alege desenul</span><span>Completează formula</span><span>Ce număr apare?</span><span>Întoarce cardul</span></div>
         <div class="s12-map">
@@ -74,6 +74,7 @@
           <article><span class="n">08</span><h3>Povestea paginii</h3><p>Întrebări, titluri, KPI</p></article>
           <article><span class="n">09</span><h3>Service și surse</h3><p>Import, refresh, gateway</p></article>
           <article class="is-img"><span class="n">Partea 2</span><h3>Imagini în Power BI</h3><p>Afișe de film dintr-o coloană de URL-uri</p></article>
+          <article class="is-img"><span class="n">Partea 3</span><h3>Drillthrough</h3><p>Din lista de filme în fișa unui singur film</p></article>
         </div>
       </article>
 
@@ -385,11 +386,71 @@ SELECTEDVALUE (
         </div>
       </article>
 
-      <!-- ============ PARTEA 3 · TIPS & TRICKS ============ -->
+      <!-- ============ PARTEA 3 · DRILLTHROUGH ============ -->
 
       <article class="slide s5-framework">
         <div class="s5-part-kicker">
-          <span class="slide-eyebrow">Partea 3 · Tips &amp; tricks</span>
+          <span class="slide-eyebrow">Partea 3 · Drillthrough</span>
+          <span class="s5-concept-pill is-fw">Ce este</span>
+        </div>
+        <h2>Drillthrough: din listă, în fișa unui singur film</h2>
+        <div class="s6-concept"><p><strong>Drillthrough</strong> înseamnă să sari de pe o pagină cu multe elemente pe o pagină de detaliu despre <strong>unul singur</strong>. Dai click dreapta pe bara unui film → <strong>Drill through → Fișa filmului</strong>. Power BI deschide pagina-fișă deja filtrată pe acel film și pune un buton Back ca să te întorci.</p></div>
+        <div class="s12-tips">
+          <article><span class="n">LA CE FOLOSEȘTE</span><h3>Pagina principală rămâne curată</h3><p>Pe pagina festivalului vezi toate filmele. Detaliile (afiș, proiecții, încasări) nu încap acolo, așa că stau pe o pagină separată, care se deschide doar când ai nevoie.</p></article>
+          <article><span class="n">O SINGURĂ FIȘĂ</span><h3>O pagină pentru 26 de filme</h3><p>Nu faci o pagină pentru fiecare film. Faci o singură fișă, iar drillthrough-ul o filtrează pe filmul pe care ai dat click.</p></article>
+          <article><span class="n">ÎNTREBAREA CITITORULUI</span><h3>„Ce e cu filmul ăsta?”</h3><p>Directoarea vede că un film vinde puțin și vrea să afle de ce: în ce sală rulează, la ce oră, câte locuri rămân goale. Răspunsul e la un click distanță.</p></article>
+        </div>
+        <div class="s12-steps is-three">
+          <article><span class="n">S</span><div><strong>Slicer</strong><p>Filtrează pagina pe care ești deja.</p></div></article>
+          <article><span class="n">T</span><div><strong>Tooltip</strong><p>Arată câteva cifre la hover, fără să pleci de pe pagină.</p></div></article>
+          <article><span class="n">D</span><div><strong>Drillthrough</strong><p>Te duce pe o pagină întreagă despre elementul ales, cu filtrul deja pus.</p></div></article>
+        </div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Drillthrough</span>
+          <span class="s5-concept-pill is-fw">Încearcă</span>
+        </div>
+        <h2>Click dreapta pe un film</h2>
+        <p class="s5-oneline">Aceleași două tabele ca la afișe: Dim_Filme și Fact_Proiectii. Dați click dreapta (sau click) pe o bară, apoi alegeți Drill through.</p>
+        <div data-s12-drill></div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Drillthrough</span>
+          <span class="s5-concept-pill is-fw">Construcția</span>
+        </div>
+        <h2>Fișa filmului, pas cu pas</h2>
+        <div class="s12-steps is-three">
+          <article><span class="n">1</span><div><strong>Pagina-fișă</strong><p>Pagină nouă, numită <strong>Fișa filmului</strong>. Aici vor ajunge toate drillthrough-urile.</p></div></article>
+          <article><span class="n">2</span><div><strong>Câmpul de drillthrough</strong><p>Pe pagina-fișă, în panoul Visualizations, la <strong>Drill through</strong>, tragi <code>Dim_Filme[Titlu_RO]</code>. Power BI adaugă singur butonul Back, sus în stânga.</p><span class="s12-path">Visualizations → Build → Drill through</span></div></article>
+          <article><span class="n">3</span><div><strong>Vizualele fișei</strong><p>Afișul cu măsura <code>[Afis selectat]</code> (acum e mereu un singur film), carduri cu bilete, ocupare și încasări, plus un Table din Fact_Proiectii: Data, Sala, Locuri, Bilete_Vandute.</p></div></article>
+          <article><span class="n">4</span><div><strong>Pagina de pornire</strong><p>Pe pagina festivalului: Bar chart cu <code>Titlu_RO</code> pe axă și suma Bilete_Vandute. Graficul trebuie să conțină <strong>exact câmpul</strong> pus la Drill through.</p></div></article>
+          <article><span class="n">5</span><div><strong>Folosește-l</strong><p>Click dreapta pe bara unui film → <strong>Drill through → Fișa filmului</strong>. În Desktop, butonul Back îl testezi cu Ctrl+click.</p></div></article>
+          <article><span class="n">6</span><div><strong>Ascunde fișa</strong><p>Click dreapta pe tab-ul paginii → <strong>Hide page</strong>. Deschisă direct, fișa n-ar avea niciun film ales.</p></div></article>
+        </div>
+      </article>
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 3 · Drillthrough</span>
+          <span class="s5-concept-pill is-fw">Când nu merge</span>
+        </div>
+        <h2>Trei lucruri de știut despre drillthrough</h2>
+        <div class="s12-tips">
+          <article><span class="n">01</span><h3>Nu apare în meniu</h3><p>Graficul de pornire nu conține câmpul de drillthrough. Dacă fișa așteaptă <code>Titlu_RO</code>, iar graficul are <code>ID_Film</code> pe axă, opțiunea nu apare. Folosește același câmp în ambele locuri.</p></article>
+          <article><span class="n">02</span><h3>Keep all filters</h3><p>Pornit (implicit), fișa preia și filtrele de pe pagina de pornire: dacă acolo ai ales Sala Mare, fișa arată doar proiecțiile din Sala Mare. Oprit, fișa vede doar filmul.</p></article>
+          <article><span class="n">03</span><h3>Un buton în loc de click dreapta</h3><p>Cititorii nu știu de click dreapta. <strong>Insert → Buttons → Blank</strong>, Action = <strong>Drill through</strong>, Destination = Fișa filmului. Butonul se activează după ce selectezi o bară.</p></article>
+        </div>
+      </article>
+
+      <!-- ============ PARTEA 4 · TIPS & TRICKS ============ -->
+
+      <article class="slide s5-framework">
+        <div class="s5-part-kicker">
+          <span class="slide-eyebrow">Partea 4 · Tips &amp; tricks</span>
           <span class="s5-concept-pill is-fw">Economisiți timp</span>
         </div>
         <h2>Trucuri mici pentru proiectul vostru</h2>
@@ -407,10 +468,11 @@ SELECTEDVALUE (
       <article class="slide s5-framework">
         <span class="slide-eyebrow">Încheiere</span>
         <h2>Ce urmează: proiectele</h2>
-        <div class="s8-route s8-concepts s8-concepts-4" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+        <div class="s8-route s8-concepts s8-concepts-4" style="grid-template-columns:repeat(2,minmax(0,1fr))">
           <article><span class="n">Partea 1</span><h3>Recapitularea</h3><p>Nouă teme, douăzeci de exerciții, de la etapele BI la refresh-ul din Service. Ce ați greșit azi e ce reluați acasă</p></article>
           <article><span class="n">Partea 2</span><h3>Imaginile</h3><p>O coloană de link-uri, Data category = Image URL, o măsură cu SELECTEDVALUE. Pagina cu afișe e gata de refolosit</p></article>
-          <article><span class="n">Partea 3</span><h3>Trucurile</h3><p>Format painter, Selection pane, Align, tabelul de măsuri. Folosiți-le din prima zi de proiect</p></article>
+          <article><span class="n">Partea 3</span><h3>Drillthrough</h3><p>O singură pagină-fișă, filtrată pe filmul pe care dai click. Câmpul de drillthrough trebuie să fie și în graficul de pornire</p></article>
+          <article><span class="n">Partea 4</span><h3>Trucurile</h3><p>Format painter, Selection pane, Align, tabelul de măsuri. Folosiți-le din prima zi de proiect</p></article>
         </div>
         <div class="s8-links">
           <a class="s8-download" href="proiecte/index.html" target="_blank" rel="noopener">Deschide proiectele finale</a>
@@ -437,6 +499,6 @@ SELECTEDVALUE (
   <script src="../../js/main.js"></script>
   <script src="../../js/s12-date.js?v=1"></script>
   <script src="../../js/s12-recap.js?v=2"></script>
-  <script src="../../js/s12.js?v=2"></script>
+  <script src="../../js/s12.js?v=3"></script>
 </body>
 </html>
