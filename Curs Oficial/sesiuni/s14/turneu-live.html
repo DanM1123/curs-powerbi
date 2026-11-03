@@ -210,7 +210,31 @@ input[type=text]:focus{border-color:var(--green)}
 .tally.bump{animation:tb .45s cubic-bezier(.2,1.6,.4,1)}
 @keyframes tb{40%{transform:scale(1.06)}}
 .qr.sm{width:150px;height:150px;margin:0;border-radius:16px}
-.vhere{text-align:left;padding-block:0}
+.ctl.vhere{text-align:left;padding-block:0;max-width:880px}
+/* site vote: who has voted, then one card with every criterion */
+.vstat{display:flex;align-items:center;gap:22px;padding:16px 24px;background:var(--panel);border:1px solid var(--line);border-radius:26px;max-width:880px;width:100%}
+.vstat .vs-n{flex:none;display:flex;align-items:baseline;gap:8px;font-variant-numeric:tabular-nums}
+.vstat .vs-n b{font:700 48px/1 var(--display);letter-spacing:-.04em;color:var(--green)}
+.vstat .vs-n span{font:500 15px var(--body);color:var(--text-2)}
+.vstat .lbl{text-align:left;margin-bottom:8px}
+.vstat .wall{justify-content:flex-start;min-height:34px}
+.vstat .wall i{width:34px;height:34px;display:grid;place-items:center;font:700 15px var(--body);font-style:normal;color:#00170a;background:var(--green);box-shadow:0 0 0 3px rgba(48,209,88,.18)}
+.vstat .wall i:after{content:"✓"}
+.vstat .wall .none{font-size:14px;color:var(--text-3)}
+.vform{display:grid;gap:6px}
+.vform h3{font-size:24px;margin:0}
+.vform .sub{margin:2px 0 8px}
+.vf-row{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.vf-head{border-top:0;padding-bottom:4px}
+.vf-p{display:flex;gap:8px;align-items:center;min-width:0}.vf-p b{font:600 15px var(--display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.vf-p .hex{width:28px;font-size:10px}
+.vf-c b{display:block;font:600 15px var(--body)}.vf-c small{display:block;font-size:12px;line-height:1.35;color:var(--text-3)}
+.vform .stars button{height:40px}
+.vform .btn{margin-top:12px}
+.vdone{display:flex;align-items:center;gap:16px;text-align:left}
+.vdone .vd-ic{flex:none;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font:700 26px var(--display);color:#00170a;background:var(--green);animation:pop .5s cubic-bezier(.2,1.6,.4,1) both}
+.vdone h3{font-size:20px;margin:0}.vdone .status{text-align:left;min-height:0;margin:2px 0 0}
+.vdone .link{margin-left:auto;flex:none}
+@media (max-width:720px){.vf-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 12px}.vf-c{grid-column:1/-1}.vf-head .vf-c{display:none}.vstat{flex-direction:column;align-items:flex-start;gap:10px}}
 .votezone{display:flex;gap:28px;align-items:center;justify-content:center;flex-wrap:wrap;padding-block:22px}
 .votezone .crit-mini{display:grid;gap:8px;text-align:left}
 .votezone .crit-mini div{display:flex;gap:10px;align-items:center;font-size:14px;color:var(--text-2)}
@@ -361,7 +385,7 @@ input[type=text]:focus{border-color:var(--green)}
 .hold span{position:relative;z-index:1}
 .hold.go span{color:#00170a}
 .locked{text-align:center;padding:26px 10px}
-.locked .ok{width:92px;height:92px;margin:0 auto 16px;border-radius:50%;display:grid;place-items:center;font-size:42px;color:#00170a;background:var(--green);box-shadow:0 0 0 10px rgba(48,209,88,.12),0 20px 50px -10px rgba(48,209,88,.7);animation:pop .6s cubic-bezier(.2,1.6,.4,1) both}
+.locked .okmark{width:92px;height:92px;margin:0 auto 16px;border-radius:50%;display:grid;place-items:center;font-size:42px;color:#00170a;background:var(--green);box-shadow:0 0 0 10px rgba(48,209,88,.12),0 20px 50px -10px rgba(48,209,88,.7);animation:pop .6s cubic-bezier(.2,1.6,.4,1) both}
 .status{font-size:14px;color:var(--text-2);text-align:center;min-height:1.4em}
 .status.ok{color:var(--green)}
 .link{background:none;border:0;color:var(--text-2);font-size:14px;padding:6px}
@@ -526,9 +550,9 @@ function siteRuntime(){
     return ()=>subs.delete(s);
   }
   const db={doc:p=>({set:v=>req(p,'PUT',v),onSnapshot:(cb,err)=>stream(p,v=>cb({exists:v!=null,data:()=>v,metadata:{fromCache:false}}),err)})};
-  /* peers: online = heartbeat in the last 45 s; changes are reported like the claude.ai room does */
+  /* peers: online = heartbeat in the last 100 s (browsers slow down timers in background tabs); changes are reported like the claude.ai room does */
   let peersV={},prev={};const pcbs=[];
-  const list=()=>{const now=Date.now()+off;return Object.entries(peersV).filter(([,p])=>p&&p.kind==='viewer'&&(p.t||0)>now-45000)
+  const list=()=>{const now=Date.now()+off;return Object.entries(peersV).filter(([,p])=>p&&p.kind==='viewer'&&(p.t||0)>now-100000)
     .map(([k,p])=>({peer:k,by:p.by,kind:'viewer',sameTab:k===me,presence:p.presence||{}}))};
   function emit(){
     const joined=[],updated=[],left=[],seen={};
@@ -828,12 +852,12 @@ function sMatch(){
   if(stage==='A')btns=[`<button class="btn big" id="primary" data-act="stage" data-s="B">Gata · prezintă ${esc(first(B.name))} <kbd>Space</kbd></button>`];
   if(stage==='B')btns=[`<button class="btn big" id="primary" data-act="stage" data-s="vote">Gata · votul <kbd>Space</kbd></button>`];
   if(stage==='vote'){
-    core=`<div class="tally" id="tally"><svg viewBox="0 0 120 120"><circle class="bgc" cx="60" cy="60" r="56"/><circle class="fg" id="vfg" cx="60" cy="60" r="56"/></svg><div><div class="big-n" id="vcount">0</div><div class="of" id="vof"></div><div class="lbl">voturi blocate</div></div></div>`;
-    caption=(SITE?'<div class="ctl vhere"><div id="vbox"></div></div>':`<div class="votezone"><div class="crit-mini">${CATS.map((c,i)=>`<div><b>${i+1}</b>${c.t}</div>`).join('')}</div></div>`)+`
-      <div class="wall" id="wall"></div>
-      <p>${SITE?'Fiecare dă note de pe ecranul lui. Rezultatul apare singur când au votat toți cei conectați.':role==='host'?'Rezultatul apare singur când au votat toți cei conectați. Concurenții nu votează în propriul duel.':'Adăugați voturile cu „Vot manual”, apoi închideți votul de jos.'}</p>`;
+    if(!SITE)core=`<div class="tally" id="tally"><svg viewBox="0 0 120 120"><circle class="bgc" cx="60" cy="60" r="56"/><circle class="fg" id="vfg" cx="60" cy="60" r="56"/></svg><div><div class="big-n" id="vcount">0</div><div class="of" id="vof"></div><div class="lbl">voturi blocate</div></div></div>`;
+    caption=(SITE?'<div class="vstat"><div class="vs-n"><b id="vcount">0</b><span id="vof"></span></div><div style="min-width:0;flex:1"><div class="lbl">au votat</div><div class="wall" id="wall"></div></div></div><div class="ctl vhere"><div id="vbox"></div></div>':`<div class="votezone"><div class="crit-mini">${CATS.map((c,i)=>`<div><b>${i+1}</b>${c.t}</div>`).join('')}</div></div>`)+`
+      ${SITE?'':'<div class="wall" id="wall"></div>'}
+      <p>${SITE?'Fiecare dă note de pe ecranul lui. Când au votat toți, apăsați „Vezi rezultatele”.':role==='host'?'Rezultatul apare singur când au votat toți cei conectați. Concurenții nu votează în propriul duel.':'Adăugați voturile cu „Vot manual”, apoi închideți votul de jos.'}</p>`;
   }
-  if((stage==='vote'||stage==='tb')&&isCtl())btns=[`<button class="btn dark" data-act="manual">+ Vot manual</button>`,`<button class="btn" data-act="closevote">Închide votul</button>`];
+  if((stage==='vote'||stage==='tb')&&isCtl())btns=[`<button class="btn dark" data-act="manual">+ Vot manual</button>`,`<button class="btn" data-act="closevote">${SITE?'Vezi rezultatele':'Închide votul'}</button>`];
   if(res&&sc){
     const tie=stage==='tb'?`<div class="tbq"><div class="lbl">Egalitate · întrebare de departajare</div><h2>${esc(TBQ)}</h2>
       <div class="tbn"><span class="big-n" id="tbcount">0</span><span id="tbof"></span></div>
@@ -843,7 +867,7 @@ function sMatch(){
     if(stage==='reveal'&&(x.w||animReveal))btns=[isFinal()?`<button class="btn big pulse" id="primary" data-act="champ" ${animReveal?'disabled':''}>Ceremonia <kbd>Space</kbd></button>`:`<button class="btn big" id="primary" data-act="back" ${animReveal?'disabled':''}>Mai departe <kbd>Space</kbd></button>`];
   }
   app.innerHTML=hud()+`<main class="screen"><div class="gut"><div class="stagebar">${STAGES.map((s,i)=>`<span class="${i===si?'on':i<si?'done':''}"></span>`).join('')}</div></div>
-    <div class="duel ${res?'compact':''}" id="duel">${half(A,'a')}${half(B,'b')}<div class="core">${core}</div></div>
+    <div class="duel ${res||(SITE&&stage==='vote')?'compact':''}" id="duel">${half(A,'a')}${half(B,'b')}<div class="core">${core}</div></div>
     <div class="capt gut" id="capt">${caption}</div></main>`+(btns.length?dock(btns):'');
   if(stage==='intro'){SFX.whoosh();setTimeout(()=>{SFX.hit();shake()},450)}
   if(stage==='vote'||res)watchBallots(x.code);
@@ -894,7 +918,7 @@ function onVotes(){
     if(fg){fg.style.strokeDasharray=C;fg.style.strokeDashoffset=C*(1-(exp?Math.min(1,n/exp):0))}
     if(of)of.textContent=exp?'din '+exp:'';
     if(n!==lastN){el.textContent=n;if(lastN>=0){const t=$('#tally');if(t){t.classList.remove('bump');void t.offsetWidth;t.classList.add('bump')}}lastN=n;paintWall()}
-    if(role==='host'&&S.cur.stage==='vote'&&exp&&n>=exp&&!autoT)autoT=setTimeout(()=>{autoT=null;if(S.phase==='match'&&S.cur.stage==='vote')doReveal(true)},1600+Math.random()*1200);
+    if(!SITE&&role==='host'&&S.cur.stage==='vote'&&exp&&n>=exp&&!autoT)autoT=setTimeout(()=>{autoT=null;if(S.phase==='match'&&S.cur.stage==='vote')doReveal(true)},1600+Math.random()*1200);
   }
   if(role==='viewer'||SITE){paintMyStatus();paintTBStatus()}
 }
@@ -902,7 +926,7 @@ async function paintWall(){
   const el=$('#wall');if(!el)return;
   const ks=Object.keys(ballots).filter(k=>okBallot(ballots[k])),ids=ks.filter(k=>!/^[pm]:/.test(k));
   let ps={};if(user&&ids.length){try{ps=await user.profiles(ids)}catch(e){}}
-  el.innerHTML='';ks.slice(0,60).forEach(k=>{const p=ps[k];if(p&&p.avatarUrl){const i=document.createElement('img');i.src=p.avatarUrl;i.alt='';i.title=p.name||'';el.appendChild(i)}else el.appendChild(document.createElement('i'))});
+  el.innerHTML=SITE&&!ks.length?'<span class="none">încă nimeni</span>':'';ks.slice(0,60).forEach(k=>{const p=ps[k];if(p&&p.avatarUrl){const i=document.createElement('img');i.src=p.avatarUrl;i.alt='';i.title=p.name||'';el.appendChild(i)}else el.appendChild(document.createElement('i'))});
 }
 
 /* reveal: bars count with suspense, swinging above and below the real value until they settle */
@@ -973,7 +997,7 @@ let tbT=null;
 function onTB(){
   const el=$('#tbcount');
   if(el){const c=tbCounts(),n=c.a+c.b,exp=expected();el.textContent=n;const of=$('#tbof');if(of)of.textContent=exp?'din '+exp+' au răspuns':'au răspuns';
-    if(role==='host'&&S.cur.stage==='tb'&&exp&&n>=exp&&!tbT)tbT=setTimeout(()=>{tbT=null;if(S.phase==='match'&&S.cur.stage==='tb')resolveTB()},1600+Math.random()*1200)}
+    if(!SITE&&role==='host'&&S.cur.stage==='tb'&&exp&&n>=exp&&!tbT)tbT=setTimeout(()=>{tbT=null;if(S.phase==='match'&&S.cur.stage==='tb')resolveTB()},1600+Math.random()*1200)}
   if(role==='viewer')paintTBStatus();
 }
 function resolveTB(){
@@ -1092,10 +1116,11 @@ function afterCtl(){
 const WORD=['','Slab','Acceptabil','Bun','Foarte bun','Excelent'];
 function paintVote(){
   const box=$('#vbox');if(!box)return;
+  if(SITE)return paintVoteSite(box);
   const x=cx(),A=P(x.a),B=P(x.b),code=x.code,sel=myVotes[code]=myVotes[code]||Array(8).fill(0);
   const i=myCard[code]||0,k=myKey(),locked=k&&okBallot(ballots[k]);
   const dots=`<div class="dots">${[0,1,2,3].map(j=>`<i class="${j===i?'on':sel[j]&&sel[4+j]?'done':''}"></i>`).join('')}</div>`;
-  if(i===5){box.innerHTML=`<div class="card locked"><div class="ok">✓</div><h2>Vot blocat</h2><p class="status ${locked?'ok':''}" id="mystatus">${locked?'Votul tău a ajuns pe ecranul mare.':'Se confirmă…'}</p><button class="link" data-act="vedit">Schimbă votul</button></div>`;return}
+  if(i===5){box.innerHTML=`<div class="card locked"><div class="okmark">✓</div><h2>Vot blocat</h2><p class="status ${locked?'ok':''}" id="mystatus">${locked?'Votul tău a ajuns pe ecranul mare.':'Se confirmă…'}</p><button class="link" data-act="vedit">Schimbă votul</button></div>`;return}
   if(i===4){
     box.innerHTML=`<div class="card vcard"><div class="vtop"><span class="n">Rezumat</span><span class="ic">🗳️</span></div><h3>Verifică notele</h3>
       <div class="sum"><div><span></span><b>${esc(ini(A.name))}</b><b>${esc(ini(B.name))}</b></div>${CATS.map((c,j)=>`<div><span>${c.ic} ${c.s}</span><b>${sel[j]}</b><b>${sel[4+j]}</b></div>`).join('')}
@@ -1115,6 +1140,20 @@ function paintVote(){
     <div class="ticks"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></div>`};
   box.innerHTML=`<div class="card vcard"><div class="vtop"><span class="n">Criteriul ${i+1} din 4</span><span class="ic">${c.ic}</span></div><h3>${c.t}</h3><p>${c.d}</p>${row(A,0)}${row(B,1)}
     <div class="vnav">${i?`<button class="btn dark" data-act="vcard" data-i="${i-1}" style="flex:0 0 auto">←</button>`:''}<button class="btn" id="vnext" data-act="vcard" data-i="${i+1}" ${sel[i]&&sel[4+i]?'':'disabled'}>${i===3?'Vezi rezumatul':'Mai departe'}</button></div>${dots}</div>`;
+}
+/* course site: every criterion on one card, 1-5 for each report, then a button that sends the vote */
+function paintVoteSite(box){
+  const x=cx(),A=P(x.a),B=P(x.b),code=x.code,mine=ballots[myKey()];
+  /* after a reload, a vote already sent shows as sent */
+  if(myCard[code]===undefined&&okBallot(mine)){myVotes[code]=mine.slice();myCard[code]=5}
+  const sel=myVotes[code]=myVotes[code]||Array(8).fill(0);
+  if(myCard[code]===5){box.innerHTML=`<div class="card vdone"><span class="vd-ic">✓</span><div><h3>Votul tău a fost trimis</h3><p class="status" id="mystatus">Se confirmă…</p></div><button class="link" data-act="vedit">Schimbă votul</button></div>`;paintMyStatus();return}
+  const stars=j=>`<div class="stars" data-j="${j}">${[1,2,3,4,5].map(v=>`<button type="button" data-v="${v}" class="${sel[j]===v?'sel':sel[j]>v?'fill':''}" aria-label="${v}">${v}</button>`).join('')}</div>`;
+  const who=p=>`<span class="vf-p">${hex(p)}<b>${esc(p.name)}</b></span>`;
+  box.innerHTML=`<div class="card vform"><h3>Notează cele două rapoarte</h3><p class="sub">1 = slab · 5 = excelent. Dă o notă fiecărui raport la toate cele 4 criterii.</p>
+    <div class="vf-row vf-head"><span class="vf-c"></span>${who(A)}${who(B)}</div>
+    ${CATS.map((c,i)=>`<div class="vf-row"><span class="vf-c"><b>${c.ic} ${c.t}</b><small>${c.d}</small></span>${stars(i)}${stars(4+i)}</div>`).join('')}
+    <button class="btn big" id="vsend" data-act="lock" ${okBallot(sel)?'':'disabled'}>Am terminat de votat</button><p class="status" id="mystatus"></p></div>`;
 }
 function setSlider(el){
   const code=cx().code,sel=myVotes[code],j=+el.dataset.j,v=+el.value,wrap=el.closest('.rate'),num=wrap.querySelector('.num'),changed=sel[j]!==v;
@@ -1183,6 +1222,7 @@ function spawnEmoji(e){
 /* ---------------- events ---------------- */
 app.addEventListener('click',async e=>{
   const st=e.target.closest('#vbox .stars button');
+  if(st&&SITE){const sel=myVotes[cx().code];pickStar(st,sel);const b=$('#vsend');if(b)b.disabled=!okBallot(sel);return}
   if(st){const code=cx().code,sel=myVotes[code],i=myCard[code]||0;pickStar(st,sel);
     if(sel[i]&&sel[4+i]){const nb=$('#vbox [data-act=vcard][data-i="'+(i+1)+'"]');if(nb)nb.disabled=false;setTimeout(()=>{if((myCard[code]||0)===i){myCard[code]=i+1;paintVote()}},380)}return}
   const t=e.target.closest('[data-act]');if(!t)return;const a=t.dataset.act;
@@ -1191,7 +1231,7 @@ app.addEventListener('click',async e=>{
   if(a==='ready'){if(!room)return;myReady=!myReady;room.presence({ready:myReady}).catch(()=>{});render();return}
   if(a==='editjoin'){editJoin=true;render();return}
   if(a==='vcard'){myCard[cx().code]=+t.dataset.i;paintVote();return}
-  if(a==='vedit'){myCard[cx().code]=0;paintVote();return}
+  if(a==='vedit'){myCard[cx().code]=0;paintVote();onVotes();return}
   if(a==='lock')return lockVote();
   if(a==='tbv'){if(!room||!S.cur)return;const code=cx().code,v=t.dataset.v;(SITE?putBallot('tb:'+myKey(),v):room.presence({tb:{c:code,v}})).then(()=>{myTB[code]=v;render();if(navigator.vibrate)try{navigator.vibrate(30)}catch(err){}}).catch(()=>{const el=$('#tbst');if(el)el.textContent='Nu s-a putut trimite. Încearcă din nou.'});return}
   if(a==='party')return party();
@@ -1212,7 +1252,7 @@ app.addEventListener('click',async e=>{
   if(a==='play')return startMatch(+t.dataset.r,+t.dataset.m);
   if(a==='view'){S.phase='match';S.cur={r:+t.dataset.r,m:+t.dataset.m,stage:'reveal'};animReveal=false;save();render();return}
   if(a==='back'||a==='bracketv'){S.phase='bracket';S.cur=null;save();render();return}
-  if(a==='stage'){const sg=t.dataset.s;S.cur.stage=sg;save();render();if(sg==='vote'){splash('Votați','acum',1100);SFX.go()}else{splash(P(sg==='A'?cx().a:cx().b).name,'prezintă',1000);SFX.whoosh()}return}
+  if(a==='stage'){const sg=t.dataset.s;S.cur.stage=sg;save();render();if(sg==='vote'){splash('Votați',SITE?'pe ecranul vostru':'acum',1100);SFX.go()}else{splash(P(sg==='A'?cx().a:cx().b).name,'prezintă',1000);SFX.whoosh()}return}
   if(a==='closevote'){if(S.cur.stage==='vote')return doReveal(false);if(S.cur.stage==='tb')return resolveTB();return}
   if(a==='manual')return manualVote();
   if(a==='reveal')return doReveal();
