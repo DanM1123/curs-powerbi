@@ -210,6 +210,7 @@ input[type=text]:focus{border-color:var(--green)}
 .tally.bump{animation:tb .45s cubic-bezier(.2,1.6,.4,1)}
 @keyframes tb{40%{transform:scale(1.06)}}
 .qr.sm{width:150px;height:150px;margin:0;border-radius:16px}
+.vhere{text-align:left;padding-block:0}
 .votezone{display:flex;gap:28px;align-items:center;justify-content:center;flex-wrap:wrap;padding-block:22px}
 .votezone .crit-mini{display:grid;gap:8px;text-align:left}
 .votezone .crit-mini div{display:flex;gap:10px;align-items:center;font-size:14px;color:var(--text-2)}
@@ -487,6 +488,8 @@ function bg(){
 const LIVE=!!(window.claude&&typeof window.claude.use==='function');
 const SITE=!LIVE&&/^https?:$/.test(location.protocol);
 const FB='https://curspowerbi-7d88b-default-rtdb.europe-west1.firebasedatabase.app/curs-oficial/s14/arena';
+/* on the site every screen plays the arena, so sound starts off; each screen remembers its choice */
+if(SITE){sound=false;try{const v=localStorage.getItem('arena-sound');if(v)sound=v==='1'}catch(e){}}
 let role='local',db=null,room=null,user=null,myId=null,myName='';
 let S=fresh(),ready=false,viewKey='',animReveal=false,drawTok=0,tickH=null;
 let ballots={},ballotsCode=null,ballotsUnsub=null;
@@ -495,69 +498,54 @@ let joinSent=false,myReady=false,lastReact=0,readySig='';
 const isCtl=()=>role!=='viewer';
 
 /* course site: the db / room / user calls the page makes on claude.ai, backed by Firebase's REST API.
-   Values arrive live as server-sent events; viewers keep a heartbeat in peers/<id> so the trainer sees who is online. */
+   Values arrive live as server-sent events. Everyone sees the same arena and can drive it; each tab is one voter,
+   with a heartbeat in peers/<id> so the arena knows how many votes to wait for. */
 function siteRuntime(){
-  const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){return null}};
-  const q=new URLSearchParams(location.search);
-  let me=ls('arena-me');if(!me){me='v'+rid()+rid();ls('arena-me',me)}
-  /* the arena screen has its own id per tab, so a vote tab in the same browser still counts as a separate viewer */
-  let hid;try{hid=sessionStorage.getItem('arena-hid');if(!hid){hid='h'+rid()+rid();sessionStorage.setItem('arena-hid',hid)}}catch(e){hid='h'+rid()+rid()}
-  const url=p=>FB+'/'+p+'.json';
+  let me;try{me=sessionStorage.getItem('arena-me');if(!me){me='v'+rid()+rid();sessionStorage.setItem('arena-me',me)}}catch(e){me='v'+rid()+rid()}
+  const url=p=>FB+(p?'/'+p:'')+'.json';
   const req=(p,method,body)=>fetch(url(p),{method,body:body===undefined?undefined:JSON.stringify(body),keepalive:method==='DELETE'}).then(r=>{if(!r.ok)throw new Error(method+' '+r.status);return r.json()});
   let conn=false,off=0;const connCbs=[],setConn=c=>{if(c!==conn){conn=c;connCbs.forEach(f=>f(c))}};
-  const clockP=req('clock','PUT',{'.sv':'timestamp'}).then(t=>{off=t-Date.now()}).catch(()=>{});
-  /* the page is the arena screen, unless opened through vot.html (?vot) or while another device already runs the arena;
-     ?trainer takes the arena over from that device */
-  const hostP=q.has('vot')?Promise.resolve(false):q.has('trainer')?Promise.resolve(true):clockP.then(()=>req('host','GET')).then(h=>!(h&&h.id!==hid&&(h.t||0)>Date.now()+off-45000)).catch(()=>true);
+  req('clock','PUT',{'.sv':'timestamp'}).then(t=>{off=t-Date.now()}).catch(()=>{});
+  /* one live stream of the whole arena per tab (browsers allow only a few open connections per server);
+     each listener gets its path whenever that part changes */
+  let root=null,loaded=false;const subs=new Set();
+  const at=(path,v)=>{const ks=path.split('/').filter(Boolean);if(!ks.length){root=v;return}
+    if(!root||typeof root!=='object')root={};let o=root;
+    for(let i=0;i<ks.length-1;i++){if(!o[ks[i]]||typeof o[ks[i]]!=='object')o[ks[i]]={};o=o[ks[i]]}
+    if(v==null)delete o[ks[ks.length-1]];else o[ks[ks.length-1]]=v};
+  const get=p=>p.split('/').filter(Boolean).reduce((o,k)=>o&&typeof o==='object'?o[k]:undefined,root);
+  const deliver=s=>{const v=get(s.p),j=JSON.stringify(v==null?null:v);if(j!==s.last){s.last=j;s.cb(JSON.parse(j))}};
+  const fire=()=>{loaded=true;subs.forEach(deliver)};
+  const es=new EventSource(url(''));
+  es.addEventListener('put',e=>{const m=JSON.parse(e.data);at(m.path,m.data);fire()});
+  es.addEventListener('patch',e=>{const m=JSON.parse(e.data);for(const k in m.data)at(m.path+'/'+k,m.data[k]);fire()});
+  es.addEventListener('cancel',()=>{es.close();subs.forEach(s=>s.err&&s.err())});
+  es.onopen=()=>setConn(true);es.onerror=()=>setConn(false);
   function stream(p,onValue,onError){
-    let val=null;
-    const at=(path,v)=>{const ks=path.split('/').filter(Boolean);if(!ks.length){val=v;return}
-      if(!val||typeof val!=='object')val={};let o=val;
-      for(let i=0;i<ks.length-1;i++){if(!o[ks[i]]||typeof o[ks[i]]!=='object')o[ks[i]]={};o=o[ks[i]]}
-      if(v==null)delete o[ks[ks.length-1]];else o[ks[ks.length-1]]=v};
-    const out=()=>onValue(val==null?null:JSON.parse(JSON.stringify(val)));
-    const es=new EventSource(url(p));
-    es.addEventListener('put',e=>{const m=JSON.parse(e.data);at(m.path,m.data);out()});
-    es.addEventListener('patch',e=>{const m=JSON.parse(e.data);for(const k in m.data)at(m.path+'/'+k,m.data[k]);out()});
-    es.addEventListener('cancel',()=>{es.close();if(onError)onError()});
-    es.onopen=()=>setConn(true);es.onerror=()=>setConn(false);
-    return ()=>es.close();
+    const s={p,cb:onValue,err:onError,last:undefined};subs.add(s);if(loaded)deliver(s);
+    return ()=>subs.delete(s);
   }
   const db={doc:p=>({set:v=>req(p,'PUT',v),onSnapshot:(cb,err)=>stream(p,v=>cb({exists:v!=null,data:()=>v,metadata:{fromCache:false}}),err)})};
   /* peers: online = heartbeat in the last 45 s; changes are reported like the claude.ai room does */
-  let peersV={},pres={},prev={},self=me;const pcbs=[];
+  let peersV={},prev={};const pcbs=[];
   const list=()=>{const now=Date.now()+off;return Object.entries(peersV).filter(([,p])=>p&&p.kind==='viewer'&&(p.t||0)>now-45000)
-    .map(([k,p])=>({peer:k,by:p.by,kind:'viewer',sameTab:k===self,presence:p.presence||{}}))};
+    .map(([k,p])=>({peer:k,by:p.by,kind:'viewer',sameTab:k===me,presence:p.presence||{}}))};
   function emit(){
     const joined=[],updated=[],left=[],seen={};
     list().forEach(p=>{const s=JSON.stringify(p.presence);seen[p.peer]=s;if(p.sameTab)return;if(!(p.peer in prev))joined.push(p);else if(prev[p.peer]!==s)updated.push(p)});
     for(const k in prev)if(!(k in seen))left.push({peer:k});
     prev=seen;if(joined.length||updated.length||left.length)pcbs.forEach(f=>f({joined,updated,left}));
   }
-  /* only the trainer listens to everyone; a browser keeps few streams open per server, so viewers skip this one */
-  hostP.then(host=>{
-    if(host){
-      self=hid;
-      stream('peers',v=>{peersV=v||{};emit()});setInterval(emit,5000);
-      /* another device took the arena over (?trainer): this one steps back to a viewer */
-      let mine=0,first=true;
-      const beat=()=>req('host','GET').then(h=>{
-        if(!first&&h&&h.id!==hid&&(h.t||0)>mine){location.replace(location.pathname);return}
-        first=false;return req('host','PUT',{id:hid,t:{'.sv':'timestamp'}}).then(v=>{mine=v.t})}).catch(()=>{});
-      beat();setInterval(beat,10000);
-      return;
-    }
-    req('peers/'+me+'/presence','GET').then(v=>{if(v&&typeof v==='object')pres=Object.assign({},v,pres)}).catch(()=>{});
-    const beat=()=>req('peers/'+me,'PATCH',{kind:'viewer',by:me,t:{'.sv':'timestamp'}}).catch(()=>{});
-    beat();setInterval(beat,15000);
-    addEventListener('pagehide',()=>{req('peers/'+me+'/t','DELETE').catch(()=>{})});
-    addEventListener('pageshow',e=>{if(e.persisted)beat()});
-  });
+  stream('peers',v=>{peersV=v||{};emit()});setInterval(emit,5000);
+  const beat=()=>req('peers/'+me,'PATCH',{kind:'viewer',by:me,t:{'.sv':'timestamp'}}).catch(()=>{});
+  beat();setInterval(beat,15000);
+  addEventListener('pagehide',()=>{req('peers/'+me+'/t','DELETE').catch(()=>{})});
+  addEventListener('pageshow',e=>{if(e.persisted)beat()});
   const room={peers:list,connected:()=>conn,
-    presence(o){Object.assign(pres,o);return req('peers/'+me,'PATCH',{kind:'viewer',by:me,presence:pres,t:{'.sv':'timestamp'}})},
+    presence:()=>Promise.resolve(),
     onPeers(cb){pcbs.push(cb);return ()=>{}},
     onConnection(cb){connCbs.push(cb);return ()=>{}}};
-  const user={canEdit:()=>hostP,me:async()=>({id:await hostP?hid:me,name:ls('arena-name')||''}),profiles:async()=>({})};
+  const user={canEdit:async()=>true,me:async()=>({id:me,name:''}),profiles:async()=>({})};
   return [user,db,room];
 }
 
@@ -566,14 +554,21 @@ function fresh(){return {id:rid(),phase:'lobby',players:[],rounds:[],cur:null,ti
 function normalize(d){if(!d||typeof d!=='object'||!d.id)return fresh();const s=JSON.parse(JSON.stringify(d)),f=fresh();for(const k in f)if(s[k]===undefined)s[k]=f[k];return s}
 function loadLocal(){try{return normalize(JSON.parse(localStorage.getItem(LKEY)))}catch(e){return fresh()}}
 
-let writing=false,dirty=false;
+let writing=false,dirty=false,sent='';
+/* the state as Firebase stores it (no nulls or empty containers, sorted keys), to recognise our own write coming back */
+function canon(v){
+  if(Array.isArray(v)){const a=v.map(canon).filter(x=>x!==undefined);return a.length?a:undefined}
+  if(v&&typeof v==='object'){const o={};Object.keys(v).sort().forEach(k=>{const c=canon(v[k]);if(c!==undefined)o[k]=c});return Object.keys(o).length?o:undefined}
+  return v==null?undefined:v;
+}
+const canonS=v=>JSON.stringify(canon(v));
 function save(){
   if(role==='local'){try{localStorage.setItem(LKEY,JSON.stringify(S))}catch(e){}return}
   if(role!=='host')return;dirty=true;flush();
 }
 async function flush(){
   if(writing)return;writing=true;
-  while(dirty){dirty=false;try{await db.doc('live/state').set(JSON.parse(JSON.stringify(S)))}catch(e){toast('Arena nu s-a salvat. Verifică conexiunea.')}}
+  while(dirty){dirty=false;try{const v=JSON.parse(JSON.stringify(S));sent=canonS(v);await db.doc('live/state').set(v)}catch(e){toast('Arena nu s-a salvat. Verifică conexiunea.')}}
   writing=false;
 }
 
@@ -587,6 +582,8 @@ async function boot(){
   const to=setTimeout(()=>{if(ready)return;if(cached)return accept(cached);app.innerHTML=hud()+'<div class="loading gut">Arena nu răspunde încă. Pagina se actualizează singură.</div>'},10000);
   function accept(snap){
     const dd=snap.exists?snap.data():null;
+    /* on the course site every screen drives the arena, so each one also follows the others' changes */
+    if(role==='host'&&ready&&SITE){if(canonS(dd)===sent)return;const prev=S;S=normalize(dd);return onRemote(prev,true)}
     if(role==='host'){if(ready)return;S=normalize(dd);settleDraw();ready=true;clearTimeout(to);render();onPeers({});return}
     const prev=S,was=ready;S=normalize(dd);ready=true;clearTimeout(to);onRemote(prev,was);
   }
@@ -597,7 +594,8 @@ async function boot(){
 
 const keyOf=p=>p.by||('p:'+p.peer);
 function myKey(){if(myId)return myId;if(!room)return null;const me=room.peers().find(p=>p.sameTab);return me?'p:'+me.peer:null}
-const viewers=()=>room?room.peers().filter(p=>p.kind==='viewer'&&!p.sameTab):[];
+/* on the course site this screen votes too, so it counts among the voters */
+const viewers=()=>room?room.peers().filter(p=>p.kind==='viewer'&&(SITE||!p.sameTab)):[];
 function readyKeys(){const s=new Set();viewers().forEach(p=>{if(p.presence&&p.presence.ready===true)s.add(keyOf(p))});return s}
 
 /* everything the room tells us: reactions for all screens; sign-ups, ready and ballots for the host */
@@ -633,7 +631,7 @@ function watchBallots(code){
   ballots={};
   ballotsUnsub=db.doc('ballots/'+code).onSnapshot(snap=>{
     const v=(snap.exists&&snap.data().v)||{};
-    if(role==='host'){let c=false;for(const k in v)if(!(k in ballots)){ballots[k]=v[k];c=true}if(c)onVotes()}
+    if(role==='host'&&!SITE){let c=false;for(const k in v)if(!(k in ballots)){ballots[k]=v[k];c=true}if(c)onVotes()}
     else{ballots=v;onVotes()}
   },()=>{});
 }
@@ -643,6 +641,12 @@ async function saveBallots(){
   bD=true;if(bW)return;bW=true;
   while(bD){bD=false;try{await db.doc('ballots/'+ballotsCode).set({v:JSON.parse(JSON.stringify(ballots))})}catch(e){toast('Voturile nu s-au salvat. Verifică conexiunea.')}}
   bW=false;
+}
+/* one ballot: on the course site each screen writes only its own key, so votes never overwrite each other */
+function putBallot(k,v){
+  ballots[k]=v;
+  if(!SITE||role==='local'){saveBallots();return Promise.resolve()}
+  return db.doc('ballots/'+ballotsCode+'/v/'+k).set(v).catch(e=>{toast('Votul nu s-a salvat. Verifică conexiunea.');throw e});
 }
 function tally(){
   const s=[[0,0,0,0],[0,0,0,0]];let n=0;
@@ -659,7 +663,7 @@ function onRemote(prev,was){
     const same=was&&S.phase==='match'&&nc.stage==='reveal'&&prev.phase==='match'&&pc&&pc.r===nc.r&&pc.m===nc.m;
     animReveal=same&&pc.stage==='vote'?'all':same&&pc.stage==='tb'?'tb':false;
     if(navigator.vibrate&&was)try{navigator.vibrate(60)}catch(e){}
-    render();return;
+    render();if(was&&role==='host'&&S.phase==='draw'&&prev.phase!=='draw')animateDraw();return;
   }
   if(S.phase==='lobby'||S.phase==='bracket'||S.phase==='draw')return keep(render);
   if(S.phase==='match'&&S.cur.stage==='reveal'){const x=cx(),px=prev.rounds[S.cur.r]&&prev.rounds[S.cur.r][S.cur.m];if(x.w&&px&&!px.w)render()}
@@ -702,7 +706,7 @@ function phaseLabel(){if(S.phase!=='match')return PH[S.phase];return rname(S.cur
 function hud(){
   const st=role==='host'?'<span class="pill on"><span class="dot"></span><span id="online">'+viewers().length+'</span>&nbsp;online</span>':role==='viewer'?'<span class="pill on"><span class="dot"></span><span id="online-me">live</span></span>':'<span class="pill"><span class="dot"></span>offline</span>';
   const mt=isCtl()&&S.phase==='match'&&S.cur?`<button class="ib" data-act="back">← Tablou</button>${S.cur.stage==='reveal'?'<button class="ib" data-act="undo">Anulează rezultatul</button>':''}`:'';
-  const tools=!isCtl()?(SITE?'<button class="ib" data-act="takeover">Ecranul mare</button>':''):mt+`<button class="ib" data-act="sound" aria-label="Sunet">${sound?'🔊':'🔇'}</button><button class="ib" data-act="full" aria-label="Ecran complet">⛶</button>${S.phase!=='lobby'?'<button class="ib" data-act="reset">↺ Arenă nouă</button>':''}${S.phase!=='lobby'||S.players.length?'<button class="ib" data-act="wipe">De la zero</button>':''}`;
+  const tools=!isCtl()?'':mt+`<button class="ib" data-act="sound" aria-label="Sunet">${sound?'🔊':'🔇'}</button><button class="ib" data-act="full" aria-label="Ecran complet">⛶</button>${S.phase!=='lobby'?'<button class="ib" data-act="reset">↺ Arenă nouă</button>':''}${S.phase!=='lobby'||S.players.length?'<button class="ib" data-act="wipe">De la zero</button>':''}`;
   const note=role==='local'?`<div class="notice gut" style="margin-inline:max(16px,env(safe-area-inset-left,0px))">${LIVE||SITE?'Nu te-ai putut conecta la arena live: pagina merge doar pe acest ecran și voturile se adaugă manual.':`Varianta offline: merge doar pe acest ecran, voturile se adaugă manual. Arena live, cu telefoanele cursanților, e <a href="${esc(SHARE_URL)}" target="_blank" rel="noopener">aici</a>.`}</div>`:'';
   return `<header class="hud gut"><div class="logo"><i>R</i>Arena Rapoartelor</div>${ready?`<span class="phase">${esc(phaseLabel())}</span>`:''}<span class="sp"></span>${st}${tools}</header>${note}`;
 }
@@ -737,7 +741,7 @@ function sLobby(){
     <div class="grid-h"><h2>Alege-ți luptătorii</h2><span class="count">${n} JUCĂTORI${size?' · TABLOU DE '+size:''}</span></div>
     <div class="roster">${cards}</div></div>
   <aside class="side-panel">
-    ${role==='host'?`<div class="box join"><h3>Votează</h3><p class="joinurl">${esc(SITE?location.host+location.pathname.replace(/[^/]*$/,'')+'vot':SHARE_URL.replace(/^https:\/\//,''))}</p><p class="lbl" style="margin:0">deschide linkul și dă note în fiecare duel</p></div>
+    ${role==='host'?`<div class="box join"><h3>Votează</h3><p class="joinurl">${esc(SITE?location.host+location.pathname.replace(/[^/]*$/,''):SHARE_URL.replace(/^https:\/\//,''))}</p><p class="lbl" style="margin:0">${SITE?'deschide Sesiunea 14 pe site: vezi arena și votezi în fiecare duel':'deschide linkul și dă note în fiecare duel'}</p></div>
     <div class="stats" style="grid-template-columns:1fr"><div><div class="big-n" id="online2">${viewers().length}</div><span class="lbl">online pentru vot</span></div></div>`:''}
     <div class="box"><h3>Cum se punctează</h3><div class="crit">${CATS.map((c,i)=>`<div><b>${pad2(i+1)}</b><span><strong>${c.ic} ${c.t}.</strong> ${c.d}</span></div>`).join('')}</div>
       <p class="lbl" style="margin:12px 0 0;line-height:1.6">Note 1–5 · scor = suma celor 4 medii · max 20</p></div>
@@ -825,15 +829,16 @@ function sMatch(){
   if(stage==='B')btns=[`<button class="btn big" id="primary" data-act="stage" data-s="vote">Gata · votul <kbd>Space</kbd></button>`];
   if(stage==='vote'){
     core=`<div class="tally" id="tally"><svg viewBox="0 0 120 120"><circle class="bgc" cx="60" cy="60" r="56"/><circle class="fg" id="vfg" cx="60" cy="60" r="56"/></svg><div><div class="big-n" id="vcount">0</div><div class="of" id="vof"></div><div class="lbl">voturi blocate</div></div></div>`;
-    caption=`<div class="votezone"><div class="crit-mini">${CATS.map((c,i)=>`<div><b>${i+1}</b>${c.t}</div>`).join('')}</div></div>
+    caption=(SITE?'<div class="ctl vhere"><div id="vbox"></div></div>':`<div class="votezone"><div class="crit-mini">${CATS.map((c,i)=>`<div><b>${i+1}</b>${c.t}</div>`).join('')}</div></div>`)+`
       <div class="wall" id="wall"></div>
-      <p>${role==='host'?'Rezultatul apare singur când au votat toți cei conectați. Concurenții nu votează în propriul duel.':'Adăugați voturile cu „Vot manual”, apoi închideți votul de jos.'}</p>`;
+      <p>${SITE?'Fiecare dă note de pe ecranul lui. Rezultatul apare singur când au votat toți cei conectați.':role==='host'?'Rezultatul apare singur când au votat toți cei conectați. Concurenții nu votează în propriul duel.':'Adăugați voturile cu „Vot manual”, apoi închideți votul de jos.'}</p>`;
   }
   if((stage==='vote'||stage==='tb')&&isCtl())btns=[`<button class="btn dark" data-act="manual">+ Vot manual</button>`,`<button class="btn" data-act="closevote">Închide votul</button>`];
   if(res&&sc){
     const tie=stage==='tb'?`<div class="tbq"><div class="lbl">Egalitate · întrebare de departajare</div><h2>${esc(TBQ)}</h2>
       <div class="tbn"><span class="big-n" id="tbcount">0</span><span id="tbof"></span></div>
-      <p>${role==='host'?'Cursanții aleg pe telefon unul dintre cele două rapoarte.':'Adăugați răspunsurile cu „Vot manual”.'}</p></div>`:'';
+      ${SITE?`<div class="tbpick">${[['a',A],['b',B]].map(([sd,p])=>`<button class="tbb ${myTB[x.code]===sd?'sel':''}" data-act="tbv" data-v="${sd}">${hex(p)}<b>${esc(p.name)}</b><small>${esc(pj(p.proj).n)}</small></button>`).join('')}</div><p class="status" id="tbst">${myTB[x.code]?'Trimis. Se confirmă…':'Alege un raport.'}</p>`
+        :`<p>${role==='host'?'Cursanții aleg pe telefon unul dintre cele două rapoarte.':'Adăugați răspunsurile cu „Vot manual”.'}</p>`}</div>`:'';
     caption=tie+boardHTML(x,A,B);
     if(stage==='reveal'&&(x.w||animReveal))btns=[isFinal()?`<button class="btn big pulse" id="primary" data-act="champ" ${animReveal?'disabled':''}>Ceremonia <kbd>Space</kbd></button>`:`<button class="btn big" id="primary" data-act="back" ${animReveal?'disabled':''}>Mai departe <kbd>Space</kbd></button>`];
   }
@@ -842,7 +847,7 @@ function sMatch(){
     <div class="capt gut" id="capt">${caption}</div></main>`+(btns.length?dock(btns):'');
   if(stage==='intro'){SFX.whoosh();setTimeout(()=>{SFX.hit();shake()},450)}
   if(stage==='vote'||res)watchBallots(x.code);
-  if(stage==='vote'){lastN=-1;if(role==='host')collect(viewers());onVotes()}
+  if(stage==='vote'){lastN=-1;if(role==='host')collect(viewers());if(SITE)paintVote();onVotes()}
   if(stage==='tb'){if(role==='host')collectTB(viewers());onTB()}
   if(stage==='reveal'&&sc&&animReveal)animateReveal(x);
 }
@@ -889,9 +894,9 @@ function onVotes(){
     if(fg){fg.style.strokeDasharray=C;fg.style.strokeDashoffset=C*(1-(exp?Math.min(1,n/exp):0))}
     if(of)of.textContent=exp?'din '+exp:'';
     if(n!==lastN){el.textContent=n;if(lastN>=0){const t=$('#tally');if(t){t.classList.remove('bump');void t.offsetWidth;t.classList.add('bump')}}lastN=n;paintWall()}
-    if(role==='host'&&S.cur.stage==='vote'&&exp&&n>=exp&&!autoT)autoT=setTimeout(()=>{autoT=null;if(S.phase==='match'&&S.cur.stage==='vote')doReveal(true)},1600);
+    if(role==='host'&&S.cur.stage==='vote'&&exp&&n>=exp&&!autoT)autoT=setTimeout(()=>{autoT=null;if(S.phase==='match'&&S.cur.stage==='vote')doReveal(true)},1600+Math.random()*1200);
   }
-  if(role==='viewer'){paintMyStatus();paintTBStatus()}
+  if(role==='viewer'||SITE){paintMyStatus();paintTBStatus()}
 }
 async function paintWall(){
   const el=$('#wall');if(!el)return;
@@ -968,7 +973,7 @@ let tbT=null;
 function onTB(){
   const el=$('#tbcount');
   if(el){const c=tbCounts(),n=c.a+c.b,exp=expected();el.textContent=n;const of=$('#tbof');if(of)of.textContent=exp?'din '+exp+' au răspuns':'au răspuns';
-    if(role==='host'&&S.cur.stage==='tb'&&exp&&n>=exp&&!tbT)tbT=setTimeout(()=>{tbT=null;if(S.phase==='match'&&S.cur.stage==='tb')resolveTB()},1600)}
+    if(role==='host'&&S.cur.stage==='tb'&&exp&&n>=exp&&!tbT)tbT=setTimeout(()=>{tbT=null;if(S.phase==='match'&&S.cur.stage==='tb')resolveTB()},1600+Math.random()*1200)}
   if(role==='viewer')paintTBStatus();
 }
 function resolveTB(){
@@ -1120,7 +1125,7 @@ function setSlider(el){
 }
 function lockVote(){
   const code=cx().code,sel=myVotes[code];if(!okBallot(sel)||!room)return;
-  room.presence({ballot:{c:code,s:sel.slice()}}).then(()=>{myCard[code]=5;paintVote();if(navigator.vibrate)try{navigator.vibrate([30,40,80])}catch(err){}})
+  (SITE?putBallot(myKey(),sel.slice()):room.presence({ballot:{c:code,s:sel.slice()}})).then(()=>{myCard[code]=5;paintVote();if(navigator.vibrate)try{navigator.vibrate([30,40,80])}catch(err){}})
     .catch(()=>{const ms=$('#mystatus');if(ms)ms.textContent='Votul nu s-a putut trimite. Verifică internetul și încearcă din nou.'});
 }
 app.addEventListener('input',e=>{if(e.target.classList&&e.target.classList.contains('slider'))setSlider(e.target)});
@@ -1141,7 +1146,7 @@ function manualVote(){
   const x=cx(),A=P(x.a),B=P(x.b),sel=Array(8).fill(0);
   if(S.cur.stage==='tb'){
     dlg.innerHTML=`<div class="dlg"><h3>Răspuns manual</h3><p>${esc(TBQ)}</p><div class="tbpick">${[['a',A],['b',B]].map(([sd,p])=>`<button class="tbb" data-v="${sd}">${hex(p)}<b>${esc(p.name)}</b></button>`).join('')}</div><div class="acts"><button class="btn dark" id="mno">Renunță</button></div></div>`;
-    dlg.querySelectorAll('.tbb').forEach(b=>b.onclick=()=>{watchBallots(x.code);ballots['tb:m:'+rid()]=b.dataset.v;saveBallots();dlg.close();SFX.pop();onTB()});
+    dlg.querySelectorAll('.tbb').forEach(b=>b.onclick=()=>{watchBallots(x.code);putBallot('tb:m:'+rid(),b.dataset.v);dlg.close();SFX.pop();onTB()});
     $('#mno').onclick=()=>dlg.close();dlg.showModal();return;
   }
   dlg.innerHTML=`<div class="dlg"><h3>Vot manual</h3><p>Pentru cine nu poate vota de pe telefon.</p>
@@ -1149,7 +1154,7 @@ function manualVote(){
   <div class="acts"><button class="btn dark" id="mno">Renunță</button><button class="btn" id="msave" disabled>Adaugă votul</button></div></div>`;
   dlg.querySelector('.dlg').onclick=e=>{const b=e.target.closest('.stars button');if(!b)return;pickStar(b,sel);$('#msave').disabled=!okBallot(sel)};
   $('#mno').onclick=()=>dlg.close();
-  $('#msave').onclick=()=>{watchBallots(x.code);ballots['m:'+rid()]=sel.slice();saveBallots();dlg.close();SFX.pop();onVotes()};
+  $('#msave').onclick=()=>{watchBallots(x.code);putBallot('m:'+rid(),sel.slice());dlg.close();SFX.pop();onVotes()};
   dlg.showModal();
 }
 function pickStar(btn,sel){const g=btn.parentNode,j=+g.dataset.j,v=+btn.dataset.v;sel[j]=v;g.querySelectorAll('button').forEach(z=>{const zv=+z.dataset.v;z.classList.toggle('sel',zv===v);z.classList.toggle('fill',zv<v)})}
@@ -1188,19 +1193,19 @@ app.addEventListener('click',async e=>{
   if(a==='vcard'){myCard[cx().code]=+t.dataset.i;paintVote();return}
   if(a==='vedit'){myCard[cx().code]=0;paintVote();return}
   if(a==='lock')return lockVote();
-  if(a==='tbv'){if(!room||!S.cur)return;const code=cx().code,v=t.dataset.v;room.presence({tb:{c:code,v}}).then(()=>{myTB[code]=v;render();if(navigator.vibrate)try{navigator.vibrate(30)}catch(err){}}).catch(()=>{const el=$('#tbst');if(el)el.textContent='Nu s-a putut trimite. Încearcă din nou.'});return}
+  if(a==='tbv'){if(!room||!S.cur)return;const code=cx().code,v=t.dataset.v;(SITE?putBallot('tb:'+myKey(),v):room.presence({tb:{c:code,v}})).then(()=>{myTB[code]=v;render();if(navigator.vibrate)try{navigator.vibrate(30)}catch(err){}}).catch(()=>{const el=$('#tbst');if(el)el.textContent='Nu s-a putut trimite. Încearcă din nou.'});return}
   if(a==='party')return party();
   if(a==='takeover'){if(await ask('Preiei ecranul mare?','Doar pentru trainer: arena se mută pe acest dispozitiv, iar celălalt ecran trece pe vot.','Preiau'))location.replace(location.pathname+'?trainer');return}
   if(!isCtl())return;
   /* projector */
-  if(a==='sound'){sound=!sound;t.textContent=sound?'🔊':'🔇';if(sound)SFX.pop();return}
+  if(a==='sound'){sound=!sound;try{localStorage.setItem('arena-sound',sound?'1':'0')}catch(err){}t.textContent=sound?'🔊':'🔇';if(sound)SFX.pop();return}
   if(a==='full'){const d=document.documentElement;try{document.fullscreenElement?document.exitFullscreen():d.requestFullscreen&&d.requestFullscreen().catch(()=>{})}catch(err){}return}
   if(a==='add')return addPlayer();
   if(a==='rm'){const p=S.players.find(x=>x.id===t.dataset.id);if(p&&p.key)S.removed.push(p.key);S.players=S.players.filter(x=>x.id!==t.dataset.id);save();render();return}
   if(a==='draw'){if(S.players.length>=2)runDraw();return}
   /* back to an empty lobby: players, bracket, votes and the site's sign-ups all go */
   if(a==='wipe'){if(!await ask('Arena de la zero?','Se șterg jucătorii, tabloul, voturile și reacțiile. Cursanții se înscriu din nou.','De la zero'))return;
-    if(SITE&&role==='host')['peers','ballots'].forEach(p=>fetch(FB+'/'+p+'.json',{method:'DELETE'}).catch(()=>{}));
+    if(SITE)fetch(FB+'/ballots.json',{method:'DELETE'}).catch(()=>{});
     S=fresh();save();render();return}
   if(a==='reset'){if(!await ask('Arenă nouă?','Jucătorii rămân. Tabloul, voturile și reacțiile se șterg.','Arenă nouă'))return;
     const pl=S.players,tm=S.timer,rm=S.removed;S=fresh();S.players=pl;S.timer=tm;S.removed=rm;save();render();return}
