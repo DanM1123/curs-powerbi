@@ -528,9 +528,9 @@ function siteRuntime(){
   }
   const db={doc:p=>({set:v=>req(p,'PUT',v),onSnapshot:(cb,err)=>stream(p,v=>cb({exists:v!=null,data:()=>v,metadata:{fromCache:false}}),err)})};
   /* peers: online = heartbeat in the last 45 s; changes are reported like the claude.ai room does */
-  let peersV={},pres={},prev={};const pcbs=[];
+  let peersV={},pres={},prev={},self=me;const pcbs=[];
   const list=()=>{const now=Date.now()+off;return Object.entries(peersV).filter(([,p])=>p&&p.kind==='viewer'&&(p.t||0)>now-45000)
-    .map(([k,p])=>({peer:k,by:p.by,kind:'viewer',sameTab:k===me,presence:p.presence||{}}))};
+    .map(([k,p])=>({peer:k,by:p.by,kind:'viewer',sameTab:k===self,presence:p.presence||{}}))};
   function emit(){
     const joined=[],updated=[],left=[],seen={};
     list().forEach(p=>{const s=JSON.stringify(p.presence);seen[p.peer]=s;if(p.sameTab)return;if(!(p.peer in prev))joined.push(p);else if(prev[p.peer]!==s)updated.push(p)});
@@ -540,6 +540,7 @@ function siteRuntime(){
   /* only the trainer listens to everyone; a browser keeps few streams open per server, so viewers skip this one */
   hostP.then(host=>{
     if(host){
+      self=hid;
       stream('peers',v=>{peersV=v||{};emit()});setInterval(emit,5000);
       /* another device took the arena over (?trainer): this one steps back to a viewer */
       let mine=0,first=true;
