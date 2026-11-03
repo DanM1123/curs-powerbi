@@ -712,7 +712,7 @@ function phaseLabel(){if(S.phase!=='match')return PH[S.phase];return rname(S.cur
 function hud(){
   const st=role==='host'?'<span class="pill on"><span class="dot"></span><span id="online">'+viewers().length+'</span>&nbsp;online</span>':role==='viewer'?'<span class="pill on"><span class="dot"></span><span id="online-me">live</span></span>':'<span class="pill"><span class="dot"></span>offline</span>';
   const mt=isCtl()&&S.phase==='match'&&S.cur?`<button class="ib" data-act="back">← Tablou</button>${S.cur.stage==='reveal'?'<button class="ib" data-act="undo">Anulează rezultatul</button>':''}`:'';
-  const tools=isCtl()?mt+`<button class="ib" data-act="sound" aria-label="Sunet">${sound?'🔊':'🔇'}</button><button class="ib" data-act="full" aria-label="Ecran complet">⛶</button>${S.phase!=='lobby'?'<button class="ib" data-act="reset">↺ Arenă nouă</button>':''}`:'';
+  const tools=isCtl()?mt+`<button class="ib" data-act="sound" aria-label="Sunet">${sound?'🔊':'🔇'}</button><button class="ib" data-act="full" aria-label="Ecran complet">⛶</button>${S.phase!=='lobby'?'<button class="ib" data-act="reset">↺ Arenă nouă</button>':''}${S.phase!=='lobby'||S.players.length?'<button class="ib" data-act="wipe">De la zero</button>':''}`:'';
   const note=role==='local'?`<div class="notice gut" style="margin-inline:max(16px,env(safe-area-inset-left,0px))">${LIVE||SITE?'Nu te-ai putut conecta la arena live: pagina merge doar pe acest ecran și voturile se adaugă manual.':`Varianta offline: merge doar pe acest ecran, voturile se adaugă manual. Arena live, cu telefoanele cursanților, e <a href="${esc(SHARE_URL)}" target="_blank" rel="noopener">aici</a>.`}</div>`:'';
   return `<header class="hud gut"><div class="logo"><i>R</i>Arena Rapoartelor</div>${ready?`<span class="phase">${esc(phaseLabel())}</span>`:''}<span class="sp"></span>${st}${tools}</header>${note}`;
 }
@@ -1019,7 +1019,7 @@ function sChamp(){
   const podium=[[pod[1],'p2',2],[pod[0],'p1',1],[pod[2],'p3',3]].map(([s,c,n])=>s?`<div class="pod ${c}">${n===1?CUP:''}${hex(s.p)}<b>${esc(s.p.name)}</b><small>${esc(pj(s.p.proj).n)}</small><div class="step" style="--pc:${pj(s.p.proj).c}">${n}</div></div>`:'<div></div>').join('');
   app.innerHTML=hud()+`<main class="screen gut"><div class="champ"><div class="lbl">Campionul arenei</div><h1>${esc(p.name)}</h1><span class="lbl" style="color:var(--text-2)">${esc(pj(p.proj).n)}</span>
     <div class="podium">${podium}</div>
-    <div class="ach">${awards(st).map((a,i)=>`<div class="badge" style="animation-delay:${.6+i*.15}s"><span class="ic">${a.ic}</span><div><small>Realizare deblocată</small><b>${esc(a.t)}</b><span>${esc(a.s.p.name)} · ${esc(a.v)}</span><em>${esc(a.d)}</em></div></div>`).join('')}</div></div></main>`+dock([`<button class="btn dark" data-act="bracketv">Tabloul</button>`,`<button class="btn" id="primary" data-act="party">🎉 Confetti <kbd>Space</kbd></button>`]);
+    <div class="ach">${awards(st).map((a,i)=>`<div class="badge" style="animation-delay:${.6+i*.15}s"><span class="ic">${a.ic}</span><div><small>Realizare deblocată</small><b>${esc(a.t)}</b><span>${esc(a.s.p.name)} · ${esc(a.v)}</span><em>${esc(a.d)}</em></div></div>`).join('')}</div></div></main>`+dock([`<button class="btn dark" data-act="bracketv">Tabloul</button>`,`<button class="btn dark" data-act="wipe">↺ De la zero</button>`,`<button class="btn" id="primary" data-act="party">🎉 Confetti <kbd>Space</kbd></button>`]);
   SFX.fanfare();party();
 }
 function party(){
@@ -1215,6 +1215,10 @@ app.addEventListener('click',async e=>{
   if(a==='add')return addPlayer();
   if(a==='rm'){const p=S.players.find(x=>x.id===t.dataset.id);if(p&&p.key)S.removed.push(p.key);S.players=S.players.filter(x=>x.id!==t.dataset.id);save();render();return}
   if(a==='draw'){if(S.players.length>=2)runDraw();return}
+  /* back to an empty lobby: players, bracket, votes and the site's sign-ups all go */
+  if(a==='wipe'){if(!await ask('Arena de la zero?','Se șterg jucătorii, tabloul, voturile și reacțiile. Cursanții se înscriu din nou.','De la zero'))return;
+    if(SITE&&role==='host')['peers','ballots'].forEach(p=>fetch(FB+'/'+p+'.json',{method:'DELETE'}).catch(()=>{}));
+    S=fresh();save();render();return}
   if(a==='reset'){if(!await ask('Arenă nouă?','Jucătorii rămân. Tabloul, voturile și reacțiile se șterg.','Arenă nouă'))return;
     const pl=S.players,tm=S.timer,rm=S.removed;S=fresh();S.players=pl;S.timer=tm;S.removed=rm;save();render();return}
   if(a==='play')return startMatch(+t.dataset.r,+t.dataset.m);
