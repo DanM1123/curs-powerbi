@@ -716,23 +716,29 @@ function keep(fn){
 /* ---------------- tournament logic ---------------- */
 const P=id=>S.players.find(p=>p.id===id)||{name:'?',proj:'',key:null};
 const cx=()=>S.rounds[S.cur.r][S.cur.m];
-function rname(r){const n=S.rounds[r].length;return n===1?'Finala':n===2?'Semifinale':n===4?'Sferturi':n===8?'Optimi':n===16?'Șaisprezecimi':'Runda '+(r+1)}
-function bracketSize(n){let s=2;while(s<n)s*=2;return s}
+function rname(r){const k=S.rounds.length-1-r;return ['Finala','Semifinale','Sferturi','Optimi','Șaisprezecimi'][k]||'Runda '+(r+1)}
+/* every round pairs everyone still in; with an odd number, one player goes through without a duel (at most once, if possible) */
 function build(){
-  const ps=shuffle(S.players.map(p=>p.id)),n=ps.length,size=bracketSize(n),m=size/2,full=n-m,ms=[];let i=0;
-  for(let k=0;k<m;k++)ms.push(k<full?{a:ps[i++],b:ps[i++]}:{a:ps[i++],b:null});
-  const fulls=ms.filter(x=>x.b),byes=ms.filter(x=>!x.b),order=[];
-  while(fulls.length||byes.length){if(byes.length)order.push(byes.shift());if(fulls.length)order.push(fulls.shift())}
-  S.rounds=[order.map(x=>({a:x.a,b:x.b,w:null,sc:null}))];
-  for(let c=m/2;c>=1;c/=2)S.rounds.push(Array.from({length:c},()=>({a:null,b:null,w:null,sc:null})));
+  const ps=shuffle(S.players.map(p=>p.id)),r0=[];
+  for(let i=0;i<ps.length;i+=2)r0.push({a:ps[i],b:ps[i+1]||null,w:null,sc:null});
+  S.rounds=[r0];
+  for(let c=Math.ceil(r0.length/2);S.rounds[S.rounds.length-1].length>1;c=Math.ceil(c/2))S.rounds.push(Array.from({length:c},()=>({a:null,b:null,w:null,sc:null})));
   S.rounds.forEach((r,ri)=>r.forEach((x,mi)=>x.code=S.id+'-'+ri+'-'+mi));
 }
-function adv(r,mi){const x=S.rounds[r][mi];if(r+1>=S.rounds.length)return;const nx=S.rounds[r+1][mi>>1];if(mi%2===0)nx.a=x.w;else nx.b=x.w}
-function resolveByes(){S.rounds[0].forEach((x,mi)=>{if(x.a&&!x.b){x.w=x.a;x.bye=true;adv(0,mi)}})}
+const byesOf=id=>S.rounds.flat().filter(x=>x.bye&&x.a===id).length;
+/* once a round is decided, its winners are paired for the next one */
+function adv(r){
+  if(r+1>=S.rounds.length||!S.rounds[r].every(x=>x.w))return;
+  const ws=S.rounds[r].map(x=>x.w),nx=S.rounds[r+1];
+  if(ws.length%2){let k=ws.length-1;for(let i=ws.length-1;i>=0;i--)if(byesOf(ws[i])<byesOf(ws[k]))k=i;ws.push(ws.splice(k,1)[0])}
+  nx.forEach((x,mi)=>{x.a=ws[2*mi]||null;x.b=ws[2*mi+1]||null;x.w=null;x.sc=null;x.bye=false;if(x.a&&!x.b){x.w=x.a;x.bye=true}});
+  adv(r+1);
+}
+function resolveByes(){S.rounds[0].forEach(x=>{if(x.a&&!x.b){x.w=x.a;x.bye=true}});adv(0)}
 function nextMatch(){for(let r=0;r<S.rounds.length;r++)for(let m=0;m<S.rounds[r].length;m++){const x=S.rounds[r][m];if(x.a&&x.b&&!x.w)return[r,m]}return null}
 function champion(){const f=S.rounds[S.rounds.length-1];return f&&f[0].w}
 function alive(){if(!S.rounds.length)return S.players.length;const out=new Set();S.rounds.forEach(r=>r.forEach(x=>{if(x.w&&x.a&&x.b)out.add(x.w===x.a?x.b:x.a)}));return S.players.length-out.size}
-const lastWinSlot=()=>S.cur.r+1<S.rounds.length?(S.cur.r+1)+'-'+(S.cur.m>>1)+'-'+(S.cur.m%2?'b':'a'):null;
+const lastWinSlot=()=>{const r=S.cur.r+1,w=cx().w;if(r>=S.rounds.length)return null;const mi=S.rounds[r].findIndex(x=>x.a===w||x.b===w);return mi<0?null:r+'-'+mi+'-'+(S.rounds[r][mi].a===w?'a':'b')};
 const isFinal=()=>S.cur&&S.rounds.length-1===S.cur.r;
 
 /* ---------------- shell ---------------- */
@@ -767,13 +773,13 @@ function dock(btns){return `<nav class="dock" aria-label="Comenzi">${btns.join('
 
 /* ---------------- projector: lobby ---------------- */
 function sLobby(){
-  const n=S.players.length,size=n>1?bracketSize(n):0,slots=Math.max(8,size),rk=readyKeys(),nReady=S.players.filter(p=>p.key&&rk.has(p.key)).length;
+  const n=S.players.length,size=n>1?S.players.length>>1:0,slots=Math.max(8,n+n%2),rk=readyKeys(),nReady=S.players.filter(p=>p.key&&rk.has(p.key)).length;
   const cards=S.players.map((p,i)=>`<div class="fc ${p.key&&rk.has(p.key)?'ready':''}" style="--pc:${pj(p.proj).c}">${hex(p)}<span class="who"><b>${esc(p.name)}</b><small>${esc(pj(p.proj).n)}</small></span>${p.key&&rk.has(p.key)?'<span class="tagr">Gata</span>':''}<button class="x" data-act="rm" data-id="${p.id}" aria-label="Scoate pe ${esc(p.name)}">×</button></div>`).join('')
     +Array.from({length:Math.max(0,slots-n)},()=>'<div class="fc empty"><span class="hex">?</span><span class="who"><b>Loc liber</b><small>așteaptă un jucător</small></span></div>').join('');
   app.innerHTML=hud()+`<main class="screen gut"><div class="lobby"><div style="min-width:0">
     <div class="title"><div class="lbl">Sesiunea 14 · Finala proiectelor Power BI</div><h1>Arena<span>Rapoartelor</span></h1>
     <p>Dueluri 1 la 1: fiecare jucător își prezintă raportul, grupa votează din pagina sesiunii pe 4 criterii, iar câștigătorul urcă în tablou până la trofeu.</p></div>
-    <div class="grid-h"><h2>Alege-ți luptătorii</h2><span class="count">${n} JUCĂTORI${size?' · TABLOU DE '+size:''}</span></div>
+    <div class="grid-h"><h2>Alege-ți luptătorii</h2><span class="count">${n} JUCĂTORI${size?' · '+size+(size===1?' DUEL':' DUELURI')+' ÎN RUNDA 1':''}</span></div>
     <div class="roster">${cards}</div></div>
   <aside class="side-panel">
     ${role==='host'?`<div class="box join"><h3>Votează</h3><p class="joinurl">${esc(SITE?location.host+location.pathname.replace(/[^/]*$/,''):SHARE_URL.replace(/^https:\/\//,''))}</p><p class="lbl" style="margin:0">${SITE?'deschide Sesiunea 14 pe site: vezi arena și votezi în fiecare duel':'deschide linkul și dă note în fiecare duel'}</p></div>
@@ -954,7 +960,7 @@ async function doReveal(auto){
   if(!auto&&!sc.n&&!await ask('Niciun vot','Încă nu a votat nimeni. Închizi votul oricum?','Închide votul'))return;
   x.sc=sc;const tA=sum(sc.a),tB=sum(sc.b);
   x.w=Math.abs(tA-tB)<1e-9?null:(tA>tB?x.a:x.b);x.tb=null;
-  if(x.w){adv(S.cur.r,S.cur.m);S.lastWin=lastWinSlot()}
+  if(x.w){adv(S.cur.r);S.lastWin=lastWinSlot()}
   S.cur.stage='reveal';save();animReveal='all';render();
 }
 async function animateReveal(x){
@@ -1022,14 +1028,14 @@ function onTB(){
 function resolveTB(){
   const x=cx(),c=tbCounts();x.tb=c;
   if(c.a!==c.b)x.w=c.a>c.b?x.a:x.b;else{x.w=Math.random()<.5?x.a:x.b;x.coin=true}
-  adv(S.cur.r,S.cur.m);S.lastWin=lastWinSlot();
+  adv(S.cur.r);S.lastWin=lastWinSlot();
   S.cur.stage='reveal';save();animReveal='tb';render();
 }
 async function undo(){
   const {r,m}=S.cur,x=cx();
-  if(r+1<S.rounds.length&&S.rounds[r+1][m>>1].w){await ask('Nu se mai poate anula','Duelul următor s-a jucat deja.');return}
+  if(r+1<S.rounds.length&&S.rounds[r+1].some(y=>y.w&&!y.bye)){await ask('Nu se mai poate anula','Runda următoare a început deja.');return}
   if(!await ask('Anulezi rezultatul?','Votul se redeschide. Voturile primite rămân.','Anulează'))return;
-  if(r+1<S.rounds.length){const nx=S.rounds[r+1][m>>1];if(m%2===0)nx.a=null;else nx.b=null}
+  for(let q=r+1;q<S.rounds.length;q++)S.rounds[q].forEach(y=>{y.a=null;y.b=null;y.w=null;y.sc=null;y.bye=false});
   for(const k in ballots)if(k.slice(0,3)==='tb:')delete ballots[k];saveBallots();
   x.w=null;x.sc=null;x.tb=null;x.coin=false;S.lastWin=null;S.cur.stage='vote';save();render();
 }
