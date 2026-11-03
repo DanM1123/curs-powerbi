@@ -500,13 +500,15 @@ function siteRuntime(){
   const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){return null}};
   const q=new URLSearchParams(location.search);
   let me=ls('arena-me');if(!me){me='v'+rid()+rid();ls('arena-me',me)}
+  /* the arena screen has its own id per tab, so a vote tab in the same browser still counts as a separate viewer */
+  let hid;try{hid=sessionStorage.getItem('arena-hid');if(!hid){hid='h'+rid()+rid();sessionStorage.setItem('arena-hid',hid)}}catch(e){hid='h'+rid()+rid()}
   const url=p=>FB+'/'+p+'.json';
   const req=(p,method,body)=>fetch(url(p),{method,body:body===undefined?undefined:JSON.stringify(body),keepalive:method==='DELETE'}).then(r=>{if(!r.ok)throw new Error(method+' '+r.status);return r.json()});
   let conn=false,off=0;const connCbs=[],setConn=c=>{if(c!==conn){conn=c;connCbs.forEach(f=>f(c))}};
   const clockP=req('clock','PUT',{'.sv':'timestamp'}).then(t=>{off=t-Date.now()}).catch(()=>{});
   /* the page is the arena screen, unless opened through vot.html (?vot) or while another device already runs the arena;
      ?trainer takes the arena over from that device */
-  const hostP=q.has('vot')?Promise.resolve(false):q.has('trainer')?Promise.resolve(true):clockP.then(()=>req('host','GET')).then(h=>!(h&&h.id!==me&&(h.t||0)>Date.now()+off-45000)).catch(()=>true);
+  const hostP=q.has('vot')?Promise.resolve(false):q.has('trainer')?Promise.resolve(true):clockP.then(()=>req('host','GET')).then(h=>!(h&&h.id!==hid&&(h.t||0)>Date.now()+off-45000)).catch(()=>true);
   function stream(p,onValue,onError){
     let val=null;
     const at=(path,v)=>{const ks=path.split('/').filter(Boolean);if(!ks.length){val=v;return}
@@ -539,8 +541,8 @@ function siteRuntime(){
       /* another device took the arena over (?trainer): this one steps back to a viewer */
       let mine=0,first=true;
       const beat=()=>req('host','GET').then(h=>{
-        if(!first&&h&&h.id!==me&&(h.t||0)>mine){location.replace(location.pathname);return}
-        first=false;return req('host','PUT',{id:me,t:{'.sv':'timestamp'}}).then(v=>{mine=v.t})}).catch(()=>{});
+        if(!first&&h&&h.id!==hid&&(h.t||0)>mine){location.replace(location.pathname);return}
+        first=false;return req('host','PUT',{id:hid,t:{'.sv':'timestamp'}}).then(v=>{mine=v.t})}).catch(()=>{});
       beat();setInterval(beat,10000);
       return;
     }
@@ -554,7 +556,7 @@ function siteRuntime(){
     presence(o){Object.assign(pres,o);return req('peers/'+me,'PATCH',{kind:'viewer',by:me,presence:pres,t:{'.sv':'timestamp'}})},
     onPeers(cb){pcbs.push(cb);return ()=>{}},
     onConnection(cb){connCbs.push(cb);return ()=>{}}};
-  const user={canEdit:()=>hostP,me:async()=>({id:me,name:ls('arena-name')||''}),profiles:async()=>({})};
+  const user={canEdit:()=>hostP,me:async()=>({id:await hostP?hid:me,name:ls('arena-name')||''}),profiles:async()=>({})};
   return [user,db,room];
 }
 
