@@ -112,9 +112,10 @@ input[type=text]:focus{border-color:var(--green)}
 .classes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:14px 0}
 .cls{position:relative;display:block;cursor:pointer}
 .cls input{position:absolute;opacity:0;pointer-events:none}
-.cls span{display:flex;gap:10px;align-items:center;padding:10px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.03);transition:.2s;height:100%}
+.cls>span{display:flex;gap:10px;align-items:center;padding:10px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.03);transition:.2s;height:100%}
 .cls .hex{width:32px;font-size:11px}
-.cls b{display:block;font:600 13px var(--body);line-height:1.2}.cls small{font:400 11px var(--body);color:var(--text-3)}
+.cls>span>span:last-child{min-width:0}
+.cls b{display:block;font:600 13px var(--body);line-height:1.2}.cls small{display:block;font:400 11px var(--body);color:var(--text-3)}
 .cls input:checked+span{border-color:var(--green);background:rgba(48,209,88,.10)}
 .cls input:focus-visible+span{outline:2px solid var(--green)}
 
@@ -498,13 +499,14 @@ const isCtl=()=>role!=='viewer';
 function siteRuntime(){
   const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){return null}};
   const q=new URLSearchParams(location.search);
-  if(q.has('trainer'))ls('arena-host',q.get('trainer')==='0'?null:'1');
-  const host=ls('arena-host')==='1';
   let me=ls('arena-me');if(!me){me='v'+rid()+rid();ls('arena-me',me)}
   const url=p=>FB+'/'+p+'.json';
   const req=(p,method,body)=>fetch(url(p),{method,body:body===undefined?undefined:JSON.stringify(body),keepalive:method==='DELETE'}).then(r=>{if(!r.ok)throw new Error(method+' '+r.status);return r.json()});
   let conn=false,off=0;const connCbs=[],setConn=c=>{if(c!==conn){conn=c;connCbs.forEach(f=>f(c))}};
-  req('clock','PUT',{'.sv':'timestamp'}).then(t=>{off=t-Date.now()}).catch(()=>{});
+  const clockP=req('clock','PUT',{'.sv':'timestamp'}).then(t=>{off=t-Date.now()}).catch(()=>{});
+  /* the page is the arena screen, unless opened through vot.html (?vot) or while another device already runs the arena;
+     ?trainer takes the arena over from that device */
+  const hostP=q.has('vot')?Promise.resolve(false):q.has('trainer')?Promise.resolve(true):clockP.then(()=>req('host','GET')).then(h=>!(h&&h.id!==me&&(h.t||0)>Date.now()+off-45000)).catch(()=>true);
   function stream(p,onValue,onError){
     let val=null;
     const at=(path,v)=>{const ks=path.split('/').filter(Boolean);if(!ks.length){val=v;return}
@@ -531,19 +533,24 @@ function siteRuntime(){
     prev=seen;if(joined.length||updated.length||left.length)pcbs.forEach(f=>f({joined,updated,left}));
   }
   /* only the trainer listens to everyone; a browser keeps few streams open per server, so viewers skip this one */
-  if(host){stream('peers',v=>{peersV=v||{};emit()});setInterval(emit,5000)}
-  else{
+  hostP.then(host=>{
+    if(host){
+      stream('peers',v=>{peersV=v||{};emit()});setInterval(emit,5000);
+      const beat=()=>req('host','PUT',{id:me,t:{'.sv':'timestamp'}}).catch(()=>{});
+      beat();setInterval(beat,15000);
+      return;
+    }
     req('peers/'+me+'/presence','GET').then(v=>{if(v&&typeof v==='object')pres=Object.assign({},v,pres)}).catch(()=>{});
     const beat=()=>req('peers/'+me,'PATCH',{kind:'viewer',by:me,t:{'.sv':'timestamp'}}).catch(()=>{});
     beat();setInterval(beat,15000);
     addEventListener('pagehide',()=>{req('peers/'+me+'/t','DELETE').catch(()=>{})});
     addEventListener('pageshow',e=>{if(e.persisted)beat()});
-  }
+  });
   const room={peers:list,connected:()=>conn,
     presence(o){Object.assign(pres,o);return req('peers/'+me,'PATCH',{kind:'viewer',by:me,presence:pres,t:{'.sv':'timestamp'}})},
     onPeers(cb){pcbs.push(cb);return ()=>{}},
     onConnection(cb){connCbs.push(cb);return ()=>{}}};
-  const user={canEdit:async()=>host,me:async()=>({id:me,name:ls('arena-name')||''}),profiles:async()=>({})};
+  const user={canEdit:()=>hostP,me:async()=>({id:me,name:ls('arena-name')||''}),profiles:async()=>({})};
   return [user,db,room];
 }
 
@@ -728,7 +735,7 @@ function dock(btns){return `<nav class="dock" aria-label="Comenzi">${btns.join('
 
 /* ---------------- projector: lobby ---------------- */
 function sLobby(){
-  const n=S.players.length,size=n>1?bracketSize(n):0,slots=n?0:1,rk=readyKeys(),nReady=S.players.filter(p=>p.key&&rk.has(p.key)).length;
+  const n=S.players.length,size=n>1?bracketSize(n):0,slots=Math.max(8,size),rk=readyKeys(),nReady=S.players.filter(p=>p.key&&rk.has(p.key)).length;
   const cards=S.players.map((p,i)=>`<div class="fc ${p.key&&rk.has(p.key)?'ready':''}" style="--pc:${pj(p.proj).c}">${hex(p)}<span class="who"><b>${esc(p.name)}</b><small>${esc(pj(p.proj).n)}</small></span>${p.key&&rk.has(p.key)?'<span class="tagr">Gata</span>':''}<button class="x" data-act="rm" data-id="${p.id}" aria-label="Scoate pe ${esc(p.name)}">×</button></div>`).join('')
     +Array.from({length:Math.max(0,slots-n)},()=>'<div class="fc empty"><span class="hex">?</span><span class="who"><b>Loc liber</b><small>așteaptă un jucător</small></span></div>').join('');
   app.innerHTML=hud()+`<main class="screen gut"><div class="lobby"><div style="min-width:0">
@@ -737,7 +744,7 @@ function sLobby(){
     <div class="grid-h"><h2>Alege-ți luptătorii</h2><span class="count">${n} JUCĂTORI${size?' · TABLOU DE '+size:''}${role==='host'?' · '+nReady+' GATA':''}</span></div>
     <div class="roster">${cards}</div></div>
   <aside class="side-panel">
-    ${role==='host'?`<div class="box join"><h3>Intră în arenă</h3><p class="joinurl">${esc(SITE?'Site-ul cursului → Sesiunea 14':SHARE_URL.replace(/^https:\/\//,''))}</p><p class="lbl" style="margin:0">deschide pagina, scrie-ți numele și alege-ți proiectul</p></div>
+    ${role==='host'?`<div class="box join"><h3>Intră în arenă</h3><p class="joinurl">${esc(SITE?location.host+location.pathname.replace(/[^/]*$/,'')+'vot':SHARE_URL.replace(/^https:\/\//,''))}</p><p class="lbl" style="margin:0">deschide linkul și alege-ți proiectul</p></div>
     <div class="stats"><div><div class="big-n" id="online2">${viewers().length}</div><span class="lbl">online</span></div><div><div class="big-n">${nReady}</div><span class="lbl">gata</span></div></div>`:''}
     <div class="box"><h3>Cum se punctează</h3><div class="crit">${CATS.map((c,i)=>`<div><b>${pad2(i+1)}</b><span><strong>${c.ic} ${c.t}.</strong> ${c.d}</span></div>`).join('')}</div>
       <p class="lbl" style="margin:12px 0 0;line-height:1.6">Note 1–5 · scor = suma celor 4 medii · max 20</p></div>
