@@ -320,6 +320,17 @@ input[type=text]:focus{border-color:var(--green)}
 @keyframes rise{0%{transform:scaleY(0)}100%{transform:scaleY(1)}}
 .pod.p1 .step{height:170px}.pod.p2 .step{height:120px;animation-delay:.15s}.pod.p3 .step{height:90px;animation-delay:.3s}
 .pod.p1 .cup{width:86px;animation:bob 4s ease-in-out infinite;filter:drop-shadow(0 10px 30px rgba(48,209,88,.5))}
+.fpause{display:grid;justify-items:center;gap:8px;padding:30px 20px}
+.fpause .lbl{color:var(--green)}
+.fpause .fnum{font:700 clamp(90px,12vw,160px)/1 var(--display);letter-spacing:-.05em;background:linear-gradient(180deg,#fff 20%,var(--mint) 70%,var(--green));-webkit-background-clip:text;background-clip:text;color:transparent}
+.fb-title{margin-top:40px;color:var(--green)}
+.fboard{margin-top:12px;text-align:left}
+.fboard .bt i{transition:width 1.2s cubic-bezier(.2,1,.3,1)!important}
+.fhead{opacity:1;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.fhead .lab{font:700 18px var(--display)}
+.fp{display:flex;gap:12px;align-items:center;min-width:0}.fp.l{flex-direction:row-reverse;text-align:right}
+.fp .hex{width:44px;font-size:15px}.fp b{display:block;font:600 18px var(--display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fp small{display:block;font-size:12px;color:var(--text-3)}
+.fp.win .hex{box-shadow:0 0 0 3px var(--green),0 0 24px rgba(48,209,88,.6)}.fp.win b{color:var(--green)}
 .ach{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;width:100%;max-width:1040px;margin-top:40px;text-align:left}
 .badge{display:flex;gap:12px;align-items:center;padding:14px;background:var(--panel);border:1px solid var(--line);border-radius:22px;backdrop-filter:var(--blur);animation:pop .6s cubic-bezier(.2,1.2,.3,1) both}
 .badge .ic{flex:none;width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:24px;background:rgba(48,209,88,.12);border:1px solid rgba(48,209,88,.3)}
@@ -861,7 +872,10 @@ function sMatch(){
       <p>${SITE?'Fiecare dă note de pe ecranul lui. Când au votat toți, apăsați „Vezi rezultatele”.':role==='host'?'Rezultatul apare singur când au votat toți cei conectați. Concurenții nu votează în propriul duel.':'Adăugați voturile cu „Vot manual”, apoi închideți votul de jos.'}</p>`;
   }
   if((stage==='vote'||stage==='tb')&&isCtl())btns=[`<button class="btn dark" data-act="manual">+ Vot manual</button>`,`<button class="btn" data-act="closevote">${SITE?'Vezi rezultatele':'Închide votul'}</button>`];
-  if(res&&sc){
+  /* the final's result is shown on the ceremony page: after the vote, a 3 s pause, then every screen moves there */
+  const fpause=stage==='reveal'&&sc&&isFinal()&&x.w&&!x.tb;
+  if(fpause)caption=`<div class="fpause"><div class="lbl">Votul pentru finală s-a încheiat</div><div class="fnum" id="fnum">3</div><p>Rezultatul și campionul apar pe pagina ceremoniei.</p></div>`;
+  if(res&&sc&&!fpause){
     const tie=stage==='tb'?`<div class="tbq"><div class="lbl">Egalitate · întrebare de departajare</div><h2>${esc(TBQ)}</h2>
       <div class="tbn"><span class="big-n" id="tbcount">0</span><span id="tbof"></span></div>
       ${SITE?`<div class="tbpick">${[['a',A],['b',B]].map(([sd,p])=>`<button class="tbb ${myTB[x.code]===sd?'sel':''}" data-act="tbv" data-v="${sd}">${hex(p)}<b>${esc(p.name)}</b><small>${esc(pj(p.proj).n)}</small></button>`).join('')}</div><p class="status" id="tbst">${myTB[x.code]?'Trimis. Se confirmă…':'Alege un raport.'}</p>`
@@ -876,7 +890,12 @@ function sMatch(){
   if(stage==='vote'||res)watchBallots(x.code);
   if(stage==='vote'){lastN=-1;if(role==='host')collect(viewers());if(SITE)paintVote();onVotes()}
   if(stage==='tb'){if(role==='host')collectTB(viewers());onTB()}
-  if(stage==='reveal'&&sc&&animReveal)animateReveal(x);
+  if(stage==='reveal'&&sc&&animReveal&&!fpause)animateReveal(x);
+  if(fpause){
+    animReveal=false;const tok=drawTok;let n=3;SFX.tick();
+    const iv=setInterval(()=>{if(tok!==drawTok)return clearInterval(iv);n--;const el=$('#fnum');if(el&&n>0){el.textContent=n;SFX.tick()}
+      if(n<=0){clearInterval(iv);if(S.phase==='match'&&S.cur&&S.cur.stage==='reveal'&&isFinal()){S.phase='champion';save();splash('Ceremonia','',1200);render()}}},1000);
+  }
 }
 /* reveal board: a row per criterion (A grows left of the label, B right), the total, and the tie-break when there was one */
 function boardHTML(x,A,B){
@@ -1041,8 +1060,26 @@ function sChamp(){
   const podium=[[pod[1],'p2',2],[pod[0],'p1',1],[pod[2],'p3',3]].map(([s,c,n])=>s?`<div class="pod ${c}">${n===1?CUP:''}${hex(s.p)}<b>${esc(s.p.name)}</b><small>${esc(pj(s.p.proj).n)}</small><div class="step" style="--pc:${pj(s.p.proj).c}">${n}</div></div>`:'<div></div>').join('');
   app.innerHTML=hud()+`<main class="screen gut"><div class="champ"><div class="lbl">Campionul arenei</div><h1>${esc(p.name)}</h1><span class="lbl" style="color:var(--text-2)">${esc(pj(p.proj).n)}</span>
     <div class="podium">${podium}</div>
+    ${finalBoard()}
     <div class="ach">${awards(st).map((a,i)=>`<div class="badge" style="animation-delay:${.6+i*.15}s"><span class="ic">${a.ic}</span><div><small>Realizare deblocată</small><b>${esc(a.t)}</b><span>${esc(a.s.p.name)} · ${esc(a.v)}</span><em>${esc(a.d)}</em></div></div>`).join('')}</div></div></main>`+dock([`<button class="btn dark" data-act="bracketv">Tabloul</button>`,`<button class="btn dark" data-act="wipe">↺ De la zero</button>`,`<button class="btn" id="primary" data-act="party">🎉 Confetti <kbd>Space</kbd></button>`]);
   SFX.fanfare();party();
+  /* bars grow from zero once the page is on screen */
+  requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('.fboard .bt i[data-w]').forEach(i=>i.style.width=i.dataset.w+'%')));
+}
+/* the final's result on the ceremony page: one row per criterion, the total, and the tie-break when there was one */
+function finalBoard(){
+  const f=S.rounds.length&&S.rounds[S.rounds.length-1][0];if(!f||!f.sc||!f.a||!f.b)return '';
+  const A=P(f.a),B=P(f.b),sc=f.sc;
+  const row=(lab,sub,va,vb,max,cls,int)=>{const v=x=>int?String(x):fmt(x);return `<div class="brow done ${cls}">
+    <div class="bh l ${va>vb?'lead':''}"><div class="bt"><i data-w="${max?va/max*100:0}"></i></div><span class="bv">${v(va)}</span></div>
+    <div class="lab">${lab}${sub?`<small>${sub}</small>`:''}</div>
+    <div class="bh r ${vb>va?'lead':''}"><div class="bt"><i data-w="${max?vb/max*100:0}"></i></div><span class="bv">${v(vb)}</span></div></div>`};
+  const who=(p,side)=>`<div class="fp ${side} ${f.w===p.id?'win':''}">${hex(p)}<span><b>${esc(p.name)}</b><small>${esc(pj(p.proj).n)}</small></span></div>`;
+  let h=`<div class="brow fhead">${who(A,'l')}<div class="lab">Finala</div>${who(B,'r')}</div>`
+    +CATS.map((c,i)=>row(c.ic+' '+c.t,'',sc.a[i],sc.b[i],5,'',false)).join('')
+    +row('Total',sc.n+' '+(sc.n===1?'vot':'voturi')+' · din 20',sum(sc.a),sum(sc.b),20,'tot',false);
+  if(f.tb){const t=f.tb.a+f.tb.b;h+=row('⚖️ Departajare',f.coin?'decis prin tragere la sorți':'',f.tb.a,f.tb.b,t,'tbr',true)}
+  return `<div class="lbl fb-title">Rezultatul finalei</div><div class="board fboard">${h}</div>`;
 }
 function party(){
   if(!window.confetti||reduceMotion())return;
