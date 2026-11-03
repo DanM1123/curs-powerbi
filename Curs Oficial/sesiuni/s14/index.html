@@ -539,8 +539,12 @@ function siteRuntime(){
   hostP.then(host=>{
     if(host){
       stream('peers',v=>{peersV=v||{};emit()});setInterval(emit,5000);
-      const beat=()=>req('host','PUT',{id:me,t:{'.sv':'timestamp'}}).catch(()=>{});
-      beat();setInterval(beat,15000);
+      /* another device took the arena over (?trainer): this one steps back to a viewer */
+      let mine=0,first=true;
+      const beat=()=>req('host','GET').then(h=>{
+        if(!first&&h&&h.id!==me&&(h.t||0)>mine){location.replace(location.pathname);return}
+        first=false;return req('host','PUT',{id:me,t:{'.sv':'timestamp'}}).then(v=>{mine=v.t})}).catch(()=>{});
+      beat();setInterval(beat,10000);
       return;
     }
     req('peers/'+me+'/presence','GET').then(v=>{if(v&&typeof v==='object')pres=Object.assign({},v,pres)}).catch(()=>{});
@@ -712,7 +716,7 @@ function phaseLabel(){if(S.phase!=='match')return PH[S.phase];return rname(S.cur
 function hud(){
   const st=role==='host'?'<span class="pill on"><span class="dot"></span><span id="online">'+viewers().length+'</span>&nbsp;online</span>':role==='viewer'?'<span class="pill on"><span class="dot"></span><span id="online-me">live</span></span>':'<span class="pill"><span class="dot"></span>offline</span>';
   const mt=isCtl()&&S.phase==='match'&&S.cur?`<button class="ib" data-act="back">← Tablou</button>${S.cur.stage==='reveal'?'<button class="ib" data-act="undo">Anulează rezultatul</button>':''}`:'';
-  const tools=isCtl()?mt+`<button class="ib" data-act="sound" aria-label="Sunet">${sound?'🔊':'🔇'}</button><button class="ib" data-act="full" aria-label="Ecran complet">⛶</button>${S.phase!=='lobby'?'<button class="ib" data-act="reset">↺ Arenă nouă</button>':''}${S.phase!=='lobby'||S.players.length?'<button class="ib" data-act="wipe">De la zero</button>':''}`:'';
+  const tools=!isCtl()?(SITE?'<button class="ib" data-act="takeover">Ecranul mare</button>':''):mt+`<button class="ib" data-act="sound" aria-label="Sunet">${sound?'🔊':'🔇'}</button><button class="ib" data-act="full" aria-label="Ecran complet">⛶</button>${S.phase!=='lobby'?'<button class="ib" data-act="reset">↺ Arenă nouă</button>':''}${S.phase!=='lobby'||S.players.length?'<button class="ib" data-act="wipe">De la zero</button>':''}`;
   const note=role==='local'?`<div class="notice gut" style="margin-inline:max(16px,env(safe-area-inset-left,0px))">${LIVE||SITE?'Nu te-ai putut conecta la arena live: pagina merge doar pe acest ecran și voturile se adaugă manual.':`Varianta offline: merge doar pe acest ecran, voturile se adaugă manual. Arena live, cu telefoanele cursanților, e <a href="${esc(SHARE_URL)}" target="_blank" rel="noopener">aici</a>.`}</div>`:'';
   return `<header class="hud gut"><div class="logo"><i>R</i>Arena Rapoartelor</div>${ready?`<span class="phase">${esc(phaseLabel())}</span>`:''}<span class="sp"></span>${st}${tools}</header>${note}`;
 }
@@ -1208,6 +1212,7 @@ app.addEventListener('click',async e=>{
   if(a==='lock')return lockVote();
   if(a==='tbv'){if(!room||!S.cur)return;const code=cx().code,v=t.dataset.v;room.presence({tb:{c:code,v}}).then(()=>{myTB[code]=v;render();if(navigator.vibrate)try{navigator.vibrate(30)}catch(err){}}).catch(()=>{const el=$('#tbst');if(el)el.textContent='Nu s-a putut trimite. Încearcă din nou.'});return}
   if(a==='party')return party();
+  if(a==='takeover'){if(await ask('Preiei ecranul mare?','Doar pentru trainer: arena se mută pe acest dispozitiv, iar celălalt ecran trece pe vot.','Preiau'))location.replace(location.pathname+'?trainer');return}
   if(!isCtl())return;
   /* projector */
   if(a==='sound'){sound=!sound;t.textContent=sound?'🔊':'🔇';if(sound)SFX.pop();return}
