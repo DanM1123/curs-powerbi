@@ -615,20 +615,6 @@ function onPeers(ch){
   });
   if(role!=='host'||!ready||!room)return;
   const peers=viewers();
-  if(S.phase==='lobby'){
-    let ch2=false;
-    peers.forEach(p=>{
-      const j=p.presence&&p.presence.join;if(!j||typeof j!=='object')return;
-      const name=String(j.n||'').trim().replace(/\s+/g,' ').slice(0,40),proj=PROJ[j.p]?j.p:null,k=keyOf(p);
-      if(!name||!proj||S.removed.includes(k))return;
-      const ex=S.players.find(x=>x.key===k);
-      if(!ex){S.players.push({id:rid(),name,proj,key:k});ch2=true;SFX.pop()}
-      else if(ex.name!==name||ex.proj!==proj){ex.name=name;ex.proj=proj;ch2=true}
-    });
-    const sig=[...readyKeys()].sort().join(',');
-    if(ch2)save();
-    if(ch2||sig!==readySig){readySig=sig;keep(render)}
-  }
   if(S.phase==='match'&&S.cur.stage==='vote'){collect(peers);onVotes()}
   if(S.phase==='match'&&S.cur.stage==='tb'){collectTB(peers);onTB()}
 }
@@ -724,7 +710,7 @@ function hud(){
   return `<header class="hud gut"><div class="logo"><i>R</i>Arena Rapoartelor</div>${ready?`<span class="phase">${esc(phaseLabel())}</span>`:''}<span class="sp"></span>${st}${tools}</header>${note}`;
 }
 function updateOnline(){
-  const el=document.getElementById('online');if(el)el.textContent=viewers().length;
+  ['online','online2'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=viewers().length});
   const me=document.getElementById('online-me');if(me)me.textContent=room&&room.connected()?'conectat':'se conectează';
 }
 function render(){
@@ -751,17 +737,17 @@ function sLobby(){
   app.innerHTML=hud()+`<main class="screen gut"><div class="lobby"><div style="min-width:0">
     <div class="title"><div class="lbl">Sesiunea 14 · Finala proiectelor Power BI</div><h1>Arena<span>Rapoartelor</span></h1>
     <p>Dueluri 1 la 1: fiecare jucător își prezintă raportul, grupa votează din pagina sesiunii pe 4 criterii, iar câștigătorul urcă în tablou până la trofeu.</p></div>
-    <div class="grid-h"><h2>Alege-ți luptătorii</h2><span class="count">${n} JUCĂTORI${size?' · TABLOU DE '+size:''}${role==='host'?' · '+nReady+' GATA':''}</span></div>
+    <div class="grid-h"><h2>Alege-ți luptătorii</h2><span class="count">${n} JUCĂTORI${size?' · TABLOU DE '+size:''}</span></div>
     <div class="roster">${cards}</div></div>
   <aside class="side-panel">
-    ${role==='host'?`<div class="box join"><h3>Intră în arenă</h3><p class="joinurl">${esc(SITE?location.host+location.pathname.replace(/[^/]*$/,'')+'vot':SHARE_URL.replace(/^https:\/\//,''))}</p><p class="lbl" style="margin:0">deschide linkul și alege-ți proiectul</p></div>
-    <div class="stats"><div><div class="big-n" id="online2">${viewers().length}</div><span class="lbl">online</span></div><div><div class="big-n">${nReady}</div><span class="lbl">gata</span></div></div>`:''}
+    ${role==='host'?`<div class="box join"><h3>Votează</h3><p class="joinurl">${esc(SITE?location.host+location.pathname.replace(/[^/]*$/,'')+'vot':SHARE_URL.replace(/^https:\/\//,''))}</p><p class="lbl" style="margin:0">deschide linkul și dă note în fiecare duel</p></div>
+    <div class="stats" style="grid-template-columns:1fr"><div><div class="big-n" id="online2">${viewers().length}</div><span class="lbl">online pentru vot</span></div></div>`:''}
     <div class="box"><h3>Cum se punctează</h3><div class="crit">${CATS.map((c,i)=>`<div><b>${pad2(i+1)}</b><span><strong>${c.ic} ${c.t}.</strong> ${c.d}</span></div>`).join('')}</div>
       <p class="lbl" style="margin:12px 0 0;line-height:1.6">Note 1–5 · scor = suma celor 4 medii · max 20</p></div>
   </aside></div></main>`+dock([`<button class="btn dark" data-act="add">+ Jucător</button>`,`<button class="btn big ${n>=2?'pulse':''}" id="primary" data-act="draw" ${n<2?'disabled':''}>🎲 Trage la sorți <kbd>Space</kbd></button>`]);
 }
 function addPlayer(){
-  dlg.innerHTML=`<form class="dlg" id="addf" method="dialog"><h3>Jucător nou</h3><p>Pentru cine nu intră de pe telefon.</p>
+  dlg.innerHTML=`<form class="dlg" id="addf" method="dialog"><h3>Jucător nou</h3><p>Numele jucătorului și proiectul lui.</p>
     <input type="text" id="nm" maxlength="40" placeholder="Numele jucătorului" aria-label="Numele jucătorului">
     <div class="classes">${classes('pj')}</div>
     <div class="acts"><button class="btn dark" value="no">Renunță</button><button class="btn" value="ok" id="addok">Adaugă</button></div></form>`;
@@ -1038,18 +1024,10 @@ function party(){
 /* ---------------- phone controller ---------------- */
 function meP(){const k=myKey();return k?S.players.find(p=>p.key===k):null}
 function cLobby(){
-  const me=meP(),k=myKey();
-  if(!room)return `<div class="card"><h2>Arena live</h2><p class="sub">Înscrierea de pe telefon nu e disponibilă în această vizualizare. Spune-i trainerului numele și proiectul tău.</p></div>`;
-  if(k&&S.removed.includes(k))return `<div class="card"><h2>Ai fost scos din listă</h2><p class="sub">Vorbește cu trainerul dacă e o greșeală.</p></div>`;
-  if(me&&!editJoin)return `<div class="card" style="text-align:center"><div class="lbl" style="color:var(--cyan)">luptătorul tău</div>
-    <div style="display:flex;justify-content:center;margin:14px 0">${hex(me,'')}</div><h2>${esc(me.name)}</h2><p class="sub">${esc(pj(me.proj).n)}</p></div>
-    <button class="btn big ${myReady?'win':'pulse'}" data-act="ready">${myReady?'✓ Gata de luptă':'Sunt gata!'}</button>
-    <div class="card"><div class="ttl"><span>Jucători în arenă</span><span class="clock">${S.players.length}</span></div><p class="sub">Așteptăm tragerea la sorți. Ecranul se schimbă singur.</p></div>
-    <button class="link" data-act="editjoin">Schimbă numele sau proiectul</button>`;
-  return `<form class="card" id="vjoin" autocomplete="off"><h2>Intră în arenă</h2><p class="sub">Numele tău și proiectul cu care lupți.</p>
-    <div style="margin-top:14px"><input type="text" id="vnm" maxlength="40" placeholder="Numele tău" aria-label="Numele tău" value="${esc(me?me.name:myName)}"></div>
-    <div class="classes">${classes('vpj',me&&me.proj)}</div>
-    <button class="btn big" type="submit">${me?'Salvează':'Intră în arenă'}</button><div class="status" id="vjst" style="margin-top:10px">${joinSent&&!me?'Se trimite…':''}</div></form>`;
+  /* players are added by the trainer; this page only votes */
+  return `<div class="card" style="text-align:center"><div class="lbl" style="color:var(--cyan)">Arena rapoartelor</div><h2 style="margin-top:6px">Ești conectat</h2>
+    <p class="sub">Lasă pagina deschisă. Când se deschide votul la un duel, notele le dai aici.</p></div>
+    <div class="card"><div class="ttl"><span>Jucători în arenă</span><span class="clock">${S.players.length}</span></div></div>`;
 }
 let editJoin=false;
 function myNext(){const me=meP();if(!me)return null;for(let r=0;r<S.rounds.length;r++)for(let m=0;m<S.rounds[r].length;m++){const x=S.rounds[r][m];if((x.a===me.id||x.b===me.id)&&!x.w)return{r,m,x}}return null}
